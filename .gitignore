@@ -163,6 +163,7 @@ ClientBin/
 *.publishsettings
 node_modules/
 bower_components/
+/WebApp/WebApp/wwwroot/*/dist/
 
 # RIA/Silverlight projects
 Generated_Code/
@@ -206,4 +207,5 @@ PortalSis/App_Data/Storage/*
 ApiSis/Connections.config
 ApiSis/NLog.config
 ApiSis/App_Data/Storage/*
-node_modules
+
+
