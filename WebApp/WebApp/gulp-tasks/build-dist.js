@@ -135,7 +135,10 @@ gulp.task('copy:vendors', function() {
    return gulp.src(paths.src + 'vendors/**/*')
    .pipe(gulp.dest(paths.dist + 'vendors/'));
 });
-
+gulp.task('copy:wwwroot', function () {
+	return gulp.src('./wwwroot/coreui/dist/**/*')
+		.pipe(gulp.dest('./wwwroot'));
+});
 gulp.task('build:dist', function(callback) {
-    runSequence('clean:dist', 'copy:css', 'copy:img', 'copy:js', 'copy:views', 'copy:html', 'copy:vendors', 'vendors', callback);
+	runSequence('clean:dist', 'copy:css', 'copy:img', 'copy:js', 'copy:views', 'copy:html', 'copy:vendors', 'vendors', 'copy:wwwroot', callback);
 });
