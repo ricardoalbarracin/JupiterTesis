@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
 
@@ -32,6 +33,32 @@ namespace WebApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public ActionResult CustomAjaxBinding_Read([Kendo.Mvc.UI.DataSourceRequest] DataSourceRequest request)
+        {
+            IList<EmptyClass> list = new List<EmptyClass>();
+            list.Add(new EmptyClass()
+            {
+                ProductName = "dasda"
+            });
+            list.Add(new EmptyClass()
+            {
+                ProductName = "XX"
+            });
+            list.Add(new EmptyClass()
+            {
+                ProductName = "mm"
+            });
+
+            var result = new Kendo.Mvc.UI.DataSourceResult()
+            {
+                Data = list,
+                Total = 30
+            };
+            var a = Json(result); ;
+            return a;
+
         }
     }
 }

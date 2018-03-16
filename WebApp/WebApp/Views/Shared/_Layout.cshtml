@@ -12,6 +12,16 @@
 	<!-- Icons -->
 	<link href="~/vendors/css/font-awesome.min.css" rel="stylesheet">
 	<link href="~/vendors/css/simple-line-icons.min.css" rel="stylesheet">
+	<script src="~/vendors/js/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="~/kendo/css/kendo.bootstrap-v4.min.css">
+
+	<script src="~/kendo/js/jszip.min.js"></script>
+	<script src="~/kendo/js/kendo.all.min.js"></script>
+	<script src="~/kendo/js/kendo.aspnetmvc.min.js"></script>
+
+	
+
 	<!-- Main styles for this application -->
 	<environment include="Development">
 		<link rel="stylesheet" href="~/css/style.css">
@@ -42,11 +52,9 @@
 			@*@Html.Partial("_BreadCrumb")*@
 			<!-- /*BREADCRUMB* -->
 			<!-- *CONTAINER-FLUID* -->
-			<div class="container-fluid">
-				<!-- *PAGE* -->
-				@RenderBody()
-				<!-- /*PAGE* -->
-			</div>
+			<!-- *PAGE* -->
+			@RenderBody()
+			<!-- /*PAGE* -->
 			<!-- /*CONTAINER-FLUID* -->
 		</main>
 		<!-- /*MAIN CONTENT* -->
@@ -59,12 +67,11 @@
 		<span class="ml-auto">Powered by <a href="http://coreui.io">CoreUI</a></span>
 	</footer>
 	<!-- Bootstrap and necessary plugins -->
-	<script src="~/vendors/js/jquery.min.js"></script>
+
 	<script src="~/vendors/js/popper.min.js"></script>
 	<script src="~/vendors/js/bootstrap.min.js"></script>
 	<script src="~/vendors/js/pace.min.js"></script>
 	<!-- Plugins and scripts required by all views -->
-
 	<!-- CoreUI main scripts -->
 	<script src="~/js/app.js"></script>
 	<!-- Plugins and scripts required by this views -->

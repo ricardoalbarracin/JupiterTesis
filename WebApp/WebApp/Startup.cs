@@ -35,7 +35,9 @@ namespace WebApp
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-
+            services.AddKendo();
+            services.AddMvc()
+            .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
             services.AddMvc();
         }
 

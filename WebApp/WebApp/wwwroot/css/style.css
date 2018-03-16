@@ -12667,3 +12667,13 @@ hr.transparent {
       float: left; }
   *[dir="rtl"] .callout-default {
     border-right-color: #536c79; }
+k-block, .k-widget {
+	font-size: 0.7rem !important
+}
+
+.page-header {
+	background: #fafafa;
+	border-bottom: 1px solid #f7f7f7;
+	margin: 0px 0px 10px 0px;
+	padding: 10px 10px
+}
