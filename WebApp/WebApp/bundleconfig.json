@@ -1,24 +1,69 @@
 ﻿// Configure bundling and minification for the project.
 // More info at https://go.microsoft.com/fwlink/?LinkId=808241
 [
-  {
-    "outputFileName": "wwwroot/css/site.min.css",
-    // An array of relative input file paths. Globbing patterns supported
-    "inputFiles": [
-      "wwwroot/css/site.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/js/site.min.js",
-    "inputFiles": [
-      "wwwroot/js/site.js"
-    ],
-    // Optionally specify minification options
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    // Optionally generate .map file
-    "sourceMap": false
-  }
+	{
+		"outputFileName": "wwwroot/css/site.min.css",
+		// An array of relative input file paths. Globbing patterns supported
+		"inputFiles": [
+			"wwwroot/css/site.css"
+		]
+	},
+	{
+		"outputFileName": "wwwroot/css/kendo.all.min.css",
+		// An array of relative input file paths. Globbing patterns supported
+		"inputFiles": [
+			"wwwroot/kendo/css/kendo.common-material.min.css",
+			"wwwroot/kendo/css/kendo.mobile.all.min.css",
+			"wwwroot/kendo/css/kendo.material.min.css"
+		]
+	},
+	{
+		"outputFileName": "wwwroot/js/app/App.min.js",
+		"inputFiles": [
+			"wwwroot/js/app/App.js"
+		],
+		// Optionally specify minification options
+		"minify": {
+			"enabled": true,
+			"renameLocals": true
+		},
+		// Optionally generate .map file
+		"sourceMap": false
+	},
+	{
+		"outputFileName": "wwwroot/js/jquery.all.min.js",
+		"inputFiles": [
+			"wwwroot/vendors/js/jquery.min.js",
+			"wwwroot/vendors/js/jquery.unobtrusive-ajax.min.js",
+			"wwwroot/vendors/js/jquery.validate.min.js",
+			"wwwroot/vendors/js/jquery.validate.unobtrusive.min.js"
+		],
+		// Optionally specify minification options
+		"minify": {
+			"enabled": true,
+			"renameLocals": true
+		},
+		// Optionally generate .map file
+		"sourceMap": false
+	},
+	{
+		"outputFileName": "wwwroot/js/kendo.all.min.js",
+		"inputFiles": [
+			"wwwroot/kendo/js/jszip.min.js",
+			"wwwroot/kendo/js/kendo.all.min.js",
+			"wwwroot/kendo/js/kendo.aspnetmvc.min.js",
+			"wwwroot/kendo/js/cultures/kendo.culture.es-CO.min.js",
+			"wwwroot/kendo/js/messages/kendo.messages.es-CO.min.js"
+		],
+		// Optionally specify minification options
+		"minify": {
+			"enabled": true,
+			"renameLocals": true
+		},
+		// Optionally generate .map file
+		"sourceMap": false
+	}
+
+
+
 ]

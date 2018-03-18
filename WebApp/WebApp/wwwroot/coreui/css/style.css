@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*!
  * CoreUI - Open Source Bootstrap Admin Template
  * @version v1.0.10
@@ -10390,7 +10390,7 @@ base-chart.chart {
   .app-header.navbar .nav-item {
     position: relative;
     min-width: 50px;
-    margin: 0 !important;
+    margin: 10px !important;
     text-align: center; }
     .app-header.navbar .nav-item button {
       margin: 0 auto; }

@@ -12,17 +12,16 @@
 	<!-- Icons -->
 	<link href="~/vendors/css/font-awesome.min.css" rel="stylesheet">
 	<link href="~/vendors/css/simple-line-icons.min.css" rel="stylesheet">
-	<script src="~/vendors/js/jquery.min.js"></script>
 
-	<link rel="stylesheet" href="~/kendo/css/kendo.bootstrap-v4.min.css">
 
-	<script src="~/kendo/js/jszip.min.js"></script>
-	<script src="~/kendo/js/kendo.all.min.js"></script>
-	<script src="~/kendo/js/kendo.aspnetmvc.min.js"></script>
+	<script src="~/js/jquery.all.min.js" asp-append-version="true"></script>
 
+
+	<link rel="stylesheet" href="~/css/kendo.all.min.css" asp-append-version="true" />
 	
 
-	<!-- Main styles for this application -->
+	<script src="~/js/kendo.all.min.js" asp-append-version="true"></script>
+
 	<environment include="Development">
 		<link rel="stylesheet" href="~/css/style.css">
 		<link rel="stylesheet" href="~/css/site.css" />
@@ -31,51 +30,39 @@
 		<link rel="stylesheet" href="~/css/style.min.css" asp-append-version="true" />
 		<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
 	</environment>
-	<!-- Styles required by this view -->
 	@RenderSection("Styles", required: false)
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-	<!-- *APP-HEADER* -->
 	@Html.Partial("_AppHeader")
-	<!-- /*APP-HEADER* -->
 	<div class="app-body">
 		<div class="sidebar">
-			<!-- *SIDEBAR-NAV* -->
 			@Html.Partial("_SidebarNav")
-			<!-- /*SIDEBAR-NAV* -->
 			<button class="sidebar-minimizer brand-minimizer" type="button"></button>
 		</div>
 		<!-- *MAIN CONTENT* -->
 		<main class="main">
-			<!-- *BREADCRUMB* -->
-			@*@Html.Partial("_BreadCrumb")*@
-			<!-- /*BREADCRUMB* -->
-			<!-- *CONTAINER-FLUID* -->
-			<!-- *PAGE* -->
 			@RenderBody()
-			<!-- /*PAGE* -->
-			<!-- /*CONTAINER-FLUID* -->
 		</main>
-		<!-- /*MAIN CONTENT* -->
-		<!-- *ASIDE-MENU* -->
 		@*@Html.Partial("_AsideMenu")*@
-		<!-- /*ASIDE-MENU* -->
 	</div>
 	<footer class="app-footer">
 		<span><a href="http://coreui.io">CoreUI</a> © 2017 creativeLabs.</span>
 		<span class="ml-auto">Powered by <a href="http://coreui.io">CoreUI</a></span>
 	</footer>
-	<!-- Bootstrap and necessary plugins -->
 
 	<script src="~/vendors/js/popper.min.js"></script>
 	<script src="~/vendors/js/bootstrap.min.js"></script>
 	<script src="~/vendors/js/pace.min.js"></script>
-	<!-- Plugins and scripts required by all views -->
-	<!-- CoreUI main scripts -->
-	<script src="~/js/app.js"></script>
-	<!-- Plugins and scripts required by this views -->
-	<!-- Custom scripts required by this view -->
+
+	<script src="~/js/app/coreUi.js"></script>
+	<script src="~/js/app/App.js"></script>
+
 	@RenderSection("Scripts", required: false)
+	<script>
+		$(function () {
+			App.init();
+		});
+	</script>
 </body>
 </html>

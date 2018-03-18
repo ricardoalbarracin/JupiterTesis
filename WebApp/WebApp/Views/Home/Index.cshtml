@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<WebApp.Models.EmptyClass>
-@using Kendo.Mvc.UI
+
 
 <div class="page-header">
 	<h1><i class="fa fa-gear page-header-icon"></i>&nbsp;&nbsp;Configuración del porcentaje de PPCD</h1>
@@ -21,9 +21,9 @@
 			})
 			.Pageable()
 			.Sortable()
-			.Filterable()
+			.Filterable(ftb => ftb.Mode(GridFilterMode.Row))
 			.Scrollable()
-			.Groupable()
+
 			.DataSource(dataSource => dataSource
 				.Ajax()
 				.Read(read => read.Action("CustomAjaxBinding_Read", "Home"))
