@@ -7,6 +7,8 @@
 	<link rel="shortcut icon" href="img/favicon.png">
 	<title>@ViewData["Title"] - CoreUI.Web</title>
 	<!-- Icons -->
+
+	<link href="~/vendors/css/sweetalert.min.css" rel="stylesheet">
 	<link href="~/vendors/css/font-awesome.min.css" rel="stylesheet">
 	<link href="~/vendors/css/simple-line-icons.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="~/css/kendo.all.min.css" asp-append-version="true" />
@@ -43,12 +45,30 @@
 		<span class="ml-auto">Powered by <a href="http://coreui.io">CoreUI</a></span>
 	</footer>
 
+	<!-- Modals -->
+	<div id="modal" class="modal fade in">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
+
+	<div id="modal2" class="modal fade in">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
+
+	<script src="~/vendors/js/sweetalert.min.js"></script>
 	<script src="~/vendors/js/popper.min.js"></script>
 	<script src="~/vendors/js/bootstrap.min.js"></script>
 	<script src="~/vendors/js/pace.min.js"></script>
 
 	<script src="~/js/app/coreUi.js"></script>
 	<script src="~/js/app/App.js"></script>
+
+
 
 	@RenderSection("Scripts", required: false)
 	<script>

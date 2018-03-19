@@ -60,5 +60,12 @@ namespace WebApp.Controllers
             return a;
 
         }
+        public ActionResult ActualizarPersona()
+        {
+            // Inicializaciones
+            
+            // Salida SUCCESS
+            return PartialView();
+        }
     }
 }

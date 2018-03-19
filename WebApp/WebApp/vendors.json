@@ -8,7 +8,8 @@
     "node_modules/ladda/dist/ladda-themeless.min.css",
     "node_modules/quill/dist/quill.snow.css",
     "node_modules/simple-line-icons/css/simple-line-icons.css",
-    "node_modules/spinkit/css/spinkit.css"
+    "node_modules/spinkit/css/spinkit.css",
+	"node_modules/bootstrap-sweetalert/dist/sweetalert.css"
   ],
   "flags": [
     "node_modules/flag-icon-css/flags/**"
@@ -46,6 +47,7 @@
     "node_modules/popper.js/dist/umd/popper.min.js",
     "node_modules/popper.js/dist/umd/popper.min.js.map",
     "node_modules/select2/dist/js/select2.min.js",
-    "node_modules/toastr/toastr.js"
+    "node_modules/toastr/toastr.js",
+	"node_modules/bootstrap-sweetalert/dist/sweetalert.min.js"
   ]
 }

@@ -10,6 +10,8 @@
 			<h1 class="h5 m-0">Layout options</h1>
 		</div>
 		<div class="card-block">
+			<a class='btn btn-primary' data-modal="modal-lg" href='@Url.Action("ActualizarPersona", "Home")'>Editar</a>
+
 			@(Html.Kendo().Grid<WebApp.Models.EmptyClass>()
 			.Name("Grid")
 			.Columns(columns =>
