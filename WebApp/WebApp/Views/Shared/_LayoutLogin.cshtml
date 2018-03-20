@@ -1,5 +1,27 @@
 ﻿<!DOCTYPE html>
 <html>
+<style>
+	body, html {
+		height: 100%!important;
+		margin: 0!important;
+	}
+
+	.bg {
+		/* The image used */
+		background-image: url('../../img/g3709.png');
+		/* Full height */
+		height: 100%;
+		/* Center and scale the image nicely */
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	.card {
+		-webkit-box-shadow: 11px 13px 13px -3px rgba(0,0,0,0.28);
+		-moz-box-shadow: 11px 13px 13px -3px rgba(0,0,0,0.28);
+		box-shadow: 11px 13px 13px -3px rgba(0,0,0,0.28);
+	}
+</style>
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,38 +48,8 @@
 	@RenderSection("Styles", required: false)
 </head>
 
-<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-	@Html.Partial("_AppHeader")
-	<div class="app-body">
-		<div class="sidebar">
-			@Html.Partial("_SidebarNav")
-			<button class="sidebar-minimizer brand-minimizer" type="button"></button>
-		</div>
-		<main class="main">
+<body  class="bg app flex-row align-items-center">
 			@RenderBody()
-		</main>
-		@*@Html.Partial("_AsideMenu")*@
-	</div>
-	<footer class="app-footer">
-		<span><a href="http://coreui.io">CoreUI</a> © 2017 creativeLabs.</span>
-		<span class="ml-auto">Powered by <a href="http://coreui.io">CoreUI</a></span>
-	</footer>
-
-	<!-- Modals -->
-	<div id="modal" class="modal fade in">
-		<div class="modal-dialog">
-			<div class="modal-content">
-			</div>
-		</div>
-	</div>
-
-	<div id="modal2" class="modal fade in">
-		<div class="modal-dialog">
-			<div class="modal-content">
-			</div>
-		</div>
-	</div>
-
 	<script src="~/vendors/js/sweetalert.min.js"></script>
 	<script src="~/vendors/js/popper.min.js"></script>
 	<script src="~/vendors/js/bootstrap.min.js"></script>

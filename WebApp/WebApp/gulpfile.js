@@ -1,4 +1,4 @@
-/// <binding ProjectOpened='build:dist' />
+/// <binding />
 'use strict'
 
 var gulp = require('gulp');

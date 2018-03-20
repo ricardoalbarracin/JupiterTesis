@@ -11,6 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using WebApp.Data;
 using WebApp.Models;
 using WebApp.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace WebApp
 {
@@ -26,6 +30,10 @@ namespace WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var policy = new AuthorizationPolicyBuilder()
+                     .RequireAuthenticatedUser()
+                .Build();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -38,7 +46,13 @@ namespace WebApp
             services.AddKendo();
             services.AddMvc()
             .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
-            services.AddMvc();
+            services.AddMvc(options => options.Filters.Add(new AuthorizeFilter(policy)));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/Account/LogIn";
+                options.LogoutPath = "/Account/LogOff";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +72,8 @@ namespace WebApp
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            
 
             app.UseMvc(routes =>
             {
