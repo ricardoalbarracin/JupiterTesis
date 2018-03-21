@@ -5,6 +5,15 @@
     <UserSecretsId>aspnet-WebApp-D6F19C19-E14A-4845-8E6D-D1281310084E</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\js\app\App.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\site.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\app\App.min.js" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
@@ -23,6 +32,10 @@
     <Folder Include="Areas\Legalizacion\Data\" />
     <Folder Include="Areas\Legalizacion\Models\" />
     <Folder Include="Areas\Legalizacion\Views\Shared\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\app\App.min.js" />
   </ItemGroup>
 
 </Project>

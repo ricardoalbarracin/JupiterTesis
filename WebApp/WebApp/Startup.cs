@@ -46,12 +46,17 @@ namespace WebApp
             services.AddKendo();
             services.AddMvc()
             .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
-            services.AddMvc(options => options.Filters.Add(new AuthorizeFilter(policy)));
+            services.AddMvc();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
                 options.LoginPath = "/Account/LogIn";
                 options.LogoutPath = "/Account/LogOff";
+            });
+
+            services.Configure<IISOptions>(options =>
+            {
+                options.ForwardClientCertificate = false;
             });
         }
 
