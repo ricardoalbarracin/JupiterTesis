@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Providers\" />
+    <Folder Include="ADMIN\" />
+    <Folder Include="SEG\" />
   </ItemGroup>
 
 </Project>

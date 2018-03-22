@@ -9,4 +9,13 @@
     <ProjectReference Include="..\Services\Core.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ADMIN\" />
+    <Folder Include="SEG\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper.Contrib" Version="1.50.4" />
+  </ItemGroup>
+
 </Project>
