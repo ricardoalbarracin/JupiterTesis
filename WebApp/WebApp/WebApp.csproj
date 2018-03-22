@@ -38,4 +38,9 @@
     <None Include="wwwroot\js\app\App.min.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Core.Models.csproj" />
+    <ProjectReference Include="..\Services\Core.Services.csproj" />
+  </ItemGroup>
+
 </Project>
