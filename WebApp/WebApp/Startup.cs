@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace WebApp
 {
-    public class Startup
+    public partial class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -58,6 +58,8 @@ namespace WebApp
             {
                 options.ForwardClientCertificate = false;
             });
+
+            ConfigureProviders(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
