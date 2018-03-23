@@ -11,11 +11,11 @@
 
   <ItemGroup>
     <Folder Include="ADMIN\" />
-    <Folder Include="SEG\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper.Contrib" Version="1.50.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.1" />
   </ItemGroup>
 
 </Project>

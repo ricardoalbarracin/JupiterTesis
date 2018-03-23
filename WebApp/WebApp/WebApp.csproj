@@ -10,8 +10,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Scripts\Account\Login.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\site.min.css" />
     <_ContentIncludedByDefault Remove="wwwroot\js\app\App.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Scripts\Account\Login.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 
@@ -39,6 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DAOs\DAOs.csproj" />
     <ProjectReference Include="..\Models\Core.Models.csproj" />
     <ProjectReference Include="..\Services\Core.Services.csproj" />
   </ItemGroup>

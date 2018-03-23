@@ -6,7 +6,11 @@
 
   <ItemGroup>
     <Folder Include="ADMIN\" />
-    <Folder Include="SEG\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Business\Core.Business.csproj" />
+    <ProjectReference Include="..\Models\Core.Models.csproj" />
   </ItemGroup>
 
 </Project>

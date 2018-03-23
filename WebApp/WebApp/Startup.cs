@@ -15,6 +15,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Core.Services.Utils;
+using DAOs;
+using Core.Services.SEG;
+using DAOs.SEG;
 
 namespace WebApp
 {
@@ -34,8 +38,7 @@ namespace WebApp
                      .RequireAuthenticatedUser()
                 .Build();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -44,9 +47,9 @@ namespace WebApp
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddKendo();
-            services.AddMvc()
+            services.AddMvc(options =>  options.MaxModelValidationErrors = 50)
             .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
-            services.AddMvc();
+            
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
@@ -60,6 +63,12 @@ namespace WebApp
             });
 
             ConfigureProviders(services);
+            services.AddSingleton(provider => Configuration);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IDapperAdapter, DapperAdapter>();
+            services.AddScoped<IUsuarioService, UsuarioDao>();
+            services.AddScoped<IAccountService, AccountServiceProvider>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,6 +99,13 @@ namespace WebApp
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
+            System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Scripts")),
+                RequestPath = "/Scripts"
             });
         }
     }
