@@ -38,12 +38,6 @@ namespace WebApp
                      .RequireAuthenticatedUser()
                 .Build();
 
-            
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
-
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddKendo();
@@ -68,7 +62,9 @@ namespace WebApp
             services.AddScoped<IDapperAdapter, DapperAdapter>();
             services.AddScoped<IUsuarioService, UsuarioDao>();
             services.AddScoped<IAccountService, AccountServiceProvider>();
-            
+
+           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,6 +103,8 @@ namespace WebApp
             System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Scripts")),
                 RequestPath = "/Scripts"
             });
+
+            
         }
     }
 }

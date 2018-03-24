@@ -38,16 +38,25 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            await HttpContext.SignOutAsync();
 
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public JsonResult Login(Usuario usuario)
+        public async Task<JsonResult> Login(Usuario usuario)
         {
             var result = _accountService.Login(usuario);
+            var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, "Ricardo")
+                    };
+
+            var userIdentity = new ClaimsIdentity(claims, "login");
+
+            ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+            await HttpContext.AuthenticateAsync("JupiterCookieAuthenticationScheme");
             return Json(result);
         }
 
