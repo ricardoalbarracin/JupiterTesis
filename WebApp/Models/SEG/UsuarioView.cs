@@ -5,14 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Core.Models.SEG
 {
-    public class UsuarioView
+    public class UsuarioIdentity
     {
         public int Id { get; set; }
 
         private string _username = "";
+
         [Required]
         [Display(Name = "Usuario")]
         public string Username
@@ -20,17 +22,28 @@ namespace Core.Models.SEG
             get { return _username.ToUpper(); }
             set { _username = value; }
         }
-
+        
         [Required]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
+        
         public bool Activo { get; set; }
+        
+        public string Documento { get; set; }
+        
         public string PrimerNombre { get; set; }
+        
         public string SegundoNombre { get; set; }
+        
         public string PrimerApellido { get; set; }
+
         public string SegundoApellido { get; set; }
+        
         public DateTime? FechaNacimiento { get; set; }
+        
         public IList<string> Permisos { get; set; }
+        
         public IList<string> Roles { get; set; }
+
     }
 }

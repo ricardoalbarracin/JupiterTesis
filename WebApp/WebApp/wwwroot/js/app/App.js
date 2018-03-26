@@ -15,9 +15,27 @@ var App = function () {
 			this.handleMenu();
             this.handleModal();
             this.handleModalConfig();
-            this.handleValidatorConfig();
+			this.handleValidatorConfig();
+			this.handleButtons();
         },
 
+		handleButtons: function () {
+			jQuery(":button").__proto__.reset = function () {
+				this.html(this.attr('text-value'));
+				this.prop('disabled', false);
+				this.removeAttr('text-value')
+			};
+			jQuery(":button").__proto__.loading = function () {
+				var $this = $(this);
+				this.attr('text-value', this.html())
+				this.prop('disabled', true);
+				var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> Cargando...';
+				if ($(this).html() !== loadingText) {
+					$this.data('original-text', $(this).html());
+					$this.html(loadingText);
+				}
+			};
+		},
         handleModalConfig: function () {
             console.log("((handleModalConfig))");
             $(document).on('show.bs.modal', '.modal', function (event) {

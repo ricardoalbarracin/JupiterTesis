@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Core.Services.SEG;
+using DAOs.SEG;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,8 @@ namespace WebApp
     {
         public void ConfigureProviders(IServiceCollection services)
         {
-
+            services.AddScoped<IUsuarioService, UsuarioDao>();
+            services.AddScoped<IAccountService, AccountServiceProvider>();
         }
     }
 }

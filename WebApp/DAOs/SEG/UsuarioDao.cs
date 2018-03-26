@@ -25,7 +25,19 @@ namespace DAOs.SEG
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    result.Data = connection.GetAll<Usuario>().ToList();
+                    result.Data = connection.Query<UsuarioIdentity>(@"SELECT u.Id,
+                                   p.Documento,
+                                   p.PrimerNombre,
+                                   p.SegundoNombre,
+                                   p.FechaNacimiento,
+                                   p.PrimerApellido,
+                                   p.SegundoApellido,
+                                   u.Username,
+                                   u.Password
+                            FROM ADMIN.Personas p
+
+                                INNER JOIN SEG.Usuarios u ON(p.Id = u.PersonaId) ");
+                    result.Success = true;
                 }
             }
             catch (Exception ex)
@@ -54,9 +66,9 @@ namespace DAOs.SEG
                                    u.Username, 
                                    u.Password
                             FROM ADMIN.Personas p 
-	                            INNER JOIN SEG.Usuarios u ON ( p.Id = u.PersonaId  )  
+	                            INNER JOIN SEG.Usuarios u ON (p.Id = u.PersonaId)  
                             WHERE u.Id = @Id";
-                    var usuario = connection.QueryFirst<UsuarioView>(sql, new { Id = id });
+                    var usuario = connection.QueryFirst<UsuarioIdentity>(sql, new { Id = id });
 
                     // Obtiene lista de permisos asociados al usuario
                     sql = @"SELECT p.Sigla

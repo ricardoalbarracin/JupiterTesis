@@ -41,8 +41,16 @@ namespace WebApp
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddKendo();
-            services.AddMvc(options =>  options.MaxModelValidationErrors = 50)
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddSession();
+
+            services.AddMvc(options =>
+            {
+                options.MaxModelValidationErrors = 50;
+                options.Filters.Add(new AuthorizeFilter(policy));
+            })
             .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
+   
             
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
@@ -60,8 +68,7 @@ namespace WebApp
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IDapperAdapter, DapperAdapter>();
-            services.AddScoped<IUsuarioService, UsuarioDao>();
-            services.AddScoped<IAccountService, AccountServiceProvider>();
+            
 
            
 
@@ -85,7 +92,7 @@ namespace WebApp
 
             app.UseAuthentication();
 
-            
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
@@ -100,11 +107,17 @@ namespace WebApp
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
-            System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Scripts")),
+                System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Scripts")),
                 RequestPath = "/Scripts"
             });
 
-            
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
+                System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Areas/SEG/Scripts")),
+                RequestPath = "/Areas/SEG/Scripts"
+            });
+
         }
     }
 }

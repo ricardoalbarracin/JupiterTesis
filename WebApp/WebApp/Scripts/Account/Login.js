@@ -19,12 +19,13 @@
 		},
 
 		onBegin: function () {
-			$("#Login form").find(":submit").button('loading');
+			
+			$("#Login form").find(":submit").loading();
 		},
 
 		onSuccess: function (result) {
 			if (result.Success) {
-				window.location.href = "/Dashboard/";
+				window.location.href = "/";
 			} else {
 				swal({
 					title: "Error",
@@ -32,12 +33,12 @@
 					type: "error"
 				});
 
-				$("#Login form").find(":submit").button('reset');
+				$("#Login form").find(":submit").reset();
 			}
 		},
 
 		onFailure: function () {
-			$("#Login form").find(":submit").button('reset');
+			$("#Login form").find(":submit").reset();
 		}
 	}
 }();

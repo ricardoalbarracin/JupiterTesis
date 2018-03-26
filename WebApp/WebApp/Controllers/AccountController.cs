@@ -8,6 +8,7 @@ using Core.Models.Utils;
 using Core.Services.SEG;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,9 +17,12 @@ using Microsoft.Extensions.Options;
 using WebApp.Models;
 using WebApp.Models.AccountViewModels;
 using WebApp.Services;
+using WebApp.Utils;
 
 namespace WebApp.Controllers
 {
+    
+
     [AllowAnonymous]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
@@ -45,27 +49,31 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Login(Usuario usuario)
+        public async Task< JsonResult> Login(Usuario usuario)
         {
-            var result = _accountService.Login(usuario);
+            var result = new Result();
+            if (!ModelState.IsValid)
+            {
+                result.Message = "Modelo invalido";
+                return Json(result);
+            }
+            result = _accountService.Login(usuario);
+            if (!result.Success)
+                return Json(result);
+            var usuarioDB = result.Data as UsuarioIdentity;
             var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, "Ricardo")
-                    };
+            {
+                new Claim(ClaimTypes.Name, $"{usuarioDB.PrimerNombre} {usuarioDB.SegundoNombre} {usuarioDB.PrimerApellido} {usuarioDB.SegundoApellido}")
+            };
 
             var userIdentity = new ClaimsIdentity(claims, "login");
 
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-            await HttpContext.AuthenticateAsync("JupiterCookieAuthenticationScheme");
+            await HttpContext.SignInAsync(principal);
+            
+            HttpContext.Session.SetObject("Usuario", usuarioDB);
+            var a = HttpContext.Session.GetUser();
             return Json(result);
         }
-
-
-
-
-
-
-
-
     }
 }
