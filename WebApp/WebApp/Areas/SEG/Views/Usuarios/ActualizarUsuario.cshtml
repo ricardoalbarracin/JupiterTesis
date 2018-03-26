@@ -2,18 +2,7 @@
 @{
 	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
-<style>
-	.nav > li.disabled {
-		
-		pointer-events: none;
-	}
 
-		.nav > li.disabled > a:hover {
-			cursor: default;
-			text-decoration: none;
-			background-color: inherit;
-		}
-</style>
 <div id="@viewName">
 	<!-- Scripts -->
 	<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
@@ -35,38 +24,108 @@
 	</div>
 	<div class="container-fluid">
 		<div class='row'>
-			<div class="col-12 col-lg-6 col-sm-12">
-				<label>External Buttons:</label>
-				<div class="btn-group col-lg-6 col-sm-12" role="group">
-					<button class="btn btn-secondary" id="prev-btn" type="button">Go Previous</button>
-					<button class="btn btn-secondary" id="next-btn" type="button">Go Next</button>
-					<button class="btn btn-danger" id="reset-btn" type="button">Reset Wizard</button>
-				</div>
-			</div>
-			<div id="smartWizard">
+
+			<div id="smartWizard" class="col-12">
 				<ul class='nav nav-wizard'>
-					<li><a href='#step1' data-toggle="tab">Step 1 - Completed</a></li>
-					<li class='active'><a href='#step2' data-toggle="tab">Step 2 - Completed</a></li>
-					<li class="disabled"><a href='#step3' data-toggle="tab">Step 3 - Active</a></li>
-					<li><a href='#step3'>Step 4 - Not Yet Reached</a></li>
+					<li class="active"><a href='#step1' data-toggle="tab">Step 1</a></li>
+					<li><a href='#step2' data-toggle="tab"><b><i class="fa fa-gear page-header-icon"></i> Actualizar usuarios</b><br />asas</a></li>
+					<li><a href='#step3' data-toggle="tab">Step 3</a></li>
 				</ul>
-				<hr />
-				<div id="myTabContent" class="tab-content">
-					<div class="tab-pane fade" id="step1">
-						<p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+				<div id="myTabContent" class="tab-content ">
+					<div class="tab-pane fade " id="step1">
+						<div class="card">
+							<div class="card-header">
+								<strong>Horizontal</strong>
+								Form
+							</div>
+							<div class="card-body">
+								<div class="form-group row">
+									<label class="col-md-3 col-form-label" for="hf-email">Email</label>
+									<div class="col-md-9">
+										<input type="email" id="hf-email" name="hf-email" class="form-control" placeholder="Enter Email..">
+										<span class="help-block">Please enter your email</span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 col-form-label" for="hf-password">Password</label>
+									<div class="col-md-9">
+										<input type="password" id="hf-password" name="hf-password" class="form-control" placeholder="Enter Password..">
+										<span class="help-block">Please enter your password</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="card-footer" style="display: flex; justify-content: flex-end;">
+								<button class="btn btn-primary next-btn" type="button">Siguiente</button>
+							</div>
+						</div>
 					</div>
-					<div class="tab-pane fade active in show" id="step2">
-						<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+					<div class="tab-pane fade" id="step2">
+						<div class="card">
+							<div class="card-header">
+								<strong>Horizontal</strong>
+								Form
+							</div>
+							<div class="card-body">
+								<div class="form-group row">
+									<label class="col-md-3 col-form-label" for="hf-email">Email</label>
+									<div class="col-md-9">
+										<input type="email" id="hf-email" name="hf-email" class="form-control" placeholder="Enter Email..">
+										<span class="help-block">Please enter your email</span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 col-form-label" for="hf-password">Password</label>
+									<div class="col-md-9">
+										<input type="password" id="hf-password" name="hf-password" class="form-control" placeholder="Enter Password..">
+										<span class="help-block">Please enter your password</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="card-footer" style="display: flex; justify-content: flex-end;">
+								<button class="btn btn-secondary prev-btn" type="button">Atras</button>
+								<button class="btn btn-primary next-btn" type="button">Siguiente</button>
+							</div>
+						</div>
 					</div>
 					<div class="tab-pane fade" id="step3">
-						<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+						<div class="card">
+							<div class="card-header">
+								<strong>Horizontal</strong>
+								Form
+							</div>
+							<div class="card-body">
+								<div class="form-group row">
+									<label class="col-md-3 col-form-label" for="hf-email">Email</label>
+									<div class="col-md-9">
+										<input type="email" id="hf-email" name="hf-email" class="form-control" placeholder="Enter Email..">
+										<span class="help-block">Please enter your email</span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 col-form-label" for="hf-password">Password</label>
+									<div class="col-md-9">
+										<input type="password" id="hf-password" name="hf-password" class="form-control" placeholder="Enter Password..">
+										<span class="help-block">Please enter your password</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="card-footer" style="display: flex; justify-content: flex-end;">
+								<button class="btn btn-secondary prev-btn" type="button">Atras</button>
+								<button class="btn btn-success" type="button">finalizar</button>
+							</div>
+						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- Inicializadores -->
-	<script> 
+	<script>
+
 		$("#smartwizard").on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
 			//alert("You are on step "+stepNumber+" now");
 			if (stepPosition === 'first') {
@@ -78,10 +137,22 @@
 				$("#next-btn").removeClass('disabled');
 			}
 		});
-		$("#next-btn").on("click", function () {
-			debugger
+		$(".next-btn").on("click", function () {
+
 			// Navigate next
-			$('#smartwizard').smartWizard("next");
+			$('#smartWizard').smartWizard("next");
+			return true;
+		});
+		$(".prev-btn").on("click", function () {
+
+			// Navigate next
+			$('#smartWizard').smartWizard("prev");
+			return true;
+		});
+		$("#reset-btn").on("click", function () {
+
+			// Navigate next
+			$('#smartWizard').smartWizard("reset");
 			return true;
 		});
         $(function () {
@@ -98,7 +169,7 @@
 					showNextButton: "false"
 				}
 			});
-			$('#smartWizard').next();
+
         });
 
 	</script>
