@@ -2,7 +2,7 @@
     "use strict";
 
     // The plugin constructor
-    function SmartWizard(element) {
+    function Wizard(element) {
         // Merge user settings with default, recursively
         // Main container element
         this.main = $(element);
@@ -20,7 +20,7 @@
         this.init();
     }
 
-    $.extend(SmartWizard.prototype, {
+    $.extend(Wizard.prototype, {
 
 		init: function () {
 			
@@ -287,25 +287,25 @@
     });
 
     // Wrapper for the plugin
-	$.fn.smartWizard = function (options) {
+	$.fn.wizard = function (options) {
 		
         var args = arguments;
         var instance;
 
         if (options === undefined || typeof options === 'object') {
             return this.each(function () {
-                if (!$.data(this, "smartWizard")) {
-                    $.data(this, "smartWizard", new SmartWizard(this, options));
+                if (!$.data(this, "wizard")) {
+                    $.data(this, "wizard", new Wizard(this, options));
                 }
             });
         } else if (typeof options === 'string' && options[0] !== '_' && options !== 'init') {
-            instance = $.data(this[0], 'smartWizard');
+            instance = $.data(this[0], 'wizard');
 
             if (options === 'destroy') {
-                $.data(this, 'smartWizard', null);
+                $.data(this, 'wizard', null);
             }
 
-            if (instance instanceof SmartWizard && typeof instance[options] === 'function') {
+            if (instance instanceof Wizard && typeof instance[options] === 'function') {
                 return instance[options].apply(instance, Array.prototype.slice.call(args, 1));
             } else {
                 return this;

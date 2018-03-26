@@ -6,8 +6,8 @@
 <div id="@viewName">
 	<!-- Scripts -->
 	<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
-	<script src="~/Areas/SEG/Scripts/Usuarios/XXX.js"></script>
-	<!-- Include SmartWizard CSS -->
+	<script src="~/js/wizard.js"></script>
+	<!-- Include wizard CSS -->
 	<link href="~/css/bootstrap-nav-wizard.css" rel="stylesheet" type="text/css" />
 
 
@@ -25,7 +25,7 @@
 	<div class="container-fluid">
 		<div class='row'>
 
-			<div id="smartWizard" class="col-12">
+			<div id="wizard" class="col-12">
 				<ul class='nav nav-wizard'>
 					<li class="active"><a href='#step1' data-toggle="tab">Step 1</a></li>
 					<li><a href='#step2' data-toggle="tab"><b><i class="fa fa-gear page-header-icon"></i> Actualizar usuarios</b><br />asas</a></li>
@@ -118,7 +118,6 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -126,7 +125,7 @@
 	<!-- Inicializadores -->
 	<script>
 
-		$("#smartwizard").on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
+		$("#wizard").on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
 			//alert("You are on step "+stepNumber+" now");
 			if (stepPosition === 'first') {
 				$("#prev-btn").addClass('disabled');
@@ -140,24 +139,24 @@
 		$(".next-btn").on("click", function () {
 
 			// Navigate next
-			$('#smartWizard').smartWizard("next");
+			$('#wizard').wizard("next");
 			return true;
 		});
 		$(".prev-btn").on("click", function () {
 
 			// Navigate next
-			$('#smartWizard').smartWizard("prev");
+			$('#wizard').wizard("prev");
 			return true;
 		});
 		$("#reset-btn").on("click", function () {
 
 			// Navigate next
-			$('#smartWizard').smartWizard("reset");
+			$('#wizard').wizard("reset");
 			return true;
 		});
         $(function () {
             @(viewName).init();
-			$('#smartWizard').smartWizard({
+			$('#wizard').wizard({
 				selected: 0,
 				theme: 'default',
 				transitionEffect: 'fade',
