@@ -18,6 +18,7 @@ using WebApp.Models;
 using WebApp.Models.AccountViewModels;
 using WebApp.Services;
 using WebApp.Utils;
+using WebApp.Helpers;
 
 namespace WebApp.Controllers
 {
@@ -43,7 +44,6 @@ namespace WebApp.Controllers
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync();
-
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -70,7 +70,6 @@ namespace WebApp.Controllers
 
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
             await HttpContext.SignInAsync(principal);
-            
             HttpContext.Session.SetObject("Usuario", usuarioDB);
             var a = HttpContext.Session.GetUser();
             return Json(result);

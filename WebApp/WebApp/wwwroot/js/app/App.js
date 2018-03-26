@@ -12,7 +12,7 @@ var App = function () {
     return {
 		init: function () {
 			console.log("((init))");
-			this.handleMenu();
+			
             this.handleModal();
             this.handleModalConfig();
 			this.handleValidatorConfig();
@@ -111,10 +111,7 @@ var App = function () {
         },
 
 
-		handleMenu: function () {
-            console.log("((handleMenu))");
-			$("a.active").closest("ul").closest("li").addClass("open")
-        }
+		
     };
 }();
 
