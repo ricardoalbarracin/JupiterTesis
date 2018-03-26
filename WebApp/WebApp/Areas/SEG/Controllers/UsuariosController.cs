@@ -35,6 +35,10 @@ namespace WebApp.Areas.SEG.Controllers
             return Json(usuarios.ToDataSourceResult(request));
 
         }
-        
+
+        public IActionResult ActualizarUsuario(int UsuarioId)
+        {
+            return View();
+        }
     }
 }

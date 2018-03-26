@@ -9,7 +9,7 @@
 	<!-- Plantilla que se utilizará en la columna de acciones de la grilla -->
 	<script id="actionTemplate" type="text/x-kendo-template">
 		<div class='text-center'>
-			<a class='btn btn-primary' data-modal="modal-lg" href='@Url.Action("ActualizarProducto", "Productos", new { area = "ADMIN" })/#=data.Id#'>Editar</a>
+			<a class='btn btn-primary'  href='@Url.Action("ActualizarUsuario", "Usuarios", new { area = "SEG" })/#=data.Id#'>Editar</a>
 			<button type="button" onclick="Index.eliminar(event)" class="btn btn-danger">Eliminar</button>
 		</div>
 	</script>
@@ -33,6 +33,7 @@
 					.Name("grid")
 					.Columns(columns =>
 					{
+						columns.Bound(p => p.Id).Hidden();
 						columns.Bound(p => p.Username).Title("Usuario");
 						columns.Bound(p => p.Documento).Title("Documento");
 						columns.Bound(p => p.PrimerNombre).Title("Primer nombre");

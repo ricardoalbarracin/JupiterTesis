@@ -15,7 +15,6 @@
         },
 
 		handleTemplates: function () {
-			debugger;
             this.actionTemplate = kendo.template($('#Index #actionTemplate').html());
         },
 
