@@ -17,9 +17,10 @@
 <div id="@viewName">
 	<!-- Scripts -->
 	<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+	<script src="~/Areas/SEG/Scripts/Usuarios/XXX.js"></script>
 	<!-- Include SmartWizard CSS -->
 	<link href="~/css/bootstrap-nav-wizard.css" rel="stylesheet" type="text/css" />
-	
+
 
 	<!-- Plantilla que se utilizará en la columna de acciones de la grilla -->
 	<script id="actionTemplate" type="text/x-kendo-template">
@@ -34,12 +35,19 @@
 	</div>
 	<div class="container-fluid">
 		<div class='row'>
-			
-			<div>
+			<div class="col-12 col-lg-6 col-sm-12">
+				<label>External Buttons:</label>
+				<div class="btn-group col-lg-6 col-sm-12" role="group">
+					<button class="btn btn-secondary" id="prev-btn" type="button">Go Previous</button>
+					<button class="btn btn-secondary" id="next-btn" type="button">Go Next</button>
+					<button class="btn btn-danger" id="reset-btn" type="button">Reset Wizard</button>
+				</div>
+			</div>
+			<div id="smartWizard">
 				<ul class='nav nav-wizard'>
 					<li><a href='#step1' data-toggle="tab">Step 1 - Completed</a></li>
 					<li class='active'><a href='#step2' data-toggle="tab">Step 2 - Completed</a></li>
-					<li class="disabled" ><a href='#step3' data-toggle="tab">Step 3 - Active</a></li>
+					<li class="disabled"><a href='#step3' data-toggle="tab">Step 3 - Active</a></li>
 					<li><a href='#step3'>Step 4 - Not Yet Reached</a></li>
 				</ul>
 				<hr />
@@ -57,11 +65,41 @@
 			</div>
 		</div>
 	</div>
-		<!-- Inicializadores -->
-		<script>
+	<!-- Inicializadores -->
+	<script> 
+		$("#smartwizard").on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
+			//alert("You are on step "+stepNumber+" now");
+			if (stepPosition === 'first') {
+				$("#prev-btn").addClass('disabled');
+			} else if (stepPosition === 'final') {
+				$("#next-btn").addClass('disabled');
+			} else {
+				$("#prev-btn").removeClass('disabled');
+				$("#next-btn").removeClass('disabled');
+			}
+		});
+		$("#next-btn").on("click", function () {
+			debugger
+			// Navigate next
+			$('#smartwizard').smartWizard("next");
+			return true;
+		});
         $(function () {
             @(viewName).init();
+			$('#smartWizard').smartWizard({
+				selected: 0,
+				theme: 'default',
+				transitionEffect: 'fade',
+				showStepURLhash: false,
+				toolbarSettings: {
+					//toolbarPosition: 'none',
+					toolbarButtonPosition: 'none',
+					showPreviousButton: "false",
+					showNextButton: "false"
+				}
+			});
+			$('#smartWizard').next();
         });
 
-		</script>
-	</div>
+	</script>
+</div>
