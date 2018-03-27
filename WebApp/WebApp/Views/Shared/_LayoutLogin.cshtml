@@ -2,8 +2,8 @@
 <html>
 <style>
 	body, html {
-		height: 100%!important;
-		margin: 0!important;
+		height: 100% !important;
+		margin: 0 !important;
 	}
 
 	.bg {
@@ -16,6 +16,7 @@
 		background-repeat: no-repeat;
 		background-size: cover;
 	}
+
 	.card {
 		-webkit-box-shadow: 11px 13px 13px -3px rgba(0,0,0,0.28);
 		-moz-box-shadow: 11px 13px 13px -3px rgba(0,0,0,0.28);
@@ -33,28 +34,28 @@
 	<link href="~/vendors/css/font-awesome.min.css" rel="stylesheet">
 	<link href="~/vendors/css/simple-line-icons.min.css" rel="stylesheet">
 	<script src="~/js/jquery.all.min.js" asp-append-version="true"></script>
-	
+
 	<link rel="stylesheet" href="~/css/style.css">
 	<link rel="stylesheet" href="~/css/site.css" />
-	
-		
+
+
 	@RenderSection("Styles", required: false)
 </head>
 
-<body  class="bg app flex-row align-items-center">
-			@RenderBody()
+<body class="bg app flex-row align-items-center">
+	@RenderBody()
 	<script src="~/vendors/js/sweetalert.min.js"></script>
 	<script src="~/vendors/js/popper.min.js"></script>
 	<script src="~/vendors/js/bootstrap.min.js"></script>
 	<script src="~/vendors/js/pace.min.js"></script>
 
-	
-	<script src="~/js/app/App.js"></script>
+
+	<script src="~/js/app/Site.js"></script>
 
 	@RenderSection("Scripts", required: false)
 	<script>
 		$(function () {
-			App.init();
+			Site.init();
 		});
 	</script>
 </body>

@@ -12,5 +12,7 @@ namespace Core.Services.SEG
         Result GetUsuarioById(int id);
 
         Result GetListUsuarios();
+
+        Result GetUsuarioEditById(int id);
     }
 }

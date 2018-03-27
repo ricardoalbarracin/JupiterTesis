@@ -41,9 +41,9 @@ namespace Core.Models.SEG
         
         public DateTime? FechaNacimiento { get; set; }
         
-        public IList<string> Permisos { get; set; }
+        public IList<Permiso> Permisos { get; set; }
         
-        public IList<string> Roles { get; set; }
+        public IList<Role> Roles { get; set; }
 
     }
 }

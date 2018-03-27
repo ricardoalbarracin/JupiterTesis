@@ -1,0 +1,23 @@
+﻿@model  Seccion<Usuario>
+@{
+	ViewData["Title"] = "UpdUsuario";
+	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+}
+<section id=@viewName>
+	<form>
+		<div class="form-group">
+			@Html.LabelFor(m => m.ModelData.Username)
+			@*@(Html.Kendo().TextBoxFor(m => m.Nombre).HtmlAttributes(new { @class = "form-control" }))*@
+			@Html.TextAreaFor(m => m.ModelData.Username, new { @class = "form-control" })
+			@Html.ValidationMessageFor( m => m.ModelData.Username)
+		</div>
+	</form>
+</section>
+
+<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+<script>
+	$(function () {
+            @(viewName).init(eval("@Model.Container"),"@Model.ModelType");
+        });
+</script>
+

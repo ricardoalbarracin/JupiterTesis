@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Models.SEG;
+using Core.Models.Utils;
 using Core.Services.SEG;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -36,9 +37,13 @@ namespace WebApp.Areas.SEG.Controllers
 
         }
 
-        public IActionResult ActualizarUsuario(int UsuarioId)
+        public IActionResult ActualizarUsuario(int id)
         {
-            return View();
+            var result = _usuarioService.GetUsuarioEditById(id);
+            
+            return View(result.Data);
         }
+        
+
     }
 }

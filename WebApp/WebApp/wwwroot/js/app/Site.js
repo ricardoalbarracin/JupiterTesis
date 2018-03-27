@@ -7,7 +7,7 @@ var windowOne = null;
 
 /* Application Controller
 ------------------------------------------------ */
-var App = function () {
+var Site = function () {
     "use strict";
     return {
 		init: function () {
@@ -36,7 +36,8 @@ var App = function () {
 				}
 			};
 		},
-        handleModalConfig: function () {
+
+		handleModalConfig: function () {
             console.log("((handleModalConfig))");
             $(document).on('show.bs.modal', '.modal', function (event) {
                 var zIndex = 3000 + (10 * $('.modal:visible').length);
@@ -109,9 +110,6 @@ var App = function () {
 
             $.validator.setDefaults({ ignore: '' });
         },
-
-
-		
     };
 }();
 
