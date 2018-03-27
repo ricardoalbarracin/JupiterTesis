@@ -7,7 +7,35 @@
 
 <section id=@viewName>
 	<form>
-		
+		<div class="text-center">
+			@(Html.Kendo().ListBox()
+							.Name("optional2")
+							.DataValueField("Id")
+							.DataTextField("Nombre")
+							.HtmlAttributes(new { @style = "width: 40%" })
+							.Toolbar(toolbar =>
+							{
+								toolbar.Position(ListBoxToolbarPosition.Right);
+								toolbar.Tools(tools => tools
+									.TransferTo()
+									.TransferFrom()
+									.TransferAllTo()
+									.TransferAllFrom()
+								);
+							})
+							.ConnectWith("selected")
+							.BindTo(Model.ListPermisos.Where(role => role.Activo == 0))
+			)
+
+			@(Html.Kendo().ListBox()
+									.DataValueField("Id")
+									.DataTextField("Nombre")
+									.HtmlAttributes(new { @style = "width: 40%" })
+									.Name("selected2")
+									.BindTo(Model.ListPermisos.Where(role => role.Activo == 1))
+									.Selectable(ListBoxSelectable.Multiple)
+			)
+		</div>
 	</form>
 </section>
 
