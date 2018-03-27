@@ -1,15 +1,15 @@
-﻿@model  Seccion<Usuario>
+﻿@model Usuario
 @{
-	ViewData["Title"] = "UpdUsuario";
 	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
+
 <section id=@viewName>
 	<form>
 		<div class="form-group">
-			@Html.LabelFor(m => m.ModelData.Username)
-			@*@(Html.Kendo().TextBoxFor(m => m.Nombre).HtmlAttributes(new { @class = "form-control" }))*@
-			@Html.TextAreaFor(m => m.ModelData.Username, new { @class = "form-control" })
-			@Html.ValidationMessageFor( m => m.ModelData.Username)
+			@Html.LabelFor(m => m.Username)
+
+			@Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+			@Html.ValidationMessageFor(m => m.Username)
 		</div>
 	</form>
 </section>
@@ -17,7 +17,7 @@
 <script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
 <script>
 	$(function () {
-            @(viewName).init(eval("@Model.Container"),"@Model.ModelType");
+            @(viewName).init(eval("@ViewBag.Container"),"@Model.GetType().ToString()","@viewName" );
         });
 </script>
 

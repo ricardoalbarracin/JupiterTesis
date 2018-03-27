@@ -4,20 +4,40 @@
 		// ---------------------------------
 		//           Propiedades 
 		// ---------------------------------
-		actionTemplate: null,
+		facade: {},
 
 		// ---------------------------------
 		//           Metodos 
 		// ---------------------------------
 
 		init: function () {
-			this.handleTemplates();
-			
 		},
 
-		handleTemplates: function () {
-			this.actionTemplate = kendo.template($('#ActualizarUsuario #actionTemplate').html());
+		// Finish
+		onFinish_Begin: function (jqXHR, settings) {
+			
+			var sectionsToValidate = [
+				"UpdUsuario",
+				"UpdRolesUsuario",
+				"UpdPermisosUsuario"
+			];
+
+			// Validacion de secciones
+			var isValidSections = Utils.isValidSections(ActualizarUsuario.facade, sectionsToValidate);
+			if (!isValidSections) {
+				return false;
+			}
+
+			// Salida
+			var dataSections = Utils.getDataSections(ActualizarUsuario.facade, sectionsToValidate);
+			settings.data = jQuery.param({
+				dataSections: dataSections
+			});
 		},
+
+		onFinish_Success: function (result) {
+			
+		}
 
 		
 	};

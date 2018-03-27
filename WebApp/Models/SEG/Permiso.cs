@@ -24,4 +24,14 @@ namespace Core.Models.SEG
         public int? Activo { get; set; }
 
     }
+
+    public class Permisos
+    {
+        public Permisos(List<Permiso> permisos)
+        {
+            ListPermisos = permisos;
+        }
+
+        public List<Permiso> ListPermisos { get; set; }
+    }
 }

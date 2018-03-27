@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Loader;
 using System.Threading.Tasks;
 
 namespace WebApp.Helpers
@@ -20,21 +21,21 @@ namespace WebApp.Helpers
         public static IDictionary<string, object> ConvertSectionsToModels(this Controller controller, IDictionary<string, IDictionary<string, string>> sections)
         {
             var sectionsConverted = new Dictionary<string, object>();
-
+            var modelAssembly = AssemblyLoadContext.Default.LoadFromAssemblyName(new System.Reflection.AssemblyName("Core.Models"));
             foreach (var item in sections.Values)
             {
-                // Validaciones            
-                var modelType = Type.GetType(item["Model"].ToString());
+                // Validaciones
+                
+                var modelType = modelAssembly.GetType(item["Model"].ToString());
 
                 var modelDeserialized = JsonConvert.DeserializeObject(item["DataForm"].ToString(), modelType);
 
                 var vc = new ValidationContext(modelDeserialized, null, null);
                 var isValid = Validator.TryValidateObject(modelDeserialized, vc, null, true);
-
                 if (!isValid)
                 {
                     var ex = new Exception("Modelo invalido");
-                    throw ex;
+                    //throw ex;
                 }
 
                 sectionsConverted[item["SectionId"].ToString()] = modelDeserialized;

@@ -1,4 +1,4 @@
-﻿var UpdUsuario = function () {
+﻿var UpdPermisosUsuario = function () {
 	"use strict";
 	return {
 		// ---------------------------------

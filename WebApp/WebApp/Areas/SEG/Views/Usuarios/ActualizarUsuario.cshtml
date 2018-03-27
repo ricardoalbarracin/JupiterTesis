@@ -26,19 +26,18 @@
 		<div class='row'>
 			<div id="wizard" class="col-12">
 				<ul class='nav nav-wizard'>
-					<li class="active"><a href='#step1' data-toggle="tab">Step 1</a></li>
-					<li><a href='#step2' data-toggle="tab"><b><i class="fa fa-gear page-header-icon"></i> Actualizar usuarios</b><br />asas</a></li>
-					<li><a href='#step3' data-toggle="tab">Step 3</a></li>
+					<li class="active"><a href='#step1' data-toggle="tab"><b><i class="fa fa-user page-header-icon"></i> Datos basicos</b><br />asas</a></li>
+					<li><a href='#step2' data-toggle="tab"><b><i class="fa fa-key page-header-icon"></i> Roles</b><br />asas</a></li>
+					<li><a href='#step3' data-toggle="tab"><b><i class="fa fa-key page-header-icon"></i> Permisos</b><br />asas</a></li>
 				</ul>
 				<div id="myTabContent" class="tab-content ">
 					<div class="tab-pane fade " id="step1">
 						<div class="card">
 							<div class="card-header">
-								<strong>Horizontal</strong>
-								Form
+								<strong>Datos de usuario</strong>
 							</div>
 							<div class="card-body">
-								@Html.Partial("UpdUsuario",new Seccion<Usuario>() { ModelData = Model.Usuario, Container = viewName })
+								@Html.Partial("UpdUsuario",  Model.Usuario)
 							</div>
 
 							<div class="card-footer" style="display: flex; justify-content: flex-end;">
@@ -49,11 +48,10 @@
 					<div class="tab-pane fade" id="step2">
 						<div class="card">
 							<div class="card-header">
-								<strong>Horizontal</strong>
-								Form
+								<strong>Roles de usuario</strong>
 							</div>
 							<div class="card-body">
-								@Html.Partial("UpdRolesUsuario", new Seccion<List<Role>>() { ModelData = Model.Roles, Container = viewName })
+								@Html.Partial("UpdRolesUsuario", new Roles(Model.Roles))
 							</div>
 
 							<div class="card-footer" style="display: flex; justify-content: flex-end;">
@@ -65,17 +63,21 @@
 					<div class="tab-pane fade" id="step3">
 						<div class="card">
 							<div class="card-header">
-								<strong>Horizontal</strong>
-								Form
+								<strong>Permisos de usuario</strong>
 							</div>
 							<div class="card-body">
-								@Html.Partial("UpdPermisosUsuario", new Seccion<List<Permiso>>() { ModelData = Model.Permisos, Container = viewName })
+								@Html.Partial("UpdPermisosUsuario", new Permisos(Model.Permisos))
 
 							</div>
 
 							<div class="card-footer" style="display: flex; justify-content: flex-end;">
 								<button class="btn btn-secondary prev-btn" type="button">Atras</button>
-								<button class="btn btn-success" type="button">finalizar</button>
+									<a asp-action="Finish"  asp-controller="Usuarios"
+									   data-ajax="true" 
+									  data-ajax-begin="ActualizarUsuario.onFinish_Begin" 
+									  data-ajax-success="ActualizarUsuario.onFinish_Success" 
+									  data-ajax-method="POST"
+									  class="btn btn-success prev-btn">Update</a>
 							</div>
 						</div>
 					</div>

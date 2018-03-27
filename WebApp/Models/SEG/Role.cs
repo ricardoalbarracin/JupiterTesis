@@ -23,4 +23,13 @@ namespace Core.Models.SEG
         public int? Activo { get; set; }
 
     }
+
+    public class Roles
+    {
+        public Roles(List<Role> roles)
+        {
+            ListRoles = roles;
+        }
+        public List<Role> ListRoles { get; set; }
+    }
 }

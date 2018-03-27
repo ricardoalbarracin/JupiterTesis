@@ -155,7 +155,7 @@ namespace DAOs.SEG
 		                        left join SEG.UsuariosPermisos up on p.id= up.PermisoId 
 		                        where up.UsuarioId =@Id or ISNULL ( up.id , '0' ) = 0";
                     var permisos = connection.Query<Permiso>(sql, new { Id = id }).ToList();
-                    usuarioEdit.Permisos = permisos;
+                    usuarioEdit.Permisos = permisos ;
 
 
                     // Obtiene lista de roles asociados al usuario

@@ -1,4 +1,4 @@
-﻿var UpdUsuario = function () {
+﻿var UpdRolesUsuario = function () {
 	"use strict";
 	return {
 		// ---------------------------------

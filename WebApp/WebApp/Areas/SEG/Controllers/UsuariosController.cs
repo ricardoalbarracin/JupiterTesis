@@ -8,6 +8,7 @@ using Core.Services.SEG;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Helpers;
 
 namespace WebApp.Areas.SEG.Controllers
 {
@@ -40,10 +41,17 @@ namespace WebApp.Areas.SEG.Controllers
         public IActionResult ActualizarUsuario(int id)
         {
             var result = _usuarioService.GetUsuarioEditById(id);
-            
+            ViewBag.Container =ControllerContext.RouteData.Values["action"].ToString();
             return View(result.Data);
         }
-        
+
+        [HttpPost]
+        public JsonResult Finish(DataSections dataSections)
+        {
+            var a = this.ConvertSectionsToModels(dataSections.Sections);
+            return new JsonResult("ok");
+        }
+
 
     }
 }

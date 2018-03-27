@@ -1,7 +1,17 @@
-﻿@model Seccion<List<Role>>
+﻿@model Roles
 @{
-    ViewData["Title"] = "UpdRolesUsuario";
+	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
 
-<h2>@Model.ModelData.Count()</h2>
+<section id=@viewName>
+	<form>
+		
+	</form>
+</section>
 
+<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+<script>
+	$(function () {
+            @(viewName).init(eval("@ViewBag.Container"),"@Model.GetType().ToString()","@viewName" );
+        });
+</script>
