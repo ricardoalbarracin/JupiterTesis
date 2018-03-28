@@ -8,12 +8,12 @@ namespace Core.Services.SEG
 {
     public interface IUsuarioService
     {
-        Result GetUsuarioByUserName(string userName);
+        Result UsuarioByUserName(string userName);
 
-        Result GetUsuarioById(int id);
+        Result UsuarioById(int id);
 
-        Result GetListUsuarios();
+        Result ListUsuarios();
 
-        Result GetUsuarioEditById(int id);
+        Result UsuarioEditById(int id);
     }
 }

@@ -12,7 +12,7 @@ var Site = function () {
     return {
 		init: function () {
 			console.log("((init))");
-			
+			this.handleMenu();
             this.handleModal();
             this.handleModalConfig();
 			this.handleValidatorConfig();
@@ -89,7 +89,7 @@ var Site = function () {
                             break;
                     }
 
-                    App.handleModal();
+					Site.handleModal();
                     //App.handleDatepickerReadonly();
                 });
 
@@ -109,7 +109,12 @@ var Site = function () {
             }
 
             $.validator.setDefaults({ ignore: '' });
-        },
+		},
+
+		handleMenu: function () {
+			console.log("((handleMenu))");
+			$("a.active").closest("ul").closest("li").addClass("open")
+		}
     };
 }();
 

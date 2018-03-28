@@ -49,6 +49,9 @@
 						<div class="card">
 							<div class="card-header">
 								<strong>Roles de usuario</strong>
+								<label class="float-right mt-2 mb-0">
+									@Html.ActionLink("Nuevo", "AgregarUsuarioRole", "Usuarios", null, new { @class = "btn btn-primary float-right", @data_modal = "modal-lg" })
+								</label>
 							</div>
 							<div class="card-body">
 								@Html.Partial("UpdRolesUsuario", new Roles(Model.Roles))
@@ -77,7 +80,7 @@
 									  data-ajax-begin="ActualizarUsuario.onFinish_Begin" 
 									  data-ajax-success="ActualizarUsuario.onFinish_Success" 
 									  data-ajax-method="POST"
-									  class="btn btn-success prev-btn">Actualizar</a>
+									  class="btn btn-success">Actualizar</a>
 							</div>
 						</div>
 					</div>

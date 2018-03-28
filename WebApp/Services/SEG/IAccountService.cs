@@ -6,9 +6,8 @@ using System.Text;
 
 namespace Core.Services.SEG
 {
-    public interface IAccountService
+    public interface ISeguridadService
     {
         Result Login(Usuario usuario);
-        
     }
 }

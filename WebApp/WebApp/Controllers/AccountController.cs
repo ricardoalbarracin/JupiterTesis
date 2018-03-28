@@ -30,10 +30,10 @@ namespace WebApp.Controllers
     {
 
 
-        IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        ISeguridadService _seguridadService;
+        public AccountController(ISeguridadService seguridadService)
         {
-            _accountService = accountService;
+            _seguridadService = seguridadService;
         }
 
         [TempData]
@@ -57,7 +57,7 @@ namespace WebApp.Controllers
                 result.Message = "Modelo invalido";
                 return Json(result);
             }
-            result = _accountService.Login(usuario);
+            result = _seguridadService.Login(usuario);
             if (!result.Success)
                 return Json(result);
             var usuarioDB = result.Data as UsuarioIdentity;

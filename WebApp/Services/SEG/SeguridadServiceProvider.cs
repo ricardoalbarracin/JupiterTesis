@@ -7,16 +7,16 @@ using Core.Models.Utils;
 
 namespace Core.Services.SEG
 {
-    public class AccountServiceProvider : IAccountService
+    public class SeguridadServiceProvider : ISeguridadService
     {
         IUsuarioService _usuarioService;
-        public AccountServiceProvider(IUsuarioService usuarioService)
+        public SeguridadServiceProvider(IUsuarioService usuarioService)
         {
             _usuarioService = usuarioService;
         }
         public Result Login(Usuario usuario)
         {
-            var getUsuarioByUserName = _usuarioService.GetUsuarioByUserName(usuario.Username);
+            var getUsuarioByUserName = _usuarioService.UsuarioByUserName(usuario.Username);
             if (!getUsuarioByUserName.Success)
             {
                 return  getUsuarioByUserName;
@@ -30,7 +30,7 @@ namespace Core.Services.SEG
                 return  validarPassword;
             }
 
-            var getUsuarioById = _usuarioService.GetUsuarioById(usuarioDB.Id);
+            var getUsuarioById = _usuarioService.UsuarioById(usuarioDB.Id);
             if (!getUsuarioById.Success)
             {
                 return getUsuarioById;

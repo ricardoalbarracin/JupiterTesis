@@ -12,8 +12,7 @@
 
         init: function () {
             this.handleTemplates();
-        },
-
+		},
 		handleTemplates: function () {
             this.actionTemplate = kendo.template($('#Index #actionTemplate').html());
         },

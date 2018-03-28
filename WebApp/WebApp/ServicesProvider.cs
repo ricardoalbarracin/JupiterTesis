@@ -13,7 +13,9 @@ namespace WebApp
         public void ConfigureProviders(IServiceCollection services)
         {
             services.AddScoped<IUsuarioService, UsuarioDao>();
-            services.AddScoped<IAccountService, AccountServiceProvider>();
+            services.AddScoped<ISeguridadService, SeguridadServiceProvider>();
+            services.AddScoped<IRoleService, RoleDAO>();
+            services.AddScoped<IPermisoService, PermisoDAO>();
         }
     }
 }

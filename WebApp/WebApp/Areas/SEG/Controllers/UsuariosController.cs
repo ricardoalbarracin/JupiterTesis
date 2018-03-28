@@ -16,6 +16,7 @@ namespace WebApp.Areas.SEG.Controllers
     public class UsuariosController : Controller
     {
         IUsuarioService _usuarioService;
+       
         public UsuariosController(IUsuarioService usuarioService)
         {
             _usuarioService = usuarioService;
@@ -24,9 +25,9 @@ namespace WebApp.Areas.SEG.Controllers
         {
             return View();
         }
-        public ActionResult GetListUsuarios([Kendo.Mvc.UI.DataSourceRequest] DataSourceRequest request)
+        public ActionResult GetListUsuarios([DataSourceRequest] DataSourceRequest request)
         {
-            var getListUsuarios = _usuarioService.GetListUsuarios();
+            var getListUsuarios = _usuarioService.ListUsuarios();
 
             if (!getListUsuarios.Success)
             {
@@ -40,7 +41,7 @@ namespace WebApp.Areas.SEG.Controllers
 
         public IActionResult ActualizarUsuario(int id)
         {
-            var result = _usuarioService.GetUsuarioEditById(id);
+            var result = _usuarioService.UsuarioEditById(id);
             ViewBag.Container =ControllerContext.RouteData.Values["action"].ToString();
             return View(result.Data);
         }
@@ -51,6 +52,12 @@ namespace WebApp.Areas.SEG.Controllers
             var a = this.ConvertSectionsToModels(dataSections.Sections);
             return new JsonResult("ok");
         }
+
+        public IActionResult AgregarUsuarioRole()
+        {
+            return PartialView();
+        }
+        
 
 
     }

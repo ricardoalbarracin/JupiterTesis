@@ -66,3 +66,9 @@ h2 {
 	padding: 10px 18px;
 }
 
+.sweet-overlay {
+	z-index: 9999!important;
+}
+.sweet-alert {
+	z-index: 10000!important;
+}
