@@ -14,11 +14,9 @@ namespace DAOs.SEG
 {
     public class RoleDAO : BaseDAO, IRoleService
     {
-
         public RoleDAO(IDapperAdapter dapper) : base(dapper)
         {
         }
-
         public Result ListRoles()
         {
             var result = new Result();
@@ -37,7 +35,6 @@ namespace DAOs.SEG
             }
             return result;
         }
-
         public Result ListRolesUsuario(int usuarioId)
         {
             var result = new Result();
@@ -58,6 +55,60 @@ namespace DAOs.SEG
             catch (Exception ex)
             {
                 result.Message = "Error consultando roles.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+        public Result InsUsuarioRole(UsuarioRole role)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    connection.Insert<UsuarioRole>(role);
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error insertando rol a usuario.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+        public Result DelUsuarioRole(UsuarioRole role)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    connection.Execute("delete from SEG.UsuariosRoles where RoleId = @RoleId and UsuarioId = @UsuarioId", role);
+                }
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error borrando rol a usuario.";
+                result.Exception = ex;
+            }
+            
+            return result;
+        }
+        public Result InsRole(Role role)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    connection.Insert<Role>(role);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error insertando rol.";
                 result.Exception = ex;
             }
             return result;

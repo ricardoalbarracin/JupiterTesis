@@ -18,20 +18,20 @@
 									columns.Bound(p => p.Nombre).Title("Nombre").Width(130);
 									columns.Bound(p => p.Sigla).Title("Sigla").Width(130);
 									columns.Bound(p => p.Descripcion).Width(130);
-									columns.Bound(p => p.Activo).Width(130);
+									//columns.Bound(p => p.Activo).Width(130);
 									columns.Bound(p => p.Nombre).ClientTemplate(
 										"<div class='text-center'>" +
 										"<button class='btn btn-danger' onclick='UpdRolesUsuario.eliminarRole(event,#=data.Id#)'>Eliminar</button>" +
 										"</div>"
 										).Title("Acción").Width(170).Filterable(false);
 								})
-									.HtmlAttributes(new { style = "height: 550px;" })
+									.HtmlAttributes(new { style = "height: 300px;" })
 									.Pageable(pageable => pageable
 										.Input(true)
 										.Numeric(false)
 										)
 									.Sortable()
-									.Scrollable(s => s.Height("auto"))
+									.Scrollable(s => s.Height("300px"))
 									.Pageable(p => p.Refresh(true))
 									.Filterable()
 									.DataSource(dataSource => dataSource

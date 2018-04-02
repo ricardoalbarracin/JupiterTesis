@@ -17,7 +17,6 @@ namespace DAOs.SEG
         public PermisoDAO(IDapperAdapter dapper) : base(dapper)
         {
         }
-
         public Result ListPermisos()
         {
             var result = new Result();
@@ -36,7 +35,6 @@ namespace DAOs.SEG
             }
             return result;
         }
-
         public Result ListPermisosAsignadosUsuario(int usuarioId)
         {
             var result = new Result();
@@ -61,7 +59,6 @@ namespace DAOs.SEG
             }
             return result;
         }
-
         public Result ListPermisosUsuario(int usuarioId)
         {
             var result = new Result();
@@ -90,6 +87,43 @@ namespace DAOs.SEG
             catch (Exception ex)
             {
                 result.Message = "Error consultando permisos.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+
+        public Result InsUsuarioPermiso(UsuarioPermiso permiso)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    connection.Insert<UsuarioPermiso>(permiso);
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error insertando permiso a usuario.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+        public Result DelUsuarioPermiso(UsuarioPermiso permiso)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    connection.Execute("delete from SEG.UsuariosPermisos where PermisoId = @PermisoId and UsuarioId = @UsuarioId", permiso);
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error borrando permiso a usuario.";
                 result.Exception = ex;
             }
             return result;

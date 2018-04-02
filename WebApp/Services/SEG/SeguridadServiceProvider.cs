@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Transactions;
 using Core.Business.SEG;
 using Core.Models.SEG;
 using Core.Models.Utils;
@@ -10,10 +11,15 @@ namespace Core.Services.SEG
     public class SeguridadServiceProvider : ISeguridadService
     {
         IUsuarioService _usuarioService;
-        public SeguridadServiceProvider(IUsuarioService usuarioService)
+        IRoleService _roleService;
+        IPermisoService _permisoService;
+        public SeguridadServiceProvider(IUsuarioService usuarioService,IRoleService roleService, IPermisoService permisoService)
         {
             _usuarioService = usuarioService;
+            _roleService = roleService;
+            _permisoService = permisoService;
         }
+
         public Result Login(Usuario usuario)
         {
             var getUsuarioByUserName = _usuarioService.UsuarioByUserName(usuario.Username);
@@ -37,6 +43,64 @@ namespace Core.Services.SEG
             }
 
             return getUsuarioById;
+        }
+
+        public Result UpdUsuarioRolesPermisos(IDictionary<string, object> dataSections)
+        {
+            using (var transaction = new TransactionScope())
+            {
+                var usuario = dataSections["UpdUsuario"] as Usuario;
+                var updUsuario = _usuarioService.UpdUsuario(usuario);
+                if(!updUsuario.Success)
+                {
+                    return updUsuario;
+                }
+
+                var listRoles = dataSections["UpdRolesUsuario"] as Roles;
+                foreach (var role in listRoles.ListRoles)
+                {
+                    if (role.Activo == 1)
+                    {
+                        var insUsuarioRole = _roleService.InsUsuarioRole(new UsuarioRole(usuario.Id, role.Id));
+                        if (!insUsuarioRole.Success)
+                        {
+                            return insUsuarioRole;
+                        }
+                    }
+                    else
+                    {
+                        var delUsuarioRole = _roleService.DelUsuarioRole(new UsuarioRole(usuario.Id, role.Id));
+                        if (!delUsuarioRole.Success)
+                        {
+                            return delUsuarioRole;
+                        }
+                    }
+                }
+
+                var ListPermisos = dataSections["UpdPermisosUsuario"] as Permisos;
+                foreach (var permiso in ListPermisos.ListPermisos)
+                {
+                    if (permiso.Activo == 1)
+                    {
+                        var insUsuarioPermiso = _permisoService.InsUsuarioPermiso(new UsuarioPermiso(usuario.Id, permiso.Id));
+                        if (!insUsuarioPermiso.Success)
+                        {
+                            return insUsuarioPermiso;
+                        }
+                    }
+                    else
+                    {
+                        var delUsuarioPermiso = _permisoService.DelUsuarioPermiso(new UsuarioPermiso(usuario.Id, permiso.Id));
+                        if (!delUsuarioPermiso.Success)
+                        {
+                            return delUsuarioPermiso;
+                        }
+                    }
+                }
+
+                transaction.Complete();
+            }
+            return new Result() { Success = true, Message = "se ha actualizado correctacmente el usuario." };
         }
     }
 }

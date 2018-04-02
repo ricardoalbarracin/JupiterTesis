@@ -9,5 +9,8 @@ namespace Core.Services.SEG
     public interface ISeguridadService
     {
         Result Login(Usuario usuario);
+        Result UpdUsuarioRolesPermisos(IDictionary<string, object> dataSections);
+
+
     }
 }

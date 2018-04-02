@@ -1,48 +1,55 @@
 ﻿@model Permisos
-
 @{
 	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
 
 
-<section id=@viewName>
-	<form>
-		<div class="text-center">
-			@(Html.Kendo().ListBox()
-							.Name("optional2")
-							.DataValueField("Id")
-							.DataTextField("Nombre")
-							.HtmlAttributes(new { @style = "width: 40%" })
-							.Toolbar(toolbar =>
-							{
-								toolbar.Position(ListBoxToolbarPosition.Right);
-								toolbar.Tools(tools => tools
-									.TransferTo()
-									.TransferFrom()
-									.TransferAllTo()
-									.TransferAllFrom()
-								);
-							})
-							.ConnectWith("selected")
-							.BindTo(Model.ListPermisos.Where(role => role.Activo == 0))
-			)
 
-			@(Html.Kendo().ListBox()
-									.DataValueField("Id")
-									.DataTextField("Nombre")
-									.HtmlAttributes(new { @style = "width: 40%" })
-									.Name("selected2")
-									.BindTo(Model.ListPermisos.Where(role => role.Activo == 1))
-									.Selectable(ListBoxSelectable.Multiple)
+<section id=@viewName>
+
+	<form>
+		<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+		<div class="text-center">
+			@(Html.Kendo().Grid(Model.ListPermisos)
+										.Name("GridPermisos")
+										.Columns(columns =>
+										{
+											columns.Bound(p => p.Id).Hidden();
+											columns.Bound(p => p.Nombre).Title("Nombre").Width(130);
+											columns.Bound(p => p.Sigla).Title("Sigla").Width(130);
+											columns.Bound(p => p.Descripcion).Width(130);
+											columns.Bound(p => p.Activo).Width(130);
+											columns.Bound(p => p.Nombre).ClientTemplate(
+												"<div class='text-center'>" +
+												"<button class='btn btn-danger' onclick='UpdPermisosUsuario.eliminarPermiso(event,#=data.Id#)'>Eliminar</button>" +
+												"</div>"
+												).Title("Acción").Width(170).Filterable(false);
+										})
+											.HtmlAttributes(new { style = "height: 300px;" })
+											.Pageable(pageable => pageable
+												.Input(true)
+												.Numeric(false)
+												)
+											.Sortable()
+											.Scrollable(s => s.Height("300px"))
+											.Pageable(p => p.Refresh(true))
+											.Filterable()
+											.DataSource(dataSource => dataSource
+											.Ajax()
+											.PageSize(20)
+											.ServerOperation(false)
+											)
 			)
+			<script>
+				$(function () {
+					@(viewName).init(eval("@ViewBag.Container"),"@Model.GetType().ToString()","@viewName" );
+				});
+			</script>
 		</div>
+
 	</form>
 </section>
 
-<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
-<script>
-	$(function () {
-            @(viewName).init(eval("@ViewBag.Container"),"@Model.GetType().ToString()","@viewName" );
-        });
-</script>
+
+
 

@@ -36,6 +36,22 @@
 		},
 
 		onFinish_Success: function (result) {
+			if (result.Success) {
+				swal({
+					title: "Correcto",
+					text: result.Message,
+					type: "success"
+				}, function () {
+					window.location.href = "/SEG/Usuarios/";
+				});
+
+			} else {
+				swal({
+					title: "Error",
+					text: result.Message,
+					type: "error"
+				});
+			}
 			
 		}
 

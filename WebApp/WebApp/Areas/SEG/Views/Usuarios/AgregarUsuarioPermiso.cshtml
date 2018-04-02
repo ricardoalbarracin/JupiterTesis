@@ -8,7 +8,7 @@
 	<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
 	<script id="actionTemplate" type="text/x-kendo-template">
 		<div class='text-center'>
-			<button type="button" onclick="UpdRolesUsuario.agregarRole(event)" class="btn btn-primary">Agregar</button>
+			<button type="button" onclick="UpdPermisosUsuario.agregarPermiso(event)" class="btn btn-primary">Agregar</button>
 		</div>
 	</script>
 
@@ -22,25 +22,25 @@
 	<div class="modal-body">
 		<div class="alert alert-info">
 			<strong><i class="fa fa-info-circle" aria-hidden="true"></i></strong>
-			seleccione los roles que se van a agregar al usuario.
+			seleccione los permisos que se van a agregar al usuario.
 		</div>
 
 
 		<div class="card">
 
 			<div class="card-header">
-				Listado de roles del sistema.
+				Listado de permisos del sistema.
 			</div>
 			<div class="card-block">
-				@(Html.Kendo().Grid<Role>()
-										.Name("gridRolesSistema")
+				@(Html.Kendo().Grid<Permiso>()
+										.Name("gridPermisosSistema")
 										.Columns(columns =>
 										{
 											columns.Bound(p => p.Id).Hidden();
 											columns.Bound(p => p.Nombre);
 											columns.Bound(p => p.Sigla);
 											columns.Bound(p => p.Descripcion);
-											columns.Bound(c => c.Id).ClientTemplate("#=AgregarUsuarioRole.actionTemplate(data)#").Title("Acciones").Width(230).Filterable(false);
+											columns.Bound(c => c.Id).ClientTemplate("#=AgregarUsuarioPermiso.actionTemplate(data)#").Title("Acciones").Width(230).Filterable(false);
 										})
 										.Pageable()
 										.Sortable()
@@ -48,7 +48,7 @@
 										.Scrollable()
 										.DataSource(dataSource => dataSource
 											.Ajax()
-											.Read(read => read.Action("GetListRoles", "Roles"))
+											.Read(read => read.Action("GetListPermisos", "Permisos"))
 										)
 				)
 			</div>

@@ -171,5 +171,21 @@ namespace DAOs.SEG
 
             return result;
         }
+
+        public Result UpdUsuario(Usuario usuario)
+        {
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    //connection.BeginTransaction();
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return new Result() { Success = true };
+        }
     }
 }

@@ -16,10 +16,13 @@ namespace WebApp.Areas.SEG.Controllers
     public class UsuariosController : Controller
     {
         IUsuarioService _usuarioService;
-       
-        public UsuariosController(IUsuarioService usuarioService)
+        ISeguridadService _seguridadService;
+
+
+        public UsuariosController(IUsuarioService usuarioService,ISeguridadService seguridadService)
         {
             _usuarioService = usuarioService;
+            _seguridadService = seguridadService;
         }
         public IActionResult Index()
         {
@@ -49,15 +52,21 @@ namespace WebApp.Areas.SEG.Controllers
         [HttpPost]
         public JsonResult Finish(DataSections dataSections)
         {
-            var a = this.ConvertSectionsToModels(dataSections.Sections);
-            return new JsonResult("ok");
+            var secctions = this.ConvertSectionsToModels(dataSections.Sections);
+            var result = _seguridadService.UpdUsuarioRolesPermisos(secctions);
+            return new JsonResult(result);
         }
 
         public IActionResult AgregarUsuarioRole()
         {
             return PartialView();
         }
-        
+
+        public IActionResult AgregarUsuarioPermiso()
+        {
+            return PartialView();
+        }
+
 
 
     }

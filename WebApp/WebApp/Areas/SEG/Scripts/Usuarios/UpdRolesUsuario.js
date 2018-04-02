@@ -36,7 +36,7 @@ var UpdRolesUsuario = function () {
 			UpdRolesUsuario.agregarOperacion(id, 0);
 		},
 		agregarRole: function (e) {
-			debugger
+			
 			e.preventDefault();
 			var grid = $("#gridRolesSistema").data("kendoGrid");
 			
@@ -57,19 +57,19 @@ var UpdRolesUsuario = function () {
 			UpdRolesUsuario.agregarOperacion(role.Id, 1);
 		},
 
-		agregarOperacion: function (id, estado) {
-			var oldEstado = 1;
-			if (estado)
-				oldEstado = 0;
+		agregarOperacion: function (id, activo) {
+			var oldActivo = 1;
+			if (activo)
+				oldActivo = 0;
 			var operaciones = $("#UpdRolesUsuario #GridRoles").data("operaciones");
 			var operacion = operaciones.find(function (element) {
-				return element.Id = id && element.Estado == oldEstado;
+				return element.Id == id && element.Activo == oldActivo;
 			});
 
 			if (!operacion) {
 				operaciones.push({
 					Id: id,
-					Estado: estado
+					Activo: activo
 				});
 			}
 			else {
@@ -77,13 +77,11 @@ var UpdRolesUsuario = function () {
 			}
 		},
 
-		
-
-
 		handleSubmitForm: function () {
 			var _this = this;
 			this.form.submit(function (e) {
 				_this.dataForm = $(this).serializeObject();
+				_this.dataForm["Roles"] = $("#UpdRolesUsuario #GridRoles").data("operaciones");
 				e.preventDefault();
 			});
 		},

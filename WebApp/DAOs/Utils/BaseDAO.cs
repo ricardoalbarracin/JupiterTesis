@@ -8,7 +8,7 @@ namespace DAOs.Utils
     public class BaseDAO
     {
         protected IDapperAdapter _dapperAdapter;
-        public BaseDAO(IDapperAdapter dapper)
+        protected BaseDAO(IDapperAdapter dapper)
         {
             _dapperAdapter = dapper;
         }
