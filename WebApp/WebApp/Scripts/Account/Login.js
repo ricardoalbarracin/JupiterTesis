@@ -24,7 +24,8 @@
 		},
 
 		onSuccess: function (result) {
-			if (result.Success) {
+            if (result.Success) {
+                $(".card-group").addClass("fadeOutDown animated");
 				window.location.href = "/";
 			} else {
 				swal({

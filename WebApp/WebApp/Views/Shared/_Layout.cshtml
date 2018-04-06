@@ -1,27 +1,28 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="shortcut icon" href="img/favicon.png">
-	<title>@ViewData["Title"] - CoreUI.Web</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="img/favicon.png">
+    <title>@ViewData["Title"] - CoreUI.Web</title>
 
-	<link href="~/vendors/css/sweetalert.min.css" rel="stylesheet">
-	<link href="~/vendors/css/font-awesome.min.css" rel="stylesheet">
-	<link href="~/vendors/css/simple-line-icons.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="~/css/kendo.all.min.css" asp-append-version="true" />
+    <link href="~/vendors/css/sweetalert.min.css" rel="stylesheet">
+    <link href="~/vendors/css/animate.min.css" rel="stylesheet">
+    <link href="~/vendors/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/vendors/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/kendo.all.min.css" asp-append-version="true" />
 
-	<script src="~/js/jquery.all.min.js" asp-append-version="true"></script>
-	<script src="~/js/kendo.all.min.js" asp-append-version="true"></script>
-	<script src="~/js/app/PreSite.js"></script>
-
-
-	<link rel="stylesheet" href="~/css/style.css">
-	<link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/js/jquery.all.min.js" asp-append-version="true"></script>
+    <script src="~/js/kendo.all.min.js" asp-append-version="true"></script>
+    <script src="~/js/app/PreSite.js"></script>
 
 
-	@RenderSection("Styles", required: false)
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+
+
+    @RenderSection("Styles", required: false)
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
@@ -31,7 +32,7 @@
 			@Html.Partial("_SidebarNav")
 			<button class="sidebar-minimizer brand-minimizer" type="button"></button>
 		</div>
-		<main class="main">
+		<main class="main fadeIn animated">
 			@RenderBody()
 		</main>
 		@*@Html.Partial("_AsideMenu")*@
