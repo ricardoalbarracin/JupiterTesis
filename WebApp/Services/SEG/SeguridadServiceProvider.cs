@@ -102,5 +102,31 @@ namespace Core.Services.SEG
             }
             return new Result() { Success = true, Message = "se ha actualizado correctacmente el usuario." };
         }
+
+        public Result ResetPassword(Usuario usuario)
+        {
+            var loginBusiness = new LoginBusiness();
+
+            var generarHashRandomPassword = loginBusiness.GenerarHashRandomPassword(usuario.Username);
+            if(!generarHashRandomPassword.Success)
+            {
+                return generarHashRandomPassword;
+            }
+
+            var usuarioById = _usuarioService.UsuarioByUserName(usuario.Username);
+            if (!usuarioById.Success)
+            {
+                return usuarioById;
+            }
+            var usuarioUpd = usuarioById.Data as Usuario;
+            usuarioUpd.Password = generarHashRandomPassword.Data["Hash"];
+            var updUsuario = _usuarioService.UpdUsuario(usuarioUpd);
+            if (!updUsuario.Success)
+            {
+                return updUsuario;
+            }
+            updUsuario.Data = generarHashRandomPassword.Data["Password"];
+            return updUsuario;
+        }
     }
 }

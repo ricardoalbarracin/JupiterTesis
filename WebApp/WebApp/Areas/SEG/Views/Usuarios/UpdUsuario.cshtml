@@ -4,14 +4,62 @@
 }
 
 <section id=@viewName>
-	<form>
-		@Html.HiddenFor(m => m.Id)
-		<div class="form-group">
-			@Html.LabelFor(m => m.Username)
-			@Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-			@Html.ValidationMessageFor(m => m.Username)
-		</div>
-	</form>
+    <form>
+        @Html.HiddenFor(m => m.Id)
+       
+        <div class="form-group row">
+            <div class="col-sm-6">
+                @Html.LabelFor(m => m.PersonaId)
+                @(Html.Kendo().DropDownListFor(m => m.PersonaId)
+                  .HtmlAttributes(new { style = "width: 100%;" })
+                  .DataTextField("Documento")
+                  .DataValueField("Id")
+                  .Filter("contains")
+
+                  .DataSource(source =>
+                  {
+
+                      source.Ajax().Read(read =>
+                      {
+                          read.Action("GetListPersonas", "Personas", new { Area = "ADMIN" });
+                      });
+
+                  })
+                )
+                @Html.ValidationMessageFor(m => m.PersonaId)
+            </div>
+
+            <div class="col-sm-6">
+                @Html.LabelFor(m => m.Username)
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Username)
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-6">
+                @Html.LabelFor(m => m.Activo)
+                @(Html.Kendo().DropDownListFor(m => m.Activo)
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .OptionLabel("Seleccione...")
+                .HtmlAttributes(new { style = "width: 100%;" })
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("GetListEstados", "Usuarios");
+                    });
+                }))
+                @Html.ValidationMessageFor(m => m.Activo)
+            </div>
+            <div class="col-sm-6" style="margin-top: 1.8rem !important;">
+                
+                <button type="button" onclick="UpdUsuario.resetPassword()" class="btn btn-warning">Restablecer contraseña</button>
+            </div> 
+        </div>
+</form>
 </section>
 
 <script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>

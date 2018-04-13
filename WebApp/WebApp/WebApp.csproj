@@ -43,6 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\EmailTemplates\resetPassword.html" />
     <None Include="wwwroot\js\app\Site.min.js" />
     <None Include="wwwroot\js\wizard.js" />
   </ItemGroup>
@@ -54,8 +55,35 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\ADMIN\Data\" />
+    <Folder Include="Areas\ADMIN\Models\" />
+    <Folder Include="Areas\ADMIN\Views\" />
     <Folder Include="Areas\SEG\Data\" />
     <Folder Include="Areas\SEG\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Areas\SEG\Scripts\Usuarios\ActualizarUsuario.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\SEG\Scripts\Usuarios\AgregarUsuarioPermiso.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\SEG\Scripts\Usuarios\AgregarUsuarioRole.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\SEG\Scripts\Usuarios\Index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\SEG\Scripts\Usuarios\UpdPermisosUsuario.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\SEG\Scripts\Usuarios\UpdRolesUsuario.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\SEG\Scripts\Usuarios\UpdUsuario.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

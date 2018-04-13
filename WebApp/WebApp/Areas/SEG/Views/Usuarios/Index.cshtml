@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApp.Models.EmptyClass>
+﻿
 @{
 	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
@@ -22,12 +22,13 @@
 
 		<div class="card">
 
-			<div class="card-header">
-				Listado de usuarios del sistema.
-				<label class="float-right mt-2 mb-0">
-					@Html.ActionLink("Registrar", "InsEstadoAfiliacion", "Afiliaciones", null, new { @class = "btn btn-primary float-right", @data_modal = "" })
-				</label>
-			</div>
+            <div class="card-header">
+                
+                <h1 class="h5 m-0">Listado de usuarios del sistema</h1>
+                <label class="float-right mt-2 mb-0">
+                    @Html.ActionLink("Registrar", "InsEstadoAfiliacion", "Afiliaciones", null, new { @class = "btn btn-primary float-right", @data_modal = "" })
+                </label>
+            </div>
 			<div class="card-block">
 				@(Html.Kendo().Grid<UsuarioIdentity>()
 					.Name("grid")

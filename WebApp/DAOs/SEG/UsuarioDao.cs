@@ -174,16 +174,18 @@ namespace DAOs.SEG
 
         public Result UpdUsuario(Usuario usuario)
         {
+            var result = new Result();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    //connection.BeginTransaction();
+                    connection.Update<Usuario>(usuario);
                 }
             }
             catch (Exception ex)
             {
-                
+                result.Message = "Error actualizando usuario";
+                result.Exception = ex;
             }
             return new Result() { Success = true };
         }

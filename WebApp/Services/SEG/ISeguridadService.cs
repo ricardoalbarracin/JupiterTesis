@@ -10,7 +10,7 @@ namespace Core.Services.SEG
     {
         Result Login(Usuario usuario);
         Result UpdUsuarioRolesPermisos(IDictionary<string, object> dataSections);
-
+        Result ResetPassword(Usuario usuario);
 
     }
 }

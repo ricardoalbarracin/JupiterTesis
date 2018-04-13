@@ -8,6 +8,7 @@ using Core.Services.SEG;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApp.Helpers;
 
 namespace WebApp.Areas.SEG.Controllers
@@ -17,7 +18,6 @@ namespace WebApp.Areas.SEG.Controllers
     {
         IUsuarioService _usuarioService;
         ISeguridadService _seguridadService;
-
 
         public UsuariosController(IUsuarioService usuarioService,ISeguridadService seguridadService)
         {
@@ -39,7 +39,6 @@ namespace WebApp.Areas.SEG.Controllers
             }
             var usuarios = getListUsuarios.Data as List<UsuarioIdentity>;
             return Json(usuarios.ToDataSourceResult(request));
-
         }
 
         public IActionResult ActualizarUsuario(int id)
@@ -67,7 +66,32 @@ namespace WebApp.Areas.SEG.Controllers
             return PartialView();
         }
 
+        [HttpGet]
+        public ActionResult GetListEstados([DataSourceRequest]DataSourceRequest request)
+        {
+            var dictionary = new Dictionary<bool, string>
+            {
+                { true, "Activo" },
+                { false, "Inactivo" }
+            };
 
+            var list = new SelectList(dictionary, "Key", "Value");
+
+            return Json(list);
+        }
+
+        [HttpPost]
+        public JsonResult ResetPassword(Usuario usuario)
+        {
+            var result = new Result();
+            if (!ModelState.IsValid)
+            {
+                result.Message = "Modelo invalido";
+                return Json(result);
+            }
+            result = _seguridadService.ResetPassword(usuario);
+            return Json(result);
+        }
 
     }
 }

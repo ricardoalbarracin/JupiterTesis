@@ -36,6 +36,38 @@
 
 		handleValidator: function () {
 			this.form.validate();
-		}
+        },
+
+        resetPassword: function () {
+            var data = $('#UpdUsuario').find("form").serializeArray();
+            swal({
+                title: "Alerta",
+                text: "¿Esta seguro de restablecer la contraseña?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Eliminar"
+            }, function () {
+                $.ajax({
+                    method: "POST",
+                    url: "/SEG/Usuarios/ResetPassword/",
+                    data: data,
+                })
+                    .done(function (result) {
+                        debugger
+                        if (result.Success) {
+                            swal("Correcto", result.Message, "success");
+                            grid.dataSource.read();
+
+                        } else {
+                            swal({
+                                title: "Error",
+                                text: result.Message,
+                                type: "error"
+                            });
+                        }
+                    });
+            });
+        }
 	}
 }();

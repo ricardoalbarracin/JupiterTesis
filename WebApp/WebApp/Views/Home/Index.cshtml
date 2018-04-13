@@ -17,34 +17,7 @@
 		<h1><i class="fa fa-gear page-header-icon"></i>&nbsp;&nbsp;Configuración del porcentaje de PPCD</h1>
 	</div>
 	<div class="container-fluid">
-		<div class="card">
-			<div class="card-header">
-				<h1 class="h5 m-0">Layout options</h1>
-			</div>
-			<div class="card-block">
-				<a class='btn btn-primary' data-modal="modal-lg" href='@Url.Action("ActualizarPersona", "Home")'>Editar</a>
-
-				@(Html.Kendo().Grid<WebApp.Models.EmptyClass>()
-												.Name("Grid")
-												.Columns(columns =>
-												{
-													columns.Bound(p => p.ProductName).Title("Product Name");
-													columns.Bound(p => p.UnitPrice).Title("sdsdsds");
-													columns.Bound(p => p.ProductID).Title("sssss");
-
-												})
-												.Pageable()
-												.Sortable()
-												.Filterable(ftb => ftb.Mode(GridFilterMode.Row))
-												.Scrollable()
-
-												.DataSource(dataSource => dataSource
-													.Ajax()
-													.Read(read => read.Action("CustomAjaxBinding_Read", "Home"))
-												)
-				)
-			</div>
-		</div>
+		
 
 	</div>
 </div>

@@ -9,6 +9,5 @@ namespace Core.Services.ADMIN
     public interface IPersonaService
     {
         Result GetListPersonas();
-        
     }
 }

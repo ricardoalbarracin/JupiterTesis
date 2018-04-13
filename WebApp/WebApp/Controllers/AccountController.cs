@@ -16,7 +16,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebApp.Models;
 using WebApp.Models.AccountViewModels;
-using WebApp.Services;
 using WebApp.Utils;
 using WebApp.Helpers;
 
@@ -28,8 +27,6 @@ namespace WebApp.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-
-
         ISeguridadService _seguridadService;
         public AccountController(ISeguridadService seguridadService)
         {
@@ -49,7 +46,7 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task< JsonResult> Login(Usuario usuario)
+        public async Task<JsonResult> Login(Usuario usuario)
         {
             var result = new Result();
             if (!ModelState.IsValid)
@@ -76,5 +73,8 @@ namespace WebApp.Controllers
             result.Success = true;
             return Json(result);
         }
+
+        
+
     }
 }

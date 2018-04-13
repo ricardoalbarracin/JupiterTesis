@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebApp.Data;
 using WebApp.Models;
-using WebApp.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +18,8 @@ using Core.Services.Utils;
 using DAOs;
 using Core.Services.SEG;
 using DAOs.SEG;
+using Core.Models.Utils;
+using DAOs.Utils;
 
 namespace WebApp
 {
@@ -39,7 +40,6 @@ namespace WebApp
                 .Build();
 
             // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
             services.AddKendo();
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession();
@@ -68,10 +68,8 @@ namespace WebApp
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IDapperAdapter, DapperAdapter>();
-            
-
-           
-
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.AddTransient<IEmailSender, AuthMessageSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
