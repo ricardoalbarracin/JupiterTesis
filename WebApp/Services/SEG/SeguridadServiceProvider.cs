@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Transactions;
+using AutoMapper;
 using Core.Business.SEG;
 using Core.Models.SEG;
 using Core.Models.Utils;
+using Core.Services.Utils;
 
 namespace Core.Services.SEG
 {
@@ -13,11 +15,16 @@ namespace Core.Services.SEG
         IUsuarioService _usuarioService;
         IRoleService _roleService;
         IPermisoService _permisoService;
-        public SeguridadServiceProvider(IUsuarioService usuarioService,IRoleService roleService, IPermisoService permisoService)
+        IEmailSender _emailSender;
+        public SeguridadServiceProvider(IUsuarioService usuarioService,
+                                        IRoleService roleService, 
+                                        IPermisoService permisoService,
+                                        IEmailSender emailSender)
         {
             _usuarioService = usuarioService;
             _roleService = roleService;
             _permisoService = permisoService;
+            _emailSender = emailSender;
         }
 
         public Result Login(Usuario usuario)
@@ -50,8 +57,17 @@ namespace Core.Services.SEG
             using (var transaction = new TransactionScope())
             {
                 var usuario = dataSections["UpdUsuario"] as Usuario;
+                var usuarioById = _usuarioService.UsuarioById(usuario.Id) ;
+                if (!usuarioById.Success)
+                {
+                    return usuarioById;
+                }
+                var usuarioDb = usuarioById.Data as UsuarioIdentity;
+
+                usuario.Password = usuarioDb.Password;
                 var updUsuario = _usuarioService.UpdUsuario(usuario);
-                if(!updUsuario.Success)
+
+                if (!updUsuario.Success)
                 {
                     return updUsuario;
                 }
@@ -113,19 +129,39 @@ namespace Core.Services.SEG
                 return generarHashRandomPassword;
             }
 
-            var usuarioById = _usuarioService.UsuarioByUserName(usuario.Username);
+            var usuarioById = _usuarioService.UsuarioById(usuario.Id);
             if (!usuarioById.Success)
             {
                 return usuarioById;
             }
-            var usuarioUpd = usuarioById.Data as Usuario;
+            var usuarioIdentity = usuarioById.Data as UsuarioIdentity;
+
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<UsuarioIdentity, Usuario>();
+            });
+
+            IMapper mapper = config.CreateMapper();
+
+            var usuarioUpd = mapper.Map<UsuarioIdentity, Usuario>(usuarioIdentity); 
+            
             usuarioUpd.Password = generarHashRandomPassword.Data["Hash"];
             var updUsuario = _usuarioService.UpdUsuario(usuarioUpd);
             if (!updUsuario.Success)
             {
                 return updUsuario;
             }
-            updUsuario.Data = generarHashRandomPassword.Data["Password"];
+
+            var sendEmailResetPassword = _emailSender.SendEmailResetPassword(usuarioIdentity.Correo, usuarioUpd.Username,usuarioUpd.Password);
+
+            if (!sendEmailResetPassword.Success)
+            {
+                sendEmailResetPassword.Success = true;
+                sendEmailResetPassword.Data = "warning";
+                sendEmailResetPassword.Message = $"Se ha generado y actualizado la contraseña a : <b>{generarHashRandomPassword.Data["Password"]}</b>.</br> Se ha generado un error al intentar enviar correo electronico.";
+                return sendEmailResetPassword;
+            }
+            sendEmailResetPassword.Data = "success";
+            updUsuario.Message = $"Se ha generado y actualizado la contraseña a : <b>{generarHashRandomPassword.Data["Password"]}</b>.";
             return updUsuario;
         }
     }

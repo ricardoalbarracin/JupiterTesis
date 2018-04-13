@@ -28,7 +28,9 @@ namespace Core.Models.SEG
         public string Password { get; set; }
         
         public bool Activo { get; set; }
-        
+
+        public int? PersonaId { get; set; }
+
         public string Documento { get; set; }
         
         public string PrimerNombre { get; set; }
@@ -45,5 +47,6 @@ namespace Core.Models.SEG
         
         public IList<Role> Roles { get; set; }
 
+        public string Correo { get; set; }
     }
 }

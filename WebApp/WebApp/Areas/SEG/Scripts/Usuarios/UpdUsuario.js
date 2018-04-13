@@ -16,7 +16,7 @@
 		// ---------------------------------
 
 		init: function (container, modelType, sectionId) {
-			
+
 			this.sectionId = sectionId;
 			this.model = modelType;
 			this.container = container;
@@ -36,38 +36,46 @@
 
 		handleValidator: function () {
 			this.form.validate();
-        },
+		},
 
-        resetPassword: function () {
-            var data = $('#UpdUsuario').find("form").serializeArray();
-            swal({
-                title: "Alerta",
-                text: "¿Esta seguro de restablecer la contraseña?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonClass: "btn-danger",
-                confirmButtonText: "Eliminar"
-            }, function () {
-                $.ajax({
-                    method: "POST",
-                    url: "/SEG/Usuarios/ResetPassword/",
-                    data: data,
-                })
-                    .done(function (result) {
-                        debugger
-                        if (result.Success) {
-                            swal("Correcto", result.Message, "success");
-                            grid.dataSource.read();
+		resetPassword: function () {
+			swal({
+				title: "Alerta",
+				text: "¿Esta seguro de restablecer la contraseña?",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonClass: "btn-warning",
+				confirmButtonText: "Restablecer.",
+				closeOnConfirm: false,
+				showLoaderOnConfirm: true
+			},
+				function (isConfirm) {
+					if (isConfirm) {
+						var data = $('#UpdUsuario').find("form").serializeArray();
+						$.ajax({
+							method: "POST",
+							url: "/SEG/Usuarios/ResetPassword/",
+							data: data,
+						})
+							.done(function (result) {
+								if (result.Success) {
+									swal({
+										title: "<i>Correcto</i>",
+										text: result.Message,
+										type: result.Data,
+										html: true
+									});
 
-                        } else {
-                            swal({
-                                title: "Error",
-                                text: result.Message,
-                                type: "error"
-                            });
-                        }
-                    });
-            });
-        }
+								} else {
+									swal({
+										title: "Error",
+										text: result.Message,
+										type: "error"
+									});
+								}
+							});
+					}
+				});
+		}
 	}
 }();

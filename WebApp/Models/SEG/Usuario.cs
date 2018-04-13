@@ -16,7 +16,7 @@ namespace Core.Models.SEG
         [MaxLength(500, ErrorMessage = "El campo usuario no puede tener mas de 500 caracteres.")]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "El campo contraseña es obligatorio.")]
+       
         [MaxLength(500, ErrorMessage = "El campo contraseña no puede tener mas de 500 caracteres.")]
         public string Password { get; set; }
 

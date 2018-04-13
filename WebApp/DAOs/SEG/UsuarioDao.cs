@@ -62,11 +62,13 @@ namespace DAOs.SEG
                 {
                     // Obtiene informacion basica del usuario
                      var sql = @"SELECT u.Id,
+                                   p.Id as PersonaId,
                                    p.PrimerNombre, 
                                    p.SegundoNombre, 
                                    p.FechaNacimiento, 
                                    p.PrimerApellido, 
                                    p.SegundoApellido,
+                                   p.Correo,
                                    u.Username, 
                                    u.Password
                             FROM ADMIN.Personas p 
