@@ -48,6 +48,12 @@ namespace WebApp.Areas.SEG.Controllers
             return View(result.Data);
         }
 
+        public IActionResult CrearUsuario()
+        {
+            ViewBag.Container = ControllerContext.RouteData.Values["action"].ToString();
+            return View();
+        }
+
         [HttpPost]
         public JsonResult Finish(DataSections dataSections)
         {
@@ -56,13 +62,15 @@ namespace WebApp.Areas.SEG.Controllers
             return new JsonResult(result);
         }
 
-        public IActionResult AgregarUsuarioRole()
+        public IActionResult AgregarUsuarioRole(string operacion)
         {
+            ViewBag.Operacion = operacion;
             return PartialView();
         }
 
-        public IActionResult AgregarUsuarioPermiso()
+        public IActionResult AgregarUsuarioPermiso(string operacion)
         {
+            ViewBag.Operacion = operacion;
             return PartialView();
         }
 

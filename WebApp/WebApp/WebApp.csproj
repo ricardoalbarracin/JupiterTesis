@@ -63,6 +63,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Areas\SEG\Scripts\Usuarios\CrearUsuario.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Areas\SEG\Scripts\Usuarios\ActualizarUsuario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -75,10 +78,19 @@
     <None Update="Areas\SEG\Scripts\Usuarios\Index.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Areas\SEG\Scripts\Usuarios\InsPermisosUsuario.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Areas\SEG\Scripts\Usuarios\UpdPermisosUsuario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Areas\SEG\Scripts\Usuarios\InsRolesUsuario.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Areas\SEG\Scripts\Usuarios\UpdRolesUsuario.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\SEG\Scripts\Usuarios\InsUsuario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Areas\SEG\Scripts\Usuarios\UpdUsuario.js">

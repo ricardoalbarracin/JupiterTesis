@@ -12,13 +12,6 @@
 
 
 	<!-- Plantilla que se utilizará en la columna de acciones de la grilla -->
-	<script id="actionTemplate" type="text/x-kendo-template">
-		<div class='text-center'>
-			<a class='btn btn-primary' href='@Url.Action("ActualizarUsuario", "Usuarios", new { area = "SEG" })/#=data.Id#'>Editar</a>
-			<button type="button" onclick="Index.eliminar(event)" class="btn btn-danger">Eliminar</button>
-		</div>
-	</script>
-
 	<div class="page-header">
 		<h3><i class="fa fa-gear page-header-icon"></i>&nbsp;&nbsp;Actualizar usuarios</h3>
 	</div>
@@ -37,7 +30,7 @@
 								<strong>Datos de usuario</strong>
 							</div>
 							<div class="card-body">
-								@Html.Partial("UpdUsuario", Model.Usuario)
+								@Html.Partial("InsUsuario", new Usuario())
 							</div>
 
 							<div class="card-footer" style="display: flex; justify-content: flex-end;">
@@ -50,11 +43,11 @@
 							<div class="card-header">
 								<strong>Roles de usuario</strong>
 								<label class="float-right mt-2 mb-0">
-									@Html.ActionLink("Nuevo", "AgregarUsuarioRole", "Usuarios", new { operacion= "Upd" }, new { @class = "btn btn-primary float-right", @data_modal = "modal-lg" })
+									@Html.ActionLink("Nuevo", "AgregarUsuarioRole", "Usuarios", new { operacion = "Ins" }, new { @class = "btn btn-primary float-right", @data_modal = "modal-lg" })
 								</label>
 							</div>
 							<div class="card-body">
-								@Html.Partial("UpdRolesUsuario", new Roles(Model.Roles))
+								@Html.Partial("InsRolesUsuario", new Roles())
 							</div>
 
 							<div class="card-footer" style="display: flex; justify-content: flex-end;">
@@ -68,11 +61,11 @@
 							<div class="card-header">
 								<strong>Permisos de usuario</strong>
 								<label class="float-right mt-2 mb-0">
-									@Html.ActionLink("Nuevo", "AgregarUsuarioPermiso", "Usuarios", new { operacion = "Upd" }, new { @class = "btn btn-primary float-right", @data_modal = "modal-lg" })
+									@Html.ActionLink("Nuevo", "AgregarUsuarioPermiso", "Usuarios", new { operacion = "Ins" }, new { @class = "btn btn-primary float-right", @data_modal = "modal-lg" })
 								</label>
 							</div>
 							<div class="card-body">
-								@Html.Partial("UpdPermisosUsuario", new Permisos(Model.Permisos))
+								@Html.Partial("InsPermisosUsuario", new Permisos())
 
 							</div>
 
@@ -80,10 +73,10 @@
 								<button class="btn btn-secondary prev-btn" type="button">Atras</button>
 									<a asp-action="Finish"  asp-controller="Usuarios"
 									   data-ajax="true" 
-									  data-ajax-begin="ActualizarUsuario.onFinish_Begin" 
-									  data-ajax-success="ActualizarUsuario.onFinish_Success" 
+									  data-ajax-begin="CrearUsuario.onFinish_Begin" 
+									  data-ajax-success="CrearUsuario.onFinish_Success" 
 									  data-ajax-method="POST"
-									  class="btn btn-success">Actualizar</a>
+									  class="btn btn-success">Crear</a>
 							</div>
 						</div>
 					</div>

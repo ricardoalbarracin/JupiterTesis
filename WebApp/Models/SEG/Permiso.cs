@@ -27,6 +27,10 @@ namespace Core.Models.SEG
 
     public class Permisos
     {
+        public Permisos()
+        {
+            ListPermisos = new List<Permiso>();
+        }
         public Permisos(List<Permiso> permisos)
         {
             ListPermisos = permisos;

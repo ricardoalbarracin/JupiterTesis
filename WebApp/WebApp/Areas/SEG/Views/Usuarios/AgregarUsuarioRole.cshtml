@@ -8,7 +8,7 @@
 	<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
 	<script id="actionTemplate" type="text/x-kendo-template">
 		<div class='text-center'>
-			<button type="button" onclick="UpdRolesUsuario.agregarRole(event)" class="btn btn-primary">Agregar</button>
+			<button type="button" onclick=@string.Format("{0}RolesUsuario.agregarRole(event)", @ViewBag.Operacion) class="btn btn-primary">Agregar</button>
 		</div>
 	</script>
 

@@ -26,6 +26,11 @@ namespace Core.Models.SEG
 
     public class Roles
     {
+        public Roles()
+        {
+            ListRoles = new List<Role>();
+        }
+
         public Roles(List<Role> roles)
         {
             ListRoles = roles;
