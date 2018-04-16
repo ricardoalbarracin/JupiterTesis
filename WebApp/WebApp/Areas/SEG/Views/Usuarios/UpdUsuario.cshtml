@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 @Html.LabelFor(m => m.PersonaId)
                 @(Html.Kendo().DropDownListFor(m => m.PersonaId)
-                  .HtmlAttributes(new { style = "width: 100%;" })
+                  .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
                   .DataTextField("Documento")
                   .DataValueField("Id")
                   .OptionLabel("Seleccione...")
@@ -44,8 +44,7 @@
                 @(Html.Kendo().DropDownListFor(m => m.Activo)
                 .DataTextField("Text")
                 .DataValueField("Value")
-                .OptionLabel("Seleccione...")
-                .HtmlAttributes(new { style = "width: 100%;" })
+                .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
 
                 .DataSource(source =>
                 {
