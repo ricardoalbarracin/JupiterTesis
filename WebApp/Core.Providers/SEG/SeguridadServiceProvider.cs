@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Transactions;
 using AutoMapper;
-using Core.Business.SEG;
 using Core.Models.SEG;
 using Core.Models.Utils;
+using Core.Services.SEG;
 using Core.Services.Utils;
+using Microsoft.AspNetCore.Identity;
 
-namespace Core.Services.SEG
+namespace Core.Providers.SEG
 {
     public class SeguridadServiceProvider : ISeguridadService
     {
-        IUsuarioService _usuarioService;
-        IRoleService _roleService;
-        IPermisoService _permisoService;
+        IUsuarioDAOService _usuarioService;
+        IRoleDAOService _roleService;
+        IPermisoDAOService _permisoService;
         IEmailSender _emailSender;
-        public SeguridadServiceProvider(IUsuarioService usuarioService,
-                                        IRoleService roleService, 
-                                        IPermisoService permisoService,
+        public SeguridadServiceProvider(IUsuarioDAOService usuarioService,
+                                        IRoleDAOService roleService, 
+                                        IPermisoDAOService permisoService,
                                         IEmailSender emailSender)
         {
             _usuarioService = usuarioService;
@@ -36,8 +38,8 @@ namespace Core.Services.SEG
             }
 
             var usuarioDB = getUsuarioByUserName.Data as Usuario;
-            var loginBusiness = new LoginBusiness();
-            var validarPassword = loginBusiness.ValidarPassword(usuarioDB,usuario.Password);
+           
+            var validarPassword = ValidarPassword(usuarioDB,usuario.Password);
             if (!validarPassword.Success)
             {
                 return  validarPassword;
@@ -125,8 +127,8 @@ namespace Core.Services.SEG
             {
                 var usuario = dataSections["InsUsuario"] as Usuario;
 
-                var loginBusiness = new LoginBusiness();
-                var generarHashRandomPassword = loginBusiness.GenerarHashRandomPassword(usuario.Username);
+               
+                var generarHashRandomPassword = GenerarHashRandomPassword(usuario.Username);
                 if (!generarHashRandomPassword.Success)
                 {
                     return generarHashRandomPassword;
@@ -190,9 +192,7 @@ namespace Core.Services.SEG
 
         public Result ResetPassword(Usuario usuario)
         {
-            var loginBusiness = new LoginBusiness();
-
-            var generarHashRandomPassword = loginBusiness.GenerarHashRandomPassword(usuario.Username);
+            var generarHashRandomPassword = GenerarHashRandomPassword(usuario.Username);
             if(!generarHashRandomPassword.Success)
             {
                 return generarHashRandomPassword;
@@ -233,5 +233,80 @@ namespace Core.Services.SEG
             updUsuario.Message = $"Se ha generado y actualizado la contraseña a : <b>{generarHashRandomPassword.Data["Password"]}</b>.";
             return updUsuario;
         }
+
+        public Result ValidarPassword(Usuario usuario, string password)
+        {
+            var result = new Result();
+            PasswordHasher<string> pw = new PasswordHasher<string>();
+            var resultVerify = pw.VerifyHashedPassword(usuario.Username, usuario.Password, password);
+            if (resultVerify == PasswordVerificationResult.Failed)
+            {
+                result.Message = "Verifique sus credenciales de acceso previamente";
+                return result;
+            }
+            result.Success = true;
+            return result;
+        }
+
+        public Result GenerarHashRandomPassword(string Username)
+        {
+            var result = new Result();
+            try
+            {
+                var password = GenerateRandomPassword();
+                PasswordHasher<string> pw = new PasswordHasher<string>();
+                var data = new Dictionary<string, string>();
+                data.Add("Password", password);
+                data.Add("Hash", pw.HashPassword(Username, password));
+                result.Data = data;
+                result.Success = true;
+            }
+            catch (System.Exception ex)
+            {
+                result.Exception = ex;
+            }
+            return result;
+        }
+
+        public string GenerateRandomPassword()
+        {
+            var opts = new PasswordOptions()
+            {
+                RequiredLength = 8,
+                RequiredUniqueChars = 4,
+                RequireDigit = true,
+                RequireLowercase = false,
+                RequireNonAlphanumeric = false,
+                RequireUppercase = true
+            };
+
+            string[] randomChars = new[] {
+                "ABCDEFGHJKLMNOPQRSTUVWXYZ",    // uppercase 
+                "0123456789"                   // digits
+                
+            };
+
+            Random rand = new Random(Environment.TickCount);
+            List<char> chars = new List<char>();
+
+            if (opts.RequireUppercase)
+                chars.Insert(rand.Next(0, chars.Count),
+                    randomChars[0][rand.Next(0, randomChars[0].Length)]);
+            if (opts.RequireDigit)
+                chars.Insert(rand.Next(0, chars.Count),
+                    randomChars[1][rand.Next(0, randomChars[1].Length)]);
+
+            for (int i = chars.Count; i < opts.RequiredLength
+                || chars.Distinct().Count() < opts.RequiredUniqueChars; i++)
+            {
+                string rcs = randomChars[rand.Next(0, randomChars.Length)];
+                chars.Insert(rand.Next(0, chars.Count),
+                    rcs[rand.Next(0, rcs.Length)]);
+            }
+
+            return new string(chars.ToArray());
+        }
+
+
     }
 }

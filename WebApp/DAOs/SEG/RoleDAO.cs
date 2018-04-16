@@ -12,7 +12,7 @@ using System.Text;
 
 namespace DAOs.SEG
 {
-    public class RoleDAO : BaseDAO, IRoleService
+    public class RoleDAO : BaseDAO, IRoleDAOService
     {
         public RoleDAO(IDapperAdapter dapper) : base(dapper)
         {

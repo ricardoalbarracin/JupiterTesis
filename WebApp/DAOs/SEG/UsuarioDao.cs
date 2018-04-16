@@ -6,17 +6,14 @@ using DAOs.Utils;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace DAOs.SEG
 {
-    public class UsuarioDao : BaseDAO, IUsuarioService
+    public class UsuarioDao : BaseDAO, IUsuarioDAOService
     {
-        IRoleService _roleService;
-        IPermisoService _permisoService;
-        public UsuarioDao(IDapperAdapter dapper,IRoleService roleService, IPermisoService permisoService):base(dapper)
+        IRoleDAOService _roleService;
+        IPermisoDAOService _permisoService;
+        public UsuarioDao(IDapperAdapter dapper,IRoleDAOService roleService, IPermisoDAOService permisoService):base(dapper)
         {
             _roleService = roleService;
             _permisoService = permisoService;
@@ -209,5 +206,6 @@ namespace DAOs.SEG
             }
             return new Result() { Success = true };
         }
+
     }
 }

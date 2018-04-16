@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Core.Services.SEG
 {
-    public interface IPermisoService
+    public interface IPermisoDAOService
     {
         Result ListPermisos();
 

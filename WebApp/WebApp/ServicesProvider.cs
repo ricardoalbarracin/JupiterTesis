@@ -1,12 +1,9 @@
-﻿using Core.Services.ADMIN;
+﻿using Core.Providers.SEG;
+using Core.Services.ADMIN;
 using Core.Services.SEG;
 using DAOs.ADMIN;
 using DAOs.SEG;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApp
 {
@@ -14,10 +11,10 @@ namespace WebApp
     {
         public void ConfigureProviders(IServiceCollection services)
         {
-            services.AddScoped<IUsuarioService, UsuarioDao>();
+            services.AddScoped<IUsuarioDAOService, UsuarioDao>();
             services.AddScoped<ISeguridadService, SeguridadServiceProvider>();
-            services.AddScoped<IRoleService, RoleDAO>();
-            services.AddScoped<IPermisoService, PermisoDAO>();
+            services.AddScoped<IRoleDAOService, RoleDAO>();
+            services.AddScoped<IPermisoDAOService, PermisoDAO>();
             services.AddScoped<IPersonaService, PersonaDAO>();
         }
     }

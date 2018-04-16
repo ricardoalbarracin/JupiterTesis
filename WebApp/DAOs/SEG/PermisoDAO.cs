@@ -12,7 +12,7 @@ using System.Text;
 
 namespace DAOs.SEG
 {
-    public class PermisoDAO : BaseDAO, IPermisoService
+    public class PermisoDAO : BaseDAO, IPermisoDAOService
     {
         public PermisoDAO(IDapperAdapter dapper) : base(dapper)
         {

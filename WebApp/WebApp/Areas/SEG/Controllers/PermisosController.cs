@@ -13,9 +13,9 @@ namespace WebApp.Areas.SEG.Controllers
     [Area("SEG")]
     public class PermisosController : Controller
     {
-        IPermisoService _permisoService;
+        IPermisoDAOService _permisoService;
 
-        public PermisosController (IUsuarioService usuarioService, IPermisoService permisoService )
+        public PermisosController (IUsuarioDAOService usuarioService, IPermisoDAOService permisoService )
         {
             _permisoService = permisoService;
            

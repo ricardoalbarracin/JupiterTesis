@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Core.Services.SEG
 {
-    public interface IRoleService
+    public interface IRoleDAOService
     {
         Result ListRoles();
 

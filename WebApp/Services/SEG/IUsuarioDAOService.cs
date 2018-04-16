@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Core.Services.SEG
 {
-    public interface IUsuarioService
+    public interface IUsuarioDAOService
     {
         Result UsuarioByUserName(string userName);
 
@@ -19,5 +19,6 @@ namespace Core.Services.SEG
         Result UpdUsuario(Usuario usuario);
 
         Result InsUsuario(Usuario usuario);
+
     }
 }
