@@ -106,9 +106,8 @@
 			}
 		});
 		$(".next-btn").on("click", function () {
-
-			// Navigate next
-			$('#wizard').wizard("next");
+            if ($("#UpdUsuario form").valid())
+                $('#wizard').wizard("next");
 			return true;
 		});
 		$(".prev-btn").on("click", function () {

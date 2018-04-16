@@ -9,7 +9,7 @@ namespace Core.Models.SEG
     [Table("SEG.Usuarios")]
     public class Usuario
     {
-        [Required(ErrorMessage = "El campo Id es obligatorio.")]
+        
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo usuario es obligatorio.")]
@@ -20,7 +20,8 @@ namespace Core.Models.SEG
         [MaxLength(500, ErrorMessage = "El campo contraseña no puede tener mas de 500 caracteres.")]
         public string Password { get; set; }
 
-        public int? PersonaId { get; set; }
+        [Required(ErrorMessage = "El campo persona es obligatorio.")]
+        public int PersonaId { get; set; }
 
         public bool? Activo { get; set; }
 

@@ -9,7 +9,7 @@ namespace Core.Models.SEG
     [Table("SEG.UsuariosRoles")]
     public class UsuarioRole
     {
-        public UsuarioRole(int usuarioId, int roleId)
+        public UsuarioRole(int? usuarioId, int roleId)
         {
             UsuarioId = usuarioId;
             RoleId = roleId;

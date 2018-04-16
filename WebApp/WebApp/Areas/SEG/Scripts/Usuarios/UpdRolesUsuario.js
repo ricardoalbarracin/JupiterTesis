@@ -81,7 +81,7 @@ var UpdRolesUsuario = function () {
 			var _this = this;
 			this.form.submit(function (e) {
 				_this.dataForm = $(this).serializeObject();
-				_this.dataForm["Roles"] = $("#UpdRolesUsuario #GridRoles").data("operaciones");
+				_this.dataForm["ListRoles"] = $("#UpdRolesUsuario #GridRoles").data("operaciones");
 				e.preventDefault();
 			});
 		},

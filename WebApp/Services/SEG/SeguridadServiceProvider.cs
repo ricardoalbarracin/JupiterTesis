@@ -119,6 +119,75 @@ namespace Core.Services.SEG
             return new Result() { Success = true, Message = "se ha actualizado correctacmente el usuario." };
         }
 
+        public Result InsUsuarioRolesPermisos(IDictionary<string, object> dataSections)
+        {
+            using (var transaction = new TransactionScope())
+            {
+                var usuario = dataSections["InsUsuario"] as Usuario;
+
+                var loginBusiness = new LoginBusiness();
+                var generarHashRandomPassword = loginBusiness.GenerarHashRandomPassword(usuario.Username);
+                if (!generarHashRandomPassword.Success)
+                {
+                    return generarHashRandomPassword;
+                }
+
+
+                usuario.Password = generarHashRandomPassword.Data["Hash"];
+                var insUsuario = _usuarioService.InsUsuario(usuario);
+
+                if (!insUsuario.Success)
+                {
+                    return insUsuario;
+                }
+
+                var listRoles = dataSections["InsRolesUsuario"] as Roles;
+                foreach (var role in listRoles.ListRoles)
+                {
+                    if (role.Activo == 1)
+                    {
+                        var insUsuarioRole = _roleService.InsUsuarioRole(new UsuarioRole(usuario.Id, role.Id));
+                        if (!insUsuarioRole.Success)
+                        {
+                            return insUsuarioRole;
+                        }
+                    }
+                    else
+                    {
+                        var delUsuarioRole = _roleService.DelUsuarioRole(new UsuarioRole(usuario.Id, role.Id));
+                        if (!delUsuarioRole.Success)
+                        {
+                            return delUsuarioRole;
+                        }
+                    }
+                }
+
+                var ListPermisos = dataSections["InsPermisosUsuario"] as Permisos;
+                foreach (var permiso in ListPermisos.ListPermisos)
+                {
+                    if (permiso.Activo == 1)
+                    {
+                        var insUsuarioPermiso = _permisoService.InsUsuarioPermiso(new UsuarioPermiso(usuario.Id, permiso.Id));
+                        if (!insUsuarioPermiso.Success)
+                        {
+                            return insUsuarioPermiso;
+                        }
+                    }
+                    else
+                    {
+                        var delUsuarioPermiso = _permisoService.DelUsuarioPermiso(new UsuarioPermiso(usuario.Id, permiso.Id));
+                        if (!delUsuarioPermiso.Success)
+                        {
+                            return delUsuarioPermiso;
+                        }
+                    }
+                }
+
+                transaction.Complete();
+            }
+            return new Result() { Success = true, Message = "se ha creado correctacmente el usuario." };
+        }
+
         public Result ResetPassword(Usuario usuario)
         {
             var loginBusiness = new LoginBusiness();

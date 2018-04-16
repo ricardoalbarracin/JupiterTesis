@@ -77,9 +77,9 @@
 
 		handleSubmitForm: function () {
 			var _this = this;
-			this.form.submit(function (e) {
+            this.form.submit(function (e) {
 				_this.dataForm = $(this).serializeObject();
-				_this.dataForm["Roles"] = $("#InsRolesUsuario #GridRoles").data("operaciones");
+				_this.dataForm["ListRoles"] = $("#InsRolesUsuario #GridRoles").data("operaciones");
 				e.preventDefault();
 			});
 		},

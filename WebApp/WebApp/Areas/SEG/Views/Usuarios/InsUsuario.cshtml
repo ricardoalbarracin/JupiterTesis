@@ -1,30 +1,29 @@
 ﻿@model Usuario
 @{
-	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+    var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
 
 <section id=@viewName>
     <form>
-        @Html.HiddenFor(m => m.Id)
-       
         <div class="form-group row">
             <div class="col-sm-6">
                 @Html.LabelFor(m => m.PersonaId)
                 @(Html.Kendo().DropDownListFor(m => m.PersonaId)
-                  .HtmlAttributes(new { style = "width: 100%;" })
-                  .DataTextField("Documento")
-                  .DataValueField("Id")
-                  .Filter("contains")
+                          .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
+                          .DataTextField("Documento")
+                          .DataValueField("Id")
+                          .OptionLabel("Seleccione...")
+                          .Filter("contains")
 
-                  .DataSource(source =>
-                  {
+                          .DataSource(source =>
+                          {
 
-                      source.Ajax().Read(read =>
-                      {
-                          read.Action("GetListPersonas", "Personas", new { Area = "ADMIN" });
-                      });
+                              source.Ajax().Read(read =>
+                              {
+                                  read.Action("GetListPersonas", "Personas", new { Area = "ADMIN" });
+                              });
 
-                  })
+                          })
                 )
                 @Html.ValidationMessageFor(m => m.PersonaId)
             </div>
@@ -41,25 +40,27 @@
             <div class="col-sm-6">
                 @Html.LabelFor(m => m.Activo)
                 @(Html.Kendo().DropDownListFor(m => m.Activo)
-                .DataTextField("Text")
-                .DataValueField("Value")
-                .OptionLabel("Seleccione...")
-                .HtmlAttributes(new { style = "width: 100%;" })
-                .DataSource(source =>
-                {
-                    source.Read(read =>
-                    {
-                        read.Action("GetListEstados", "Usuarios");
-                    });
-                }))
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("GetListEstados", "Usuarios");
+                            });
+                        }))
                 @Html.ValidationMessageFor(m => m.Activo)
             </div>
         </div>
-</form>
+    </form>
 </section>
 
 <script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
 <script>
+   
+    
+    
 	$(function () {
             @(viewName).init(eval("@ViewBag.Container"),"@Model.GetType().ToString()","@viewName" );
         });

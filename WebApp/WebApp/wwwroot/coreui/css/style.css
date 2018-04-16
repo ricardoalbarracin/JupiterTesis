@@ -1932,6 +1932,31 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   .custom-select.input-validation-error ~ .invalid-tooltip {
     display: block; }
 
+
+.was-validated .form-control:invalid, .form-control.input-validation-error2, .was-validated
+.custom-select:invalid,
+.custom-select.input-validation-error {
+    border-color: #f86c6b;
+}
+
+    .was-validated .form-control:invalid:focus, .form-control.input-validation-error2:focus, .was-validated
+    .custom-select:invalid:focus,
+    .custom-select.input-validation-error:focus {
+        border-color: #f86c6b;
+        box-shadow: 0 0 0 0.2rem rgba(248, 108, 107, 0.25);
+    }
+
+    .was-validated .form-control:invalid ~ .field-validation-error,
+    .was-validated .form-control:invalid ~ .invalid-tooltip, .form-control.input-validation-error2 ~ .field-validation-error,
+    .form-control.input-validation-error2 ~ .invalid-tooltip, .was-validated
+    .custom-select:invalid ~ .field-validation-error,
+    .was-validated
+    .custom-select:invalid ~ .invalid-tooltip,
+    .custom-select.input-validation-error ~ .field-validation-error,
+    .custom-select.input-validation-error ~ .invalid-tooltip {
+        display: block;
+    }
+
 .was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.input-validation-error ~ .form-check-label {
   color: #f86c6b; }
 

@@ -9,8 +9,6 @@
 	<script src="~/js/wizard.js"></script>
 	<!-- Include wizard CSS -->
 	<link href="~/css/bootstrap-nav-wizard.css" rel="stylesheet" type="text/css" />
-
-
 	<!-- Plantilla que se utilizará en la columna de acciones de la grilla -->
 	<div class="page-header">
 		<h3><i class="fa fa-gear page-header-icon"></i>&nbsp;&nbsp;Crear usuario</h3>
@@ -66,7 +64,6 @@
 							</div>
 							<div class="card-body">
 								@Html.Partial("InsPermisosUsuario", new Permisos())
-
 							</div>
 
 							<div class="card-footer" style="display: flex; justify-content: flex-end;">
@@ -97,19 +94,19 @@
 				$("#prev-btn").removeClass('disabled');
 				$("#next-btn").removeClass('disabled');
 			}
-		});
-		$(".next-btn").on("click", function () {
+        });
 
-			// Navigate next
-			$('#wizard').wizard("next");
+        $(".next-btn").on("click", function () {
+            if($("#InsUsuario form").valid())
+			    $('#wizard').wizard("next");
 			return true;
 		});
-		$(".prev-btn").on("click", function () {
 
-			// Navigate next
+		$(".prev-btn").on("click", function () {
 			$('#wizard').wizard("prev");
 			return true;
-		});
+        });
+
 		$("#reset-btn").on("click", function () {
 
 			// Navigate next

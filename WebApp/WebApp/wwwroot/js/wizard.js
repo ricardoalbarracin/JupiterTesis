@@ -27,9 +27,7 @@
 			$("li", this.nav).addClass('disabled')
             // Assign plugin events
             this._setEvents();
-			
-            var idx = 0;
-            
+			var idx = 0;
 			// Show the initial step
             this._showStep(idx);
         },
@@ -134,13 +132,9 @@
                 return false;
             }
 			// Load step content
-			
 			this._loadStepContent(idx);
-
 			this.steps.parent('li').removeClass('active');
 			this.steps.eq(idx).parent('li').addClass('active')
-
-			
             return true;
         },
 		_loadStepContent: function (idx) {
@@ -256,7 +250,6 @@
         // PUBLIC FUNCTIONS
 
 		next: function () {
-			
             this._showNext();
         },
         prev: function () {

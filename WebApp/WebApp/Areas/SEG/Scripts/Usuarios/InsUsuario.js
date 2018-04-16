@@ -35,7 +35,7 @@
 		},
 
 		handleValidator: function () {
-			this.form.validate();
+            $("#InsUsuario form").valid();
 		},
 
 		resetPassword: function () {

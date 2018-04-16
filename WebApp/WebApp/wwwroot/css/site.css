@@ -72,3 +72,13 @@ h2 {
 .sweet-alert {
 	z-index: 10000!important;
 }
+
+.k-autocomplete .k-input, .k-dropdown-wrap .k-input, .k-multiselect-wrap .k-input, .k-numeric-wrap .k-input, .k-picker-wrap .k-input, .k-selectbox .k-input, .k-textbox > input {
+    line-height: 1.9;
+    padding: .17857143em 0;
+    text-indent: .8em;
+    border: 0;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

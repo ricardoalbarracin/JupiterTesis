@@ -79,7 +79,7 @@
 			var _this = this;
 			this.form.submit(function (e) {
 				_this.dataForm = $(this).serializeObject();
-				_this.dataForm["Permisos"] = $("#UpdPermisosUsuario #GridPermisos").data("operaciones");
+				_this.dataForm["ListPermisos"] = $("#UpdPermisosUsuario #GridPermisos").data("operaciones");
 				e.preventDefault();
 			});
 		},

@@ -78,8 +78,8 @@
 		handleSubmitForm: function () {
 			var _this = this;
 			this.form.submit(function (e) {
-				_this.dataForm = $(this).serializeObject();
-				_this.dataForm["Permisos"] = $("#InsPermisosUsuario #GridPermisos").data("operaciones");
+                _this.dataForm = $(this).serializeObject();
+				_this.dataForm["ListPermisos"] = $("#InsPermisosUsuario #GridPermisos").data("operaciones");
 				e.preventDefault();
 			});
 		},

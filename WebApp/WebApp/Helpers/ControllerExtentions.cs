@@ -35,7 +35,7 @@ namespace WebApp.Helpers
                 if (!isValid)
                 {
                     var ex = new Exception("Modelo invalido");
-                    //throw ex;
+                    throw ex;
                 }
 
                 sectionsConverted[item["SectionId"].ToString()] = modelDeserialized;

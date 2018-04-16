@@ -181,12 +181,30 @@ namespace DAOs.SEG
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Update<Usuario>(usuario);
+                    connection.Update(usuario);
                 }
             }
             catch (Exception ex)
             {
                 result.Message = "Error actualizando usuario";
+                result.Exception = ex;
+            }
+            return new Result() { Success = true };
+        }
+
+        public Result InsUsuario(Usuario usuario)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    connection.Insert(usuario);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error creando usuario";
                 result.Exception = ex;
             }
             return new Result() { Success = true };

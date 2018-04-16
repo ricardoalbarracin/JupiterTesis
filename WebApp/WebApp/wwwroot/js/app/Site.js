@@ -10,8 +10,8 @@ var windowOne = null;
 var Site = function () {
     "use strict";
     return {
-		init: function () {
-			console.log("((init))");
+        init: function () {
+            console.log("((init))");
 			this.handleMenu();
             this.handleModal();
             this.handleModalConfig();
@@ -107,8 +107,9 @@ var Site = function () {
                 //return this.optional(element) || Globalize.parseDate(value, "d/M/y", "en");
                 return this.optional(element) || kendo.parseDate(value);
             }
-
-            $.validator.setDefaults({ ignore: '' });
+            if ($("form").length)
+                $("form").validate().settings.ignore = [];
+            
 		},
 
 		handleMenu: function () {

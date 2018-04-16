@@ -61,7 +61,7 @@ namespace WebApp.Areas.SEG.Controllers
             var result = _seguridadService.UpdUsuarioRolesPermisos(secctions);
             return new JsonResult(result);
         }
-
+        
         public IActionResult AgregarUsuarioRole(string operacion)
         {
             ViewBag.Operacion = operacion;
@@ -99,6 +99,15 @@ namespace WebApp.Areas.SEG.Controllers
             }
             result = _seguridadService.ResetPassword(usuario);
             return Json(result);
+        }
+
+
+        [HttpPost]
+        public JsonResult FinishCrearUsuario(DataSections dataSections)
+        {
+            var secctions = this.ConvertSectionsToModels(dataSections.Sections);
+            var result = _seguridadService.InsUsuarioRolesPermisos(secctions);
+            return new JsonResult(result);
         }
 
     }

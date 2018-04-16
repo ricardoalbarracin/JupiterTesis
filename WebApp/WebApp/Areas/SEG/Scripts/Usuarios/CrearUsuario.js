@@ -15,11 +15,10 @@
 
 		// Finish
 		onFinish_Begin: function (jqXHR, settings) {
-			
 			var sectionsToValidate = [
-				"UpdUsuario",
-				"UpdRolesUsuario",
-				"UpdPermisosUsuario"
+				"InsUsuario",
+				"InsRolesUsuario",
+				"InsPermisosUsuario"
 			];
 
 			// Validacion de secciones

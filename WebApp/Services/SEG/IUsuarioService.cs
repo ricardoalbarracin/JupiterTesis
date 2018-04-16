@@ -17,5 +17,7 @@ namespace Core.Services.SEG
         Result UsuarioEditById(int id);
 
         Result UpdUsuario(Usuario usuario);
+
+        Result InsUsuario(Usuario usuario);
     }
 }

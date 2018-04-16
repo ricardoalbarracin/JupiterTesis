@@ -12,5 +12,7 @@ namespace Core.Services.SEG
         Result UpdUsuarioRolesPermisos(IDictionary<string, object> dataSections);
         Result ResetPassword(Usuario usuario);
 
+        Result InsUsuarioRolesPermisos(IDictionary<string, object> dataSections);
+
     }
 }

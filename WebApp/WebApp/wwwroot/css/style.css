@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*!
  * CoreUI - Open Source Bootstrap Admin Template
  * @version v1.0.10
@@ -1893,7 +1893,6 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   box-shadow: 0 0 0 0.2rem rgba(77, 189, 116, 0.25); }
 
 .field-validation-error {
-  display: none;
   width: 100%;
   margin-top: 0.25rem;
   font-size: 80%;
@@ -1968,6 +1967,80 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 
 .was-validated .custom-file-input:invalid:focus ~ .custom-file-label, .custom-file-input.input-validation-error:focus ~ .custom-file-label {
   box-shadow: 0 0 0 0.2rem rgba(248, 108, 107, 0.25); }
+
+.was-validated .form-control:invalid, .form-control.input-validation-error2, .was-validated
+.custom-select:invalid,
+.custom-select.input-validation-error2 {
+    border-color: #f86c6b;
+}
+
+    .was-validated .form-control:invalid:focus, .form-control.input-validation-error2:focus, .was-validated
+    .custom-select:invalid:focus,
+    .custom-select.input-validation-error2:focus {
+        border-color: #f86c6b;
+        box-shadow: 0 0 0 0.2rem rgba(248, 108, 107, 0.25);
+    }
+
+    .was-validated .form-control:invalid ~ .field-validation-error,
+    .was-validated .form-control:invalid ~ .invalid-tooltip, .form-control.input-validation-error2 ~ .field-validation-error,
+    .form-control.input-validation-error2 ~ .invalid-tooltip, .was-validated
+    .custom-select:invalid ~ .field-validation-error,
+    .was-validated
+    .custom-select:invalid ~ .invalid-tooltip,
+    .custom-select.input-validation-error2 ~ .field-validation-error,
+    .custom-select.input-validation-error2 ~ .invalid-tooltip {
+        display: block;
+    }
+
+.was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.input-validation-error2 ~ .form-check-label {
+    color: #f86c6b;
+}
+
+.was-validated .form-check-input:invalid ~ .field-validation-error,
+.was-validated .form-check-input:invalid ~ .invalid-tooltip, .form-check-input.input-validation-error2 ~ .field-validation-error,
+.form-check-input.input-validation-error2 ~ .invalid-tooltip {
+    display: block;
+}
+
+.was-validated .custom-control-input:invalid ~ .custom-control-label, .custom-control-input.input-validation-error2 ~ .custom-control-label {
+    color: #f86c6b;
+}
+
+    .was-validated .custom-control-input:invalid ~ .custom-control-label::before, .custom-control-input.input-validation-error2 ~ .custom-control-label::before {
+        background-color: #fee5e5;
+    }
+
+.was-validated .custom-control-input:invalid ~ .field-validation-error,
+.was-validated .custom-control-input:invalid ~ .invalid-tooltip, .custom-control-input.input-validation-error2 ~ .field-validation-error,
+.custom-control-input.input-validation-error2 ~ .invalid-tooltip {
+    display: block;
+}
+
+.was-validated .custom-control-input:invalid:checked ~ .custom-control-label::before, .custom-control-input.input-validation-error2:checked ~ .custom-control-label::before {
+    background-color: #fa9c9c;
+}
+
+.was-validated .custom-control-input:invalid:focus ~ .custom-control-label::before, .custom-control-input.input-validation-error2:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 1px #e4e5e6, 0 0 0 0.2rem rgba(248, 108, 107, 0.25);
+}
+
+.was-validated .custom-file-input:invalid ~ .custom-file-label, .custom-file-input.input-validation-error2 ~ .custom-file-label {
+    border-color: #f86c6b;
+}
+
+    .was-validated .custom-file-input:invalid ~ .custom-file-label::before, .custom-file-input.input-validation-error2 ~ .custom-file-label::before {
+        border-color: inherit;
+    }
+
+.was-validated .custom-file-input:invalid ~ .field-validation-error,
+.was-validated .custom-file-input:invalid ~ .invalid-tooltip, .custom-file-input.input-validation-error2 ~ .field-validation-error,
+.custom-file-input.input-validation-error2 ~ .invalid-tooltip {
+    display: block;
+}
+
+.was-validated .custom-file-input:invalid:focus ~ .custom-file-label, .custom-file-input.input-validation-error2:focus ~ .custom-file-label {
+    box-shadow: 0 0 0 0.2rem rgba(248, 108, 107, 0.25);
+}
 
 .form-inline {
   display: -ms-flexbox;
