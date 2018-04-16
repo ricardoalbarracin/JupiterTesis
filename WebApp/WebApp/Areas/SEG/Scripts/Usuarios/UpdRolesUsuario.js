@@ -1,6 +1,4 @@
-﻿
-
-var UpdRolesUsuario = function () {
+﻿var UpdRolesUsuario = function () {
 	"use strict";
 	return {
 		// ---------------------------------
@@ -87,7 +85,7 @@ var UpdRolesUsuario = function () {
 		},
 
 		handleValidator: function () {
-			this.form.validate();
+			return UpdRolesUsuario.form.valid();
 		}
 	}
 }();

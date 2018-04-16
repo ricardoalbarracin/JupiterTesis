@@ -19,7 +19,7 @@ namespace DAOs.SEG
             _permisoService = permisoService;
         }
 
-        public Result ListUsuarios()
+        public Result GetListUsuarios()
         {
             var result = new Result();
             try
@@ -50,7 +50,7 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result UsuarioById(int id)
+        public Result GetUsuarioById(int id)
         {
             var result = new Result();
             try
@@ -103,7 +103,7 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result UsuarioByUserName(string userName)
+        public Result GetUsuarioByUserName(string userName)
         {
             var result = new Result();
             try
@@ -130,7 +130,7 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result UsuarioEditById(int id)
+        public Result GetUsuarioEditById(int id)
         {
             var result = new Result();
             try
@@ -196,7 +196,9 @@ namespace DAOs.SEG
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Insert(usuario);
+                    usuario.Id= (int)connection.Insert(usuario);
+                    result.Data = usuario;
+                    result.Success = true;
                 }
             }
             catch (Exception ex)
@@ -204,8 +206,87 @@ namespace DAOs.SEG
                 result.Message = "Error creando usuario";
                 result.Exception = ex;
             }
-            return new Result() { Success = true };
+            return result;
+        }
+        public Result UsuarioByPersonaId(int personaId)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    var sql = @"SELECT [Id]
+                                  ,[Username]
+                                  ,[Password]
+                                  ,[PersonaId]
+                                  ,[Activo]
+                              FROM [SEG].[Usuarios] u
+                            WHERE u.PersonaId = @PersonaId;";
+                    result.Data = connection.QueryFirst<Usuario>(sql, new { PersonaId = personaId });
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando usuario";
+                result.Exception = ex;
+                return result;
+            }
+            result.Success = true;
+            return result;
         }
 
+        public Result UsuarioByUserIdPersonaId(int userId, int personaId)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    var sql = @"SELECT [Id]
+                                  ,[Username]
+                                  ,[Password]
+                                  ,[PersonaId]
+                                  ,[Activo]
+                              FROM [SEG].[Usuarios] u
+                            WHERE u.PersonaId = @PersonaId and Id <> @UserId;";
+                    result.Data = connection.QueryFirst<Usuario>(sql, new { PersonaId = personaId, UserId = userId });
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando usuario";
+                result.Exception = ex;
+                return result;
+            }
+            result.Success = true;
+            return result;
+        }
+
+        public Result GetUsuarioByUserIdUserName(int userId, string userName)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    var sql = @"SELECT [Id]
+                                  ,[Username]
+                                  ,[Password]
+                                  ,[PersonaId]
+                                  ,[Activo]
+                              FROM [SEG].[Usuarios] u
+                            WHERE u.Username = @Username and Id <> @UserId;";
+                    result.Data = connection.QueryFirst<Usuario>(sql, new { Username = userName, UserId= userId });
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando usuario";
+                result.Exception = ex;
+                return result;
+            }
+            result.Success = true;
+            return result;
+        }
     }
 }

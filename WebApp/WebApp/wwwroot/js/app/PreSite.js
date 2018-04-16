@@ -100,8 +100,8 @@ var Utils = function () {
             for (var idx in facade) {
                 if ($.inArray(idx, sectionsToValidate) >= 0) {
                     var sectionObj = facade[idx];
-                    sectionObj.form.validate().settings.ignore = [];
-					var isValid = sectionObj.form.valid()
+                    
+					var isValid = sectionObj.handleValidator()
                     if (!isValid) {
                         return false;
                     }

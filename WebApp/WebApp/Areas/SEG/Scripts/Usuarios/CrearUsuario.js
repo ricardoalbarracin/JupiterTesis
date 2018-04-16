@@ -20,7 +20,6 @@
 				"InsRolesUsuario",
 				"InsPermisosUsuario"
 			];
-
 			// Validacion de secciones
 			var isValidSections = Utils.isValidSections(CrearUsuario.facade, sectionsToValidate);
 			if (!isValidSections) {

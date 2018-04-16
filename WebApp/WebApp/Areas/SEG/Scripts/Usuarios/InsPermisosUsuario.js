@@ -85,7 +85,7 @@
 		},
 
 		handleValidator: function () {
-			this.form.validate();
+			return InsPermisosUsuario.form.validate();
 		}
 	}
 }();

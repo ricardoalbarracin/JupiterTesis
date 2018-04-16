@@ -75,5 +75,11 @@ namespace WebApp.Controllers
             return base.File(binImage, "image/jpeg");
         }
 
+        public ActionResult ConfiguracionUsuario()
+        {
+            return PartialView();
+        }
+        
+
     }
 }

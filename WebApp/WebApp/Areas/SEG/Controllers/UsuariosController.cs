@@ -30,7 +30,7 @@ namespace WebApp.Areas.SEG.Controllers
         }
         public ActionResult GetListUsuarios([DataSourceRequest] DataSourceRequest request)
         {
-            var getListUsuarios = _usuarioService.ListUsuarios();
+            var getListUsuarios = _usuarioService.GetListUsuarios();
 
             if (!getListUsuarios.Success)
             {
@@ -43,7 +43,7 @@ namespace WebApp.Areas.SEG.Controllers
 
         public IActionResult ActualizarUsuario(int id)
         {
-            var result = _usuarioService.UsuarioEditById(id);
+            var result = _usuarioService.GetUsuarioEditById(id);
             ViewBag.Container =ControllerContext.RouteData.Values["action"].ToString();
             return View(result.Data);
         }
@@ -53,6 +53,14 @@ namespace WebApp.Areas.SEG.Controllers
             ViewBag.Container = ControllerContext.RouteData.Values["action"].ToString();
             return View();
         }
+
+
+        public JsonResult ValidarActualizarUsuario(Usuario usuario)
+        {
+            var result = _seguridadService.ValidarActualizarUsuario(usuario);
+            return new JsonResult(result);
+        }
+
 
         [HttpPost]
         public JsonResult Finish(DataSections dataSections)
@@ -101,6 +109,11 @@ namespace WebApp.Areas.SEG.Controllers
             return Json(result);
         }
 
+        public JsonResult ValidarCrearUsuario(Usuario usuario)
+        {
+            var result = _seguridadService.ValidarCrearUsuario(usuario);
+            return new JsonResult(result);
+        }
 
         [HttpPost]
         public JsonResult FinishCrearUsuario(DataSections dataSections)

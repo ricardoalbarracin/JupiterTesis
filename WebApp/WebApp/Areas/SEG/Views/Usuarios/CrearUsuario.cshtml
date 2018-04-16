@@ -68,7 +68,7 @@
 
 							<div class="card-footer" style="display: flex; justify-content: flex-end;">
 								<button class="btn btn-secondary prev-btn" type="button">Atras</button>
-									<a asp-action="Finish"  asp-controller="Usuarios"
+									<a asp-action="FinishCrearUsuario"  asp-controller="Usuarios"
 									   data-ajax="true" 
 									  data-ajax-begin="CrearUsuario.onFinish_Begin" 
 									  data-ajax-success="CrearUsuario.onFinish_Success" 
@@ -97,7 +97,7 @@
         });
 
         $(".next-btn").on("click", function () {
-            if($("#InsUsuario form").valid())
+			if (InsUsuario.handleValidator())
 			    $('#wizard').wizard("next");
 			return true;
 		});

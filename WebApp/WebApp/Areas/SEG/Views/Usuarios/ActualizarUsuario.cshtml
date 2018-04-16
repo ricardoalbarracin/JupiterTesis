@@ -73,7 +73,6 @@
 							</div>
 							<div class="card-body">
 								@Html.Partial("UpdPermisosUsuario", new Permisos(Model.Permisos))
-
 							</div>
 
 							<div class="card-footer" style="display: flex; justify-content: flex-end;">
@@ -106,12 +105,11 @@
 			}
 		});
 		$(".next-btn").on("click", function () {
-            if ($("#UpdUsuario form").valid())
+			if(UpdUsuario.handleValidator())
                 $('#wizard').wizard("next");
 			return true;
 		});
 		$(".prev-btn").on("click", function () {
-
 			// Navigate next
 			$('#wizard').wizard("prev");
 			return true;
@@ -136,7 +134,6 @@
 					showNextButton: "false"
 				}
 			});
-
         });
 
 	</script>

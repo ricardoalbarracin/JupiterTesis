@@ -6,8 +6,9 @@ using System.Text;
 
 namespace Core.Services.ADMIN
 {
-    public interface IPersonaService
+    public interface IPersonaDAOService
     {
         Result GetListPersonas();
+        Result GetPersonaById(int id);
     }
 }

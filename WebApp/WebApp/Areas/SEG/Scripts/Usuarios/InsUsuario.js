@@ -23,7 +23,32 @@
 			this.form = $("#" + sectionId).find("form");
 			Utils.addSectionToContainer(this.container, this.sectionId, this);
 			this.handleSubmitForm();
-			this.handleValidator();
+		},
+
+		handleValidator: function () {
+			InsUsuario.form.validate().settings.ignore = [];
+			if (!InsUsuario.form.valid()) {
+				return false;
+			}
+			var success = false;
+			var data = $('#InsUsuario').find("form").serializeArray();
+			$.ajax({
+				method: "POST",
+				url: "/SEG/Usuarios/ValidarCrearUsuario/",
+				data: data,
+				async: false,
+			})
+			.done(function (result) {
+				success = result.Success;
+				if (!success) {
+					swal({
+						title: "Error",
+						text: result.Message,
+						type: "error"
+					});
+				}
+			});
+			return success;
 		},
 
 		handleSubmitForm: function () {
@@ -32,10 +57,6 @@
 				_this.dataForm = $(this).serializeObject();
 				e.preventDefault();
 			});
-		},
-
-		handleValidator: function () {
-            $("#InsUsuario form").valid();
 		},
 
 		resetPassword: function () {

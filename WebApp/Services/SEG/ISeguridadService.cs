@@ -15,5 +15,7 @@ namespace Core.Services.SEG
         Result ValidarPassword(Usuario usuario, string password);
         Result GenerarHashRandomPassword(string Username);
         string GenerateRandomPassword();
+        Result ValidarCrearUsuario(Usuario usuario);
+        Result ValidarActualizarUsuario(Usuario usuario);
     }
 }

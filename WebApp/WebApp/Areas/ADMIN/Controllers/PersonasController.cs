@@ -17,8 +17,8 @@ namespace WebApp.Areas.ADMIN.Controllers
     [Area("ADMIN")]
     public class PersonasController : Controller
     {
-        IPersonaService _personaService;
-        public PersonasController(IPersonaService personaService)
+        IPersonaDAOService _personaService;
+        public PersonasController(IPersonaDAOService personaService)
         {
             _personaService = personaService;
         }

@@ -25,7 +25,6 @@
 			this.form = $("#" + sectionId).find("form");
 			Utils.addSectionToContainer(this.container, this.sectionId, this);
 			this.handleSubmitForm();
-			this.handleValidator();
 			$("#UpdPermisosUsuario #GridPermisos").data("operaciones", [])
 		},
 
@@ -85,7 +84,7 @@
 		},
 
 		handleValidator: function () {
-			this.form.validate();
+			return UpdPermisosUsuario.form.valid();
 		}
 	}
 }();

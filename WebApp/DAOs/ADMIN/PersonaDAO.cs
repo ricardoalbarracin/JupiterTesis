@@ -14,7 +14,7 @@ using System.Text;
 
 namespace DAOs.ADMIN
 {
-    public class PersonaDAO : BaseDAO, IPersonaService
+    public class PersonaDAO : BaseDAO, IPersonaDAOService
     {
         public PersonaDAO(IDapperAdapter dapper) : base(dapper)
         {
@@ -37,6 +37,25 @@ namespace DAOs.ADMIN
             }
             return result;
         }
-       
+
+        public Result GetPersonaById(int id)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    result.Data = connection.Get<Persona>(id);
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando persona.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+
     }
 }

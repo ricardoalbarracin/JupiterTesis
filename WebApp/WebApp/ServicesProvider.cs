@@ -15,7 +15,7 @@ namespace WebApp
             services.AddScoped<ISeguridadService, SeguridadServiceProvider>();
             services.AddScoped<IRoleDAOService, RoleDAO>();
             services.AddScoped<IPermisoDAOService, PermisoDAO>();
-            services.AddScoped<IPersonaService, PersonaDAO>();
+            services.AddScoped<IPersonaDAOService, PersonaDAO>();
         }
     }
 }

@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Transactions;
-using AutoMapper;
+﻿using AutoMapper;
 using Core.Models.SEG;
 using Core.Models.Utils;
 using Core.Services.SEG;
 using Core.Services.Utils;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Transactions;
 
 namespace Core.Providers.SEG
 {
@@ -19,7 +18,7 @@ namespace Core.Providers.SEG
         IPermisoDAOService _permisoService;
         IEmailSender _emailSender;
         public SeguridadServiceProvider(IUsuarioDAOService usuarioService,
-                                        IRoleDAOService roleService, 
+                                        IRoleDAOService roleService,
                                         IPermisoDAOService permisoService,
                                         IEmailSender emailSender)
         {
@@ -31,7 +30,7 @@ namespace Core.Providers.SEG
 
         public Result Login(Usuario usuario)
         {
-            var getUsuarioByUserName = _usuarioService.UsuarioByUserName(usuario.Username);
+            var getUsuarioByUserName = _usuarioService.GetUsuarioByUserName(usuario.Username);
             if (!getUsuarioByUserName.Success)
             {
                 return  getUsuarioByUserName;
@@ -45,7 +44,7 @@ namespace Core.Providers.SEG
                 return  validarPassword;
             }
 
-            var getUsuarioById = _usuarioService.UsuarioById(usuarioDB.Id);
+            var getUsuarioById = _usuarioService.GetUsuarioById(usuarioDB.Id);
             if (!getUsuarioById.Success)
             {
                 return getUsuarioById;
@@ -59,7 +58,7 @@ namespace Core.Providers.SEG
             using (var transaction = new TransactionScope())
             {
                 var usuario = dataSections["UpdUsuario"] as Usuario;
-                var usuarioById = _usuarioService.UsuarioById(usuario.Id) ;
+                var usuarioById = _usuarioService.GetUsuarioById(usuario.Id) ;
                 if (!usuarioById.Success)
                 {
                     return usuarioById;
@@ -142,7 +141,7 @@ namespace Core.Providers.SEG
                 {
                     return insUsuario;
                 }
-
+                usuario = insUsuario.Data as Usuario;
                 var listRoles = dataSections["InsRolesUsuario"] as Roles;
                 foreach (var role in listRoles.ListRoles)
                 {
@@ -198,7 +197,7 @@ namespace Core.Providers.SEG
                 return generarHashRandomPassword;
             }
 
-            var usuarioById = _usuarioService.UsuarioById(usuario.Id);
+            var usuarioById = _usuarioService.GetUsuarioById(usuario.Id);
             if (!usuarioById.Success)
             {
                 return usuarioById;
@@ -307,6 +306,52 @@ namespace Core.Providers.SEG
             return new string(chars.ToArray());
         }
 
+        public Result ValidarCrearUsuario(Usuario usuario)
+        {
+            var result = _usuarioService.UsuarioByPersonaId(usuario.PersonaId);
 
+            if(result.Success)
+            {
+                result.Success = false;
+                result.Message = "La persona ya tiene un usuario asociado";
+                return result;
+            }
+
+            result = _usuarioService.GetUsuarioByUserName(usuario.Username);
+
+            if (result.Success)
+            {
+                result.Success = false;
+                result.Message = "El nombre de usuario ya existe";
+                return result;
+            }
+            result.Message = "Usuario validado correctamente";
+            result.Success= true;
+            return result;
+        }
+
+        public Result ValidarActualizarUsuario(Usuario usuario)
+        {
+            var result = _usuarioService.UsuarioByUserIdPersonaId(usuario.Id, usuario.PersonaId);
+
+            if (result.Success)
+            {
+                result.Success = false;
+                result.Message = "La persona ya tiene un usuario asociado";
+                return result;
+            }
+
+            result = _usuarioService.GetUsuarioByUserIdUserName(usuario.Id, usuario.Username);
+
+            if (result.Success)
+            {
+                result.Success = false;
+                result.Message = "El nombre de usuario ya existe";
+                return result;
+            }
+            result.Message = "Usuario validado correctamente";
+            result.Success = true;
+            return result;
+        }
     }
 }

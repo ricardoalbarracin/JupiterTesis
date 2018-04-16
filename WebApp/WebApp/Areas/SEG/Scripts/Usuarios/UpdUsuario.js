@@ -23,10 +23,10 @@
 			this.form = $("#" + sectionId).find("form");
 			Utils.addSectionToContainer(this.container, this.sectionId, this);
 			this.handleSubmitForm();
-			this.handleValidator();
 		},
 
 		handleSubmitForm: function () {
+			
 			var _this = this;
 			this.form.submit(function (e) {
 				_this.dataForm = $(this).serializeObject();
@@ -35,7 +35,29 @@
 		},
 
 		handleValidator: function () {
-            $("#UpdUsuario form").valid();
+			UpdUsuario.form.validate().settings.ignore = [];
+			if (!UpdUsuario.form.valid()) {
+				return false;
+			}
+			var success = false;
+			var data = $('#UpdUsuario').find("form").serializeArray();
+			$.ajax({
+				method: "POST",
+				url: "/SEG/Usuarios/ValidarActualizarUsuario/",
+				data: data,
+				async: false,
+			})
+				.done(function (result) {
+					success = result.Success;
+					if (!success) {
+						swal({
+							title: "Error",
+							text: result.Message,
+							type: "error"
+						});
+					}
+				});
+			return success;
 		},
 
 		resetPassword: function () {
