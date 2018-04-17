@@ -11,6 +11,17 @@
 		// ---------------------------------
 
 		init: function () {
+			$('#wizard').wizard({
+				selected: 0,
+				theme: 'default',
+				transitionEffect: 'fade',
+				showStepURLhash: false,
+				toolbarSettings: {
+					toolbarButtonPosition: 'none',
+					showPreviousButton: "false",
+					showNextButton: "false"
+				}
+			});
 		},
 
 		// Finish

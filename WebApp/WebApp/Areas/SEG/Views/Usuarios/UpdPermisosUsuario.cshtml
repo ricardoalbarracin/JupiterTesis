@@ -3,50 +3,66 @@
 	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
 
-
-
 <section id=@viewName>
-
 	<form>
-		<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
-		<div class="text-center">
-			@(Html.Kendo().Grid(Model.ListPermisos)
-										.Name("GridPermisos")
-										.Columns(columns =>
-										{
-											columns.Bound(p => p.Id).Hidden();
-											columns.Bound(p => p.Nombre).Title("Nombre").Width(130);
-											columns.Bound(p => p.Sigla).Title("Sigla").Width(130);
-											columns.Bound(p => p.Descripcion).Width(130);
-											columns.Bound(p => p.Activo).Width(130);
-											columns.Bound(p => p.Nombre).ClientTemplate(
-												"<div class='text-center'>" +
-												"<button class='btn btn-danger' onclick='UpdPermisosUsuario.eliminarPermiso(event,#=data.Id#)'>Eliminar</button>" +
-												"</div>"
-												).Title("Acción").Width(170).Filterable(false);
-										})
-											.HtmlAttributes(new { style = "height: 300px;" })
-											.Pageable(pageable => pageable
-												.Input(true)
-												.Numeric(false)
-												)
-											.Sortable()
-											.Scrollable(s => s.Height("300px"))
-											.Pageable(p => p.Refresh(true))
-											.Filterable()
-											.DataSource(dataSource => dataSource
-											.Ajax()
-											.PageSize(20)
-											.ServerOperation(false)
-											)
-			)
-			<script>
+		<div class="card">
+			<div class="card-header">
+				<strong>Permisos de usuario</strong>
+				<label class="float-right mt-2 mb-0">
+					@Html.ActionLink("Nuevo", "AgregarUsuarioPermiso", "Usuarios", new { operacion = "Upd" }, new { @class = "btn btn-primary float-right", @data_modal = "modal-lg" })
+				</label>
+			</div>
+			<div class="card-body">
+				<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+				<div class="text-center">
+					@(Html.Kendo().Grid(Model.ListPermisos)
+														.Name("GridPermisos")
+														.Columns(columns =>
+														{
+															columns.Bound(p => p.Id).Hidden();
+															columns.Bound(p => p.Nombre).Title("Nombre").Width(130);
+															columns.Bound(p => p.Sigla).Title("Sigla").Width(130);
+															columns.Bound(p => p.Descripcion).Width(130);
+															columns.Bound(p => p.Activo).Width(130);
+															columns.Bound(p => p.Nombre).ClientTemplate(
+																"<div class='text-center'>" +
+																"<button class='btn btn-danger' onclick='UpdPermisosUsuario.eliminarPermiso(event,#=data.Id#)'>Eliminar</button>" +
+																"</div>"
+																).Title("Acción").Width(170).Filterable(false);
+														})
+															.HtmlAttributes(new { style = "height: 300px;" })
+															.Pageable(pageable => pageable
+																.Input(true)
+																.Numeric(false)
+																)
+															.Sortable()
+															.Scrollable(s => s.Height("300px"))
+															.Pageable(p => p.Refresh(true))
+															.Filterable()
+															.DataSource(dataSource => dataSource
+															.Ajax()
+															.PageSize(20)
+															.ServerOperation(false)
+															)
+					)
+					<script>
 				$(function () {
 					@(viewName).init(eval("@ViewBag.Container"),"@Model.GetType().ToString()","@viewName" );
 				});
-			</script>
-		</div>
+					</script>
+				</div>
+			</div>
 
+			<div class="card-footer" style="display: flex; justify-content: flex-end;">
+				<button class="btn btn-secondary prev-btn" type="button">Atras</button>
+				<a asp-action="Finish" asp-controller="Usuarios"
+				   data-ajax="true"
+				   data-ajax-begin="ActualizarUsuario.onFinish_Begin"
+				   data-ajax-success="ActualizarUsuario.onFinish_Success"
+				   data-ajax-method="POST"
+				   class="btn btn-success">Actualizar</a>
+			</div>
+		</div>
 	</form>
 </section>
 

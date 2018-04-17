@@ -2,106 +2,74 @@
 @{
 	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
+<!-- Scripts -->
+<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+<script src="~/js/wizard.js"></script>
+
+<!-- Include wizard CSS -->
+<link href="~/css/bootstrap-nav-wizard.css" rel="stylesheet" type="text/css" />
 
 <div id="@viewName">
-	<!-- Scripts -->
-	<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
-	<script src="~/js/wizard.js"></script>
-	<!-- Include wizard CSS -->
-	<link href="~/css/bootstrap-nav-wizard.css" rel="stylesheet" type="text/css" />
 
 
-	<!-- Plantilla que se utilizará en la columna de acciones de la grilla -->
-	<script id="actionTemplate" type="text/x-kendo-template">
-		<div class='text-center'>
-			<a class='btn btn-primary' href='@Url.Action("ActualizarUsuario", "Usuarios", new { area = "SEG" })/#=data.Id#'>Editar</a>
-			<button type="button" onclick="Index.eliminar(event)" class="btn btn-danger">Eliminar</button>
-		</div>
-	</script>
-
-	<div class="page-header">
-		<h3><i class="fa fa-gear page-header-icon"></i>&nbsp;&nbsp;Actualizar usuario</h3>
+	<!-- Script de la vista modal -->
+	<div class="modal-header">
+		<h4 class="modal-title">Actualizar usuario</h4>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">×</span>
+		</button>
 	</div>
-	<div class="container-fluid">
-		<div class='row'>
-			<div id="wizard" class="col-12">
-				<ul class='nav nav-wizard'>
-					<li class="active"><a href='#step1' data-toggle="tab"><b><i class="fa fa-user page-header-icon"></i> Datos basicos</b><br />asas</a></li>
-					<li><a href='#step2' data-toggle="tab"><b><i class="fa fa-key page-header-icon"></i> Roles</b><br />asas</a></li>
-					<li><a href='#step3' data-toggle="tab"><b><i class="fa fa-key page-header-icon"></i> Permisos</b><br />asas</a></li>
-				</ul>
-				<div id="myTabContent" class="tab-content ">
-					<div class="tab-pane fade " id="step1">
-						<div class="card">
-							<div class="card-header">
-								<strong>Datos de usuario</strong>
-							</div>
-							<div class="card-body">
-								@Html.Partial("UpdUsuario", Model.Usuario)
-							</div>
 
-							<div class="card-footer" style="display: flex; justify-content: flex-end;">
-								<button class="btn btn-primary next-btn" type="button">Siguiente</button>
-							</div>
+	<div class="modal-body">
+		
+		<div class="container-fluid">
+			<div class='row'>
+				<div id="wizard" class="col-12">
+					<ul class='nav nav-wizard'>
+						<li class="active"><a href='#step1' data-toggle="tab"><b><i class="fa fa-user page-header-icon"></i> Datos basicos</b><br />asas</a></li>
+						<li><a href='#step2' data-toggle="tab"><b><i class="fa fa-key page-header-icon"></i> Roles</b><br />asas</a></li>
+						<li><a href='#step3' data-toggle="tab"><b><i class="fa fa-key page-header-icon"></i> Permisos</b><br />asas</a></li>
+					</ul>
+					<div id="TabUsuarioEdit" class="tab-content ">
+						<div class="tab-pane fade " id="step1">
+							@Html.Partial("UpdUsuario", Model.Usuario)
 						</div>
-					</div>
-					<div class="tab-pane fade" id="step2">
-						<div class="card">
-							<div class="card-header">
-								<strong>Roles de usuario</strong>
-								<label class="float-right mt-2 mb-0">
-									@Html.ActionLink("Nuevo", "AgregarUsuarioRole", "Usuarios", new { operacion= "Upd" }, new { @class = "btn btn-primary float-right", @data_modal = "modal-lg" })
-								</label>
-							</div>
-							<div class="card-body">
-								@Html.Partial("UpdRolesUsuario", new Roles(Model.Roles))
-							</div>
-
-							<div class="card-footer" style="display: flex; justify-content: flex-end;">
-								<button class="btn btn-secondary prev-btn" type="button">Atras</button>
-								<button class="btn btn-primary next-btn" type="button">Siguiente</button>
-							</div>
+						<div class="tab-pane fade" id="step2">
+							@Html.Partial("UpdRolesUsuario", new Roles(Model.Roles))
 						</div>
-					</div>
-					<div class="tab-pane fade" id="step3">
-						<div class="card">
-							<div class="card-header">
-								<strong>Permisos de usuario</strong>
-								<label class="float-right mt-2 mb-0">
-									@Html.ActionLink("Nuevo", "AgregarUsuarioPermiso", "Usuarios", new { operacion = "Upd" }, new { @class = "btn btn-primary float-right", @data_modal = "modal-lg" })
-								</label>
-							</div>
-							<div class="card-body">
-								@Html.Partial("UpdPermisosUsuario", new Permisos(Model.Permisos))
-							</div>
-
-							<div class="card-footer" style="display: flex; justify-content: flex-end;">
-								<button class="btn btn-secondary prev-btn" type="button">Atras</button>
-									<a asp-action="Finish"  asp-controller="Usuarios"
-									   data-ajax="true" 
-									  data-ajax-begin="ActualizarUsuario.onFinish_Begin" 
-									  data-ajax-success="ActualizarUsuario.onFinish_Success" 
-									  data-ajax-method="POST"
-									  class="btn btn-success">Actualizar</a>
-							</div>
+						<div class="tab-pane fade" id="step3">
+							@Html.Partial("UpdPermisosUsuario", new Permisos(Model.Permisos))
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<div class="modal-footer display: flex; -ms-flex-pack: end; justify-content: flex-end;">
+		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	</div>
+
+	
 	<!-- Inicializadores -->
 	<script>
-
-		$("#wizard").on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
-			//alert("You are on step "+stepNumber+" now");
-			if (stepPosition === 'first') {
-				$("#prev-btn").addClass('disabled');
-			} else if (stepPosition === 'final') {
-				$("#next-btn").addClass('disabled');
-			} else {
-				$("#prev-btn").removeClass('disabled');
-				$("#next-btn").removeClass('disabled');
+		$.validator.setDefaults({
+			//ignore: [],
+			highlight: function (element, errorClass) {
+				element = $(element);
+				if (element.parent().hasClass("k-widget")) {
+					element.parent().addClass('input-validation-error2');
+				} else {
+					element.addClass('input-validation-error')
+				}
+			},
+			unhighlight: function (element, errorClass) {
+				element = $(element);
+				if (element.parent().hasClass("k-widget")) {
+					element.parent().removeClass('input-validation-error2');
+				} else {
+					element.removeClass('input-validation-error')
+				}
 			}
 		});
 		$(".next-btn").on("click", function () {
@@ -110,30 +78,12 @@
 			return true;
 		});
 		$(".prev-btn").on("click", function () {
-			// Navigate next
 			$('#wizard').wizard("prev");
 			return true;
 		});
-		$("#reset-btn").on("click", function () {
-
-			// Navigate next
-			$('#wizard').wizard("reset");
-			return true;
-		});
-        $(function () {
+		
+		$(function () {
             @(viewName).init();
-			$('#wizard').wizard({
-				selected: 0,
-				theme: 'default',
-				transitionEffect: 'fade',
-				showStepURLhash: false,
-				toolbarSettings: {
-					//toolbarPosition: 'none',
-					toolbarButtonPosition: 'none',
-					showPreviousButton: "false",
-					showNextButton: "false"
-				}
-			});
         });
 
 	</script>

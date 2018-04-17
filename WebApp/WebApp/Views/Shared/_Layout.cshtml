@@ -35,12 +35,8 @@
 		<main class="main fadeIn animated">
 			@RenderBody()
 		</main>
-		@*@Html.Partial("_AsideMenu")*@
 	</div>
-	<footer class="app-footer">
-		<span><a href="http://coreui.io">CoreUI</a> © 2017 creativeLabs.</span>
-		<span class="ml-auto">Powered by <a href="http://coreui.io">CoreUI</a></span>
-	</footer>
+	
 
 	<!-- Modals -->
 	<div id="modal" class="modal fade in">
@@ -67,25 +63,7 @@
 
 	@RenderSection("Scripts", required: false)
 	<script>
-        $.validator.setDefaults({
-            //ignore: [],
-            highlight: function (element, errorClass) {
-                element = $(element);
-                if (element.parent().hasClass("k-widget")) {
-                    element.parent().addClass('input-validation-error2');
-                } else {
-                    element.addClass('input-validation-error')
-                }
-            },
-            unhighlight: function (element, errorClass) {
-                element = $(element);
-                if (element.parent().hasClass("k-widget")) {
-                    element.parent().removeClass('input-validation-error2');
-                } else {
-                    element.removeClass('input-validation-error')
-                }
-            }
-        });
+       
         $(function () {
             
 			Site.init();

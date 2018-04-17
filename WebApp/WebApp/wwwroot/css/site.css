@@ -82,3 +82,7 @@ h2 {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.modal-xl {
+	max-width: 1200px;
+}

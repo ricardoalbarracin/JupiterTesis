@@ -16,7 +16,6 @@
 		// ---------------------------------
 
 		init: function (container, modelType, sectionId) {
-
 			this.sectionId = sectionId;
 			this.model = modelType;
 			this.container = container;

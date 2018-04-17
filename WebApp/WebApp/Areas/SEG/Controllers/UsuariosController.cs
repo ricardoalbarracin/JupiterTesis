@@ -45,7 +45,7 @@ namespace WebApp.Areas.SEG.Controllers
         {
             var result = _usuarioService.GetUsuarioEditById(id);
             ViewBag.Container =ControllerContext.RouteData.Values["action"].ToString();
-            return View(result.Data);
+            return PartialView(result.Data);
         }
 
         public IActionResult CrearUsuario()
@@ -53,7 +53,6 @@ namespace WebApp.Areas.SEG.Controllers
             ViewBag.Container = ControllerContext.RouteData.Values["action"].ToString();
             return View();
         }
-
 
         public JsonResult ValidarActualizarUsuario(Usuario usuario)
         {
