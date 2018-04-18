@@ -25,6 +25,7 @@
 			this.form = $("#" + sectionId).find("form");
 			Utils.addSectionToContainer(this.container, this.sectionId, this);
 			this.handleSubmitForm();
+			this.handleValidator();
 			$("#UpdPermisosUsuario #GridPermisos").data("operaciones", [])
 		},
 
@@ -32,6 +33,7 @@
 			Utils.removeGridDataItem(e, "#UpdPermisosUsuario #GridPermisos");
 			UpdPermisosUsuario.agregarOperacion(id, 0);
 		},
+
 		agregarPermiso: function (e) {
 			
 			e.preventDefault();
@@ -74,6 +76,9 @@
 			}
 		},
 
+		Validate: function () {
+			return UpdPermisosUsuario.form.valid();
+		},
 		handleSubmitForm: function () {
 			var _this = this;
 			this.form.submit(function (e) {
@@ -84,7 +89,7 @@
 		},
 
 		handleValidator: function () {
-			return UpdPermisosUsuario.form.valid();
+			$.validator.unobtrusive.parse($("#UpdPermisosUsuario form"));
 		}
 	}
 }();

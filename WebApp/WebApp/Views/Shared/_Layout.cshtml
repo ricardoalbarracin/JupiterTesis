@@ -63,7 +63,25 @@
 
 	@RenderSection("Scripts", required: false)
 	<script>
-       
+       $.validator.setDefaults({
+			//ignore: [],
+			highlight: function (element, errorClass) {
+				element = $(element);
+				if (element.parent().hasClass("k-widget")) {
+					element.parent().addClass('input-validation-error2');
+				} else {
+					element.addClass('input-validation-error')
+				}
+			},
+			unhighlight: function (element, errorClass) {
+				element = $(element);
+				if (element.parent().hasClass("k-widget")) {
+					element.parent().removeClass('input-validation-error2');
+				} else {
+					element.removeClass('input-validation-error')
+				}
+			}
+		});
         $(function () {
             
 			Site.init();

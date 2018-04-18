@@ -11,7 +11,7 @@
 		validator: null,
 		container: null,
 		actionTemplate: null,
-
+		
 		// ---------------------------------
 		//           Metodos 
 		// ---------------------------------
@@ -84,8 +84,13 @@
 			});
 		},
 
-		handleValidator: function () {
+		Validate: function () {
 			return InsRolesUsuario.form.valid();
+		},
+
+		handleValidator: function () {
+			$.validator.unobtrusive.parse($("#InsRolesUsuario form"));
+			
 		}
 	}
 }();

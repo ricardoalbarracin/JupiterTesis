@@ -84,8 +84,14 @@
 			});
 		},
 
-		handleValidator: function () {
+		Validate: function () {
+
 			return UpdRolesUsuario.form.valid();
+		},
+
+		handleValidator: function () {
+
+			$.validator.unobtrusive.parse($("#UpdRolesUsuario form"));
 		}
 	}
 }();

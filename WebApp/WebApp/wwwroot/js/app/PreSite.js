@@ -101,7 +101,7 @@ var Utils = function () {
                 if ($.inArray(idx, sectionsToValidate) >= 0) {
                     var sectionObj = facade[idx];
                     
-					var isValid = sectionObj.handleValidator()
+					var isValid = sectionObj.Validate()
                     if (!isValid) {
                         return false;
                     }

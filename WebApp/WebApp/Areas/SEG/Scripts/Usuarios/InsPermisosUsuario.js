@@ -84,8 +84,13 @@
 			});
 		},
 
-		handleValidator: function () {
+		Validate: function () {
 			return InsPermisosUsuario.form.validate();
+		},
+
+		handleValidator: function () {
+			$.validator.unobtrusive.parse($("#InsPermisosUsuario form"));
 		}
+
 	}
 }();
