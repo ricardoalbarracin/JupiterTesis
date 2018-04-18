@@ -53,6 +53,7 @@
 			}
 			Utils.addGridDataItem("#InsRolesUsuario #GridRoles", role)
 			InsRolesUsuario.agregarOperacion(role.Id, 1);
+			Utils.toast("success", "Se ha agregado el role correctamente.");
 		},
 
 		agregarOperacion: function (id, activo) {

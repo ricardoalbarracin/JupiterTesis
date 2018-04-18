@@ -53,6 +53,7 @@
 			}
 			Utils.addGridDataItem("#InsPermisosUsuario #GridPermisos", permiso)
 			InsPermisosUsuario.agregarOperacion(permiso.Id, 1);
+			Utils.toast("success", "Se ha agregado el permiso correctamente.");
 		},
 
 		agregarOperacion: function (id, activo) {
