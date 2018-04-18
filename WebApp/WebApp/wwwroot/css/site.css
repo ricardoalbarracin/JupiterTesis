@@ -86,3 +86,19 @@ h2 {
 .modal-xl {
 	max-width: 1200px;
 }
+
+.toast-success {
+	background-color: #4dbd74 !important;
+}
+
+.toast-error {
+	background-color: #BD362F !important;
+}
+
+.toast-info {
+	background-color: #1b8eb7 !important;
+}
+
+.toast-warning {
+	background-color: #ffc107 !important;
+}
