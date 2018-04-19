@@ -10,9 +10,6 @@
 <link href="~/css/bootstrap-nav-wizard.css" rel="stylesheet" type="text/css" />
 
 <div id="@viewName">
-
-
-	<!-- Script de la vista modal -->
 	<div class="modal-header">
 		<h4 class="modal-title">Actualizar usuario</h4>
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -26,9 +23,9 @@
 			<div class='row'>
 				<div id="wizard" class="col-12">
 					<ul class='nav nav-wizard'>
-						<li class="active"><a href='#step1' data-toggle="tab"><b><i class="fa fa-user page-header-icon"></i> Datos basicos</b><br />asas</a></li>
-						<li><a href='#step2' data-toggle="tab"><b><i class="fa fa-key page-header-icon"></i> Roles</b><br />asas</a></li>
-						<li><a href='#step3' data-toggle="tab"><b><i class="fa fa-key page-header-icon"></i> Permisos</b><br />asas</a></li>
+						<li class="active"><a href='#step1' data-toggle="tab"><b><i class="fa fa-user page-header-icon"></i> Datos basicos</b><br /></a></li>
+						<li><a href='#step2' data-toggle="tab"><b><i class="fa fa-key page-header-icon"></i> Roles</b><br /></a></li>
+						<li><a href='#step3' data-toggle="tab"><b><i class="fa fa-key page-header-icon"></i> Permisos</b><br /></a></li>
 					</ul>
 					<div id="TabUsuarioEdit" class="tab-content ">
 						<div class="tab-pane fade " id="step1">
@@ -53,27 +50,8 @@
 	
 	<!-- Inicializadores -->
 	<script>
-		$.validator.setDefaults({
-			//ignore: [],
-			highlight: function (element, errorClass) {
-				element = $(element);
-				if (element.parent().hasClass("k-widget")) {
-					element.parent().addClass('input-validation-error2');
-				} else {
-					element.addClass('input-validation-error')
-				}
-			},
-			unhighlight: function (element, errorClass) {
-				element = $(element);
-				if (element.parent().hasClass("k-widget")) {
-					element.parent().removeClass('input-validation-error2');
-				} else {
-					element.removeClass('input-validation-error')
-				}
-			}
-		});
 		$(".next-btn").on("click", function () {
-			if(UpdUsuario.handleValidator())
+			if(UpdUsuario.Validate())
                 $('#wizard').wizard("next");
 			return true;
 		});

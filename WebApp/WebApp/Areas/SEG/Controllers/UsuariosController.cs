@@ -51,7 +51,7 @@ namespace WebApp.Areas.SEG.Controllers
         public IActionResult CrearUsuario()
         {
             ViewBag.Container = ControllerContext.RouteData.Values["action"].ToString();
-            return View();
+            return PartialView();
         }
 
         public JsonResult ValidarActualizarUsuario(Usuario usuario)

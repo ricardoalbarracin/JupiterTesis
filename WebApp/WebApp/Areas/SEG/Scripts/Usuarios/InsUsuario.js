@@ -22,9 +22,15 @@
 			this.form = $("#" + sectionId).find("form");
 			Utils.addSectionToContainer(this.container, this.sectionId, this);
 			this.handleSubmitForm();
+			this.handleValidator();
 		},
 
 		handleValidator: function () {
+			$.validator.unobtrusive.parse($("#InsUsuario form"));
+		},
+
+		Validate: function () {
+			$.validator.unobtrusive.parse($("#UpdRolesUsuario form"));
 			InsUsuario.form.validate().settings.ignore = [];
 			if (!InsUsuario.form.valid()) {
 				return false;
@@ -37,16 +43,16 @@
 				data: data,
 				async: false,
 			})
-			.done(function (result) {
-				success = result.Success;
-				if (!success) {
-					swal({
-						title: "Error",
-						text: result.Message,
-						type: "error"
-					});
-				}
-			});
+				.done(function (result) {
+					success = result.Success;
+					if (!success) {
+						swal({
+							title: "Error",
+							text: result.Message,
+							type: "error"
+						});
+					}
+				});
 			return success;
 		},
 

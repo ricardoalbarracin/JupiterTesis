@@ -11,7 +11,7 @@
 		validator: null,
 		container: null,
 		actionTemplate: null,
-
+		
 		// ---------------------------------
 		//           Metodos 
 		// ---------------------------------
@@ -53,6 +53,7 @@
 			}
 			Utils.addGridDataItem("#InsRolesUsuario #GridRoles", role)
 			InsRolesUsuario.agregarOperacion(role.Id, 1);
+			Utils.toast("success", "Se ha agregado el role correctamente.");
 		},
 
 		agregarOperacion: function (id, activo) {
@@ -84,8 +85,13 @@
 			});
 		},
 
-		handleValidator: function () {
+		Validate: function () {
 			return InsRolesUsuario.form.valid();
+		},
+
+		handleValidator: function () {
+			$.validator.unobtrusive.parse($("#InsRolesUsuario form"));
+			
 		}
 	}
 }();

@@ -23,6 +23,7 @@
 			this.form = $("#" + sectionId).find("form");
 			Utils.addSectionToContainer(this.container, this.sectionId, this);
 			this.handleSubmitForm();
+			this.handleValidator();
 		},
 
 		handleSubmitForm: function () {
@@ -34,7 +35,7 @@
 			});
 		},
 
-		handleValidator: function () {
+		Validate: function () {
 			UpdUsuario.form.validate().settings.ignore = [];
 			if (!UpdUsuario.form.valid()) {
 				return false;
@@ -58,6 +59,10 @@
 					}
 				});
 			return success;
+		},
+
+		handleValidator: function () {
+			$.validator.unobtrusive.parse($("#UpdUsuario form"));
 		},
 
 		resetPassword: function () {
