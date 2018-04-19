@@ -4,61 +4,55 @@
 }
 
 <div id="@viewName">
-	<!-- Scripts -->
-	<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
-	<!-- Plantilla que se utilizará en la columna de acciones de la grilla -->
-	<script id="actionTemplate" type="text/x-kendo-template">
-		<div class='text-center'>
-			<a class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("ActualizarUsuario", "Usuarios", new { area = "SEG" })/#=data.Id#'>Editar</a>
-		</div>
-	</script>
-	
-	<div class="page-header">
-		<h3><i class="fa fa-gear page-header-icon"></i>&nbsp;&nbsp;Usuarios</h3>
-	</div>
-	<div class="container-fluid">
+    <!-- Scripts -->
+    <script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+    <!-- Plantilla que se utilizará en la columna de acciones de la grilla -->
+    <script id="actionTemplate" type="text/x-kendo-template">
+        <div class='text-center'>
+            <a class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("ActualizarUsuario", "Usuarios", new { area = "SEG" })/#=data.Id#'>Editar</a>
+        </div>
+    </script>
 
 
-		<div class="card">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
 
-			<div class="card-header">
-
-				<h1 class="h5 m-0">Listado de usuarios del sistema</h1>
-				<label class="float-right mt-2 mb-0">
-					@Html.ActionLink("Registrar", "CrearUsuario", "Usuarios", new { area = "SEG" }, new { @data_modal = "modal-xl", @class = "btn btn-primary float-right" })
-				</label>
-			</div>
-			<div class="card-block">
-				@(Html.Kendo().Grid<UsuarioIdentity>()
-							.Name("grid")
-							.Columns(columns =>
-							{
-								columns.Bound(p => p.Id).Hidden();
-								columns.Bound(p => p.Username).Title("Usuario");
-								columns.Bound(p => p.Documento).Title("Documento");
-								columns.Bound(p => p.PrimerNombre).Title("Primer nombre");
-								columns.Bound(p => p.PrimerApellido).Title("Primer apellido");
-								columns.Bound(c => c.Id).ClientTemplate("#=Index.actionTemplate(data)#").Title("Acciones").Width(230).Filterable(false);
-							})
-							.Pageable()
-							.Sortable()
-							.Filterable(ftb => ftb.Mode(GridFilterMode.Row))
-							.Scrollable()
-							.Events(events => events.DataBound("Site.handleModal"))
-							.DataSource(dataSource => dataSource
-								.Ajax()
-								.Read(read => read.Action("GetListUsuarios", "Usuarios"))
-							)
-				)
-			</div>
-		</div>
-
-	</div>
-	<!-- Inicializadores -->
-	<script>
+                <h1 class="h5 m-0">Listado de usuarios del sistema</h1>
+                <label class="float-right mt-2 mb-0">
+                    @Html.ActionLink("Registrar", "CrearUsuario", "Usuarios", new { area = "SEG" }, new { @data_modal = "modal-xl", @class = "btn btn-primary float-right" })
+                </label>
+            </div>
+            <div class="card-body">
+                @(Html.Kendo().Grid<UsuarioIdentity>()
+                                .Name("grid")
+                                .Columns(columns =>
+                                {
+                                    columns.Bound(p => p.Id).Hidden();
+                                    columns.Bound(p => p.Username).Title("Usuario");
+                                    columns.Bound(p => p.Documento).Title("Documento");
+                                    columns.Bound(p => p.PrimerNombre).Title("Primer nombre");
+                                    columns.Bound(p => p.PrimerApellido).Title("Primer apellido");
+                                    columns.Bound(c => c.Id).ClientTemplate("#=Index.actionTemplate(data)#").Title("Acciones").Width(230).Filterable(false);
+                                })
+                                .Pageable()
+                                .Sortable()
+                                .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+                                .Scrollable()
+                                .Events(events => events.DataBound("Site.handleModal"))
+                                .DataSource(dataSource => dataSource
+                                    .Ajax()
+                                    .Read(read => read.Action("GetListUsuarios", "Usuarios"))
+                                )
+                )
+            </div>
+        </div>
+    </div>
+    <!-- Inicializadores -->
+    <script>
         $(function () {
             @(viewName).init();
         });
 
-	</script>
+    </script>
 </div>

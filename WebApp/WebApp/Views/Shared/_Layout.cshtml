@@ -20,75 +20,68 @@
 
 
 	<link rel="stylesheet" href="~/css/style.css">
-	<link rel="stylesheet" href="~/css/site.css" />
+	<link rel="stylesheet" href="~/css/bootstrap.css" />
 
 
 	@RenderSection("Styles", required: false)
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-	@Html.Partial("_AppHeader")
-	<div class="app-body">
-		<div class="sidebar">
-			@Html.Partial("_SidebarNav")
-			<button class="sidebar-minimizer brand-minimizer" type="button"></button>
-		</div>
-		<main class="main fadeIn animated">
-			@RenderBody()
-		</main>
-	</div>
+    @Html.Partial("_AppHeader")
+    @Html.Partial("_SidebarNav")
+    <div class="app-body">
+        @RenderBody()
+       
+    </div>
 
 
-	<!-- Modals -->
-	<div id="modal" class="modal fade in">
-		<div class="modal-dialog">
-			<div class="modal-content">
-			</div>
-		</div>
-	</div>
+    <!-- Modals -->
+    <div id="modal" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
 
-	<div id="modal2" class="modal fade in">
-		<div class="modal-dialog">
-			<div class="modal-content">
-			</div>
-		</div>
-	</div>
+    <div id="modal2" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
 
-	<script src="~/vendors/js/sweetalert.min.js"></script>
-	<script src="~/vendors/js/popper.min.js"></script>
-	<script src="~/vendors/js/bootstrap.min.js"></script>
-	<script src="~/vendors/js/pace.min.js"></script>
-	<script src="~/vendors/js/toastr.min.js"></script>
-	
+    <script src="~/vendors/js/sweetalert.min.js"></script>
+    <script src="~/vendors/js/popper.min.js"></script>
+    <script src="~/vendors/js/bootstrap.min.js"></script>
+    <script src="~/vendors/js/pace.min.js"></script>
+    <script src="~/vendors/js/toastr.min.js"></script>
+    <script src="~/js/app/Site.js"></script>
 
-	<script src="~/js/app/coreUi.js"></script>
-	<script src="~/js/app/Site.js"></script>
+    @RenderSection("Scripts", required: false)
+    <script>
+        $.validator.setDefaults({
+            //ignore: [],
+            highlight: function (element, errorClass) {
+                element = $(element);
+                if (element.parent().hasClass("k-widget")) {
+                    element.parent().addClass('input-validation-error2');
+                } else {
+                    element.addClass('input-validation-error')
+                }
+            },
+            unhighlight: function (element, errorClass) {
+                element = $(element);
+                if (element.parent().hasClass("k-widget")) {
+                    element.parent().removeClass('input-validation-error2');
+                } else {
+                    element.removeClass('input-validation-error')
+                }
+            }
+        });
+        $(function () {
 
-	@RenderSection("Scripts", required: false)
-	<script>
-		$.validator.setDefaults({
-			//ignore: [],
-			highlight: function (element, errorClass) {
-				element = $(element);
-				if (element.parent().hasClass("k-widget")) {
-					element.parent().addClass('input-validation-error2');
-				} else {
-					element.addClass('input-validation-error')
-				}
-			},
-			unhighlight: function (element, errorClass) {
-				element = $(element);
-				if (element.parent().hasClass("k-widget")) {
-					element.parent().removeClass('input-validation-error2');
-				} else {
-					element.removeClass('input-validation-error')
-				}
-			}
-		});
-		$(function () {
-
-			Site.init();
-		});
-	</script>
+            Site.init();
+        });
+    </script>
 </body>
 </html>

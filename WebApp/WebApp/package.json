@@ -34,7 +34,8 @@
 		"gulp-search": "1.0.0",
 		"gulp-uglify": "3.0.0",
 		"require-dir": "0.3.2",
-		"run-sequence": "2.2.1"
+    "run-sequence": "2.2.1",
+    "metismenu": "2.7.4"
 	},
 	"scripts": {
 		"gulp": "gulp",
