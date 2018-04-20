@@ -98,4 +98,20 @@
       .sidebar.active {
         margin-left: 0px; } }
 
+.sidebar, li {
+	list-style-type: none;
+}
+.nav.metismenu {
+	display:block;
+}
+.nav > li > a {
+	color: #a7b1c2;
+	font-weight: 600;
+	 padding: 14px 20px 14px 25px; 
+}
+.nav > li > a {
+	position: relative;
+	display: block;
+	/* padding: 10px 17px; */
+}
 /******************************************+*/
