@@ -1,6 +1,7 @@
 'use strict'
 
 var gulp = require('gulp');
+var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var cssmin = require('gulp-cssmin')
 var rename = require('gulp-rename');
@@ -136,9 +137,17 @@ gulp.task('copy:vendors', function() {
    .pipe(gulp.dest(paths.dist + 'vendors/'));
 });
 gulp.task('copy:wwwroot', function () {
-	return gulp.src('./wwwroot/coreui/dist/**/*')
-		.pipe(gulp.dest('./wwwroot'));
+    return gulp.src('./wwwroot/coreui/dist/**/*')
+        .pipe(gulp.dest('./wwwroot'));  
+});
+gulp.task('compile:sass', function () {
+    gulp.src('./wwwroot/scss/bootstrap.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('./wwwroot/css/'));
+    gulp.src('./wwwroot/scss/style.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('./wwwroot/css/'));
 });
 gulp.task('build:dist', function(callback) {
-	runSequence('clean:dist', 'copy:css', 'copy:img', 'copy:js', 'copy:views', 'copy:html', 'copy:vendors', 'vendors', 'copy:wwwroot', callback);
+    runSequence('clean:dist', 'copy:css', 'copy:img', 'copy:js', 'copy:views', 'copy:html', 'copy:vendors', 'vendors', 'compile:sass', callback);
 });

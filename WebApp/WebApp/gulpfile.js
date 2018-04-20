@@ -12,7 +12,7 @@ var runSequence = require('run-sequence');
 gulp.paths = {
   dist: 'wwwroot/coreui/dist/',
   src: 'wwwroot/coreui/',
-  vendors: 'wwwroot/coreui/dist/vendors/'
+  vendors: 'wwwroot/vendors/'
 };
 
 var paths = gulp.paths;

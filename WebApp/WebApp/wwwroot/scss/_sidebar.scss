@@ -1,0 +1,27 @@
+﻿@import "../../node_modules/bootstrap/scss/mixins";
+@import "variables";
+
+.modal-xl {
+    max-width: 90% !important;
+}
+
+.sidebar {
+    min-width: $nav-width;
+    max-width: $nav-width;
+    background: $nav-bg;
+    color: #fff;
+    transition: all 0.3s;
+
+    &.active {
+        margin-left: -$nav-width;
+    }
+
+    @include media-breakpoint-down(md) {
+        margin-left: -$nav-width;
+
+        &.active {
+            margin-left: 0px;
+        }
+    }
+}
+/******************************************+*/

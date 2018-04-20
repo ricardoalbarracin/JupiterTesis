@@ -46,6 +46,7 @@
     <None Include="wwwroot\EmailTemplates\resetPassword.html" />
     <None Include="wwwroot\js\app\Site.min.js" />
     <None Include="wwwroot\js\wizard.js" />
+    <None Include="wwwroot\scss\bootstrap.scss" />
   </ItemGroup>
 
   <ItemGroup>
