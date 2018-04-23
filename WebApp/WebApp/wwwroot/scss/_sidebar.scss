@@ -23,21 +23,88 @@
             margin-left: 0px;
         }
     }
+
+    .nav.metismenu {
+        display: block;
+    }
+
+    .nav > li.active {
+        border-left: 2px solid $primary;
+        background: #293846;
+    }
+
+    .nav > li > a {
+        color: #a7b1c2;
+        font-weight: 600;
+        padding: 14px 20px 14px 25px;
+    }
+
+
+
+    ul > li.active > a {
+        color: #ffffff;
+    }
+
+    .nav > li > a {
+        position: relative;
+        display: block;
+    }
+
+    ul > li {
+        display: block;
+    }
+
+    a:hover {
+        color: #FFF !important;
+        text-decoration: none;
+        background: #293846;
+    }
+
+    .nav-second-level li a {
+        padding: 7px 10px 7px 10px;
+        padding-left: 52px;
+    }
+
+    .nav-second-level li {
+        border-left: none !important;
+    }
 }
 
-.nav.metismenu {
+
+.metismenu .collapse.in {
     display: block;
 }
 
-.nav > li > a {
-    color: #a7b1c2;
-    font-weight: 600;
-    padding: 14px 20px 14px 25px;
+.nav.nav-second-level.collapse[style] {
+    height: auto !important;
 }
 
-.nav > li > a {
+.nav {
+    
+    display:block;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+.nav-second-level li:last-child {
+    margin-bottom: 10px;
+}
+
+ul.nav-second-level {
+    background: #293846;
+}
+.nav > li {
     position: relative;
     display: block;
-    /* padding: 10px 17px; */
+}
+
+ul.nav-second-level:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.nav-third-level li a {
+    padding-left: 62px!important;
 }
 /******************************************+*/
