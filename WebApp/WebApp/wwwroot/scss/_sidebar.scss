@@ -30,7 +30,7 @@
 
     .nav > li.active {
         border-left: 2px solid $primary;
-        background: #293846;
+        background: darken( $nav-bg, 5% );
     }
 
     .nav > li > a {
@@ -57,7 +57,7 @@
     a:hover {
         color: #FFF !important;
         text-decoration: none;
-        background: #293846;
+        background: darken( $nav-bg, 5% );
     }
 
     .nav-second-level li a {
@@ -91,7 +91,7 @@
 }
 
 ul.nav-second-level {
-    background: #293846;
+    background: darken( $nav-bg, 5% );
 }
 .nav > li {
     position: relative;

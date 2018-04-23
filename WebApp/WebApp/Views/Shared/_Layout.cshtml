@@ -17,7 +17,7 @@
 
     <script src="~/js/jquery.all.min.js" asp-append-version="true"></script>
     <script src="~/js/kendo.all.min.js" asp-append-version="true"></script>
-    <script src="~/vendors/js/metisMenu.min.js"></script>
+
     <script src="~/js/app/PreSite.js"></script>
     
 
@@ -33,7 +33,7 @@
     
     <div class="wrapper">
         @Html.Partial("_SidebarNav")
-        <div class="content">
+        <div class="content fadeIn animated">
             @RenderBody()
         </div>
     </div>
@@ -56,12 +56,15 @@
     <script src="~/vendors/js/sweetalert.min.js"></script>
     <script src="~/vendors/js/popper.min.js"></script>
     <script src="~/vendors/js/bootstrap.min.js"></script>
+        <script src="~/vendors/js/metisMenu.min.js"></script>
     <script src="~/vendors/js/pace.min.js"></script>
     <script src="~/vendors/js/toastr.min.js"></script>
     <script src="~/js/app/Site.js"></script>
 
     @RenderSection("Scripts", required: false)
     <script>
+        
+        $('#menu').metisMenu();
         $.validator.setDefaults({
             //ignore: [],
             highlight: function (element, errorClass) {

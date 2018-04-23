@@ -14,7 +14,7 @@
     </script>
 
 
-    <div class="container-fluid">
+    <div class="container-fluid ">
         <div class="card">
             <div class="card-header">
 
@@ -40,6 +40,7 @@
                                 .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
                                 .Scrollable()
                                 .Events(events => events.DataBound("Site.handleModal"))
+                                .HtmlAttributes(new { style = "height:550px;" })
                                 .DataSource(dataSource => dataSource
                                     .Ajax()
                                     .Read(read => read.Action("GetListUsuarios", "Usuarios"))

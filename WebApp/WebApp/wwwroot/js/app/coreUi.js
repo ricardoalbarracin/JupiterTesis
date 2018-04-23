@@ -29,7 +29,7 @@ $.grayLightest = '#f8f9fa';
 
 $(document).ready(function ($) {
 	
-
+    $('#menu').metisMenu();
 	// Dropdown Menu
 	$.navigation.on('click', 'a', function (e) {
 

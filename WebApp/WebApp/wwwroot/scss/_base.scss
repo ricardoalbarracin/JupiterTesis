@@ -10,4 +10,183 @@
     min-height: 100vh;
     transition: all 0.3s;
     background-color:$gray-200;
+    width:100%;
+}
+.pace {
+    -webkit-pointer-events: none;
+    pointer-events: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.pace-inactive {
+    display: none;
+}
+
+.pace .pace-progress {
+    position: fixed;
+    top: 0;
+    right: 100%;
+    z-index: 2000;
+    width: 100%;
+    height: 2px;
+    background: $primary;
+}
+
+.was-validated .form-control:invalid, .form-control.input-validation-error, .was-validated
+.custom-select:invalid,
+.custom-select.input-validation-error {
+    border-color: $danger;
+}
+
+.was-validated .form-control:invalid:focus, .form-control.input-validation-error:focus, .was-validated
+.custom-select:invalid:focus,
+.custom-select.input-validation-error:focus {
+    border-color: $danger;
+    box-shadow: 0 0 0 0.2rem rgba($danger, 0.25);
+}
+
+.was-validated .form-control:invalid ~ .field-validation-error,
+.was-validated .form-control:invalid ~ .invalid-tooltip, .form-control.input-validation-error ~ .field-validation-error,
+.form-control.input-validation-error ~ .invalid-tooltip, .was-validated
+.custom-select:invalid ~ .field-validation-error,
+.was-validated
+.custom-select:invalid ~ .invalid-tooltip,
+.custom-select.input-validation-error ~ .field-validation-error,
+.custom-select.input-validation-error ~ .invalid-tooltip {
+    display: block;
+}
+
+.was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.input-validation-error ~ .form-check-label {
+    color: $danger;
+}
+
+.was-validated .form-check-input:invalid ~ .field-validation-error,
+.was-validated .form-check-input:invalid ~ .invalid-tooltip, .form-check-input.input-validation-error ~ .field-validation-error,
+.form-check-input.input-validation-error ~ .invalid-tooltip {
+    display: block;
+}
+
+.was-validated .custom-control-input:invalid ~ .custom-control-label, .custom-control-input.input-validation-error ~ .custom-control-label {
+    color: $danger;
+}
+
+.was-validated .custom-control-input:invalid ~ .custom-control-label::before, .custom-control-input.input-validation-error ~ .custom-control-label::before {
+    background-color: lighten( $danger, 20% );
+}
+
+.was-validated .custom-control-input:invalid ~ .field-validation-error,
+.was-validated .custom-control-input:invalid ~ .invalid-tooltip, .custom-control-input.input-validation-error ~ .field-validation-error,
+.custom-control-input.input-validation-error ~ .invalid-tooltip {
+    display: block;
+}
+
+.was-validated .custom-control-input:invalid:checked ~ .custom-control-label::before, .custom-control-input.input-validation-error:checked ~ .custom-control-label::before {
+    background-color: lighten( $danger, 10% );
+    
+}
+
+.was-validated .custom-control-input:invalid:focus ~ .custom-control-label::before, .custom-control-input.input-validation-error:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 1px #e4e5e6, 0 0 0 0.2rem rgba($danger, 0.25);
+}
+
+.was-validated .custom-file-input:invalid ~ .custom-file-label, .custom-file-input.input-validation-error ~ .custom-file-label {
+    border-color: $danger;
+}
+
+.was-validated .custom-file-input:invalid ~ .custom-file-label::before, .custom-file-input.input-validation-error ~ .custom-file-label::before {
+    border-color: inherit;
+}
+
+.was-validated .custom-file-input:invalid ~ .field-validation-error,
+.was-validated .custom-file-input:invalid ~ .invalid-tooltip, .custom-file-input.input-validation-error ~ .field-validation-error,
+.custom-file-input.input-validation-error ~ .invalid-tooltip {
+    display: block;
+}
+
+.was-validated .custom-file-input:invalid:focus ~ .custom-file-label, .custom-file-input.input-validation-error:focus ~ .custom-file-label {
+    box-shadow: 0 0 0 0.2rem rgba($danger, 0.25);
+}
+
+.was-validated .form-control:invalid, .form-control.input-validation-error2, .was-validated
+.custom-select:invalid,
+.custom-select.input-validation-error2 {
+    border-color: $danger;
+}
+
+.was-validated .form-control:invalid:focus, .form-control.input-validation-error2:focus, .was-validated
+.custom-select:invalid:focus,
+.custom-select.input-validation-error2:focus {
+    border-color: $danger;
+    box-shadow: 0 0 0 0.2rem rgba($danger, 0.25);
+}
+
+.was-validated .form-control:invalid ~ .field-validation-error,
+.was-validated .form-control:invalid ~ .invalid-tooltip, .form-control.input-validation-error2 ~ .field-validation-error,
+.form-control.input-validation-error2 ~ .invalid-tooltip, .was-validated
+.custom-select:invalid ~ .field-validation-error,
+.was-validated
+.custom-select:invalid ~ .invalid-tooltip,
+.custom-select.input-validation-error2 ~ .field-validation-error,
+.custom-select.input-validation-error2 ~ .invalid-tooltip {
+    display: block;
+}
+
+.was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.input-validation-error2 ~ .form-check-label {
+    color: $danger;
+}
+
+.was-validated .form-check-input:invalid ~ .field-validation-error,
+.was-validated .form-check-input:invalid ~ .invalid-tooltip, .form-check-input.input-validation-error2 ~ .field-validation-error,
+.form-check-input.input-validation-error2 ~ .invalid-tooltip {
+    display: block;
+}
+
+.was-validated .custom-control-input:invalid ~ .custom-control-label, .custom-control-input.input-validation-error2 ~ .custom-control-label {
+    color: $danger;
+}
+
+.was-validated .custom-control-input:invalid ~ .custom-control-label::before, .custom-control-input.input-validation-error2 ~ .custom-control-label::before {
+    background-color: lighten( $danger, 20% );
+}
+
+.was-validated .custom-control-input:invalid ~ .field-validation-error,
+.was-validated .custom-control-input:invalid ~ .invalid-tooltip, .custom-control-input.input-validation-error2 ~ .field-validation-error,
+.custom-control-input.input-validation-error2 ~ .invalid-tooltip {
+    display: block;
+}
+
+.was-validated .custom-control-input:invalid:checked ~ .custom-control-label::before, .custom-control-input.input-validation-error2:checked ~ .custom-control-label::before {
+    background-color: lighten( $danger, 10% );
+}
+
+.was-validated .custom-control-input:invalid:focus ~ .custom-control-label::before, .custom-control-input.input-validation-error2:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 1px #e4e5e6, 0 0 0 0.2rem rgba($danger, 0.25);
+}
+
+.was-validated .custom-file-input:invalid ~ .custom-file-label, .custom-file-input.input-validation-error2 ~ .custom-file-label {
+    border-color: $danger;
+}
+
+.was-validated .custom-file-input:invalid ~ .custom-file-label::before, .custom-file-input.input-validation-error2 ~ .custom-file-label::before {
+    border-color: inherit;
+}
+
+.was-validated .custom-file-input:invalid ~ .field-validation-error,
+.was-validated .custom-file-input:invalid ~ .invalid-tooltip, .custom-file-input.input-validation-error2 ~ .field-validation-error,
+.custom-file-input.input-validation-error2 ~ .invalid-tooltip {
+    display: block;
+}
+
+.was-validated .custom-file-input:invalid:focus ~ .custom-file-label, .custom-file-input.input-validation-error2:focus ~ .custom-file-label {
+    box-shadow: 0 0 0 0.2rem rgba($danger, 0.25);
+}
+
+.field-validation-error {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: $danger;
 }
