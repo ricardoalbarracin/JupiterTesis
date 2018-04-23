@@ -146,7 +146,10 @@ gulp.task('compile:sass', function () {
         .pipe(gulp.dest('./wwwroot/css/'));
     gulp.src('./wwwroot/scss/style.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./wwwroot/css/'));
+		.pipe(gulp.dest('./wwwroot/css/'));
+	gulp.src('./wwwroot/scss/kendo-all.scss')
+		.pipe(sass().on('error', sass.logError))
+		.pipe(gulp.dest('./wwwroot/css/'));
 });
 gulp.task('build:dist', function(callback) {
     runSequence('clean:dist', 'copy:css', 'copy:img', 'copy:js', 'copy:views', 'copy:html', 'copy:vendors', 'vendors', 'compile:sass', callback);

@@ -1,93 +1,95 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="/img/favicon.png">
-    <title>@ViewData["Title"] - CoreUI.Web</title>
-
-    <link href="~/vendors/css/sweetalert.min.css" rel="stylesheet">
-    <link href="~/vendors/css/animate.min.css" rel="stylesheet">
-    <link href="~/vendors/css/font-awesome.min.css" rel="stylesheet">
-    <link href="~/vendors/css/simple-line-icons.min.css" rel="stylesheet">
-    <link href="~/vendors/css/toastr.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="~/css/kendo.all.min.css" asp-append-version="true" />
-
-    <script src="~/js/jquery.all.min.js" asp-append-version="true"></script>
-    <script src="~/js/kendo.all.min.js" asp-append-version="true"></script>
-
-    <script src="~/js/app/PreSite.js"></script>
-    
-
-    <link rel="stylesheet" href="~/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/style.css">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="shortcut icon" href="/img/favicon.png">
+	<title>@ViewData["Title"] - CoreUI.Web</title>
 
 
-    @RenderSection("Styles", required: false)
+	<link href="~/vendors/css/sweetalert.min.css" rel="stylesheet">
+	<link href="~/vendors/css/animate.min.css" rel="stylesheet">
+	<link href="~/vendors/css/font-awesome.min.css" rel="stylesheet">
+	<link href="~/vendors/css/simple-line-icons.min.css" rel="stylesheet">
+	<link href="~/vendors/css/toastr.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="~/css/kendo-all.css" asp-append-version="true" />
+
+	<script src="~/js/jquery.all.min.js" asp-append-version="true"></script>
+	<script src="~/js/kendo.all.min.js" asp-append-version="true"></script>
+	<link rel="stylesheet" href="~/css/bootstrap.css" asp-append-version="true" />
+	<script src="~/js/app/PreSite.js"></script>
+
+
+
+	<link rel="stylesheet" href="~/css/style.css">
+
+
+	@RenderSection("Styles", required: false)
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-    @Html.Partial("_AppHeader")
-    
-    <div class="wrapper">
-        @Html.Partial("_SidebarNav")
-        <div class="content fadeIn animated">
-            @RenderBody()
-        </div>
-    </div>
+	@Html.Partial("_AppHeader")
 
-    <!-- Modals -->
-    <div id="modal" class="modal fade in">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            </div>
-        </div>
-    </div>
+	<div class="wrapper">
+		@Html.Partial("_SidebarNav")
+		<div class="content fadeIn animated">
+			@RenderBody()
+		</div>
+	</div>
 
-    <div id="modal2" class="modal fade in">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            </div>
-        </div>
-    </div>
+	<!-- Modals -->
+	<div id="modal" class="modal fade in">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
 
-    <script src="~/vendors/js/sweetalert.min.js"></script>
-    <script src="~/vendors/js/popper.min.js"></script>
-    <script src="~/vendors/js/bootstrap.min.js"></script>
-        <script src="~/vendors/js/metisMenu.min.js"></script>
-    <script src="~/vendors/js/pace.min.js"></script>
-    <script src="~/vendors/js/toastr.min.js"></script>
-    <script src="~/js/app/Site.js"></script>
+	<div id="modal2" class="modal fade in">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
 
-    @RenderSection("Scripts", required: false)
-    <script>
-        
-        $('#menu').metisMenu();
-        $.validator.setDefaults({
-            //ignore: [],
-            highlight: function (element, errorClass) {
-                element = $(element);
-                if (element.parent().hasClass("k-widget")) {
-                    element.parent().addClass('input-validation-error2');
-                } else {
-                    element.addClass('input-validation-error')
-                }
-            },
-            unhighlight: function (element, errorClass) {
-                element = $(element);
-                if (element.parent().hasClass("k-widget")) {
-                    element.parent().removeClass('input-validation-error2');
-                } else {
-                    element.removeClass('input-validation-error')
-                }
-            }
-        });
-        $(function () {
+	<script src="~/vendors/js/sweetalert.min.js"></script>
+	<script src="~/vendors/js/popper.min.js"></script>
+	<script src="~/vendors/js/bootstrap.min.js"></script>
+	
+	<script src="~/vendors/js/metisMenu.min.js"></script>
+	<script src="~/vendors/js/pace.min.js"></script>
+	<script src="~/vendors/js/toastr.min.js"></script>
+	<script src="~/js/app/Site.js"></script>
 
-            Site.init();
-        });
-    </script>
+	@RenderSection("Scripts", required: false)
+	<script>
+
+		$('#menu').metisMenu();
+		$.validator.setDefaults({
+			//ignore: [],
+			highlight: function (element, errorClass) {
+				element = $(element);
+				if (element.parent().hasClass("k-widget")) {
+					element.parent().addClass('input-validation-error2');
+				} else {
+					element.addClass('input-validation-error')
+				}
+			},
+			unhighlight: function (element, errorClass) {
+				element = $(element);
+				if (element.parent().hasClass("k-widget")) {
+					element.parent().removeClass('input-validation-error2');
+				} else {
+					element.removeClass('input-validation-error')
+				}
+			}
+		});
+		$(function () {
+
+			Site.init();
+		});
+	</script>
 </body>
 </html>

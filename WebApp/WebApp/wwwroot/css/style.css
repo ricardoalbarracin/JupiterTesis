@@ -155,6 +155,9 @@
   font-size: 80%;
   color: #dc3545; }
 
+.k-grid a.btn {
+  color: white; }
+
 /*
  * metismenu - v2.0.2
  * A jQuery menu plugin
