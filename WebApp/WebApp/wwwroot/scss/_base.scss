@@ -6,10 +6,10 @@
 }
 
 .content {
-    padding: 20px;
+    
     min-height: 100vh;
     transition: all 0.3s;
-    background-color:$gray-200;
+    background-color:$gray-100;
     width:100%;
 }
 .pace {
@@ -41,3 +41,24 @@
 .btn {
 	color: white;
 }
+
+.sweet-overlay {
+    z-index: 9999 !important;
+}
+
+.sweet-alert {
+    z-index: 10000 !important;
+}
+
+.k-widget, .k-block {
+    font-size:.8rem;
+    }
+
+.page-header {
+    padding: 1rem;
+    background-color: $gray-200;
+}
+.container-fluid {
+    padding-top: 1rem;
+}
+

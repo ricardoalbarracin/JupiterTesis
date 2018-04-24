@@ -1,6 +1,6 @@
 ﻿
 @{
-	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+    var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
 
 <div id="@viewName">
@@ -13,38 +13,42 @@
         </div>
     </script>
 
-
+    <div class="page-header">
+        <h3><i class="fa fa-user page-header-icon"></i>&nbsp;&nbsp;Configuración de usuarios del sistema.</h3>
+    </div>
     <div class="container-fluid ">
+
         <div class="card">
             <div class="card-header">
+                <div class="h5 m-0">
+                    Listado de usuarios del sistema <label class="float-right mt-0 mb-0">
+                        @Html.ActionLink("Registrar", "CrearUsuario", "Usuarios", new { area = "SEG" }, new { @data_modal = "modal-xl", @class = "btn btn-primary float-right" })
+                    </label>
+                </div>
 
-                <h1 class="h5 m-0">Listado de usuarios del sistema</h1>
-                <label class="float-right mt-2 mb-0">
-                    @Html.ActionLink("Registrar", "CrearUsuario", "Usuarios", new { area = "SEG" }, new { @data_modal = "modal-xl", @class = "btn btn-primary float-right" })
-                </label>
             </div>
             <div class="card-body">
                 @(Html.Kendo().Grid<UsuarioIdentity>()
-                                .Name("grid")
-                                .Columns(columns =>
-                                {
-                                    columns.Bound(p => p.Id).Hidden();
-                                    columns.Bound(p => p.Username).Title("Usuario");
-                                    columns.Bound(p => p.Documento).Title("Documento");
-                                    columns.Bound(p => p.PrimerNombre).Title("Primer nombre");
-                                    columns.Bound(p => p.PrimerApellido).Title("Primer apellido");
-                                    columns.Bound(c => c.Id).ClientTemplate("#=Index.actionTemplate(data)#").Title("Acciones").Width(230).Filterable(false);
-                                })
-                                .Pageable()
-                                .Sortable()
-                                .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
-                                .Scrollable()
-                                .Events(events => events.DataBound("Site.handleModal"))
-                                .HtmlAttributes(new { style = "height:550px;" })
-                                .DataSource(dataSource => dataSource
-                                    .Ajax()
-                                    .Read(read => read.Action("GetListUsuarios", "Usuarios"))
-                                )
+                                                    .Name("grid")
+                                                    .Columns(columns =>
+                                                    {
+                                                        columns.Bound(p => p.Id).Hidden();
+                                                        columns.Bound(p => p.Username).Title("Usuario");
+                                                        columns.Bound(p => p.Documento).Title("Documento");
+                                                        columns.Bound(p => p.PrimerNombre).Title("Primer nombre");
+                                                        columns.Bound(p => p.PrimerApellido).Title("Primer apellido");
+                                                        columns.Bound(c => c.Id).ClientTemplate("#=Index.actionTemplate(data)#").Title("Acciones").Width(230).Filterable(false);
+                                                    })
+                                                    .Pageable()
+                                                    .Sortable()
+                                                    .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+                                                    .Scrollable()
+                                                    .Events(events => events.DataBound("Site.handleModal"))
+                                                    .HtmlAttributes(new { style = "height:550px;" })
+                                                    .DataSource(dataSource => dataSource
+                                                        .Ajax()
+                                                        .Read(read => read.Action("GetListUsuarios", "Usuarios"))
+                                                    )
                 )
             </div>
         </div>
