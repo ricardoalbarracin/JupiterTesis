@@ -147,7 +147,7 @@ gulp.task('compile:sass', function () {
     gulp.src('./wwwroot/scss/style.scss')
         .pipe(sass().on('error', sass.logError))
 		.pipe(gulp.dest('./wwwroot/css/'));
-	gulp.src('./wwwroot/scss/kendo-all.scss')
+	gulp.src('./wwwroot/scss/kendo.all.scss')
 		.pipe(sass().on('error', sass.logError))
 		.pipe(gulp.dest('./wwwroot/css/'));
 });

@@ -5,26 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="shortcut icon" href="/img/favicon.png">
-	<title>@ViewData["Title"] - CoreUI.Web</title>
+	<title>@ViewData["Title"]</title>
 
-
-	<link href="~/vendors/css/sweetalert.min.css" rel="stylesheet">
-	<link href="~/vendors/css/animate.min.css" rel="stylesheet">
-	<link href="~/vendors/css/font-awesome.min.css" rel="stylesheet">
-	<link href="~/vendors/css/simple-line-icons.min.css" rel="stylesheet">
-	<link href="~/vendors/css/toastr.min.css" rel="stylesheet">
-
-	<link rel="stylesheet" href="~/css/kendo-all.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/vendors.all.min.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/jupiter.all.min.css" asp-append-version="true" />
 
 	<script src="~/js/jquery.all.min.js" asp-append-version="true"></script>
-	<script src="~/js/kendo.all.min.js" asp-append-version="true"></script>
-	<link rel="stylesheet" href="~/css/bootstrap.css" asp-append-version="true" />
-	<script src="~/js/app/PreSite.js"></script>
-
-
-
-	<link rel="stylesheet" href="~/css/style.css">
-
+	<script src="~/js/app/PreSite.js" asp-append-version="true"></script>
 
 	@RenderSection("Styles", required: false)
 </head>
@@ -54,14 +41,8 @@
 		</div>
 	</div>
 
-	<script src="~/vendors/js/sweetalert.min.js"></script>
-	<script src="~/vendors/js/popper.min.js"></script>
-	<script src="~/vendors/js/bootstrap.min.js"></script>
-	
-	<script src="~/vendors/js/metisMenu.min.js"></script>
-	<script src="~/vendors/js/pace.min.js"></script>
-	<script src="~/vendors/js/toastr.min.js"></script>
-	<script src="~/js/app/Site.js"></script>
+	<script src="~/js/vendors.all.min.js" asp-append-version="true"></script>
+	<script src="~/js/app/Site.js" asp-append-version="true"></script>
 
 	@RenderSection("Scripts", required: false)
 	<script>
