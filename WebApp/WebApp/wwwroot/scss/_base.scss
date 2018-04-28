@@ -1,5 +1,6 @@
 @import "../../node_modules/bootstrap/scss/mixins";
 @import "../../node_modules/bootstrap/scss/variables";
+@import "variables";
 .wrapper {
     display: flex;
     align-items: stretch;
@@ -62,3 +63,10 @@
     padding-top: 1rem;
 }
 
+.trv-report-viewer > .trv-content-wrapper.k-content > .trv-nav.k-widget > ul.trv-menu-large.k-widget.k-reset.k-header.k-menu.k-menu-horizontal {
+	background-color: $nav-bg;
+}
+
+.trv-report-viewer > .trv-content-wrapper.k-content > .trv-nav.k-widget > ul.trv-menu-large.k-widget.k-reset.k-header.k-menu.k-menu-horizontal > .k-item.k-state-default > .k-link {
+	color: white;
+}

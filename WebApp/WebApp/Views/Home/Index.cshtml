@@ -1,7 +1,24 @@
 ﻿@{
 	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
+<script src="/js/telerikReportViewer.kendo-12.0.18.416.min.js"></script>
+<script src="/js/telerikReportViewer-12.0.18.416.min.js"></script>
 
+<link href="~/css/kendo.common.min.css" rel="stylesheet" id="common-css" />
+<style>
+	
+	#reportViewer1 {
+		position: relative;
+		height:700px;
+		left: 5px;
+		right: 5px;
+		bottom: 5px;
+		overflow: hidden;
+		clear: both;
+	}
+
+	
+</style>
 <div id="@viewName">
 	<!-- Scripts -->
 	<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
@@ -17,16 +34,29 @@
 		<h1><i class="fa fa-gear page-header-icon"></i>&nbsp;&nbsp;Configuración del porcentaje de PPCD</h1>
 	</div>
 	<div class="container-fluid">
-		<div class="card">
-			<div class="card-header">
-				<h1 class="h5 m-0">Layout options</h1>
-			</div>
-			<div class="card-block">
-				<a class='btn btn-primary' data-modal="modal-lg" href='@Url.Action("ConfiguracionUsuario", "Account")'>Editar</a>
 
-				
-			</div>
+
+		<div id="reportViewer1">
+			loading...
 		</div>
 
 	</div>
 </div>
+<script type="text/javascript">
+
+	$(document).ready(function () {
+
+		$("#reportViewer1")
+			.telerik_ReportViewer({
+				serviceUrl: "https://localhost:44330/api/reports/",
+				reportSource: {
+					report: "ReportsLibrary.Areas.Test.BarCode, ReportsLibrary",
+					parameters: {}
+				},
+				viewMode: telerikReportViewer.ViewModes.INTERACTIVE,
+				scaleMode: telerikReportViewer.ScaleModes.SPECIFIC,
+				scale: 1.0,
+				enableAccessibility: false
+			});
+	});
+</script>
