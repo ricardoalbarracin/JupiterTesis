@@ -56,6 +56,12 @@
 .trv-report-viewer > .trv-content-wrapper.k-content > .trv-nav.k-widget > ul.trv-menu-large.k-widget.k-reset.k-header.k-menu.k-menu-horizontal > .k-item.k-state-default > .k-link {
   color: white; }
 
+.trv-report-viewer > .trv-content-wrapper.k-content > .trv-nav.k-widget > .trv-menu-small.k-widget.k-reset.k-header.k-menu.k-menu-horizontal {
+  background-color: #043d66; }
+
+.trv-report-viewer > .trv-content-wrapper.k-content > .trv-nav.k-widget > .trv-menu-small.k-widget.k-reset.k-header.k-menu.k-menu-horizontal > .k-item.k-state-default > .k-link {
+  color: white; }
+
 /*
  * metismenu - v2.0.2
  * A jQuery menu plugin
