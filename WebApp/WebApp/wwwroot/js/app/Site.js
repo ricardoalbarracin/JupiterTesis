@@ -115,6 +115,9 @@ var Site = function () {
 		handleMenu: function () {
 			console.log("((handleMenu))");
 			$("a.active").closest("ul").closest("li").addClass("open")
+			$('.navbar-minimalize').click(function () {
+				$(".sidebar").toggleClass("active")
+			});
 		}
     };
 }();
