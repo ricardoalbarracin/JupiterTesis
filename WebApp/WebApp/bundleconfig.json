@@ -9,6 +9,14 @@
 		]
 	},
 	{
+		"outputFileName": "wwwroot/css/styleLogin.min.css",
+		// An array of relative input file paths. Globbing patterns supported
+		"inputFiles": [
+			"wwwroot/css/styleLogin.css"
+		]
+	},
+
+	{
 		"outputFileName": "wwwroot/css/bootstrap.min.css",
 		// An array of relative input file paths. Globbing patterns supported
 		"inputFiles": [
@@ -73,14 +81,14 @@
 	},
 	{
 		"outputFileName": "wwwroot/js/vendors.all.min.js",
-					"inputFiles": [
-						"wwwroot/vendors/js/sweetalert.min.js",
-						"wwwroot/vendors/js/popper.min.js",
-						"wwwroot/vendors/js/bootstrap.min.js",
-						"wwwroot/vendors/js/metisMenu.min.js",
-						"wwwroot/vendors/js/pace.min.js",
-						"wwwroot/vendors/js/toastr.min.js"
-					],
+		"inputFiles": [
+			"wwwroot/vendors/js/sweetalert.min.js",
+			"wwwroot/vendors/js/popper.min.js",
+			"wwwroot/vendors/js/bootstrap.min.js",
+			"wwwroot/vendors/js/metisMenu.min.js",
+			"wwwroot/vendors/js/pace.min.js",
+			"wwwroot/vendors/js/toastr.min.js"
+		],
 		// Optionally specify minification options
 		"minify": {
 			"enabled": true,
@@ -91,17 +99,17 @@
 	},
 	{
 		"outputFileName": "wwwroot/js/jquery.all.min.js",
-					"inputFiles": [
-						"wwwroot/vendors/js/jquery.min.js",
-						"wwwroot/vendors/js/jquery.unobtrusive-ajax.min.js",
-						"wwwroot/vendors/js/jquery.validate.min.js",
-						"wwwroot/vendors/js/jquery.validate.unobtrusive.min.js",
-						"wwwroot/kendo/js/jszip.min.js",
-						"wwwroot/kendo/js/kendo.all.min.js",
-						"wwwroot/kendo/js/kendo.aspnetmvc.min.js",
-						"wwwroot/kendo/js/cultures/kendo.culture.es-CO.min.js",
-						"wwwroot/kendo/js/messages/kendo.messages.es-CO.min.js"
-					],
+		"inputFiles": [
+			"wwwroot/vendors/js/jquery.min.js",
+			"wwwroot/vendors/js/jquery.unobtrusive-ajax.min.js",
+			"wwwroot/vendors/js/jquery.validate.min.js",
+			"wwwroot/vendors/js/jquery.validate.unobtrusive.min.js",
+			"wwwroot/kendo/js/jszip.min.js",
+			"wwwroot/kendo/js/kendo.all.min.js",
+			"wwwroot/kendo/js/kendo.aspnetmvc.min.js",
+			"wwwroot/kendo/js/cultures/kendo.culture.es-CO.min.js",
+			"wwwroot/kendo/js/messages/kendo.messages.es-CO.min.js"
+		],
 		// Optionally specify minification options
 		"minify": {
 			"enabled": true,
