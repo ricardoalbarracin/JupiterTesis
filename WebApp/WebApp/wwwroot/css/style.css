@@ -207,6 +207,11 @@ ul.nav-second-level:after {
 .nav-third-level li a {
   padding-left: 62px !important; }
 
+.navbar-minimalize {
+  background-color: #043d66;
+  border-radius: 3px;
+  height: 2rem; }
+
 /******************************************+*/
 .was-validated .form-control:invalid, .form-control.input-validation-error, .was-validated
 .custom-select:invalid,
