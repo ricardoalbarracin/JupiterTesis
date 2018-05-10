@@ -11,7 +11,7 @@ namespace Core.Models.SEG
 {
     public class UsuarioIdentity
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         private string _username = "";
 
@@ -29,7 +29,7 @@ namespace Core.Models.SEG
         
         public bool Activo { get; set; }
 
-        public int? PersonaId { get; set; }
+        public long? PersonaId { get; set; }
 
         public string Documento { get; set; }
         

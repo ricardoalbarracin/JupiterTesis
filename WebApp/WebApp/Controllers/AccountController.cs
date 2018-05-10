@@ -42,13 +42,13 @@ namespace WebApp.Controllers
         [HttpPost]
         public async Task<JsonResult> Login(Usuario usuario)
         {
-            var result = new Result();
+            var result = new Result<UsuarioIdentity>();
             if (!ModelState.IsValid)
             {
                 result.Message = "Modelo invalido";
                 return Json(result);
             }
-            //result = _seguridadService.Login(usuario);
+            result = _seguridadService.Login(usuario);
             //if (!result.Success)
             //    return Json(result);
             var usuarioDB = result.Data as UsuarioIdentity;

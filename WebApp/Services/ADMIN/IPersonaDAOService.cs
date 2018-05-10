@@ -1,4 +1,5 @@
-﻿using Core.Models.SEG;
+﻿using Core.Models.ADMIN;
+using Core.Models.SEG;
 using Core.Models.Utils;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace Core.Services.ADMIN
 {
     public interface IPersonaDAOService
     {
-        Result GetListPersonas();
-        Result GetPersonaById(int id);
+        Result<IEnumerable<Persona>> GetListPersonas();
+        Result<Persona> GetPersonaById(long id);
     }
 }

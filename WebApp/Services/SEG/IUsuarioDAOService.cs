@@ -8,22 +8,24 @@ namespace Core.Services.SEG
 {
     public interface IUsuarioDAOService
     {
-        Result GetUsuarioByUserName(string userName);
+        Result<List<UsuarioIdentity>> GetListUsuarios();
 
-        Result GetUsuarioById(int id);
+        Result<UsuarioIdentity> GetUsuarioById(long id);
 
-        Result GetListUsuarios();
+        Result<Usuario> GetUsuarioByUserName(string userName);
 
-        Result GetUsuarioEditById(int id);
+        Result<UsuarioEdit> GetUsuarioEditById(long id);
 
-        Result UpdUsuario(Usuario usuario);
+        Result<bool> UpdUsuario(Usuario usuario);
 
-        Result InsUsuario(Usuario usuario);
+        Result<Usuario> InsUsuario(Usuario usuario);
 
-        Result UsuarioByPersonaId(int personaId);
+        Result<Usuario> UsuarioByPersonaId(long personaId);
 
-        Result UsuarioByUserIdPersonaId(int userId, int personaId);
+        Result<Usuario> UsuarioByUserIdPersonaId(long userId, long personaId);
 
-        Result GetUsuarioByUserIdUserName(int userId, string userName);
+        Result<Usuario> GetUsuarioByUserIdUserName(long userId, string userName);
+        
+
     }
 }

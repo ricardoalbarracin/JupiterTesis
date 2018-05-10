@@ -6,6 +6,8 @@ using DAOs.Utils;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DAOs.SEG
 {
@@ -19,9 +21,9 @@ namespace DAOs.SEG
             _permisoService = permisoService;
         }
 
-        public Result GetListUsuarios()
+        public Result<List<UsuarioIdentity>> GetListUsuarios()
         {
-            var result = new Result();
+            var result = new Result<List<UsuarioIdentity>> ();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -37,7 +39,7 @@ namespace DAOs.SEG
                                    u.Password
                             FROM ADMIN.Personas p
 
-                                INNER JOIN SEG.Usuarios u ON(p.Id = u.PersonaId) ");
+                                INNER JOIN SEG.Usuarios u ON(p.Id = u.PersonaId) ").AsList();
                     result.Success = true;
                 }
             }
@@ -50,9 +52,9 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result GetUsuarioById(int id)
+        public Result<UsuarioIdentity> GetUsuarioById(long id)
         {
-            var result = new Result();
+            var result = new Result<UsuarioIdentity>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -77,7 +79,8 @@ namespace DAOs.SEG
                     var listPermisosUsuario = _permisoService.ListPermisosUsuario(id);
                     if (!listPermisosUsuario.Success)
                     {
-                        return listPermisosUsuario;
+                        result.Message = listPermisosUsuario.Message;
+                        return result;
                     }
                     usuario.Permisos = listPermisosUsuario.Data;
 
@@ -85,7 +88,8 @@ namespace DAOs.SEG
                     var listRolesUsuario = _roleService.ListRolesUsuario(id);
                     if (!listRolesUsuario.Success)
                     {
-                        return listRolesUsuario;
+                        result.Message = listRolesUsuario.Message;
+                        return result;
                     }
                     usuario.Roles = listRolesUsuario.Data;
 
@@ -103,9 +107,9 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result GetUsuarioByUserName(string userName)
+        public Result<Usuario> GetUsuarioByUserName(string userName)
         {
-            var result = new Result();
+            var result = new Result<Usuario>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -130,9 +134,9 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result GetUsuarioEditById(int id)
+        public Result<UsuarioEdit> GetUsuarioEditById(long id)
         {
-            var result = new Result();
+            var result = new Result<UsuarioEdit>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -145,7 +149,8 @@ namespace DAOs.SEG
                     var listPermisosUsuario = _permisoService.ListPermisosAsignadosUsuario(id);
                     if (!listPermisosUsuario.Success)
                     {
-                        return listPermisosUsuario;
+                        result.Message = listPermisosUsuario.Message;
+                        return result;
                     }
                     usuarioEdit.Permisos = listPermisosUsuario.Data;
 
@@ -153,7 +158,8 @@ namespace DAOs.SEG
                     var listRolesUsuario = _roleService.ListRolesUsuario(id);
                     if (!listRolesUsuario.Success)
                     {
-                        return listRolesUsuario;
+                        result.Message = listRolesUsuario.Message;
+                        return result;
                     }
                     usuarioEdit.Roles = listRolesUsuario.Data;
 
@@ -171,14 +177,15 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result UpdUsuario(Usuario usuario)
+        public Result<bool> UpdUsuario(Usuario usuario)
         {
-            var result = new Result();
+            var result = new Result<bool>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Update(usuario);
+                    result.Data= connection.Update(usuario);
+                    result.Success = true;
                 }
             }
             catch (Exception ex)
@@ -186,12 +193,12 @@ namespace DAOs.SEG
                 result.Message = "Error actualizando usuario";
                 result.Exception = ex;
             }
-            return new Result() { Success = true };
+            return result;
         }
 
-        public Result InsUsuario(Usuario usuario)
+        public Result<Usuario> InsUsuario(Usuario usuario)
         {
-            var result = new Result();
+            var result = new Result<Usuario>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -208,9 +215,9 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result UsuarioByPersonaId(int personaId)
+        public Result<Usuario> UsuarioByPersonaId(long personaId)
         {
-            var result = new Result();
+            var result = new Result<Usuario>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -235,9 +242,9 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result UsuarioByUserIdPersonaId(int userId, int personaId)
+        public Result<Usuario> UsuarioByUserIdPersonaId(long userId, long personaId)
         {
-            var result = new Result();
+            var result = new Result<Usuario>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -262,9 +269,9 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result GetUsuarioByUserIdUserName(int userId, string userName)
+        public Result<Usuario> GetUsuarioByUserIdUserName(long userId, string userName)
         {
-            var result = new Result();
+            var result = new Result<Usuario>();
             try
             {
                 using (var connection = _dapperAdapter.Open())

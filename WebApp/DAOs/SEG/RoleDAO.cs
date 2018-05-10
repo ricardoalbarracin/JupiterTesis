@@ -17,14 +17,14 @@ namespace DAOs.SEG
         public RoleDAO(IDapperAdapter dapper) : base(dapper)
         {
         }
-        public Result ListRoles()
+        public Result<List<Role>> ListRoles()
         {
-            var result = new Result();
+            var result = new Result<List<Role>>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    result.Data = connection.GetAll<Role>();
+                    result.Data = connection.GetAll<Role>().ToList();
                     result.Success = true;
                 }
             }
@@ -35,9 +35,9 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result ListRolesUsuario(int usuarioId)
+        public Result<List<Role>> ListRolesUsuario(long usuarioId)
         {
-            var result = new Result();
+            var result = new Result<List<Role>>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -59,14 +59,14 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result InsUsuarioRole(UsuarioRole role)
+        public Result<UsuarioRole> InsUsuarioRole(UsuarioRole role)
         {
-            var result = new Result();
+            var result = new Result<UsuarioRole>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Insert<UsuarioRole>(role);
+                    role.Id = connection.Insert(role);
                     result.Success = true;
                 }
             }
@@ -77,9 +77,9 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result DelUsuarioRole(UsuarioRole role)
+        public Result<Nothing> DelUsuarioRole(UsuarioRole role)
         {
-            var result = new Result();
+            var result = new Result<Nothing>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -96,14 +96,15 @@ namespace DAOs.SEG
             
             return result;
         }
-        public Result InsRole(Role role)
+        public Result<Role> InsRole(Role role)
         {
-            var result = new Result();
+            var result = new Result<Role>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Insert<Role>(role);
+                    role.Id= connection.Insert(role);
+                    result.Data = role;
                 }
             }
             catch (Exception ex)

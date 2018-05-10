@@ -209,3 +209,5 @@ ApiSis/NLog.config
 ApiSis/App_Data/Storage/*
 
 
+/WebApp/WebApp/wwwroot/css/style.min.css
+/WebApp/WebApp/wwwroot/css/jupiter.all.min.css

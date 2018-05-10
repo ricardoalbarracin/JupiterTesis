@@ -9,16 +9,16 @@ namespace Core.Models.SEG
     [Table("SEG.UsuariosRoles")]
     public class UsuarioRole
     {
-        public UsuarioRole(int? usuarioId, int roleId)
+        public UsuarioRole(long? usuarioId, long roleId)
         {
             UsuarioId = usuarioId;
             RoleId = roleId;
         }
 
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
-        public int Id { get; set; }
-        public int? UsuarioId { get; set; }
-        public int? RoleId { get; set; }
+        public long Id { get; set; }
+        public long? UsuarioId { get; set; }
+        public long? RoleId { get; set; }
     
     }
 }

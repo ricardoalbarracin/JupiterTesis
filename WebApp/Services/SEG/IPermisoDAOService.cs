@@ -8,14 +8,16 @@ namespace Core.Services.SEG
 {
     public interface IPermisoDAOService
     {
-        Result ListPermisos();
 
-        Result ListPermisosUsuario(int usuarioId);
+        Result<IEnumerable<Permiso>> ListPermisos();
+        Result<List<Permiso>> ListPermisosAsignadosUsuario(long usuarioId);
 
-        Result ListPermisosAsignadosUsuario(int usuarioId);
+        Result<List<Permiso>> ListPermisosUsuario(long usuarioId);
 
-        Result InsUsuarioPermiso(UsuarioPermiso permiso);
+        Result<UsuarioPermiso> InsUsuarioPermiso(UsuarioPermiso permiso);
 
-        Result DelUsuarioPermiso(UsuarioPermiso permiso);
+        Result<Nothing> DelUsuarioPermiso(UsuarioPermiso permiso);
+        
+
     }
 }

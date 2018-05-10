@@ -22,9 +22,9 @@ namespace DAOs.Utils
 
         public EmailSettings _emailSettings { get; }
 
-        public Result SendEmailResetPassword(string email, string usuario, string password)
+        public Result<Nothing> SendEmailResetPassword(string email, string usuario, string password)
         {
-            var result = new Result();
+            var result = new Result<Nothing>();
             try
             {
                 string toEmail = email;

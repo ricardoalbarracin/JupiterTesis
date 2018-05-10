@@ -4,11 +4,14 @@ using System.Text;
 
 namespace Core.Models.Utils
 {
-    public class Result
+    public sealed class Nothing
+    {
+    }
+    public class Result<T>
     {
         public bool Success { get; set; }
         public string Message { get; set; }
-        public dynamic Data { get; set; }
+        public T Data { get; set; }
         public Exception Exception { get; set; }
 
         public Result()

@@ -8,11 +8,11 @@ namespace Core.Services.SEG
 {
     public interface IRoleDAOService
     {
-        Result ListRoles();
+        Result<List<Role>> ListRoles();
+        Result<List<Role>> ListRolesUsuario(long usuarioId);
+        Result<UsuarioRole> InsUsuarioRole(UsuarioRole role);
+        Result<Nothing> DelUsuarioRole(UsuarioRole role);
+        Result<Role> InsRole(Role role);
 
-        Result ListRolesUsuario(int usuarioId);
-        Result InsRole(Role role);
-        Result InsUsuarioRole(UsuarioRole role);
-        Result DelUsuarioRole(UsuarioRole role);
     }
 }

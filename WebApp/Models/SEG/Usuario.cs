@@ -10,7 +10,7 @@ namespace Core.Models.SEG
     public class Usuario
     {
         
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required(ErrorMessage = "El campo usuario es obligatorio.")]
         [MaxLength(500, ErrorMessage = "El campo usuario no puede tener mas de 500 caracteres.")]
@@ -21,7 +21,7 @@ namespace Core.Models.SEG
         public string Password { get; set; }
 
         [Required(ErrorMessage = "El campo persona es obligatorio.")]
-        public int PersonaId { get; set; }
+        public long PersonaId { get; set; }
 
         public bool? Activo { get; set; }
 

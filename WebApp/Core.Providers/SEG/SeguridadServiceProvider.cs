@@ -28,12 +28,14 @@ namespace Core.Providers.SEG
             _emailSender = emailSender;
         }
 
-        public Result Login(Usuario usuario)
+        public Result<UsuarioIdentity> Login(Usuario usuario)
         {
+            var result = new Result<UsuarioIdentity>();
             var getUsuarioByUserName = _usuarioService.GetUsuarioByUserName(usuario.Username);
             if (!getUsuarioByUserName.Success)
             {
-                return  getUsuarioByUserName;
+                result.Message = getUsuarioByUserName.Message;
+                return result;
             }
 
             var usuarioDB = getUsuarioByUserName.Data as Usuario;
@@ -41,27 +43,30 @@ namespace Core.Providers.SEG
             var validarPassword = ValidarPassword(usuarioDB,usuario.Password);
             if (!validarPassword.Success)
             {
-                return  validarPassword;
+                result.Message = validarPassword.Message;
+                return result;
             }
 
-            var getUsuarioById = _usuarioService.GetUsuarioById(usuarioDB.Id);
-            if (!getUsuarioById.Success)
+            result = _usuarioService.GetUsuarioById(usuarioDB.Id);
+            if (!result.Success)
             {
-                return getUsuarioById;
+                return result;
             }
 
-            return getUsuarioById;
+            return result;
         }
 
-        public Result UpdUsuarioRolesPermisos(IDictionary<string, object> dataSections)
+        public Result<Nothing> UpdUsuarioRolesPermisos(IDictionary<string, object> dataSections)
         {
+            var result = new Result<Nothing>();
             using (var transaction = new TransactionScope())
             {
                 var usuario = dataSections["UpdUsuario"] as Usuario;
                 var usuarioById = _usuarioService.GetUsuarioById(usuario.Id) ;
                 if (!usuarioById.Success)
                 {
-                    return usuarioById;
+                    result.Message = usuarioById.Message;
+                    return result;
                 }
                 var usuarioDb = usuarioById.Data as UsuarioIdentity;
 
@@ -70,7 +75,8 @@ namespace Core.Providers.SEG
 
                 if (!updUsuario.Success)
                 {
-                    return updUsuario;
+                    result.Message = updUsuario.Message;
+                    return result;
                 }
 
                 var listRoles = dataSections["UpdRolesUsuario"] as Roles;
@@ -81,7 +87,8 @@ namespace Core.Providers.SEG
                         var insUsuarioRole = _roleService.InsUsuarioRole(new UsuarioRole(usuario.Id, role.Id));
                         if (!insUsuarioRole.Success)
                         {
-                            return insUsuarioRole;
+                            result.Message = insUsuarioRole.Message;
+                            return result;
                         }
                     }
                     else
@@ -102,7 +109,8 @@ namespace Core.Providers.SEG
                         var insUsuarioPermiso = _permisoService.InsUsuarioPermiso(new UsuarioPermiso(usuario.Id, permiso.Id));
                         if (!insUsuarioPermiso.Success)
                         {
-                            return insUsuarioPermiso;
+                            result.Message = insUsuarioPermiso.Message;
+                            return result;
                         }
                     }
                     else
@@ -117,11 +125,14 @@ namespace Core.Providers.SEG
 
                 transaction.Complete();
             }
-            return new Result() { Success = true, Message = "se ha actualizado correctacmente el usuario." };
+            result.Success = true;
+            result.Message  = "se ha actualizado correctacmente el usuario.";
+            return result;
         }
 
-        public Result InsUsuarioRolesPermisos(IDictionary<string, object> dataSections)
+        public Result<Nothing> InsUsuarioRolesPermisos(IDictionary<string, object> dataSections)
         {
+            var result = new Result<Nothing>();
             using (var transaction = new TransactionScope())
             {
                 var usuario = dataSections["InsUsuario"] as Usuario;
@@ -130,7 +141,8 @@ namespace Core.Providers.SEG
                 var generarHashRandomPassword = GenerarHashRandomPassword(usuario.Username);
                 if (!generarHashRandomPassword.Success)
                 {
-                    return generarHashRandomPassword;
+                    result.Message = generarHashRandomPassword.Message;
+                    return result;
                 }
 
 
@@ -139,7 +151,8 @@ namespace Core.Providers.SEG
 
                 if (!insUsuario.Success)
                 {
-                    return insUsuario;
+                    result.Message = insUsuario.Message;
+                    return result;
                 }
                 usuario = insUsuario.Data as Usuario;
                 var listRoles = dataSections["InsRolesUsuario"] as Roles;
@@ -150,7 +163,8 @@ namespace Core.Providers.SEG
                         var insUsuarioRole = _roleService.InsUsuarioRole(new UsuarioRole(usuario.Id, role.Id));
                         if (!insUsuarioRole.Success)
                         {
-                            return insUsuarioRole;
+                            result.Message = insUsuarioRole.Message;
+                            return result;
                         }
                     }
                     else
@@ -171,7 +185,8 @@ namespace Core.Providers.SEG
                         var insUsuarioPermiso = _permisoService.InsUsuarioPermiso(new UsuarioPermiso(usuario.Id, permiso.Id));
                         if (!insUsuarioPermiso.Success)
                         {
-                            return insUsuarioPermiso;
+                            result.Message = insUsuarioPermiso.Message;
+                            return result;
                         }
                     }
                     else
@@ -186,21 +201,28 @@ namespace Core.Providers.SEG
 
                 transaction.Complete();
             }
-            return new Result() { Success = true, Message = "se ha creado correctacmente el usuario." };
+            result.Success = true;
+            result.Message = "se ha creado correctacmente el usuario.";
+            return result;
+           
         }
 
-        public Result ResetPassword(Usuario usuario)
+        public Result<string> ResetPassword(Usuario usuario)
         {
+            var result = new Result<string>();
+
             var generarHashRandomPassword = GenerarHashRandomPassword(usuario.Username);
             if(!generarHashRandomPassword.Success)
             {
-                return generarHashRandomPassword;
+                result.Message = generarHashRandomPassword.Message;
+                return result;
             }
 
             var usuarioById = _usuarioService.GetUsuarioById(usuario.Id);
             if (!usuarioById.Success)
             {
-                return usuarioById;
+                result.Message = usuarioById.Message;
+                return result;
             }
             var usuarioIdentity = usuarioById.Data as UsuarioIdentity;
 
@@ -216,26 +238,28 @@ namespace Core.Providers.SEG
             var updUsuario = _usuarioService.UpdUsuario(usuarioUpd);
             if (!updUsuario.Success)
             {
-                return updUsuario;
+                result.Message = updUsuario.Message;
+                return result;
             }
 
             var sendEmailResetPassword = _emailSender.SendEmailResetPassword(usuarioIdentity.Correo, usuarioUpd.Username,usuarioUpd.Password);
 
             if (!sendEmailResetPassword.Success)
             {
-                sendEmailResetPassword.Success = true;
-                sendEmailResetPassword.Data = "warning";
-                sendEmailResetPassword.Message = $"Se ha generado y actualizado la contraseña a : <b>{generarHashRandomPassword.Data["Password"]}</b>.</br> Se ha generado un error al intentar enviar correo electronico.";
-                return sendEmailResetPassword;
+                result.Success = true;
+                result.Data = "warning";
+                result.Message = $"Se ha generado y actualizado la contraseña a : <b>{generarHashRandomPassword.Data["Password"]}</b>.</br> Se ha generado un error al intentar enviar correo electronico.";
+                return result;
             }
-            sendEmailResetPassword.Data = "success";
-            updUsuario.Message = $"Se ha generado y actualizado la contraseña a : <b>{generarHashRandomPassword.Data["Password"]}</b>.";
-            return updUsuario;
+            result.Data = "success";
+            result.Message = $"Se ha generado y actualizado la contraseña a : <b>{generarHashRandomPassword.Data["Password"]}</b>.";
+            result.Success = true;
+            return result;
         }
 
-        public Result ValidarPassword(Usuario usuario, string password)
+        public Result<Nothing> ValidarPassword(Usuario usuario, string password)
         {
-            var result = new Result();
+            var result = new Result<Nothing>();
             PasswordHasher<string> pw = new PasswordHasher<string>();
             var resultVerify = pw.VerifyHashedPassword(usuario.Username, usuario.Password, password);
             if (resultVerify == PasswordVerificationResult.Failed)
@@ -247,9 +271,9 @@ namespace Core.Providers.SEG
             return result;
         }
 
-        public Result GenerarHashRandomPassword(string Username)
+        public Result<Dictionary<string, string>> GenerarHashRandomPassword(string Username)
         {
-            var result = new Result();
+            var result = new Result<Dictionary<string, string>>();
             try
             {
                 var password = GenerateRandomPassword();
@@ -306,20 +330,21 @@ namespace Core.Providers.SEG
             return new string(chars.ToArray());
         }
 
-        public Result ValidarCrearUsuario(Usuario usuario)
+        public Result<Nothing> ValidarCrearUsuario(Usuario usuario)
         {
-            var result = _usuarioService.UsuarioByPersonaId(usuario.PersonaId);
+            var result =new  Result<Nothing>();
+            var usuarioByPersonaId = _usuarioService.UsuarioByPersonaId(usuario.PersonaId);
 
-            if(result.Success)
+            if(usuarioByPersonaId.Success)
             {
                 result.Success = false;
                 result.Message = "La persona ya tiene un usuario asociado";
                 return result;
             }
 
-            result = _usuarioService.GetUsuarioByUserName(usuario.Username);
+            var getUsuarioByUserName = _usuarioService.GetUsuarioByUserName(usuario.Username);
 
-            if (result.Success)
+            if (getUsuarioByUserName.Success)
             {
                 result.Success = false;
                 result.Message = "El nombre de usuario ya existe";
@@ -330,20 +355,21 @@ namespace Core.Providers.SEG
             return result;
         }
 
-        public Result ValidarActualizarUsuario(Usuario usuario)
+        public Result<Nothing> ValidarActualizarUsuario(Usuario usuario)
         {
-            var result = _usuarioService.UsuarioByUserIdPersonaId(usuario.Id, usuario.PersonaId);
+            var result = new Result<Nothing>();
+            var usuarioByUserIdPersonaId = _usuarioService.UsuarioByUserIdPersonaId(usuario.Id, usuario.PersonaId);
 
-            if (result.Success)
+            if (usuarioByUserIdPersonaId.Success)
             {
                 result.Success = false;
                 result.Message = "La persona ya tiene un usuario asociado";
                 return result;
             }
 
-            result = _usuarioService.GetUsuarioByUserIdUserName(usuario.Id, usuario.Username);
+            var getUsuarioByUserIdUserName = _usuarioService.GetUsuarioByUserIdUserName(usuario.Id, usuario.Username);
 
-            if (result.Success)
+            if (getUsuarioByUserIdUserName.Success)
             {
                 result.Success = false;
                 result.Message = "El nombre de usuario ya existe";

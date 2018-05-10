@@ -19,9 +19,9 @@ namespace DAOs.ADMIN
         public PersonaDAO(IDapperAdapter dapper) : base(dapper)
         {
         }
-        public Result GetListPersonas()
+        public Result<IEnumerable<Persona>> GetListPersonas()
         {
-            var result = new Result();
+            var result = new Result<IEnumerable<Persona>>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -38,9 +38,9 @@ namespace DAOs.ADMIN
             return result;
         }
 
-        public Result GetPersonaById(int id)
+        public Result<Persona> GetPersonaById(long id)
         {
-            var result = new Result();
+            var result = new Result<Persona>();
             try
             {
                 using (var connection = _dapperAdapter.Open())

@@ -8,14 +8,15 @@ namespace Core.Services.SEG
 {
     public interface ISeguridadService
     {
-        Result Login(Usuario usuario);
-        Result UpdUsuarioRolesPermisos(IDictionary<string, object> dataSections);
-        Result ResetPassword(Usuario usuario);
-        Result InsUsuarioRolesPermisos(IDictionary<string, object> dataSections);
-        Result ValidarPassword(Usuario usuario, string password);
-        Result GenerarHashRandomPassword(string Username);
+        Result<UsuarioIdentity> Login(Usuario usuario);
+        Result<Nothing> UpdUsuarioRolesPermisos(IDictionary<string, object> dataSections);
+        Result<Nothing> InsUsuarioRolesPermisos(IDictionary<string, object> dataSections);
+        Result<string> ResetPassword(Usuario usuario);
+
+        Result<Nothing> ValidarPassword(Usuario usuario, string password);
+        Result<Dictionary<string, string>> GenerarHashRandomPassword(string Username);
         string GenerateRandomPassword();
-        Result ValidarCrearUsuario(Usuario usuario);
-        Result ValidarActualizarUsuario(Usuario usuario);
+        Result<Nothing> ValidarCrearUsuario(Usuario usuario);
+        Result<Nothing> ValidarActualizarUsuario(Usuario usuario);
     }
 }

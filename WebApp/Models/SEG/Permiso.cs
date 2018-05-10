@@ -10,7 +10,7 @@ namespace Core.Models.SEG
     public class Permiso
     {
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required(ErrorMessage = "El campo Sigla es obligatorio.")]
         [MaxLength(100, ErrorMessage = "El campo Sigla no puede tener mas de 100 caracteres.")]

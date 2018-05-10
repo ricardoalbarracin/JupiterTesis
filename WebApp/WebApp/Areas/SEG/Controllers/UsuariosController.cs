@@ -98,7 +98,7 @@ namespace WebApp.Areas.SEG.Controllers
         [HttpPost]
         public JsonResult ResetPassword(Usuario usuario)
         {
-            var result = new Result();
+            var result = new Result<string>();
             if (!ModelState.IsValid)
             {
                 result.Message = "Modelo invalido";

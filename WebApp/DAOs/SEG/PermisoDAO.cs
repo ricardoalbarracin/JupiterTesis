@@ -17,9 +17,9 @@ namespace DAOs.SEG
         public PermisoDAO(IDapperAdapter dapper) : base(dapper)
         {
         }
-        public Result ListPermisos()
+        public Result<IEnumerable<Permiso>> ListPermisos()
         {
-            var result = new Result();
+            var result = new Result<IEnumerable<Permiso>>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -35,9 +35,9 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result ListPermisosAsignadosUsuario(int usuarioId)
+        public Result<List<Permiso>> ListPermisosAsignadosUsuario(long usuarioId)
         {
-            var result = new Result();
+            var result = new Result<List<Permiso>>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -59,9 +59,9 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result ListPermisosUsuario(int usuarioId)
+        public Result<List<Permiso>> ListPermisosUsuario(long usuarioId)
         {
-            var result = new Result();
+            var result = new Result<List<Permiso>>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -92,14 +92,15 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result InsUsuarioPermiso(UsuarioPermiso permiso)
+        public Result<UsuarioPermiso> InsUsuarioPermiso(UsuarioPermiso permiso)
         {
-            var result = new Result();
+            var result = new Result<UsuarioPermiso>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Insert<UsuarioPermiso>(permiso);
+                    permiso.Id= connection.Insert(permiso);
+                    result.Data = permiso;
                     result.Success = true;
                 }
             }
@@ -110,9 +111,9 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result DelUsuarioPermiso(UsuarioPermiso permiso)
+        public Result<Nothing> DelUsuarioPermiso(UsuarioPermiso permiso)
         {
-            var result = new Result();
+            var result = new Result<Nothing>();
             try
             {
                 using (var connection = _dapperAdapter.Open())

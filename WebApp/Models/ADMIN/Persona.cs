@@ -10,10 +10,10 @@ namespace Core.Models.ADMIN
     public class Persona
     {
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required(ErrorMessage = "El campo TipoDocumentoId es obligatorio.")]
-        public int TipoDocumentoId { get; set; }
+        public long TipoDocumentoId { get; set; }
 
         [Required(ErrorMessage = "El campo Documento es obligatorio.")]
         [MaxLength(50, ErrorMessage = "El campo Documento no puede tener mas de 50 caracteres.")]
@@ -35,15 +35,15 @@ namespace Core.Models.ADMIN
         public DateTime FechaNacimiento { get; set; }
 
         [Required(ErrorMessage = "El campo SexoId es obligatorio.")]
-        public int SexoId { get; set; }
+        public long SexoId { get; set; }
 
-        public int? DepartamentoNacimientoId { get; set; }
+        public long? DepartamentoNacimientoId { get; set; }
 
-        public int? MunicipioNacimientoId { get; set; }
+        public long? MunicipioNacimientoId { get; set; }
 
-        public int? DepartamentoResidenciaId { get; set; }
+        public long? DepartamentoResidenciaId { get; set; }
 
-        public int? MunicipioResidenciaId { get; set; }
+        public long? MunicipioResidenciaId { get; set; }
 
         [MaxLength(50, ErrorMessage = "El campo Telefono no puede tener mas de 50 caracteres.")]
         public string Telefono { get; set; }
