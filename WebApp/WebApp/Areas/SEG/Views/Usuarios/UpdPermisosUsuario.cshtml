@@ -16,34 +16,30 @@
 				<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
 				<div class="text-center">
 					@(Html.Kendo().Grid(Model.ListPermisos)
-														.Name("GridPermisos")
-														.Columns(columns =>
-														{
-															columns.Bound(p => p.Id).Hidden();
-															columns.Bound(p => p.Nombre).Title("Nombre").Width(130);
-															columns.Bound(p => p.Sigla).Title("Sigla").Width(130);
-															columns.Bound(p => p.Descripcion).Width(130);
-															columns.Bound(p => p.Activo).Width(130);
-															columns.Bound(p => p.Nombre).ClientTemplate(
-																"<div class='text-center'>" +
-																"<button class='btn btn-danger' onclick='UpdPermisosUsuario.eliminarPermiso(event,#=data.Id#)'>Eliminar</button>" +
-																"</div>"
-																).Title("Acción").Width(170).Filterable(false);
-														})
-															.HtmlAttributes(new { style = "height: 300px;" })
-															.Pageable(pageable => pageable
-																.Input(true)
-																.Numeric(false)
-																)
-															.Sortable()
-															.Scrollable(s => s.Height("300px"))
-															.Pageable(p => p.Refresh(true))
-															.Filterable()
-															.DataSource(dataSource => dataSource
-															.Ajax()
-															.PageSize(20)
-															.ServerOperation(false)
-															)
+						.Name("GridPermisos")
+						.Columns(columns =>
+						{
+							columns.Bound(p => p.Id).Hidden();
+							columns.Bound(p => p.Nombre).Title("Nombre").Width(130);
+							columns.Bound(p => p.Sigla).Title("Sigla").Width(130);
+							columns.Bound(p => p.Descripcion).Width(130);
+							columns.Bound(p => p.Activo).Width(130);
+							columns.Bound(p => p.Nombre).ClientTemplate(
+								"<div class='text-center'>" +
+								"<button class='btn btn-danger' onclick='UpdPermisosUsuario.eliminarPermiso(event,#=data.Id#)'>Eliminar</button>" +
+								"</div>"
+								).Title("Acción").Width(170).Filterable(false);
+						})
+						.Pageable()
+						.Sortable()
+						.Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+						.Scrollable()
+						.Events(events => events.DataBound("Site.handleModal"))
+						.DataSource(dataSource => dataSource
+							.Ajax()
+							.PageSize(10)
+							.ServerOperation(false)
+						)
 					)
 					<script>
 				$(function () {

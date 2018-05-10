@@ -47,7 +47,12 @@ var Site = function () {
                 }, 0);
             });           
         },
-
+		handleError: function (e) {
+			e.errors.Error.errors.forEach(function (element) {
+				Utils.toast("error", element);
+			});
+			
+		},
         /* Configurador de eventos para los modales 
         ---------------------------------------------------------------*/
         handleModal: function () {

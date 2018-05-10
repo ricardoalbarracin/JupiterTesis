@@ -36,7 +36,7 @@
                                                         columns.Bound(p => p.Documento).Title("Documento");
                                                         columns.Bound(p => p.PrimerNombre).Title("Primer nombre");
                                                         columns.Bound(p => p.PrimerApellido).Title("Primer apellido");
-                                                        columns.Bound(c => c.Id).ClientTemplate("#=Index.actionTemplate(data)#").Title("Acciones").Width(230).Filterable(false);
+                                                        columns.Bound(c => c.Id).ClientTemplate("#=Index.actionTemplate(data)#").Title("Acciones").Filterable(false);
                                                     })
                                                     .Pageable()
                                                     .Sortable()
@@ -47,6 +47,7 @@
                                                     .DataSource(dataSource => dataSource
                                                         .Ajax()
                                                         .Read(read => read.Action("GetListUsuarios", "Usuarios"))
+														.Events(e => e.Error("Site.handleError"))
                                                     )
                 )
             </div>
