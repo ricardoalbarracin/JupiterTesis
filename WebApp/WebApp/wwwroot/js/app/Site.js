@@ -90,7 +90,8 @@ var Site = function () {
 
                         case "error":
                             var message = "Error de ejecución: " + xhr.status + " " + xhr.statusText;
-                            console.error(message);
+							Utils.toast("error", message);
+							console.error(message);
                             break;
                     }
 
