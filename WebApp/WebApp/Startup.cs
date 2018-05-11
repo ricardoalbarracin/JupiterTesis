@@ -44,12 +44,7 @@ namespace WebApp
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession();
 
-            services.AddCors(o => o.AddPolicy("TelerikReportingDemoPolicy", builder =>
-            {
-                builder.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-            }));
+            services.AddCors();
 
             services.AddMvc(options =>
             {
@@ -99,7 +94,10 @@ namespace WebApp
             app.UseAuthentication();
 
             app.UseSession();
-            app.UseCors("TelerikReportingDemoPolicy");
+            app.UseCors(
+                options => options.WithOrigins("https://localhost:44330").AllowAnyMethod()
+            );
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
