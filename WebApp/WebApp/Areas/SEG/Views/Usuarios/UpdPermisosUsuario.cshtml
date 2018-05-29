@@ -33,11 +33,11 @@
 						.Pageable()
 						.Sortable()
 						.Filterable(ftb => ftb.Mode(GridFilterMode.Row))
-						.Scrollable()
+						.Scrollable(s=>s.Height("auto"))
 						.Events(events => events.DataBound("Site.handleModal"))
 						.DataSource(dataSource => dataSource
 							.Ajax()
-							.PageSize(10)
+							.PageSize(5)
 							.ServerOperation(false)
 						)
 					)
