@@ -32,11 +32,11 @@
                                                     .Columns(columns =>
                                                     {
                                                         columns.Bound(p => p.Id).Hidden();
-                                                        columns.Bound(p => p.Username).Title("Usuario");
-                                                        columns.Bound(p => p.Documento).Title("Documento");
-                                                        columns.Bound(p => p.PrimerNombre).Title("Primer nombre");
-                                                        columns.Bound(p => p.PrimerApellido).Title("Primer apellido");
-                                                        columns.Bound(c => c.Id).ClientTemplate("#=Index.actionTemplate(data)#").Title("Acciones").Filterable(false);
+                                                        columns.Bound(p => p.Username).Title("Usuario").Width(130);
+                                                        columns.Bound(p => p.Documento).Title("Documento").Width(130);
+                                                        columns.Bound(p => p.PrimerNombre).Title("Primer nombre").Width(130);
+                                                        columns.Bound(p => p.PrimerApellido).Title("Primer apellido").Width(130);
+                                                        columns.Bound(c => c.Id).ClientTemplate("#=Index.actionTemplate(data)#").Title("Acciones").Filterable(false).Width(130);
                                                     })
                                                     .Pageable()
                                                     .Sortable()
@@ -47,7 +47,7 @@
                                                     .DataSource(dataSource => dataSource
                                                         .Ajax()
                                                         .Read(read => read.Action("GetListUsuarios", "Usuarios"))
-														.Events(e => e.Error("Site.handleError"))
+                                                        .Events(e => e.Error("Site.handleError"))
                                                     )
                 )
             </div>
