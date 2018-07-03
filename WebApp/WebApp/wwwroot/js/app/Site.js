@@ -118,9 +118,13 @@ var Site = function () {
             
 		},
 
-		handleMenu: function () {
+        handleMenu: function () {
+
 			console.log("((handleMenu))");
-			$("a.active").closest("ul").closest("li").addClass("open")
+            
+            $("li.active").closest("ul").closest("li").addClass("active")
+            $("li.active").closest("ul.collapse").closest("ul.collapse").closest("li").addClass("active");
+            $("li.active").closest("ul.collapse").closest("ul.collapse").addClass("in")
 			$('.navbar-minimalize').click(function () {
 				$(".sidebar").toggleClass("active")
 			});
