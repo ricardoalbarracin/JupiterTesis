@@ -162,6 +162,8 @@
     padding: 14px 20px 14px 25px; }
   .sidebar ul > li.active > a {
     color: #ffffff; }
+  .sidebar ul > li.active > a.nav-link {
+    background: #022035; }
   .sidebar .nav > li > a {
     position: relative;
     display: block; }

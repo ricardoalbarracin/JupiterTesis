@@ -40,9 +40,12 @@
     }
 
 
-
     ul > li.active > a {
         color: #ffffff;
+    }
+
+    ul > li.active > a.nav-link {
+        background: darken( $nav-bg, 10% );
     }
 
     .nav > li > a {
