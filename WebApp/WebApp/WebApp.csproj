@@ -60,11 +60,25 @@
     <Folder Include="Areas\ADMIN\Data\" />
     <Folder Include="Areas\ADMIN\Models\" />
     <Folder Include="Areas\ADMIN\Views\" />
+    <Folder Include="Areas\CORE\Data\" />
+    <Folder Include="Areas\CORE\Models\" />
     <Folder Include="Areas\SEG\Data\" />
     <Folder Include="Areas\SEG\Models\" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\CORE\Views\_ViewImports.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\CORE\Views\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Areas\CORE\Scripts\Colaboradores\Index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Areas\SEG\Scripts\Usuarios\CrearUsuario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,7 +1,9 @@
 ﻿using Core.Providers.SEG;
 using Core.Services.ADMIN;
+using Core.Services.CORE;
 using Core.Services.SEG;
 using DAOs.ADMIN;
+using DAOs.CORE;
 using DAOs.SEG;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +18,8 @@ namespace WebApp
             services.AddScoped<IRoleDAOService, RoleDAO>();
             services.AddScoped<IPermisoDAOService, PermisoDAO>();
             services.AddScoped<IPersonaDAOService, PersonaDAO>();
+            services.AddScoped<IColaboradorDAOService, ColaboradorDAO>();
+            
         }
     }
 }
