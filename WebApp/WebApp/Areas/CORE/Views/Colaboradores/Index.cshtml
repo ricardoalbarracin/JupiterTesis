@@ -10,7 +10,7 @@
     <!-- Plantilla que se utilizará en la columna de acciones de la grilla -->
     <script id="actionTemplate" type="text/x-kendo-template">
         <div class='text-center'>
-            <a class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("ActualizarColaborador", "Colaboradores", new { area = "SEG" })/#=data.Id#'>Editar</a>
+            <a class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("ActualizarColaborador", "Colaboradores", new { area = "CORE" })/#=data.Id#'>Editar</a>
         </div>
     </script>
 
@@ -21,7 +21,7 @@
             <div class="card-header">
                 <div class="h5 m-0">
                     Listado de Colaboradores <label class="float-right mt-0 mb-0">
-                        @Html.ActionLink("Registrar", "CrearColaborador", "Colaboradores", new { area = "SEG" }, new { @data_modal = "modal-xl", @class = "btn btn-primary float-right" })
+                        @Html.ActionLink("Registrar", "CrearColaborador", "Colaboradores", new { area = "CORE" }, new { @data_modal = "modal-xl", @class = "btn btn-primary float-right" })
                     </label>
                 </div>
 

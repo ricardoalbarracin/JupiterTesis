@@ -67,6 +67,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\CORE\Views\Colaboradores\ActualizarColaborador.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\CORE\Views\Colaboradores\UpdColaborador.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\CORE\Views\Colaboradores\UpdPersona.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\CORE\Views\_ViewImports.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -76,7 +85,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Areas\CORE\Scripts\Colaboradores\ActualizarColaborador.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Areas\CORE\Scripts\Colaboradores\Index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\CORE\Scripts\Colaboradores\UpdColaborador.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\CORE\Scripts\Colaboradores\UpdPersona.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Areas\SEG\Scripts\Usuarios\CrearUsuario.js">

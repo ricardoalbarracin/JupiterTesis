@@ -22,6 +22,8 @@ namespace DAOs.CORE
         {
         }
 
+        
+
         public Result<List<ColaboradorGrid>> ListColaboradoresGrid()
         {
             var result = new Result<List<ColaboradorGrid>>();
@@ -52,6 +54,35 @@ namespace DAOs.CORE
             return result;
         }
 
-       
+        public Result<ColaboradorEdit> GetColaboradorEditById(int id)
+        {
+
+            var result = new Result<ColaboradorEdit>();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    // Obtiene informacion basica del usuario
+                    var colaboradorEdit = new ColaboradorEdit();
+                    colaboradorEdit.Colaborador = connection.Get<Colaborador>(id);
+
+                    colaboradorEdit.Persona = connection.Get<Persona>(colaboradorEdit.Colaborador.PersonaId);
+
+                    // Actualiza informacion del objeto Usuario.
+                    result.Data = colaboradorEdit;
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando colaborador";
+                result.Exception = ex;
+            }
+
+            return result;
+
+        }
+
+
     }
 }

@@ -7,5 +7,7 @@ namespace Core.Services.CORE
     public interface IColaboradorDAOService
     {
         Result<List<ColaboradorGrid>> ListColaboradoresGrid();
+        Result<ColaboradorEdit> GetColaboradorEditById(int id);
+        
     }
 }
