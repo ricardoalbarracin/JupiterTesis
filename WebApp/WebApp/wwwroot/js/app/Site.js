@@ -47,10 +47,15 @@ var Site = function () {
                 }, 0);
             });           
         },
-		handleError: function (e) {
-			e.errors.Error.errors.forEach(function (element) {
-				Utils.toast("error", element);
-			});
+        handleError: function (e) {
+            if (e.errorThrown != null) {
+                Utils.toast("error", e.errorThrown);
+            }
+            else {
+                e.errors.Error.errors.forEach(function (element) {
+                    Utils.toast("error", element);
+                });
+            }
 			
 		},
         /* Configurador de eventos para los modales 
@@ -118,9 +123,13 @@ var Site = function () {
             
 		},
 
-		handleMenu: function () {
+        handleMenu: function () {
+
 			console.log("((handleMenu))");
-			$("a.active").closest("ul").closest("li").addClass("open")
+            
+            $("li.active").closest("ul").closest("li").addClass("active")
+            $("li.active").closest("ul.collapse").closest("ul.collapse").closest("li").addClass("active");
+            $("li.active").closest("ul.collapse").closest("ul.collapse").addClass("in")
 			$('.navbar-minimalize').click(function () {
 				$(".sidebar").toggleClass("active")
 			});

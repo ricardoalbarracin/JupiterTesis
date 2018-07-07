@@ -20,17 +20,20 @@ public static class MenuExtensions
         var currentAction = routeData.Values["action"].ToString();
         var currentController = routeData.Values["controller"].ToString();
         a.AddCssClass("nav-link");
-        if (string.Equals(currentAction, action, StringComparison.OrdinalIgnoreCase) &&
-            string.Equals(currentController, controller, StringComparison.OrdinalIgnoreCase))
-        {
-            a.AddCssClass("active");
-        }
+        
         var i = new TagBuilder("i");
-        i.AddCssClass(icon);
+        i.AddCssClass("sidebar-nav-item-icon " + icon);
         
         a.InnerHtml.AppendHtml(i);
         a.InnerHtml.Append(text);
-        return a;
+        var li = new TagBuilder("li");
+        li.InnerHtml.AppendHtml(a);
+        if (string.Equals(currentAction, action, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(currentController, controller, StringComparison.OrdinalIgnoreCase))
+        {
+            li.AddCssClass("active");
+        }
+        return li ;
 
 
     }
