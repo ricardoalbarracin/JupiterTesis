@@ -37,5 +37,12 @@ namespace WebApp.Areas.CORE.Controllers
             var personas = getListPersonas.Data as List<ColaboradorGrid>;
             return Json(personas.ToDataSourceResult(request));
         }
+
+        public IActionResult ActualizarColaborador(int id)
+        {
+            var result = _colaboradorService.GetColaboradorEditById(id);
+            ViewBag.Container = ControllerContext.RouteData.Values["action"].ToString();
+            return PartialView(result.Data);
+        }
     }
 }
