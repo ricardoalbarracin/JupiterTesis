@@ -6,8 +6,8 @@ using System.Text;
 
 namespace Core.Models.CORE
 {
-    [Table("CORE.Colaboradores")]
-    public class Colaborador
+    [Table("CORE.Contratos")]
+    public class Contrato
     {
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
         public int Id { get; set; }

@@ -27,7 +27,7 @@
 
             </div>
             <div class="card-body">
-                @(Html.Kendo().Grid<ColaboradorGrid>()
+                @(Html.Kendo().Grid<Persona>()
                     .Name("grid")
                     .Columns(columns =>
                     {
@@ -35,7 +35,6 @@
                         columns.Bound(p => p.PrimerNombre).Title("Primer nombre").Width(130);
                         columns.Bound(p => p.PrimerApellido).Title("Primer apellido").Width(130);
                         columns.Bound(p => p.Documento).Title("Documento").Width(130);
-                        columns.Bound(p => p.Cargo).Title("Cargo").Width(130);
                         columns.Bound(c => c.Id).ClientTemplate("#=Index.actionTemplate(data)#").Title("Acciones").Filterable(false).Width(130);
                     })
                     .Pageable()

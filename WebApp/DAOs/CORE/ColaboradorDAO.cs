@@ -24,36 +24,6 @@ namespace DAOs.CORE
 
         
 
-        public Result<List<ColaboradorGrid>> ListColaboradoresGrid()
-        {
-            var result = new Result<List<ColaboradorGrid>>();
-            try
-            {
-                using (var connection = _dapperAdapter.Open())
-                {
-                    result.Data = connection.Query<ColaboradorGrid>(@"SELECT c.Id,
-	                                                                    p.Documento,
-	                                                                    p.PrimerNombre,
-	                                                                    p.SegundoNombre,
-	                                                                    p.FechaNacimiento,
-	                                                                    p.PrimerApellido,
-	                                                                    p.SegundoApellido,
-	                                                                    cargo.Descripcion as Cargo
-                                                                    FROM ADMIN.Personas p
-                                                                    INNER JOIN CORE.Colaboradores c ON(p.Id = c.PersonaId)
-                                                                    INNER JOIN CORE.Cargos Cargo ON(Cargo.Id = c.CargoId  )").AsList();
-                    result.Success = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                result.Message = "Error consultando usuarios";
-                result.Exception = ex;
-            }
-
-            return result;
-        }
-
         public Result<ColaboradorEdit> GetColaboradorEditById(int id)
         {
 
@@ -64,9 +34,9 @@ namespace DAOs.CORE
                 {
                     // Obtiene informacion basica del usuario
                     var colaboradorEdit = new ColaboradorEdit();
-                    colaboradorEdit.Colaborador = connection.Get<Colaborador>(id);
+                    //colaboradorEdit.Contratos = connection.Get<Contrato>(id);
 
-                    colaboradorEdit.Persona = connection.Get<Persona>(colaboradorEdit.Colaborador.PersonaId);
+                    colaboradorEdit.Persona = connection.Get<Persona>(colaboradorEdit.Persona.Id);
 
                     // Actualiza informacion del objeto Usuario.
                     result.Data = colaboradorEdit;

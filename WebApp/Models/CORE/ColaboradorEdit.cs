@@ -1,5 +1,6 @@
 ﻿using Core.Models.ADMIN;
 using Core.Models.CORE;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Models.CORE
@@ -9,7 +10,7 @@ namespace Core.Models.CORE
     {
         public Persona Persona { get; set; }
 
-        public Colaborador Colaborador { get; set; }
-
+        public List<Contrato> Contratos { get; set; }
+    
     }
 }
