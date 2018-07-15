@@ -1,9 +1,8 @@
-﻿using Core.Models.ADMIN;
-using Core.Models.CORE;
+﻿using Core.Models.PARAM;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Models.CORE
+namespace Core.Models.TRANS
 {
     [Table("SEG.Usuarios")]
     public class ColaboradorEdit

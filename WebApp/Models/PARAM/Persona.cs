@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Core.Models.ADMIN
+namespace Core.Models.PARAM
 {
     [Table("ADMIN.Personas")]
     public class Persona

@@ -1,9 +1,9 @@
-﻿using Core.Models.ADMIN;
-using Core.Models.CORE;
+﻿using Core.Models.PARAM;
+using Core.Models.TRANS;
 using Core.Models.Utils;
 using System.Collections.Generic;
 
-namespace Core.Services.CORE
+namespace Core.Services.TRANS
 {
     public interface IColaboradorDAOService
     {

@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Core.Models.ADMIN;
-using Core.Models.CORE;
-using Core.Services.ADMIN;
-using Core.Services.CORE;
+using Core.Models.PARAM;
+using Core.Models.TRANS;
+using Core.Services.PARAM;
+using Core.Services.TRANS;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApp.Areas.CORE.Controllers
+namespace WebApp.Areas.TRANS.Controllers
 {
-    [Area("CORE")]
+    [Area("TRANS")]
     public class ColaboradoresController : Controller
     {
 

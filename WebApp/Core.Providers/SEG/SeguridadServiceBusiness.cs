@@ -9,15 +9,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-namespace Core.Providers.SEG
+namespace Core.Business.SEG
 {
-    public class SeguridadServiceProvider : ISeguridadService
+    public class SeguridadServiceBusiness : ISeguridadService
     {
         IUsuarioDAOService _usuarioService;
         IRoleDAOService _roleService;
         IPermisoDAOService _permisoService;
         IEmailSender _emailSender;
-        public SeguridadServiceProvider(IUsuarioDAOService usuarioService,
+        public SeguridadServiceBusiness(IUsuarioDAOService usuarioService,
                                         IRoleDAOService roleService,
                                         IPermisoDAOService permisoService,
                                         IEmailSender emailSender)

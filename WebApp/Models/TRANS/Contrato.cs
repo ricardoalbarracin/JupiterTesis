@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
-namespace Core.Models.CORE
+namespace Core.Models.TRANS
 {
     [Table("CORE.Contratos")]
     public class Contrato

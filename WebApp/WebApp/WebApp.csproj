@@ -50,7 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core.Providers\Core.Providers.csproj" />
+    <ProjectReference Include="..\Core.Providers\Core.Business.csproj" />
     <ProjectReference Include="..\DAOs\DAOs.csproj" />
     <ProjectReference Include="..\Models\Core.Models.csproj" />
     <ProjectReference Include="..\Services\Core.Services.csproj" />
@@ -60,41 +60,41 @@
     <Folder Include="Areas\ADMIN\Data\" />
     <Folder Include="Areas\ADMIN\Models\" />
     <Folder Include="Areas\ADMIN\Views\" />
-    <Folder Include="Areas\CORE\Data\" />
-    <Folder Include="Areas\CORE\Models\" />
+    <Folder Include="Areas\TRANS\Data\" />
+    <Folder Include="Areas\TRANS\Models\" />
     <Folder Include="Areas\SEG\Data\" />
     <Folder Include="Areas\SEG\Models\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Areas\CORE\Views\Colaboradores\ActualizarColaborador.cshtml">
+    <Content Update="Areas\TRANS\Views\Colaboradores\ActualizarColaborador.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\CORE\Views\Colaboradores\UpdColaborador.cshtml">
+    <Content Update="Areas\TRANS\Views\Colaboradores\UpdColaborador.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\CORE\Views\Colaboradores\UpdPersona.cshtml">
+    <Content Update="Areas\TRANS\Views\Colaboradores\UpdPersona.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\CORE\Views\_ViewImports.cshtml">
+    <Content Update="Areas\TRANS\Views\_ViewImports.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\CORE\Views\_ViewStart.cshtml">
+    <Content Update="Areas\TRANS\Views\_ViewStart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Areas\CORE\Scripts\Colaboradores\ActualizarColaborador.js">
+    <None Update="Areas\TRANS\Scripts\Colaboradores\ActualizarColaborador.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Areas\CORE\Scripts\Colaboradores\Index.js">
+    <None Update="Areas\TRANS\Scripts\Colaboradores\Index.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Areas\CORE\Scripts\Colaboradores\UpdColaborador.js">
+    <None Update="Areas\TRANS\Scripts\Colaboradores\UpdColaborador.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Areas\CORE\Scripts\Colaboradores\UpdPersona.js">
+    <None Update="Areas\TRANS\Scripts\Colaboradores\UpdPersona.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Areas\SEG\Scripts\Usuarios\CrearUsuario.js">

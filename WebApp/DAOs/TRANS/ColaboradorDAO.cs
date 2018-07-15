@@ -1,9 +1,9 @@
-﻿using Core.Models.ADMIN;
-using Core.Models.CORE;
+﻿using Core.Models.PARAM;
+using Core.Models.TRANS;
 using Core.Models.SEG;
 using Core.Models.Utils;
-using Core.Services.ADMIN;
-using Core.Services.CORE;
+using Core.Services.PARAM;
+using Core.Services.TRANS;
 using Core.Services.SEG;
 using Core.Services.Utils;
 using DAOs.Utils;
@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DAOs.CORE
+namespace DAOs.TRANS
 {
     public class ColaboradorDAO : BaseDAO, IColaboradorDAOService
     {

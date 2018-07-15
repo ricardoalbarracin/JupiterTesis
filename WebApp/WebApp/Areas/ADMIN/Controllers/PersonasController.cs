@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Core.Models.ADMIN;
+using Core.Models.PARAM;
 using Core.Models.SEG;
 using Core.Models.Utils;
-using Core.Services.ADMIN;
+using Core.Services.PARAM;
 using Core.Services.SEG;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Helpers;
 
-namespace WebApp.Areas.ADMIN.Controllers
+namespace WebApp.Areas.PARAM.Controllers
 {
     [Area("ADMIN")]
     public class PersonasController : Controller

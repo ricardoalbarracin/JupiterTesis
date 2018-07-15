@@ -1,25 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using WebApp.Data;
-using WebApp.Models;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
+﻿using Core.Models.Utils;
 using Core.Services.Utils;
 using DAOs;
-using Core.Services.SEG;
-using DAOs.SEG;
-using Core.Models.Utils;
 using DAOs.Utils;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WebApp
 {
@@ -124,8 +114,8 @@ namespace WebApp
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
-                System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Areas/CORE/Scripts")),
-                RequestPath = "/Areas/CORE/Scripts"
+                System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Areas/TRANS/Scripts")),
+                RequestPath = "/Areas/TRANS/Scripts"
             });
 
         }

@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAOs", "DAOs\DAOs.csproj", "{3A1B1334-6ECC-4C26-8C30-80C922345BE1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Providers", "Core.Providers\Core.Providers.csproj", "{B5F374FE-D090-4ACB-93B7-2A03629B55E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Business", "Core.Providers\Core.Business.csproj", "{B5F374FE-D090-4ACB-93B7-2A03629B55E5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiReports", "ApiReports\ApiReports.csproj", "{BAB2742A-7740-4A4C-9159-32E070F432E3}"
 EndProject

@@ -1,7 +1,7 @@
-﻿using Core.Models.ADMIN;
+﻿using Core.Models.PARAM;
 using Core.Models.SEG;
 using Core.Models.Utils;
-using Core.Services.ADMIN;
+using Core.Services.PARAM;
 using Core.Services.SEG;
 using Core.Services.Utils;
 using DAOs.Utils;
@@ -12,21 +12,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DAOs.ADMIN
+namespace DAOs.PARAM
 {
     public class PersonaDAO : BaseDAO, IPersonaDAOService
     {
         public PersonaDAO(IDapperAdapter dapper) : base(dapper)
         {
         }
-        public Result<IEnumerable<Persona>> GetListPersonas()
+        public Result<List<Persona>> GetListPersonas()
         {
-            var result = new Result<IEnumerable<Persona>>();
+            var result = new Result<List<Persona>>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    result.Data = connection.GetAll<Persona>();
+                    result.Data = connection.GetAll<Persona>().ToList();
                     result.Success = true;
                 }
             }
