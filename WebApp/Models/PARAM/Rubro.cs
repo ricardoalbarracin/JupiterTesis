@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Models.PARAM
 {
-    [Table("CORE.Dependencias")]
-    public class Dependencia
+    [Table("CORE.Rubros")]
+    public class Rubro
     {
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
         public int Id { get; set; }
@@ -16,10 +16,6 @@ namespace Core.Models.PARAM
         [Required(ErrorMessage = "El campo Descripcion es obligatorio.")]
         public string Descripcion { get; set; }
 
-        [Required(ErrorMessage = "El campo ColaboradorLiderId es obligatorio.")]
-        public int ColaboradorLiderId { get; set; }
-
-        public int? padre_id { get; set; }
-
     }
+
 }
