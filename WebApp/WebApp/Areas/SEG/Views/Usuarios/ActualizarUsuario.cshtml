@@ -28,13 +28,13 @@
 					</ul>
 					<div id="TabUsuarioEdit" class="tab-content ">
 						<div class="tab-pane fade " id="step1">
-							@Html.Partial("UpdUsuario", Model.Usuario)
+							@Html.PartialAsync("UpdUsuario", Model.Usuario).Result
 						</div>
 						<div class="tab-pane fade" id="step2">
-							@Html.Partial("UpdRolesUsuario", new Roles(Model.Roles))
+							@Html.PartialAsync("UpdRolesUsuario", new Roles(Model.Roles)).Result
 						</div>
 						<div class="tab-pane fade" id="step3">
-							@Html.Partial("UpdPermisosUsuario", new Permisos(Model.Permisos))
+							@Html.PartialAsync("UpdPermisosUsuario", new Permisos(Model.Permisos)).Result
 						</div>
 					</div>
 				</div>

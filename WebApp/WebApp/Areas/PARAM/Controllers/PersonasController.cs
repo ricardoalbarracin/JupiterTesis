@@ -38,7 +38,19 @@ namespace WebApp.Areas.PARAM.Controllers
             var personas = getListPersonas.Data as List<Persona>;
             return Json(personas.ToDataSourceResult(request));
         }
-        
+
+        public IActionResult UpdPersona(int id)
+        {
+            var getPersonaById = _personaService.GetPersonaById(id);
+
+            if (!getPersonaById.Success)
+            {
+                ModelState.AddModelError("Error", getPersonaById.Message);
+                return View();
+            }
+            return PartialView(getPersonaById.Data);
+        }
+
 
     }
 }

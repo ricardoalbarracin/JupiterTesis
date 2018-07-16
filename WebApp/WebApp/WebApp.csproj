@@ -86,6 +86,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Areas\PARAM\Scripts\Personas\UpdPersona.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Areas\PARAM\Scripts\Personas\Index.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

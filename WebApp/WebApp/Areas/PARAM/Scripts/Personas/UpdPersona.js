@@ -1,22 +1,18 @@
-﻿var Index = function () {
+﻿var UpdPersona = function () {
     "use strict";
     return {
         // ---------------------------------
         //           Propiedades 
         // ---------------------------------
-        actionTemplate: null,
+        
 
         // ---------------------------------
         //           Metodos 
         // ---------------------------------
 
         init: function () {
-            this.handleTemplates();
+            
 		},
-		handleTemplates: function () {
-            this.actionTemplate = kendo.template($('#Index #actionTemplate').html());
-        },
-
-       
+		
     };
 }();
