@@ -1,4 +1,4 @@
-﻿var InsPersona = function () {
+﻿var InsCargo = function () {
     "use strict";
     return {
         // ---------------------------------
@@ -15,7 +15,7 @@
         },
 
         handleValidator: function () {
-            $.validator.unobtrusive.parse($("#InsPersona form"));
+            $.validator.unobtrusive.parse($("#InsCargo form"));
         },
         onSuccess: function (result) {
             if (result.Success) {

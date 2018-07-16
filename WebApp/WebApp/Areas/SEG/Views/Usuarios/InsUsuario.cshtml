@@ -23,7 +23,7 @@
 											  {
 												  source.Ajax().Read(read =>
 												  {
-													  read.Action("GetListPersonas", "Personas", new { Area = "ADMIN" });
+													  read.Action("GetListPersonas", "Personas", new { Area = "PARAM" });
 												  }).Events(e => e.Error("Site.handleError"));
 
 											  })

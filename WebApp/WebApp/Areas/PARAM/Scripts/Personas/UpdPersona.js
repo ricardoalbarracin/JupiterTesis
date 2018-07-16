@@ -11,15 +11,21 @@
         // ---------------------------------
 
         init: function () {
-            
+            this.handleValidator();
+        },
+        handleValidator: function () {
+            $.validator.unobtrusive.parse($("#UpdPersona form"));
         },
 
-        success: function (result) {
+        onSuccess: function (result) {
             if (result.Success) {
                 swal({
                     title: "Correcto",
                     text: result.Message,
                     type: "success"
+                }, function () {
+                    $('#modal').modal('hide');
+                    $("#grid").data("kendoGrid").dataSource.read();
                 });
 
             } else {

@@ -10,7 +10,6 @@
 		//           Metodos 
 		// ---------------------------------
 		init: function () {
-			console.log("((init))");
 			this.handleValidator();
 		},
 
@@ -19,7 +18,6 @@
 		},
 
 		onBegin: function () {
-			
 			$("#Login form").find(":submit").loading();
 		},
 

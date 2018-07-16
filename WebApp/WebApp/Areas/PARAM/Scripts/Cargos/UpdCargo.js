@@ -1,4 +1,4 @@
-﻿var InsPersona = function () {
+﻿var UpdCargo = function () {
     "use strict";
     return {
         // ---------------------------------
@@ -13,10 +13,10 @@
         init: function () {
             this.handleValidator();
         },
-
         handleValidator: function () {
-            $.validator.unobtrusive.parse($("#InsPersona form"));
+            $.validator.unobtrusive.parse($("#UpdCargo form"));
         },
+
         onSuccess: function (result) {
             if (result.Success) {
                 swal({
@@ -35,6 +35,7 @@
                     type: "error"
                 });
             }
+
         }
 		
     };

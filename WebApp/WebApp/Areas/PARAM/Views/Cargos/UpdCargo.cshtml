@@ -1,14 +1,14 @@
-﻿@model Persona
+﻿@model Cargo
 @{
     var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
 
 <section id=@viewName>
-    <form asp-controller="Personas" asp-action="UpdPersona" data-ajax="true" data-ajax-method="POST"  data-ajax-success="@(viewName).onSuccess">
+    <form asp-controller="Cargos" asp-action="UpdCargo" data-ajax="true" data-ajax-method="POST"  data-ajax-success="@(viewName).onSuccess">
         @Html.HiddenFor(m => m.Id)
         <div class="card">
             <div class="modal-header">
-                <h4 class="modal-title">Actualizar persona</h4>
+                <h4 class="modal-title">Actualizar cargo</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -17,9 +17,14 @@
                 @Html.HiddenFor(m => m.Id)
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        @Html.LabelFor(m => m.PrimerNombre)
-                        @Html.TextBoxFor(m => m.PrimerNombre, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.PrimerNombre)
+                        @Html.LabelFor(m => m.Codigo)
+                        @Html.TextBoxFor(m => m.Codigo, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Codigo)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.Descripcion)
+                        @Html.TextBoxFor(m => m.Descripcion, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Descripcion)
                     </div>
                 </div>
             </div>
