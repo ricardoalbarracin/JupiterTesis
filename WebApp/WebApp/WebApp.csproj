@@ -71,6 +71,9 @@
     <Content Update="Areas\PARAM\Views\Personas\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Areas\PARAM\Views\Personas\InsPersona.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\PARAM\Views\_ViewImports.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -86,6 +89,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Areas\PARAM\Scripts\Personas\InsPersona.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Areas\PARAM\Scripts\Personas\UpdPersona.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -9,14 +9,14 @@ namespace Core.Services.SEG
     public interface ISeguridadService
     {
         Result<UsuarioIdentity> Login(Usuario usuario);
-        Result<Nothing> UpdUsuarioRolesPermisos(IDictionary<string, object> dataSections);
-        Result<Nothing> InsUsuarioRolesPermisos(IDictionary<string, object> dataSections);
+        Result UpdUsuarioRolesPermisos(IDictionary<string, object> dataSections);
+        Result InsUsuarioRolesPermisos(IDictionary<string, object> dataSections);
         Result<string> ResetPassword(Usuario usuario);
 
-        Result<Nothing> ValidarPassword(Usuario usuario, string password);
+        Result ValidarPassword(Usuario usuario, string password);
         Result<Dictionary<string, string>> GenerarHashRandomPassword(string Username);
         string GenerateRandomPassword();
-        Result<Nothing> ValidarCrearUsuario(Usuario usuario);
-        Result<Nothing> ValidarActualizarUsuario(Usuario usuario);
+        Result ValidarCrearUsuario(Usuario usuario);
+        Result ValidarActualizarUsuario(Usuario usuario);
     }
 }

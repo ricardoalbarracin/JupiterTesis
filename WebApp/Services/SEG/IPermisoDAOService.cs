@@ -16,7 +16,7 @@ namespace Core.Services.SEG
 
         Result<UsuarioPermiso> InsUsuarioPermiso(UsuarioPermiso permiso);
 
-        Result<Nothing> DelUsuarioPermiso(UsuarioPermiso permiso);
+        Result DelUsuarioPermiso(UsuarioPermiso permiso);
         
 
     }

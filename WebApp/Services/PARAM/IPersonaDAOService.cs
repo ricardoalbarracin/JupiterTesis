@@ -10,6 +10,11 @@ namespace Core.Services.PARAM
     public interface IPersonaDAOService
     {
         Result<List<Persona>> GetListPersonas();
+
         Result<Persona> GetPersonaById(long id);
+
+        Result UpdPersona(Persona persona);
+
+        Result<Persona> InsPersona(Persona persona);
     }
 }

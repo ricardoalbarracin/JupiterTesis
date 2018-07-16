@@ -22,7 +22,7 @@ namespace WebApp.Areas.PARAM.Controllers
         {
             _personaService = personaService;
         }
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
@@ -39,7 +39,8 @@ namespace WebApp.Areas.PARAM.Controllers
             return Json(personas.ToDataSourceResult(request));
         }
 
-        public IActionResult UpdPersona(int id)
+        [HttpGet]
+        public ActionResult UpdPersona(int id)
         {
             var getPersonaById = _personaService.GetPersonaById(id);
 
@@ -50,6 +51,27 @@ namespace WebApp.Areas.PARAM.Controllers
             }
             return PartialView(getPersonaById.Data);
         }
+
+        [HttpPost]
+        public ActionResult UpdPersona(Persona persona)
+        {
+            var updPersona = _personaService.UpdPersona(persona);
+            return new JsonResult(updPersona);
+        }
+
+        [HttpGet]
+        public ActionResult InsPersona()
+        {
+            return PartialView(new Persona());
+        }
+
+        [HttpPost]
+        public ActionResult InsPersona(Persona persona)
+        {
+            var insPersona = _personaService.InsPersona(persona);
+            return new JsonResult(insPersona);
+        }
+
 
 
     }

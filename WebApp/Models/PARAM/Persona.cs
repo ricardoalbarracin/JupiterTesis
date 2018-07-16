@@ -10,7 +10,7 @@ namespace Core.Models.PARAM
     public class Persona
     {
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required(ErrorMessage = "El campo TipoDocumentoId es obligatorio.")]
         public int TipoDocumentoId { get; set; }

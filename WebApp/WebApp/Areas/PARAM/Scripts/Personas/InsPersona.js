@@ -1,4 +1,4 @@
-﻿var UpdPersona = function () {
+﻿var InsPersona = function () {
     "use strict";
     return {
         // ---------------------------------
@@ -29,7 +29,6 @@
                     type: "error"
                 });
             }
-
         }
 		
     };

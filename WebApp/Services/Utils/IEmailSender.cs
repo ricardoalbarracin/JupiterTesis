@@ -8,6 +8,6 @@ namespace Core.Services.Utils
 {
     public interface IEmailSender
     {
-        Result<Nothing> SendEmailResetPassword(string email, string usuario, string password);
+        Result SendEmailResetPassword(string email, string usuario, string password);
     }
 }

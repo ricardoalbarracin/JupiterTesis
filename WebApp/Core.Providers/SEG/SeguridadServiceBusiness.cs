@@ -56,9 +56,9 @@ namespace Core.Business.SEG
             return result;
         }
 
-        public Result<Nothing> UpdUsuarioRolesPermisos(IDictionary<string, object> dataSections)
+        public Result UpdUsuarioRolesPermisos(IDictionary<string, object> dataSections)
         {
-            var result = new Result<Nothing>();
+            var result = new Result();
             using (var transaction = new TransactionScope())
             {
                 var usuario = dataSections["UpdUsuario"] as Usuario;
@@ -130,9 +130,9 @@ namespace Core.Business.SEG
             return result;
         }
 
-        public Result<Nothing> InsUsuarioRolesPermisos(IDictionary<string, object> dataSections)
+        public Result InsUsuarioRolesPermisos(IDictionary<string, object> dataSections)
         {
-            var result = new Result<Nothing>();
+            var result = new Result();
             using (var transaction = new TransactionScope())
             {
                 var usuario = dataSections["InsUsuario"] as Usuario;
@@ -257,9 +257,9 @@ namespace Core.Business.SEG
             return result;
         }
 
-        public Result<Nothing> ValidarPassword(Usuario usuario, string password)
+        public Result ValidarPassword(Usuario usuario, string password)
         {
-            var result = new Result<Nothing>();
+            var result = new Result();
             PasswordHasher<string> pw = new PasswordHasher<string>();
             var resultVerify = pw.VerifyHashedPassword(usuario.Username, usuario.Password, password);
             if (resultVerify == PasswordVerificationResult.Failed)
@@ -330,9 +330,9 @@ namespace Core.Business.SEG
             return new string(chars.ToArray());
         }
 
-        public Result<Nothing> ValidarCrearUsuario(Usuario usuario)
+        public Result ValidarCrearUsuario(Usuario usuario)
         {
-            var result =new  Result<Nothing>();
+            var result =new  Result();
             var usuarioByPersonaId = _usuarioService.UsuarioByPersonaId(usuario.PersonaId);
 
             if(usuarioByPersonaId.Success)
@@ -355,9 +355,9 @@ namespace Core.Business.SEG
             return result;
         }
 
-        public Result<Nothing> ValidarActualizarUsuario(Usuario usuario)
+        public Result ValidarActualizarUsuario(Usuario usuario)
         {
-            var result = new Result<Nothing>();
+            var result = new Result();
             var usuarioByUserIdPersonaId = _usuarioService.UsuarioByUserIdPersonaId(usuario.Id, usuario.PersonaId);
 
             if (usuarioByUserIdPersonaId.Success)

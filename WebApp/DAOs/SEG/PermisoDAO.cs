@@ -111,9 +111,9 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<Nothing> DelUsuarioPermiso(UsuarioPermiso permiso)
+        public Result DelUsuarioPermiso(UsuarioPermiso permiso)
         {
-            var result = new Result<Nothing>();
+            var result = new Result();
             try
             {
                 using (var connection = _dapperAdapter.Open())

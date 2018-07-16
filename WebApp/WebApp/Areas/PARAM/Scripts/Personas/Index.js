@@ -16,7 +16,5 @@
 		handleTemplates: function () {
             this.actionTemplate = kendo.template($('#Index #actionTemplate').html());
         },
-
-       
     };
 }();

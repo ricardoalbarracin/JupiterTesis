@@ -77,9 +77,9 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<Nothing> DelUsuarioRole(UsuarioRole role)
+        public Result DelUsuarioRole(UsuarioRole role)
         {
-            var result = new Result<Nothing>();
+            var result = new Result();
             try
             {
                 using (var connection = _dapperAdapter.Open())
