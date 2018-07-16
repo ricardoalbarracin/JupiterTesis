@@ -76,7 +76,7 @@ namespace DAOs.SEG
                     var usuario = connection.QueryFirst<UsuarioIdentity>(sql, new { Id = id });
 
                     // Obtiene lista de permisos asociados al usuario
-                    var listPermisosUsuario = _permisoService.ListPermisosUsuario(id);
+                    var listPermisosUsuario = _permisoService.GetListPermisosUsuario(id);
                     if (!listPermisosUsuario.Success)
                     {
                         result.Message = listPermisosUsuario.Message;
@@ -85,7 +85,7 @@ namespace DAOs.SEG
                     usuario.Permisos = listPermisosUsuario.Data;
 
                     // Obtiene lista de roles asociados al usuario
-                    var listRolesUsuario = _roleService.ListRolesUsuario(id);
+                    var listRolesUsuario = _roleService.GetListRolesUsuario(id);
                     if (!listRolesUsuario.Success)
                     {
                         result.Message = listRolesUsuario.Message;
@@ -146,7 +146,7 @@ namespace DAOs.SEG
                     usuarioEdit.Usuario = connection.Get<Usuario>(id );
 
                     // Obtiene lista de permisos asociados al usuario
-                    var listPermisosUsuario = _permisoService.ListPermisosAsignadosUsuario(id);
+                    var listPermisosUsuario = _permisoService.GetListPermisosAsignadosUsuario(id);
                     if (!listPermisosUsuario.Success)
                     {
                         result.Message = listPermisosUsuario.Message;
@@ -155,7 +155,7 @@ namespace DAOs.SEG
                     usuarioEdit.Permisos = listPermisosUsuario.Data;
 
                     // Obtiene lista de roles asociados al usuario
-                    var listRolesUsuario = _roleService.ListRolesUsuario(id);
+                    var listRolesUsuario = _roleService.GetListRolesUsuario(id);
                     if (!listRolesUsuario.Success)
                     {
                         result.Message = listRolesUsuario.Message;

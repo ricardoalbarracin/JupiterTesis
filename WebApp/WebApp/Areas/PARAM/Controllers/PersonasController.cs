@@ -3,34 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Models.PARAM;
-using Core.Models.TRANS;
+using Core.Models.SEG;
+using Core.Models.Utils;
 using Core.Services.PARAM;
-using Core.Services.TRANS;
+using Core.Services.SEG;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Helpers;
 
-namespace WebApp.Areas.TRANS.Controllers
+namespace WebApp.Areas.PARAM.Controllers
 {
-    [Area("TRANS")]
-    public class ColaboradoresController : Controller
+    [Area("PARAM")]
+    public class PersonasController : Controller
     {
-
-        IColaboradorDAOService _colaboradorService;
         IPersonaDAOService _personaService;
-
-        public ColaboradoresController(IColaboradorDAOService colaboradorService, IPersonaDAOService personaService)
+        public PersonasController(IPersonaDAOService personaService)
         {
-            _colaboradorService = colaboradorService;
             _personaService = personaService;
         }
-
         public IActionResult Index()
         {
             return View();
         }
-
-        public ActionResult GetListColaboradores([DataSourceRequest] DataSourceRequest request)
+        public ActionResult GetListPersonas([DataSourceRequest] DataSourceRequest request)
         {
             var getListPersonas = _personaService.GetListPersonas();
 
@@ -42,12 +38,7 @@ namespace WebApp.Areas.TRANS.Controllers
             var personas = getListPersonas.Data as List<Persona>;
             return Json(personas.ToDataSourceResult(request));
         }
+        
 
-        public IActionResult ActualizarColaborador(int id)
-        {
-            var result = _colaboradorService.GetColaboradorEditById(id);
-            ViewBag.Container = ControllerContext.RouteData.Values["action"].ToString();
-            return PartialView(result.Data);
-        }
     }
 }

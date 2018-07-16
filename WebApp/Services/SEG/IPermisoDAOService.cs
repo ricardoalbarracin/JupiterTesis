@@ -9,10 +9,10 @@ namespace Core.Services.SEG
     public interface IPermisoDAOService
     {
 
-        Result<IEnumerable<Permiso>> ListPermisos();
-        Result<List<Permiso>> ListPermisosAsignadosUsuario(long usuarioId);
+        Result<IEnumerable<Permiso>> GetListPermisos();
+        Result<List<Permiso>> GetListPermisosAsignadosUsuario(long usuarioId);
 
-        Result<List<Permiso>> ListPermisosUsuario(long usuarioId);
+        Result<List<Permiso>> GetListPermisosUsuario(long usuarioId);
 
         Result<UsuarioPermiso> InsUsuarioPermiso(UsuarioPermiso permiso);
 

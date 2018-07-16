@@ -28,7 +28,7 @@ namespace WebApp.Areas.SEG.Controllers
 
         public ActionResult GetListPermisos([DataSourceRequest] DataSourceRequest request)
         {
-            var listPermisos = _permisoService.ListPermisos();
+            var listPermisos = _permisoService.GetListPermisos();
 
             if (!listPermisos.Success)
             {

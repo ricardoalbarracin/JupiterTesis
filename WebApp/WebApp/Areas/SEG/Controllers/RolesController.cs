@@ -30,7 +30,7 @@ namespace WebApp.Areas.SEG.Controllers
 
         public ActionResult GetListRoles([DataSourceRequest] DataSourceRequest request)
         {
-            var listRoles = _roleService.ListRoles();
+            var listRoles = _roleService.GetListRoles();
 
             if (!listRoles.Success)
             {

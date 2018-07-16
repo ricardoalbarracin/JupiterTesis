@@ -10,10 +10,10 @@ namespace Core.Models.PARAM
     public class Persona
     {
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo TipoDocumentoId es obligatorio.")]
-        public long TipoDocumentoId { get; set; }
+        public int TipoDocumentoId { get; set; }
 
         [Required(ErrorMessage = "El campo Documento es obligatorio.")]
         [MaxLength(50, ErrorMessage = "El campo Documento no puede tener mas de 50 caracteres.")]
@@ -35,15 +35,15 @@ namespace Core.Models.PARAM
         public DateTime FechaNacimiento { get; set; }
 
         [Required(ErrorMessage = "El campo SexoId es obligatorio.")]
-        public long SexoId { get; set; }
+        public int SexoId { get; set; }
 
-        public long? DepartamentoNacimientoId { get; set; }
+        public int? DepartamentoNacimientoId { get; set; }
 
-        public long? MunicipioNacimientoId { get; set; }
+        public int? MunicipioNacimientoId { get; set; }
 
-        public long? DepartamentoResidenciaId { get; set; }
+        public int? DepartamentoResidenciaId { get; set; }
 
-        public long? MunicipioResidenciaId { get; set; }
+        public int? MunicipioResidenciaId { get; set; }
 
         [MaxLength(50, ErrorMessage = "El campo Telefono no puede tener mas de 50 caracteres.")]
         public string Telefono { get; set; }
@@ -57,6 +57,9 @@ namespace Core.Models.PARAM
 
         [MaxLength(500, ErrorMessage = "El campo Direccion no puede tener mas de 500 caracteres.")]
         public string Direccion { get; set; }
+
+        [Required(ErrorMessage = "El campo Cargo es obligatorio.")]
+        public int CargoId { get; set; }
 
     }
 }

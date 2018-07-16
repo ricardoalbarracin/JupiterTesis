@@ -17,7 +17,7 @@ namespace DAOs.SEG
         public PermisoDAO(IDapperAdapter dapper) : base(dapper)
         {
         }
-        public Result<IEnumerable<Permiso>> ListPermisos()
+        public Result<IEnumerable<Permiso>> GetListPermisos()
         {
             var result = new Result<IEnumerable<Permiso>>();
             try
@@ -35,7 +35,7 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<List<Permiso>> ListPermisosAsignadosUsuario(long usuarioId)
+        public Result<List<Permiso>> GetListPermisosAsignadosUsuario(long usuarioId)
         {
             var result = new Result<List<Permiso>>();
             try
@@ -59,7 +59,7 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<List<Permiso>> ListPermisosUsuario(long usuarioId)
+        public Result<List<Permiso>> GetListPermisosUsuario(long usuarioId)
         {
             var result = new Result<List<Permiso>>();
             try

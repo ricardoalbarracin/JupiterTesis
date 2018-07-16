@@ -57,23 +57,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\ADMIN\Data\" />
-    <Folder Include="Areas\ADMIN\Models\" />
-    <Folder Include="Areas\ADMIN\Views\" />
+    <Folder Include="Areas\PARAM\Data\" />
+    <Folder Include="Areas\PARAM\Models\" />
+    <Folder Include="Areas\TRANS\Controllers\" />
     <Folder Include="Areas\TRANS\Data\" />
     <Folder Include="Areas\TRANS\Models\" />
     <Folder Include="Areas\SEG\Data\" />
     <Folder Include="Areas\SEG\Models\" />
+    <Folder Include="Areas\TRANS\Scripts\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Areas\TRANS\Views\Colaboradores\ActualizarColaborador.cshtml">
+    <Content Update="Areas\PARAM\Views\Personas\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\TRANS\Views\Colaboradores\UpdColaborador.cshtml">
+    <Content Update="Areas\PARAM\Views\_ViewImports.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\TRANS\Views\Colaboradores\UpdPersona.cshtml">
+    <Content Update="Areas\PARAM\Views\_ViewStart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\TRANS\Views\_ViewImports.cshtml">
@@ -85,16 +86,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Areas\TRANS\Scripts\Colaboradores\ActualizarColaborador.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\TRANS\Scripts\Colaboradores\Index.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\TRANS\Scripts\Colaboradores\UpdColaborador.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\TRANS\Scripts\Colaboradores\UpdPersona.js">
+    <None Update="Areas\PARAM\Scripts\Personas\Index.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Areas\SEG\Scripts\Usuarios\CrearUsuario.js">

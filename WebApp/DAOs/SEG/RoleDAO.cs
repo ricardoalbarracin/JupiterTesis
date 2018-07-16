@@ -17,7 +17,7 @@ namespace DAOs.SEG
         public RoleDAO(IDapperAdapter dapper) : base(dapper)
         {
         }
-        public Result<List<Role>> ListRoles()
+        public Result<List<Role>> GetListRoles()
         {
             var result = new Result<List<Role>>();
             try
@@ -35,7 +35,7 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<List<Role>> ListRolesUsuario(long usuarioId)
+        public Result<List<Role>> GetListRolesUsuario(long usuarioId)
         {
             var result = new Result<List<Role>>();
             try

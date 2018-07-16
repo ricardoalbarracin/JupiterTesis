@@ -1,9 +1,7 @@
 ﻿using Core.Business.SEG;
 using Core.Services.PARAM;
-using Core.Services.TRANS;
 using Core.Services.SEG;
 using DAOs.PARAM;
-using DAOs.TRANS;
 using DAOs.SEG;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,7 +21,6 @@ namespace WebApp
             services.AddScoped<IRoleDAOService, RoleDAO>();
             services.AddScoped<IPermisoDAOService, PermisoDAO>();
             services.AddScoped<IPersonaDAOService, PersonaDAO>();
-            services.AddScoped<IColaboradorDAOService, ColaboradorDAO>();
         }
     }
 }
