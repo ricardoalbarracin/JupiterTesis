@@ -22,6 +22,8 @@ namespace WebApp
             services.AddScoped<IPermisoDAOService, PermisoDAO>();
             services.AddScoped<IPersonaDAOService, PersonaDAO>();
             services.AddScoped<ICargoDAOService, CargoDAO>();
+            services.AddScoped<IRubroDAOService, RubroDAO>();
+            services.AddScoped<IDependenciaDAOService, DependenciaDAO>();
         }
     }
 }

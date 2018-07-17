@@ -68,6 +68,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\PARAM\Views\Dependencias\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\PARAM\Views\Dependencias\UpdDependencia.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\PARAM\Views\Dependencias\InsDependencia.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\PARAM\Views\Rubros\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\PARAM\Views\Rubros\InsRubro.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\PARAM\Views\Rubros\UpdRubro.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\PARAM\Views\Cargos\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -98,6 +116,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Areas\PARAM\Scripts\Dependencias\Index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Dependencias\UpdDependencia.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Dependencias\InsDependencia.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Rubros\Index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Rubros\InsRubro.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Rubros\UpdRubro.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Areas\PARAM\Scripts\Cargos\Index.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

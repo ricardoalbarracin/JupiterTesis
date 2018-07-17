@@ -47,7 +47,7 @@ namespace WebApp.Areas.PARAM.Controllers
             if (!getPersonaById.Success)
             {
                 ModelState.AddModelError("Error", getPersonaById.Message);
-                return View();
+                return View(new Persona());
             }
             return PartialView(getPersonaById.Data);
         }
