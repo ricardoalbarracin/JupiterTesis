@@ -21,7 +21,7 @@ namespace DAOs
         {
             _configuration = configuration as IConfigurationRoot;
             DefaultTypeMap.MatchNamesWithUnderscores = true;
-            _connectionString = _configuration.GetConnectionString("LocalConnection");
+            _connectionString = _configuration.GetConnectionString("DbDefaultConnection");
         }
 
         public IDbConnection Open()

@@ -24,7 +24,7 @@ namespace WebApp.Utils
         public static UsuarioIdentity GetUser(this ISession session)
         {
             var value = session.GetString("Usuario");
-            return JsonConvert.DeserializeObject<UsuarioIdentity>(value);
+            return value == null? null : JsonConvert.DeserializeObject<UsuarioIdentity>(value);
         }
 
     }

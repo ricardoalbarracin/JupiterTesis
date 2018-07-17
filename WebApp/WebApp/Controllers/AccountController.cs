@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using WebApp.Utils;
 
 namespace WebApp.Controllers
 {
@@ -49,21 +50,21 @@ namespace WebApp.Controllers
                 return Json(result);
             }
             result = _seguridadService.Login(usuario);
-            //if (!result.Success)
-            //    return Json(result);
+            if (!result.Success)
+                return Json(result);
             var usuarioDB = result.Data as UsuarioIdentity;
             var claims = new List<Claim>
             {
-                //new Claim(ClaimTypes.Name, $"{usuarioDB.PrimerNombre} {usuarioDB.SegundoNombre} {usuarioDB.PrimerApellido} {usuarioDB.SegundoApellido}")
-                new Claim(ClaimTypes.Name, $"Ricardo")
+                new Claim(ClaimTypes.Name, $"{usuarioDB.PrimerNombre} {usuarioDB.SegundoNombre} {usuarioDB.PrimerApellido} {usuarioDB.SegundoApellido}")
+                //new Claim(ClaimTypes.Name, $"Ricardo")
             };
 
             var userIdentity = new ClaimsIdentity(claims, "login");
 
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
             await HttpContext.SignInAsync(principal);
-            //HttpContext.Session.SetObject("Usuario", usuarioDB);
-            //var a = HttpContext.Session.GetUser();
+            HttpContext.Session.SetObject("Usuario", usuarioDB);
+            ////var a = HttpContext.Session.GetUser();
             result.Success = true;
             return Json(result);
         }
