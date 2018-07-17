@@ -71,6 +71,9 @@
     <Content Update="Areas\PARAM\Views\Dependencias\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Areas\PARAM\Views\Dependencias\DetalleDependencia.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\PARAM\Views\Dependencias\UpdDependencia.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

@@ -22,7 +22,7 @@
                 <div class="h5 m-0">
                     Listado de dependencias 
                     <label class="float-right mt-0 mb-0">
-                        <a id="btnNuevo" class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("UpdDependencia", "Dependencias", new { area = "PARAM" })'>Agregar dependencia</a>
+                        <a id="btnNuevo" class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("InsDependencia", "Dependencias", new { area = "PARAM" })'>Agregar dependencia</a>
                         <a id="btnSubDependencia" style="display:none" class='btn btn-primary' data-modal="modal-xl">Agregar subdependencia </a>
                         <a id="btnUpdDependencia" style="display:none" class='btn btn-primary' data-modal="modal-xl">Editar dependencia </a>
                         <a id="btnDelDependencia" style="display:none" class='btn btn-danger'  onclick='Index.removeRow()'>Eliminar subdependencia </a>
@@ -31,20 +31,34 @@
 
             </div>
             <div class="card-body">
-                @(Html.Kendo().TreeView()
-                    .Name("treeview")
-                    .DataTextField("Codigo")
-                    .Events(events => events
-                        .Select("Index.onSelect")
-                        
-                    )
-                    .DataSource(dataSource => dataSource
-                                
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                @(Html.Kendo().TreeView()
+                                .Name("treeview")
+                                .DataTextField("Codigo")
+                                .Events(events => events
+                                    .Select("Index.onSelect")
+                                    .DataBound("Index.onDataBound")
+                                )
+                                .DataSource(dataSource => dataSource
                                 .Read(read => read.Action("GetListDependencias", "Dependencias"))
                                 .Events(e => e.Error("Site.handleError"))
-                            )
-                )
-                
+                                        )
+                                )
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="Detalle">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

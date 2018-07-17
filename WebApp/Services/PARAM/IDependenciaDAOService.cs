@@ -18,5 +18,7 @@ namespace Core.Services.PARAM
         Result UpdDependencia(Dependencia dependencia);
 
         Result DelDependencia(int id);
+
+        Result<DetalleDependencia> GetDetalleDependenciaById(int id);
     }
 }

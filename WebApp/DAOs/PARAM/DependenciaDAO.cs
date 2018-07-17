@@ -114,5 +114,25 @@ namespace DAOs.PARAM
             }
             return result;
         }
+
+        public Result<DetalleDependencia> GetDetalleDependenciaById(int id)
+        {
+            var result = new Result<DetalleDependencia>();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    result.Data = connection.QueryFirst<DetalleDependencia>(@"select d.Codigo,d.Descripcion, p.PrimerNombre + ' ' + p.SegundoNombre + ' ' + p.PrimerApellido + p.SegundoApellido as Colaborador from CORE.Dependencias d
+                                                                              inner join ADMIN.Personas p on(d.ColaboradorLiderId = p.Id ) where d.Id = @Id", new { Id= id});
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando Dependencia.";
+                result.Exception = ex;
+            }
+            return result;
+        }
     }
 }

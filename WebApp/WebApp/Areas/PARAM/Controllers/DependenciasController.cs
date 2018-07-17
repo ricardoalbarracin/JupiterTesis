@@ -64,7 +64,7 @@ namespace WebApp.Areas.PARAM.Controllers
                 ModelState.AddModelError("Error", getDependenciaById.Message);
                 return View(new Dependencia());
             }
-            return PartialView("InsDependencia", new Dependencia { padre_id = getDependenciaById.Data.padre_id });
+            return PartialView("InsDependencia", new Dependencia { padre_id = getDependenciaById?.Data?.padre_id });
         }
 
         [HttpPost]
@@ -99,6 +99,19 @@ namespace WebApp.Areas.PARAM.Controllers
         {
             var delDependencia = _DependenciaService.DelDependencia(id);
             return Json(delDependencia);
+        }
+
+        [HttpGet]
+        public ActionResult DetalleDependencia(int id)
+        {
+            var getDetalleDependenciaById = _DependenciaService.GetDetalleDependenciaById(id);
+
+            if (!getDetalleDependenciaById.Success)
+            {
+                ModelState.AddModelError("Error", getDetalleDependenciaById.Message);
+                return View(new Dependencia());
+            }
+            return PartialView(getDetalleDependenciaById.Data);
         }
 
     }

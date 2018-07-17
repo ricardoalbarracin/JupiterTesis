@@ -49,6 +49,8 @@
                                     $('#modal').modal('hide');
                                     $('#treeview').data('kendoTreeView').dataSource.read();
 
+                                    
+
                                 });
 
                             } else {
@@ -66,6 +68,7 @@
             
         },
         onSelect: function (e) {
+            
             $('#btnSubDependencia').show();
             $('#btnUpdDependencia').show();
             $('#btnDelDependencia').show();
@@ -74,7 +77,15 @@
             $('#btnUpdDependencia')[0].href = '/PARAM/Dependencias/UpdDependencia/?Id=' + $('#treeview').data('kendoTreeView').dataItem(e.node).id
 
             $('#btnNuevo')[0].href = '/PARAM/Dependencias/InsDependencia/?Id=' + $('#treeview').data('kendoTreeView').dataItem(e.node).id
-
+            $("#Detalle").load("/PARAM/Dependencias/DetalleDependencia/" + $('#treeview').data('kendoTreeView').dataItem(e.node).id);
         },
+        onDataBound: function (e) {
+            $('#btnSubDependencia').hide();
+            $('#btnUpdDependencia').hide();
+            $('#btnDelDependencia').hide();
+            $('#btnNuevo')[0].href = '/PARAM/Dependencias/InsDependencia/'
+            $("#Detalle").empty();
+        },
+
     };
 }();
