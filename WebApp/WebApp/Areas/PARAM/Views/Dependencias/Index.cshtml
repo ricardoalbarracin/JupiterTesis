@@ -35,16 +35,29 @@
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body">
-                                @(Html.Kendo().TreeView()
+                                @(Html.Kendo().TreeList<Dependencia>()
                                 .Name("treeview")
-                                .DataTextField("Codigo")
+                                //.DataTextField("Codigo")
                                 .Events(events => events
-                                    .Select("Index.onSelect")
+                                    //.Select("Index.onSelect")
                                     .DataBound("Index.onDataBound")
                                 )
+                                .Columns(columns =>
+                                {
+                                    columns.Add().Field(e => e.Id).Width(280);
+                                    columns.Add().Field(e => e.Codigo).Width(280);
+                                    columns.Add().Field(e => e.Descripcion).Width(160);
+                                })
                                 .DataSource(dataSource => dataSource
                                 .Read(read => read.Action("GetListDependencias", "Dependencias"))
                                 .Events(e => e.Error("Site.handleError"))
+                                .Model(m =>
+                                {
+                                    m.Id(f => f.Id);
+                                    m.ParentId(f => f.padre_id);
+                                    m.Field(f => f.Codigo);
+                                    m.Field(f => f.Descripcion);
+                                })
                                         )
                                 )
                             </div>

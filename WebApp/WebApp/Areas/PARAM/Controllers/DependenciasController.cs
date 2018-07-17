@@ -41,11 +41,14 @@ namespace WebApp.Areas.PARAM.Controllers
                                select new
                                {
                                    Codigo = e.Codigo,
-                                   id=e.Id,
+                                   Id=e.Id,
+                                   padre_id = e.padre_id,
+                                   Descripcion = e.Descripcion,
                                    hasChildren = getListDependencias.Data.Where(p => p.padre_id == e.Id).Select(m => m.Id).Any(),
                                    Children = getListDependencias.Data.Where(p => p.padre_id == e.Id ).Select(m => m.Id),
                                };
-            return  Json(dependencias);
+            //return  Json(dependencias);
+            return Json(dependencias.ToDataSourceResult(request));
         }
 
         [HttpGet]
