@@ -47,7 +47,7 @@ namespace WebApp.Areas.PARAM.Controllers
             if (!getCargoById.Success)
             {
                 ModelState.AddModelError("Error", getCargoById.Message);
-                return View();
+                return View(new Cargo());
             }
             return PartialView(getCargoById.Data);
         }

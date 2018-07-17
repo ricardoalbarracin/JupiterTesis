@@ -7,7 +7,7 @@ namespace Core.Models.PARAM
     public class Rubro
     {
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required(ErrorMessage = "El campo Codigo es obligatorio.")]
         [MaxLength(10, ErrorMessage = "El campo Codigo no puede tener mas de 10 caracteres.")]

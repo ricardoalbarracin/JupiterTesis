@@ -1,19 +1,20 @@
-﻿@model Cargo
+﻿@model Rubro
 @{
     var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
 
 <section id=@viewName>
-    <form asp-controller="Cargos" asp-action="InsCargo" data-ajax="true" data-ajax-method="POST"  data-ajax-success="@(viewName).onSuccess">
+    <form asp-controller="Rubros" asp-action="UpdRubro" data-ajax="true" data-ajax-method="POST"  data-ajax-success="@(viewName).onSuccess">
         @Html.HiddenFor(m => m.Id)
         <div class="card">
             <div class="modal-header">
-                <h4 class="modal-title">Crear cargo</h4>
+                <h4 class="modal-title">Actualizar Rubro</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="card-body">
+                @Html.HiddenFor(m => m.Id)
                 @if (!ViewData.ModelState.IsValid)
                 {
                     <div class="alert alert-danger">
