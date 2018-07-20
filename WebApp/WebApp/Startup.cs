@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebApp.Fliters;
 
 namespace WebApp
 {
@@ -40,6 +41,7 @@ namespace WebApp
             {
                 options.MaxModelValidationErrors = 50;
                 options.Filters.Add(new AuthorizeFilter(policy));
+                options.Filters.Add(new LoginActionFilter());
             })
             .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
    
