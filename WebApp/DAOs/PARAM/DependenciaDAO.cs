@@ -19,14 +19,15 @@ namespace DAOs.PARAM
 
         
 
-        public Result<List<Dependencia>> GetListDependencias()
+        public Result<List<DetalleDependencia>> GetListDependencias()
         {
-            var result = new Result<List<Dependencia>>();
+            var result = new Result<List<DetalleDependencia>>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    result.Data = connection.GetAll<Dependencia>().ToList();
+                    result.Data = connection.Query<DetalleDependencia>(@"select d.Id, d.PadreId, d.Codigo,d.Descripcion, p.PrimerNombre + ' ' + p.SegundoNombre + ' ' + p.PrimerApellido + p.SegundoApellido as Colaborador from CORE.Dependencias d
+                                                                              inner join ADMIN.Personas p on(d.ColaboradorLiderId = p.Id ) ").AsList();
                     result.Success = true;
                 }
             }
@@ -103,7 +104,7 @@ namespace DAOs.PARAM
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Execute("delete from CORE.Dependencias where Id = @Id or Padre_id = @Id", new { Id = id });
+                    connection.Execute("delete from CORE.Dependencias where Id = @Id or PadreId = @Id", new { Id = id });
                     result.Success = true;
                 }
             }

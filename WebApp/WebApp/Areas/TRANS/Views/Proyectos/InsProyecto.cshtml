@@ -1,0 +1,104 @@
+﻿@model Proyecto
+@{
+    var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+}
+
+<section id=@viewName>
+    <form asp-controller="Proyectos" asp-action="InsProyecto" data-ajax="true" data-ajax-method="POST"  data-ajax-success="@(viewName).onSuccess">
+        @Html.HiddenFor(m => m.Id)
+        <div class="card">
+            <div class="modal-header">
+                <h4 class="modal-title">Crear Proyecto</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="card-body">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        @Html.ValidationMessage("Error")
+                    </div>
+                }
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.Codigo)
+                        @Html.TextBoxFor(m => m.Codigo, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Codigo)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.Descripcion)
+                        @Html.TextBoxFor(m => m.Descripcion, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Descripcion)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.DependenciaId)
+                        @(Html.Kendo().DropDownListFor(m => m.DependenciaId)
+                                            .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
+                                            .DataTextField("Descripcion")
+                                            .DataValueField("Id")
+                                            .OptionLabel("Seleccione...")
+                                            .Filter("contains")
+                                            .DataSource(source =>
+                                            {
+                                                source.Ajax().Read(read =>
+                                                {
+                                                    read.Action("GetListDependencias", "Dependencias", new { Area = "PARAM" });
+                                                }).Events(e => e.Error("Site.handleError"));
+
+                                            })
+                        )
+                        @Html.ValidationMessageFor(m => m.DependenciaId)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.PresupuestoAsignado)
+                        @(Html.Kendo().NumericTextBoxFor<decimal>(m => m.PresupuestoAsignado)
+                                    .Format("c")
+                                    .Min(0)
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                        )
+                        @Html.ValidationMessageFor(m => m.PresupuestoAsignado)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.ColaboradorLiderId)
+                        @(Html.Kendo().DropDownListFor(m => m.ColaboradorLiderId)
+                            .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
+                            .DataTextField("Documento")
+                            .DataValueField("Id")
+                            .OptionLabel("Seleccione...")
+                            .Filter("contains")
+                            .DataSource(source =>
+                            {
+                                source.Ajax().Read(read =>
+                                {
+                                    read.Action("GetListPersonas", "Personas", new { Area = "PARAM" });
+                                }).Events(e => e.Error("Site.handleError"));
+
+                            })
+                        )
+                        @Html.ValidationMessageFor(m => m.ColaboradorLiderId)
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer display: flex; -ms-flex-pack: end; justify-content: flex-end;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </form>
+</section>
+
+<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+<script>
+	$(function () {
+            @(viewName).init();
+        });
+</script>
+
+
+

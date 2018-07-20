@@ -1,4 +1,4 @@
-﻿var UpdDependencia = function () {
+﻿var UpdProyecto = function () {
     "use strict";
     return {
         // ---------------------------------
@@ -13,10 +13,10 @@
         init: function () {
             this.handleValidator();
         },
-
         handleValidator: function () {
-            $.validator.unobtrusive.parse($("#UpdDependencia form"));
+            $.validator.unobtrusive.parse($("#UpdProyecto form"));
         },
+
         onSuccess: function (result) {
             if (result.Success) {
                 swal({
@@ -25,7 +25,7 @@
                     type: "success"
                 }, function () {
                     $('#modal').modal('hide');
-                    $('#treeList').data('kendoTreeList').dataSource.read();
+                    $("#grid").data("kendoGrid").dataSource.read();
                 });
 
             } else {
@@ -35,6 +35,7 @@
                     type: "error"
                 });
             }
+
         }
 		
     };

@@ -1,4 +1,4 @@
-﻿var UpdDependencia = function () {
+﻿var InsProyecto = function () {
     "use strict";
     return {
         // ---------------------------------
@@ -15,7 +15,7 @@
         },
 
         handleValidator: function () {
-            $.validator.unobtrusive.parse($("#UpdDependencia form"));
+            $.validator.unobtrusive.parse($("#InsProyecto form"));
         },
         onSuccess: function (result) {
             if (result.Success) {
@@ -25,7 +25,7 @@
                     type: "success"
                 }, function () {
                     $('#modal').modal('hide');
-                    $('#treeList').data('kendoTreeList').dataSource.read();
+                    $("#grid").data("kendoGrid").dataSource.read();
                 });
 
             } else {

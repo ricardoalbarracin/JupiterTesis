@@ -8,13 +8,13 @@
         @Html.HiddenFor(m => m.Id)
         <div class="card">
             <div class="modal-header">
-                <h4 class="modal-title">Crear cargo</h4>
+                <h4 class="modal-title">Actualizar dependencia</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="card-body">
-                @Html.HiddenFor(m => m.padre_id)
+                @Html.HiddenFor(m => m.PadreId)
                 @Html.HiddenFor(m => m.Id)
                 @if (!ViewData.ModelState.IsValid)
                 {

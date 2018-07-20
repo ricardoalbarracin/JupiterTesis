@@ -3,24 +3,30 @@
     ViewBag.Tittle = "Dependencias";
     ViewBag.IconTittle = "fa fa-user";
 }
-
+<style>
+    .megamenu {
+        width: 100%;
+        transform: translate3d(0px, 0px, 0px) !important;
+        position: relative !important;
+    }
+    </style>
 <div id="@viewName">
     <!-- Scripts -->
     <script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
     <!-- Plantilla que se utilizará en la columna de acciones de la grilla -->
     <script id="command-template" type="text/x-kendo-template">
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Seleccione...
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class='btn btn-primary' data-modal="modal-lg" href='@Url.Action("UpdDependencia", "Dependencias", new { area = "PARAM" })/#: Id#'>Editar</a>
-                <a class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("InsSubDependencia", "Dependencias", new { area = "PARAM" })/?padreId=#: Id#'>Agregar subdependencia </a>
-                <a class='btn btn-danger' onclick='Index.removeRow()'>Eliminar subdependencia </a>
+        <div class='text-center'>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Opciones
+                </button>
+                <div class="dropdown-menu megamenu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" data-modal="modal-lg" href='@Url.Action("UpdDependencia", "Dependencias", new { area = "PARAM" })/#: Id#'>Actualizar</a>
+                    <a class="dropdown-item" data-modal="modal-lg" href='@Url.Action("InsSubDependencia", "Dependencias", new { area = "PARAM" })/?padreId=#: Id#'>Crear dependencia asociada</a>
+                    <a class='dropdown-item ' onclick='Index.removeRow(event)'>Eliminar</a>
+                </div>
             </div>
         </div>
-        
-
     </script>
 
 
@@ -32,32 +38,29 @@
                     Listado de dependencias 
                     <label class="float-right mt-0 mb-0">
                         <a id="btnNuevo" class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("InsDependencia", "Dependencias", new { area = "PARAM" })'>Agregar dependencia</a>
-                        
-                        
-                        
                     </label>
                 </div>
 
             </div>
             <div class="card-body">
                 <div class="form-group row">
-                    <div class="col-sm-6">
+                    
                         <div class="card">
                             <div class="card-body">
-                                @(Html.Kendo().TreeList<Dependencia>()
-                                .Name("treeview")
-                                //.DataTextField("Codigo")
+                                @(Html.Kendo().TreeList<DetalleDependencia>()
+                                .Name("treeList")
                                 .Events(events => events
-                                    //.Select("Index.onSelect")
                                     .DataBound("Index.onDataBound")
                                 )
                                 .Columns(columns =>
                                 {
-                                    columns.Add().Field(e => e.Id).Width(280);
+                                    columns.Add().Field(e => e.Id).Hidden();
                                     columns.Add().Field(e => e.Codigo).Width(280);
                                     columns.Add().Field(e => e.Descripcion).Width(160);
-                                    columns.Add().Field(e => e.Id).Width(280).TemplateId("command-template").Title("Acciones").Filterable(false).Width(130);
+                                    columns.Add().Field(e => e.Colaborador).Width(200);
+                                    columns.Add().Field(e => e.Id).TemplateId("command-template").Title("Acciones").Filterable(false).Width(200);
                                 })
+                                .Sortable()
                                 .Events(events => events.DataBound("Site.handleModal"))
                                 .DataSource(dataSource => dataSource
                                 .Read(read => read.Action("GetListDependencias", "Dependencias"))
@@ -65,7 +68,8 @@
                                 .Model(m =>
                                 {
                                     m.Id(f => f.Id);
-                                    m.ParentId(f => f.padre_id);
+                                    m.ParentId(f => f.PadreId);
+                                    m.Expanded(true);
                                     m.Field(f => f.Codigo);
                                     m.Field(f => f.Descripcion);
                                 })
@@ -73,15 +77,8 @@
                                 )
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div id="Detalle">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
+                    
                 </div>
             </div>
         </div>

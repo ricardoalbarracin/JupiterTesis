@@ -11,14 +11,13 @@
         // ---------------------------------
 
         init: function () {
-            this.handleTemplates();
+            
 		},
-		handleTemplates: function () {
-            this.actionTemplate = kendo.template($('#Index #actionTemplate').html());
-        },
-        removeRow: function () {
+		removeRow: function (e) {
             debugger
-            var id= $('#treeview').data('kendoTreeView').dataItem($('#treeview').data('kendoTreeView').select()).id;
+            var treeList = $("#treeList").data("kendoTreeList");
+            var dataItem = treeList.dataItem($(e.currentTarget).closest("tr"));
+            var id = dataItem.id;
             swal({
                 title: "Atención",
                 text: "¿Está seguro que desea eliminar el registro seleccionado?",
@@ -47,10 +46,7 @@
                                     type: "success"
                                 }, function () {
                                     $('#modal').modal('hide');
-                                    $('#treeview').data('kendoTreeView').dataSource.read();
-
-                                    
-
+                                    $('#treeList').data('kendoTreeList').dataSource.read();
                                 });
 
                             } else {
@@ -67,25 +63,6 @@
             
             
         },
-        onSelect: function (e) {
-            
-            $('#btnSubDependencia').show();
-            $('#btnUpdDependencia').show();
-            $('#btnDelDependencia').show();
-            
-            $('#btnSubDependencia')[0].href = '/PARAM/Dependencias/InsSubDependencia/?padreId=' + $('#treeview').data('kendoTreeView').dataItem(e.node).id
-            $('#btnUpdDependencia')[0].href = '/PARAM/Dependencias/UpdDependencia/?Id=' + $('#treeview').data('kendoTreeView').dataItem(e.node).id
-
-            $('#btnNuevo')[0].href = '/PARAM/Dependencias/InsDependencia/?Id=' + $('#treeview').data('kendoTreeView').dataItem(e.node).id
-            $("#Detalle").load("/PARAM/Dependencias/DetalleDependencia/" + $('#treeview').data('kendoTreeView').dataItem(e.node).id);
-        },
-        onDataBound: function (e) {
-            $('#btnSubDependencia').hide();
-            $('#btnUpdDependencia').hide();
-            $('#btnDelDependencia').hide();
-            $('#btnNuevo')[0].href = '/PARAM/Dependencias/InsDependencia/'
-            $("#Detalle").empty();
-        },
-
+        
     };
 }();

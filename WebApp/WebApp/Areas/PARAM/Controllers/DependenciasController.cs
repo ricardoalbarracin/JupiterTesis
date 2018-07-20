@@ -36,25 +36,14 @@ namespace WebApp.Areas.PARAM.Controllers
                 return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
             }
 
-            var dependencias = from e in getListDependencias.Data
-                               where (id.HasValue ? e.padre_id == id : e.padre_id == null)
-                               select new
-                               {
-                                   Codigo = e.Codigo,
-                                   Id=e.Id,
-                                   padre_id = e.padre_id,
-                                   Descripcion = e.Descripcion,
-                                   hasChildren = getListDependencias.Data.Where(p => p.padre_id == e.Id).Select(m => m.Id).Any(),
-                                   Children = getListDependencias.Data.Where(p => p.padre_id == e.Id ).Select(m => m.Id),
-                               };
-            //return  Json(dependencias);
-            return Json(dependencias.ToDataSourceResult(request));
+            
+            return Json(getListDependencias.Data.ToDataSourceResult(request));
         }
 
         [HttpGet]
         public ActionResult InsSubDependencia(int? padreId)
         {
-            return PartialView("InsDependencia", new Dependencia {padre_id = padreId });
+            return PartialView("InsDependencia", new Dependencia {PadreId = padreId });
         }
 
         [HttpGet]
@@ -67,7 +56,7 @@ namespace WebApp.Areas.PARAM.Controllers
                 ModelState.AddModelError("Error", getDependenciaById.Message);
                 return View(new Dependencia());
             }
-            return PartialView("InsDependencia", new Dependencia { padre_id = getDependenciaById?.Data?.padre_id });
+            return PartialView("InsDependencia", new Dependencia { PadreId = getDependenciaById?.Data?.PadreId });
         }
 
         [HttpPost]

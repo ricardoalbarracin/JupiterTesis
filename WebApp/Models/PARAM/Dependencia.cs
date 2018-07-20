@@ -19,7 +19,7 @@ namespace Core.Models.PARAM
         [Required(ErrorMessage = "El campo ColaboradorLiderId es obligatorio.")]
         public int ColaboradorLiderId { get; set; }
 
-        public int? padre_id { get; set; }
+        public int? PadreId { get; set; }
 
     }
 }

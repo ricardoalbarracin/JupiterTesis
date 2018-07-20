@@ -59,15 +59,22 @@
   <ItemGroup>
     <Folder Include="Areas\PARAM\Data\" />
     <Folder Include="Areas\PARAM\Models\" />
-    <Folder Include="Areas\TRANS\Controllers\" />
     <Folder Include="Areas\TRANS\Data\" />
     <Folder Include="Areas\TRANS\Models\" />
     <Folder Include="Areas\SEG\Data\" />
     <Folder Include="Areas\SEG\Models\" />
-    <Folder Include="Areas\TRANS\Scripts\" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\TRANS\Views\Proyectos\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\TRANS\Views\Proyectos\InsProyecto.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\TRANS\Views\Proyectos\UpdProyecto.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\PARAM\Views\Dependencias\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -119,6 +126,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Areas\TRANS\Scripts\Proyectos\Index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\TRANS\Scripts\Proyectos\InsProyecto.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\TRANS\Scripts\Proyectos\UpdProyecto.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Areas\PARAM\Scripts\Dependencias\Index.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

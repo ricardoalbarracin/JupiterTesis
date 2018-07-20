@@ -25,7 +25,7 @@
                     type: "success"
                 }, function () {
                     $('#modal').modal('hide');
-                    $('#treeview').data('kendoTreeView').dataSource.read();
+                    $('#treeList').data('kendoTreeList').dataSource.read();
                 });
 
             } else {

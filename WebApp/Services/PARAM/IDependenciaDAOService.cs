@@ -9,7 +9,7 @@ namespace Core.Services.PARAM
 {
     public interface IDependenciaDAOService
     {
-        Result<List<Dependencia>> GetListDependencias();
+        Result<List<DetalleDependencia>> GetListDependencias();
 
         Result<Dependencia> GetDependenciaById(int id);
 
