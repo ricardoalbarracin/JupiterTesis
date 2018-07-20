@@ -14,7 +14,7 @@
             
 		},
 		removeRow: function (e) {
-            debugger
+            
             var treeList = $("#treeList").data("kendoTreeList");
             var dataItem = treeList.dataItem($(e.currentTarget).closest("tr"));
             var id = dataItem.id;
@@ -24,6 +24,7 @@
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn-danger",
+                cancelButtonClass: "btn-secondary",
                 confirmButtonText: "Eliminar",
                 cancelButtonText: "Cancelar",
                 closeOnConfirm: false,

@@ -27,13 +27,13 @@
 					</ul>
 					<div id="myTabContent" class="tab-content ">
 						<div class="tab-pane fade " id="step1">
-							@Html.Partial("InsUsuario", new Usuario())
+							@Html.PartialAsync("InsUsuario", new Usuario()).Result
 						</div>
 						<div class="tab-pane fade" id="step2">
-							@Html.Partial("InsRolesUsuario", new Roles())
+							@Html.PartialAsync("InsRolesUsuario", new Roles())Result
 						</div>
 						<div class="tab-pane fade" id="step3">
-							@Html.Partial("InsPermisosUsuario", new Permisos())
+							@Html.PartialAsync("InsPermisosUsuario", new Permisos()).Result
 						</div>
 					</div>
 				</div>
