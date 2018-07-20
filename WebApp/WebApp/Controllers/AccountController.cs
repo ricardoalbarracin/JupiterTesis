@@ -71,7 +71,7 @@ namespace WebApp.Controllers
 
         public ActionResult UserImage()
         {
-            var path = Path.Combine(_environment.WebRootPath, "img\\avatars\\Women.png");
+            var path = Path.Combine(_environment.WebRootPath, "img\\avatars\\Men.png");
             var binImage =  System.IO.File.ReadAllBytes(path);
             return base.File(binImage, "image/jpeg");
         }
