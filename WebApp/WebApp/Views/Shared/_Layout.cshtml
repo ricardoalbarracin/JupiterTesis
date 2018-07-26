@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="~/css/vendors.all.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/jupiter.all.min.css" asp-append-version="true" />
     <script src="~/js/jquery.all.min.js" asp-append-version="true"></script>
-    <script src="~/js/vendors.all.min.js" asp-append-version="true"></script>
+    <script src="~/js/kendo.all.min.js" asp-append-version="true"></script>
+    <script src="~/js/app/PreSite.min.js" asp-append-version="true"></script>
     @RenderSection("Styles", required: false)
 </head>
 
@@ -18,12 +19,14 @@
     @Html.PartialAsync("_AppHeader").Result
     <div class="wrapper">
         @Html.PartialAsync("_SidebarNav").Result
-
-        <div class="content fadeIn animated">
+        
+        <div class="content">
             <div class="page-header">
                 <h2><i class="@ViewBag.IconTittle"></i> @ViewBag.Tittle</h2>
             </div>
-            @RenderBody()
+            <div class="content fadeIn animated">
+                @RenderBody()
+            </div>
         </div>
     </div>
     <!-- Modals -->
@@ -39,34 +42,13 @@
             </div>
         </div>
     </div>
-
-    <script>$('#menu').metisMenu();
-            $.validator.setDefaults({
-                        //ignore: [],
-                        highlight: function(element, errorClass) {
-                            element = $(element);
-                            if (element.parent().hasClass("k-widget")) {
-                                element.parent().addClass('input-validation-error2');
-                            } else {
-                                element.addClass('input-validation-error')
-                            }
-                        },
-                        unhighlight: function(element, errorClass) {
-                            element = $(element);
-                            if (element.parent().hasClass("k-widget")) {
-                                element.parent().removeClass('input-validation-error2');
-                            } else {
-                                element.removeClass('input-validation-error')
-                            }
-                        }
-            });
-            $(function() {
-
-            Site.init();
-});</script>
-
-    <script src="~/js/app/Site.js" asp-append-version="true"></script>
-
+    <script src="~/js/metisMenu.min.js" asp-append-version="true"></script>
+    <script src="~/js/app/Site.min.js" asp-append-version="true"></script>
+    <script>
+        Site.init();
+    </script>
+    
+    <script src="~/js/vendors.all.min.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 
 </body>

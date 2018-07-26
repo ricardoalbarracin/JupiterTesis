@@ -57,7 +57,8 @@
 	@RenderSection("Scripts", required: false)
 	<script>
 		$(function () {
-			Site.init();
+            Site.handleValidatorConfig();
+            Site.handleButtons();
 		});
 	</script>
 </body>

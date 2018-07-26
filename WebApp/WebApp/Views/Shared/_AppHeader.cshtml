@@ -1,16 +1,4 @@
-﻿<style>
-    .img-container {
-        width: 631px;
-        height: 380px;
-        overflow: hidden;
-    }
-
-        .img-container img {
-            width: 100%;
-            height: auto
-        }
-</style>
-<div class="p-3  bg-white border-bottom box-shadow d-flex ">
+﻿<div class="p-2  bg-white border-bottom box-shadow d-flex ">
 	<a class="navbar-minimalize btn" href="#"><i class="fa fa-bars"></i> </a>
 	<div class="ml-3 d-flex flex-column flex-md-row align-items-center " style="width: 100%;">
 
@@ -19,7 +7,7 @@
             <div class="dropdown navbar-user show">
                 <a href="javascript:;" class="p-2 text-dark  dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                     
-                    <div  style="overflow: hidden; float: left; width: 40px; height: 40px; margin: -10px 0px 0 0; border-radius: 40px;">
+                    <div  style="overflow: hidden; float: left; width: 30px; height: 30px; margin: -5px 0px 0 0; border-radius: 30px;">
                         <img   style="float: left; width: 70%; height: auto; margin: 0px 0px 0 6px;" src="/Account/UserImage" alt="">
                     </div>
                     <span class="d-none d-md-inline">@Context.Session.GetUser()?.PrimerNombre @Context.Session.GetUser()?.PrimerApellido</span> <b class="caret"></b>
