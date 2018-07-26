@@ -204,6 +204,15 @@
     <None Update="Areas\SEG\Scripts\Usuarios\UpdUsuario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Areas\TRANS\Scripts\Proyectos\ActualizarUsuario.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\TRANS\Scripts\Proyectos\UpdPermisosUsuario.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\TRANS\Scripts\Proyectos\AgregarUsuarioPermiso.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

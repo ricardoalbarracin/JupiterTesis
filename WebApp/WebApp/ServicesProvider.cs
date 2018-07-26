@@ -1,4 +1,5 @@
 ﻿using Core.Business.SEG;
+using Core.Business.TRANS;
 using Core.Services.PARAM;
 using Core.Services.SEG;
 using Core.Services.TRANS;
@@ -26,6 +27,8 @@ namespace WebApp
             services.AddScoped<IRubroDAOService, RubroDAO>();
             services.AddScoped<IDependenciaDAOService, DependenciaDAO>();
             services.AddScoped<IProyectoDAOService, ProyectoDAO>();
+            services.AddScoped<IProyectoServiceBusiness, ProyectosServiceBusiness>();
+
         }
     }
 }

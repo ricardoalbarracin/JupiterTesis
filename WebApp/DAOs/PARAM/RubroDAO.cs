@@ -3,6 +3,7 @@ using Core.Models.Utils;
 using Core.Services.PARAM;
 using Core.Services.Utils;
 using DAOs.Utils;
+using Dapper;
 using Dapper.Contrib.Extensions;
 using System;
 using System.Collections.Generic;
@@ -93,5 +94,7 @@ namespace DAOs.PARAM
             }
             return result;
         }
+
+
     }
 }

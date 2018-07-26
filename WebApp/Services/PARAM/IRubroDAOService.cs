@@ -16,5 +16,7 @@ namespace Core.Services.PARAM
         Result UpdRubro(Rubro Rubro);
 
         Result<Rubro> InsRubro(Rubro Rubro);
+
+
     }
 }

@@ -9,45 +9,16 @@
 
     <link rel="stylesheet" href="~/css/vendors.all.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/jupiter.all.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     <script src="~/js/jquery.all.min.js" asp-append-version="true"></script>
-    <script src="~/js/app/PreSite.js" asp-append-version="true"></script>
     <script src="~/js/vendors.all.min.js" asp-append-version="true"></script>
     @RenderSection("Styles", required: false)
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-	@Html.PartialAsync("_AppHeader").Result
-
+    @Html.PartialAsync("_AppHeader").Result
     <div class="wrapper">
         @Html.PartialAsync("_SidebarNav").Result
-        <script>
 
-            $('#menu').metisMenu();
-            $.validator.setDefaults({
-                //ignore: [],
-                highlight: function (element, errorClass) {
-                    element = $(element);
-                    if (element.parent().hasClass("k-widget")) {
-                        element.parent().addClass('input-validation-error2');
-                    } else {
-                        element.addClass('input-validation-error')
-                    }
-                },
-                unhighlight: function (element, errorClass) {
-                    element = $(element);
-                    if (element.parent().hasClass("k-widget")) {
-                        element.parent().removeClass('input-validation-error2');
-                    } else {
-                        element.removeClass('input-validation-error')
-                    }
-                }
-            });
-            $(function () {
-
-                Site.init();
-            });
-        </script>
         <div class="content fadeIn animated">
             <div class="page-header">
                 <h2><i class="@ViewBag.IconTittle"></i> @ViewBag.Tittle</h2>
@@ -55,26 +26,48 @@
             @RenderBody()
         </div>
     </div>
+    <!-- Modals -->
+    <div id="modal" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    <div id="modal2" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
 
-	<!-- Modals -->
-	<div id="modal" class="modal fade in">
-		<div class="modal-dialog">
-			<div class="modal-content">
-			</div>
-		</div>
-	</div>
+    <script>$('#menu').metisMenu();
+            $.validator.setDefaults({
+                        //ignore: [],
+                        highlight: function(element, errorClass) {
+                            element = $(element);
+                            if (element.parent().hasClass("k-widget")) {
+                                element.parent().addClass('input-validation-error2');
+                            } else {
+                                element.addClass('input-validation-error')
+                            }
+                        },
+                        unhighlight: function(element, errorClass) {
+                            element = $(element);
+                            if (element.parent().hasClass("k-widget")) {
+                                element.parent().removeClass('input-validation-error2');
+                            } else {
+                                element.removeClass('input-validation-error')
+                            }
+                        }
+            });
+            $(function() {
 
-	<div id="modal2" class="modal fade in">
-		<div class="modal-dialog">
-			<div class="modal-content">
-			</div>
-		</div>
-	</div>
+            Site.init();
+});</script>
 
-	
-	<script src="~/js/app/Site.js" asp-append-version="true"></script>
+    <script src="~/js/app/Site.js" asp-append-version="true"></script>
 
-	@RenderSection("Scripts", required: false)
-	
+    @RenderSection("Scripts", required: false)
+
 </body>
 </html>

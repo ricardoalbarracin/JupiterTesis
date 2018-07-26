@@ -12,9 +12,11 @@ namespace WebApp.Areas.PARAM.Controllers
     public class ProyectosController : Controller
     {
         IProyectoDAOService _ProyectoService;
-        public ProyectosController(IProyectoDAOService ProyectoService)
+        IProyectoServiceBusiness _ProyectoServiceBusiness;
+        public ProyectosController(IProyectoDAOService ProyectoService, IProyectoServiceBusiness proyectoServiceBusiness)
         {
             _ProyectoService = ProyectoService;
+            _ProyectoServiceBusiness = proyectoServiceBusiness;
         }
         public ActionResult Index()
         {
@@ -34,16 +36,16 @@ namespace WebApp.Areas.PARAM.Controllers
         }
 
         [HttpGet]
-        public ActionResult UpdProyecto(int id)
+        public ActionResult ActualizarProyecto(int id)
         {
-            var getProyectoById = _ProyectoService.GetProyectoById(id);
-
+            var getProyectoById = _ProyectoServiceBusiness.GetProyectoById(id);
+            ViewBag.Container = ControllerContext.RouteData.Values["action"].ToString();
             if (!getProyectoById.Success)
             {
                 ModelState.AddModelError("Error", getProyectoById.Message);
-                return View(new Proyecto());
+                return View(new ProyectoEdit());
             }
-            return PartialView(getProyectoById.Data);
+            return PartialView( getProyectoById.Data );
         }
 
         [HttpPost]
@@ -59,12 +61,28 @@ namespace WebApp.Areas.PARAM.Controllers
             return PartialView(new Proyecto());
         }
 
+
         [HttpPost]
         public ActionResult InsProyecto(Proyecto Proyecto)
         {
             var insProyecto = _ProyectoService.InsProyecto(Proyecto);
             return new JsonResult(insProyecto);
         }
+
+        [HttpGet]
+        public ActionResult UpdRubroProyecto(long id)
+        {
+            
+            var getRubroProyecto = _ProyectoService.GetRubroProyecto(id);
+            ViewBag.Container = ControllerContext.RouteData.Values["action"].ToString();
+            if (!getRubroProyecto.Success)
+            {
+                ModelState.AddModelError("Error", getRubroProyecto.Message);
+                return View(new ProyectoEdit());
+            }
+            return PartialView(getRubroProyecto.Data);
+        }
+
 
 
 

@@ -1,0 +1,68 @@
+﻿@model Rubros
+@{
+	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+}
+
+<section id=@viewName>
+	<form>
+		<div class="card">
+			<div class="card-header">
+				<strong>Rubros de usuario</strong>
+				<label class="float-right mt-2 mb-0">
+					@Html.ActionLink("Nuevo", "AgregarUsuarioRubro", "Usuarios", new { operacion = "Upd" }, new { @class = "btn btn-primary float-right", @data_modal2 = "modal-lg" })
+				</label>
+			</div>
+			<div class="card-body">
+				<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+				<div class="text-center">
+					@(Html.Kendo().Grid(Model.ListRubros)
+						.Name("GridRubros")
+						.Columns(columns =>
+						{
+							columns.Bound(p => p.Id).Hidden();
+                            columns.Bound(p => p.Descripcion).Title("Descripcion").Width(130);
+                            columns.Bound(p => p.Valor).Title("Valor").Width(130);
+                            columns.Bound(p => p.Saldo).Title("Saldo").Width(130);
+
+							columns.Bound(p => p.Id).ClientTemplate(
+								"<div class='text-center'>" +
+								"<button class='btn btn-danger' onclick='UpdRubrosUsuario.eliminarRubro(event,#=data.Id#)'>Eliminar</button>" +
+                                "<a class='ml-1 btn btn-primary' data-modal2='modal-lg' href='/TRANS/Proyectos/UpdRubroProyecto/#=data.Id#'>Editar</a>"+
+								"</div>"
+								).Title("Acción").Width(170).Filterable(false);
+						})
+						.Pageable()
+						.Sortable()
+						.Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+						.Scrollable(s=>s.Height("auto"))
+						.Events(events => events.DataBound("Site.handleModal"))
+						.DataSource(dataSource => dataSource
+							.Ajax()
+							.PageSize(5)
+							.ServerOperation(false)
+						)
+					)
+					<script>
+				$(function () {
+					@(viewName).init(eval("@ViewBag.Container"),"@Model.GetType().ToString()","@viewName" );
+				});
+					</script>
+				</div>
+			</div>
+
+			<div class="card-footer" style="display: flex; justify-content: flex-end;">
+				<button class="btn btn-secondary prev-btn" type="button">Atras</button>
+				<a asp-action="Finish" asp-controller="Usuarios"
+				   data-ajax="true"
+				   data-ajax-begin="ActualizarUsuario.onFinish_Begin"
+				   data-ajax-success="ActualizarUsuario.onFinish_Success"
+				   data-ajax-method="POST"
+				   class="btn btn-success">Actualizar</a>
+			</div>
+		</div>
+	</form>
+</section>
+
+
+
+

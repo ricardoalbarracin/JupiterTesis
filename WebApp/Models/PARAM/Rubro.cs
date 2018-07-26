@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Core.Models.TRANS;
 
 namespace Core.Models.PARAM
 {
@@ -16,6 +18,20 @@ namespace Core.Models.PARAM
         [Required(ErrorMessage = "El campo Descripcion es obligatorio.")]
         public string Descripcion { get; set; }
 
+    }
+
+    public class Rubros
+    {
+        public Rubros()
+        {
+            ListRubros = new List<ProyectosRubrosView>();
+        }
+        public Rubros(List<ProyectosRubrosView> rubros)
+        {
+            ListRubros = rubros;
+        }
+
+        public List<ProyectosRubrosView> ListRubros { get; set; }
     }
 
 }
