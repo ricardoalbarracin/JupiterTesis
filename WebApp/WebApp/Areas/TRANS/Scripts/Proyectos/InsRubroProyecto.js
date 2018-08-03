@@ -1,23 +1,24 @@
-﻿var UpdRubroProyecto = function () {
+﻿var InsRubroProyecto = function () {
     "use strict";
     return {
         // ---------------------------------
         //           Propiedades 
         // ---------------------------------
         actionTemplate: null,
+
         // ---------------------------------
         //           Metodos 
         // ---------------------------------
 
         init: function () {
-            UpdRubroProyecto.handleValidator();
-        },
+            InsRubroProyecto.handleValidator();
+            
+		},
         handleValidator: function () {
             
-            $.validator.unobtrusive.parse($("#UpdRubroProyecto form"));     
-            $("#UpdRubroProyecto form").validate().settings.ignore = [];
+            $.validator.unobtrusive.parse($("#InsRubroProyecto form"));     
+            $("#InsRubroProyecto form").validate().settings.ignore = [];
         },
-
         onSuccess: function (result) {
             if (result.Success) {
                 swal({
@@ -38,6 +39,7 @@
             }
 
         }
+
 
        
     };

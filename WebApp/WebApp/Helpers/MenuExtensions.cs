@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 public static class MenuExtensions
 {
@@ -36,5 +38,11 @@ public static class MenuExtensions
         return li ;
 
 
+    }
+
+    public static Microsoft.AspNetCore.Html.HtmlString EnumToString<T>(this IHtmlHelper helper)
+    {
+        var values = Enum.GetValues(typeof(T)).Cast<int>();
+        var enumDictionary = values.ToDictionary(value => Enum.GetName(typeof(T), value)); return new Microsoft.AspNetCore.Html.HtmlString(JsonConvert.SerializeObject(enumDictionary));
     }
 }

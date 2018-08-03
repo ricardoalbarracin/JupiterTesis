@@ -64,7 +64,7 @@ namespace DAOs.PARAM
                 using (var connection = _dapperAdapter.Open())
                 {
                     connection.Update(Proyecto);
-                    result.Message = "Proyecto actualizada correctamente.";
+                    result.Message = "Proyecto actualizado correctamente.";
                     result.Success = true;
                 }
             }
@@ -84,7 +84,8 @@ namespace DAOs.PARAM
                 using (var connection = _dapperAdapter.Open())
                 {
                     Proyecto.Id = connection.Insert(Proyecto);
-                    result.Message = "Proyecto creada correctamente.";
+                    result.Data = Proyecto;
+                    result.Message = "Proyecto creado correctamente.";
                     result.Success = true;
                 }
             }
@@ -113,6 +114,7 @@ namespace DAOs.PARAM
                                                                        FROM  CORE.ProyectosRubros p1 
                                                                                 INNER JOIN CORE.Rubros r ON(p1.RubroId = r.Id) where p1.ProyectoId=@Id", 
                                                           new { Id = proyectoId }).ToList();
+                    
 
                     result.Success = true;
                 }
@@ -139,6 +141,47 @@ namespace DAOs.PARAM
             catch (Exception ex)
             {
                 result.Message = "Error consultando Proyecto.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+
+        public Result UpdRubroProyecto(ProyectoRubro proyectoRubro)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    connection.Update(proyectoRubro);
+                    result.Message = "Rubro actualizado correctamente.";
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error actualizando rubro.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+
+        public Result<ProyectoRubro> InsRubroProyecto(ProyectoRubro proyectoRubro)
+        {
+            var result = new Result<ProyectoRubro>();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    proyectoRubro.Id = connection.Insert(proyectoRubro);
+                    result.Data = proyectoRubro;
+                    result.Message = "Rubro creado correctamente.";
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error creando rubro.";
                 result.Exception = ex;
             }
             return result;

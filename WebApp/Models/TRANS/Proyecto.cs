@@ -31,7 +31,7 @@ namespace Core.Models.TRANS
         [DisplayName("Fecha de creacion")]
         public DateTime? FechaCreacion { get; set; }
 
-        public DateTime? UsuarioCreacion { get; set; }
+        public int UsuarioCreacion { get; set; }
 
         [DisplayName("Lider de proyecto")]
         public int? ColaboradorLiderId { get; set; }

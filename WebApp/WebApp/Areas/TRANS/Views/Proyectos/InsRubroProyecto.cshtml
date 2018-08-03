@@ -4,7 +4,7 @@
 }
 
 <section id=@viewName>
-     <form asp-controller="Proyectos" asp-action="UpdRubroProyecto" data-ajax="true" data-ajax-method="POST" data-ajax-success="@(viewName).onSuccess">
+   <form asp-controller="Proyectos" asp-action="InsRubroProyecto" data-ajax="true" data-ajax-method="POST" data-ajax-success="@(viewName).onSuccess">
     <div class="modal-header">
         <h4 class="modal-title">Actualizar rubro</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -14,11 +14,12 @@
         
 
             <div class="modal-body">
-                @Html.HiddenFor(m => m.Id)
+                <input  id="Id" name="Id" type="hidden" value="0">
                 @Html.HiddenFor(m => m.ProyectoId)
                 <div class="form-group row">
                     
                     <div class="col-sm-6">
+                        
                         @Html.LabelFor(m => m.RubroId)
                         @(Html.Kendo().DropDownListFor(m => m.RubroId)
                               .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
@@ -53,7 +54,6 @@
             <div class="card-footer" style="display: flex; justify-content: flex-end;">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="submit" class="btn btn-primary">Guardar</button>
-
             </div>
        
     </form>

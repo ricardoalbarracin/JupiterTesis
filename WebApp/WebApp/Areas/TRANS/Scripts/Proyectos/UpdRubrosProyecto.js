@@ -29,57 +29,78 @@
 			$("#UpdRubrosProyecto #GridRubros").data("operaciones", [])
 		},
 
-		eliminarPermiso: function (e, id) {
-			Utils.removeGridDataItem(e, "#UpdRubrosProyecto #GridRubros");
-			UpdRubrosProyecto.agregarOperacion(id, 0);
-		},
+	    eliminarRubro: function (e) {
+            e.preventDefault();
+            var grid = $("#UpdRubrosProyecto #GridRubros").data("kendoGrid");
+            var dataItem = grid.dataItem($(e.currentTarget).closest("tr"));
+            dataItem.OperationType = operationTypeEnum.Delete;
+            UpdRubrosProyecto.agregarOperacion(dataItem);
+            grid.dataSource.remove(dataItem);
+        },
 
-		agregarPermiso: function (e) {
-			
-			e.preventDefault();
-			var grid = $("#gridRubrosSistema").data("kendoGrid");
+        actualizarRubro: function (e) {
+            e.preventDefault();
+            var grid = $("#GridRubros").data("kendoGrid");
 
-			var permiso = grid.dataItem($(e.currentTarget).closest("tr"));
+            var rubro = grid.dataItem($(e.currentTarget).closest("tr"));
+            var data= 
+            {
+                Id: rubro.Id,
+                RubroId: rubro.RubroId,
+                ProyectoId: rubro.ProyectoId,
+                Valor: rubro.Valor,
+                Saldo: rubro.Saldo
+            };
 
-			var permisoExist = $("#UpdRubrosProyecto #GridRubros").data("kendoGrid").dataSource.data().find(function (element) {
-				return element.Id == permiso.Id;
-			});
-			if (permisoExist) {
-				swal({
-					title: "Error",
-					text: "El usuario ya tiene ese rol.",
-					type: "error"
-				});
-				return;
-			}
-			Utils.addGridDataItem("#UpdRubrosProyecto #GridRubros", permiso)
-			UpdRubrosProyecto.agregarOperacion(permiso.Id, 1);
-			Utils.toast("success", "Se ha agregado el permiso correctamente.");
-		},
+            Utils.showModalBs("/TRANS/Proyectos/UpdRubroProyecto/", "",data,"modal2");
+        },
 
-		agregarOperacion: function (id, activo) {
-			var oldActivo = 1;
-			if (activo)
-				oldActivo = 0;
-			var operaciones = $("#UpdRubrosProyecto #GridRubros").data("operaciones");
-			var operacion = operaciones.find(function (element) {
-				return element.Id == id && element.Activo == oldActivo;
-			});
+        agregarOperacion: function (item) {
+            var operaciones = $("#UpdRubrosProyecto #GridRubros").data("operaciones");
+            var operacion = operaciones.find(function (element) {
+                return element.RubroId == item.RubroId ;
+            });
 
-			if (!operacion) {
-				operaciones.push({
-					Id: id,
-					Activo: activo
-				});
-			}
-			else {
-				operaciones.splice(operaciones.indexOf(operacion), 1);
-			}
-		},
+            if(item.OperationType == operationTypeEnum.Delete)
 
+            {
+                if (!operacion)
+                    operaciones.push(item);
+                else
+                {
+                    if(operacion.Id >0)
+                    {
+                        operaciones.splice(operaciones.indexOf(operacion), item);
+                    }
+                    else
+                    {
+                        operaciones.splice(operaciones.indexOf(operacion), 1);
+                    }
+                }
+            }
+            else
+            {
+                if (operacion) {
+                    if(item.OperationType == operationTypeEnum.Insert)
+                    {
+                        item.Id = operacion.Id;
+                        item.OperationType = operationTypeEnum.Update;
+                    }
+                    operaciones.splice(operaciones.indexOf(operacion), item);
+                }
+                else
+                {
+                    operaciones.push(item);
+                }
+            }
+
+        },
+
+        
 		Validate: function () {
 			return UpdRubrosProyecto.form.valid();
 		},
+
 		handleSubmitForm: function () {
 			var _this = this;
 			this.form.submit(function (e) {

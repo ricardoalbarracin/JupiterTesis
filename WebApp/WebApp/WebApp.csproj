@@ -212,6 +212,9 @@
     <None Update="Areas\TRANS\Scripts\Proyectos\AgregarUsuarioPermiso.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Areas\TRANS\Scripts\Proyectos\Index %28copia%29.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

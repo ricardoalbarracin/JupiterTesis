@@ -22,6 +22,11 @@ namespace Core.Models.PARAM
 
     public class Rubros
     {
+        
+        public long ProyectoId { get; set; }
+
+        public List<ProyectosRubrosView> ListRubros { get; set; }
+
         public Rubros()
         {
             ListRubros = new List<ProyectosRubrosView>();
@@ -30,8 +35,6 @@ namespace Core.Models.PARAM
         {
             ListRubros = rubros;
         }
-
-        public List<ProyectosRubrosView> ListRubros { get; set; }
     }
 
 }

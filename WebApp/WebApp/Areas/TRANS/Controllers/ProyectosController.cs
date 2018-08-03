@@ -3,6 +3,7 @@ using Core.Services.TRANS;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,7 +32,7 @@ namespace WebApp.Areas.PARAM.Controllers
                 ModelState.AddModelError("Error", getListProyectos.Message);
                 return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
             }
-            var Proyectos = getListProyectos.Data as List<Proyecto>;
+            var Proyectos = getListProyectos.Data;
             return Json(Proyectos.ToDataSourceResult(request));
         }
 
@@ -48,10 +49,23 @@ namespace WebApp.Areas.PARAM.Controllers
             return PartialView( getProyectoById.Data );
         }
 
-        [HttpPost]
-        public ActionResult UpdProyecto(Proyecto Proyecto)
+        [HttpGet]
+        public ActionResult UpdProyecto(int id)
         {
-            var updProyecto = _ProyectoService.UpdProyecto(Proyecto);
+            var getProyectoById = _ProyectoService.GetProyectoById(id);
+            if (!getProyectoById.Success)
+            {
+                ModelState.AddModelError("Error", getProyectoById.Message);
+                return View(new Proyecto());
+            }
+            return  PartialView(getProyectoById.Data);
+        }
+
+        [HttpPost]
+        public ActionResult UpdProyecto(Proyecto proyecto)
+        {
+            
+            var updProyecto = _ProyectoService.UpdProyecto(proyecto);
             return new JsonResult(updProyecto);
         }
 
@@ -63,28 +77,71 @@ namespace WebApp.Areas.PARAM.Controllers
 
 
         [HttpPost]
-        public ActionResult InsProyecto(Proyecto Proyecto)
+        public ActionResult InsProyecto(Proyecto proyecto)
         {
-            var insProyecto = _ProyectoService.InsProyecto(Proyecto);
+            proyecto.FechaCreacion = DateTime.Now;
+            var insProyecto = _ProyectoService.InsProyecto(proyecto);
             return new JsonResult(insProyecto);
         }
 
         [HttpGet]
-        public ActionResult UpdRubroProyecto(long id)
+        public ActionResult RubrosProyecto(int id)
         {
-            
+            return PartialView(id);
+        }
+
+        public ActionResult GetListRubrosProyecto([DataSourceRequest] DataSourceRequest request,int id)
+        {
+            var getListRubrosByProyectoId = _ProyectoService.GetListRubrosByProyectoId(id);
+
+            if (!getListRubrosByProyectoId.Success)
+            {
+                ModelState.AddModelError("Error", getListRubrosByProyectoId.Message);
+                return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
+            }
+            var rubrosProyecto = getListRubrosByProyectoId.Data;
+            return Json(rubrosProyecto.ToDataSourceResult(request));
+        }
+
+
+        [HttpGet]
+        public ActionResult UpdRubroProyecto(int id)
+        {
             var getRubroProyecto = _ProyectoService.GetRubroProyecto(id);
-            ViewBag.Container = ControllerContext.RouteData.Values["action"].ToString();
             if (!getRubroProyecto.Success)
             {
                 ModelState.AddModelError("Error", getRubroProyecto.Message);
-                return View(new ProyectoEdit());
+                return View(new ProyectoRubro());
             }
             return PartialView(getRubroProyecto.Data);
         }
 
+        [HttpPost]
+        public ActionResult UpdRubroProyecto(ProyectoRubro rubroProyecto)
+        {
+            rubroProyecto.FechaModificacion = DateTime.Now;
+            rubroProyecto.FechaCreacion = DateTime.Now;
+            var updProyecto = _ProyectoService.UpdRubroProyecto(rubroProyecto);
+            return new JsonResult(updProyecto);
+        }
+
+        [HttpGet]
+        public ActionResult InsRubroProyecto(int id)
+        {
+
+            var model = new ProyectoRubro {ProyectoId = id };
+            return PartialView(model);
+        }
 
 
+        [HttpPost]
+        public ActionResult InsRubroProyecto(ProyectoRubro rubroProyecto)
+        {
+            rubroProyecto.FechaModificacion = DateTime.Now;
+            rubroProyecto.FechaCreacion = DateTime.Now;
+            var insProyecto = _ProyectoService.InsRubroProyecto(rubroProyecto);
+            return new JsonResult(insProyecto);
+        }
 
     }
 }

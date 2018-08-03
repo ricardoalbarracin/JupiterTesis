@@ -101,7 +101,7 @@ var Utils = function () {
                 if ($.inArray(idx, sectionsToValidate) >= 0) {
                     var sectionObj = facade[idx];
                     
-					var isValid = sectionObj.Validate()
+                    var isValid = sectionObj.Validate()
                     if (!isValid) {
                         return false;
                     }
@@ -212,29 +212,89 @@ var Utils = function () {
                 }
             }
             return allFiles;
-		},
+        },
 
-		toast: function (type, message) {
-			Command: toastr[type](message)
+        toast: function (type, message) {
+            Command: toastr[type](message)
 
-			toastr.options = {
-				"closeButton": false,
-				"debug": false,
-				"newestOnTop": false,
-				"progressBar": false,
-				"positionClass": "toast-bottom-right",
-				"preventDuplicates": false,
-				"onclick": null,
-				"showDuration": "300",
-				"hideDuration": "1000",
-				"timeOut": "5000",
-				"extendedTimeOut": "1000",
-				"showEasing": "swing",
-				"hideEasing": "linear",
-				"showMethod": "fadeIn",
-				"hideMethod": "fadeOut"
-			}
-		},
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        },
+
+        
+
+        // Muestra modal pricipal
+        // - path: direccion url de vista modal
+        // - dataModalValue: tamaño del modal ("", "modal-lg", "modal-xl")
+        // - params: objecto javascript con parametros para enviar
+        // - modalName: NOTA: sera unicamente usado por la función "showModalBs2" y sirve para especificar que se abrira un modal secundario
+        showModalBs: function (path, dataModalValue, params, modalName) {
+
+            dataModalValue = typeof dataModalValue !== 'undefined' ? dataModalValue : ""; //default value
+            modalName = typeof modalName !== 'undefined' ? modalName : "modal"; // default values
+
+            if (typeof params !== 'undefined' && params != null) {
+                params = "?" + $.param(params);
+            } else {
+                params = "";
+            }
+
+            var currentModal = (modalName == "modal") ? modal :
+                               (modalName == "modal2") ? modal2 : null;
+            var modalContent = currentModal.find(".modal-content");
+            var url = path + params;
+
+            modalContent.load(url, function (response, status, xhr) {
+                switch (status) {
+                    case "success":
+                        currentModal.modal({ backdrop: 'static', keyboard: false }, 'show');
+
+                        if (dataModalValue == "modal-lg") {
+                            currentModal.find(".modal-dialog").addClass("modal-lg");
+                        }
+                        else if (dataModalValue == "modal-xl") {
+                            currentModal.find(".modal-dialog").addClass("modal-xl");
+                        }
+                        else {
+                            currentModal.find(".modal-dialog").removeClass("modal-lg");
+                            currentModal.find(".modal-dialog").removeClass("modal-xl");
+                        }
+
+                        Site.handleModal();
+
+                        break;
+
+                    case "error":
+                        var message = "Error de ejecución: " + xhr.status + " " + xhr.statusText;
+                        if (xhr.status == 403) $.msgbox(response, { type: 'error' });
+                        else Utils.toast("error", message);
+                        break;
+                }
+            });
+        },
+
+        // Muestra modal secundario
+        // - path: direccion url de vista modal
+        // - dataModalValue: tamaño del modal ("", "modal-lg", "modal-xl")
+        // - params: objecto javascript con parametros para enviar
+        showModalBs2: function (path, dataModalValue, params) {
+            this.showModalBs(path, dataModalValue, params, "modal2");
+        },
     };
 }();
 

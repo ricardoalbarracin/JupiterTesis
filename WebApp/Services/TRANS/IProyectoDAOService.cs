@@ -19,5 +19,9 @@ namespace Core.Services.TRANS
 
         Result<ProyectoRubro> GetRubroProyecto(long id);
 
+        Result UpdRubroProyecto(ProyectoRubro proyectoRubro);
+
+        Result<ProyectoRubro> InsRubroProyecto(ProyectoRubro proyectoRubro);
+
     }
 }

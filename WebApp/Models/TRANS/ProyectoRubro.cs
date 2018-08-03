@@ -9,7 +9,7 @@ namespace Core.Models.TRANS
     public class ProyectoRubro
     {
         [Required(ErrorMessage ="El campo Id es obligatorio.")]
-        public int Id { get; set;}
+        public long Id { get; set;}
      
         [Required(ErrorMessage ="El campo RubroId es obligatorio.")]
         public int RubroId { get; set;}
