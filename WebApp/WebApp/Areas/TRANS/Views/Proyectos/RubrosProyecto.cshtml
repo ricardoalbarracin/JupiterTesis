@@ -14,7 +14,7 @@
             </div>
             <script id="actionTemplateRubros" type="text/x-kendo-template">
                 <div class='text-center'>
-                    <a class='btn btn-primary' data-modal2="modal-xl" href='@Url.Action("UpdRubroProyecto", "Proyectos", new { area = "TRANS" })/#=data.Id#'>Editar</a>
+                    <a class='btn btn-primary' data-modal2="modal-lg" href='@Url.Action("UpdRubroProyecto", "Proyectos", new { area = "TRANS" })/#=data.Id#'>Editar</a>
                 </div>
             </script>
             <div class="card-body">
@@ -28,7 +28,7 @@
                         <div class="card-header">
                             <div class="h5 m-0">
                                 Listado de rubros <label class="float-right mt-0 mb-0">
-                                    @Html.ActionLink("Registrar", "InsRubroProyecto", "Proyectos", new { area = "TRANS", id = Model }, new { @data_modal2 = "modal-xl", @class = "btn btn-primary float-right" })
+                                    @Html.ActionLink("Registrar", "InsRubroProyecto", "Proyectos", new { area = "TRANS", id = Model }, new { @data_modal2 = "modal-lg", @class = "btn btn-primary float-right" })
                                 </label>
                             </div>
 
