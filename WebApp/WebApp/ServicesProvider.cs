@@ -16,11 +16,11 @@ namespace WebApp
         /// <param name="services"></param>
         public void ConfigureProviders(IServiceCollection services)
         {
-            services.AddScoped<IUserDAOService, UsuarioDao>();
-            services.AddScoped<IsecurityService, SeguridadServiceBusiness>();
+            services.AddScoped<IUserDAOService, UserDao>();
+            services.AddScoped<ISecurityService, SecurityServiceBusiness>();
             services.AddScoped<IRoleDAOService, RoleDAO>();
-            services.AddScoped<IPermissionDAOService, PermisoDAO>();
-            services.AddScoped<IPersonDAOService, PersonaDAO>();
+            services.AddScoped<IPermissionDAOService, PermissionDAO>();
+            services.AddScoped<IPersonDAOService, PersonDAO>();
 
 
         }

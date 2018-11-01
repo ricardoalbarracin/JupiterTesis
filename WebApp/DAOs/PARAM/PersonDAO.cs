@@ -10,9 +10,9 @@ using System.Linq;
 
 namespace DAOs.PARAM
 {
-    public class PersonaDAO : BaseDAO, IPersonDAOService
+    public class PersonDAO : BaseDAO, IPersonDAOService
     {
-        public PersonaDAO(IDapperAdapter dapper) : base(dapper)
+        public PersonDAO(IDapperAdapter dapper) : base(dapper)
         {
         }
         public Result<List<Person>> GetListPersons()
@@ -54,14 +54,14 @@ namespace DAOs.PARAM
             return result;
         }
 
-        public Result UpdPerson(Person persona)
+        public Result UpdPerson(Person person)
         {
             var result = new Result();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Update(persona);
+                    connection.Update(person);
                     result.Message = "Persona actualizada correctamente.";
                     result.Success = true;
                 }
@@ -74,14 +74,14 @@ namespace DAOs.PARAM
             return result;
         }
 
-        public Result<Person> InsPerson(Person persona)
+        public Result<Person> InsPerson(Person person)
         {
             var result = new Result<Person>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    persona.Id = connection.Insert(persona);
+                    person.Id = connection.Insert(person);
                     result.Message = "Persona creada correctamente.";
                     result.Success = true;
                 }

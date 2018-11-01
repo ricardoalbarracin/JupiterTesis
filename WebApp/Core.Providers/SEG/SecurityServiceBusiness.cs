@@ -11,27 +11,27 @@ using System.Transactions;
 
 namespace Core.Business.SEG
 {
-    public class SeguridadServiceBusiness : IsecurityService
+    public class SecurityServiceBusiness : ISecurityService
     {
-        IUserDAOService _usuarioService;
+        IUserDAOService _userService;
         IRoleDAOService _roleService;
-        IPermissionDAOService _permisoService;
+        IPermissionDAOService _permissionService;
         IEmailSender _emailSender;
-        public SeguridadServiceBusiness(IUserDAOService usuarioService,
+        public SecurityServiceBusiness(IUserDAOService userService,
                                         IRoleDAOService roleService,
-                                        IPermissionDAOService permisoService,
+                                        IPermissionDAOService permissionService,
                                         IEmailSender emailSender)
         {
-            _usuarioService = usuarioService;
+            _userService = userService;
             _roleService = roleService;
-            _permisoService = permisoService;
+            _permissionService = permissionService;
             _emailSender = emailSender;
         }
 
-        public Result<UserIdentity> Login(User usuario)
+        public Result<UserIdentity> Login(User user)
         {
             var result = new Result<UserIdentity>();
-            var getUsuarioByUserName = _usuarioService.GetUserByUserName(usuario.Username);
+            var getUsuarioByUserName = _userService.GetUserByUserName(user.Username);
             if (!getUsuarioByUserName.Success)
             {
                 result.Message = getUsuarioByUserName.Message;
@@ -40,14 +40,14 @@ namespace Core.Business.SEG
 
             var usuarioDB = getUsuarioByUserName.Data as User;
            
-            var validarPassword = ValidatePassword(usuarioDB,usuario.Password);
+            var validarPassword = ValidatePassword(usuarioDB,user.Password);
             if (!validarPassword.Success)
             {
                 result.Message = validarPassword.Message;
                 return result;
             }
 
-            result = _usuarioService.GetUserById(usuarioDB.Id);
+            result = _userService.GetUserById(usuarioDB.Id);
             if (!result.Success)
             {
                 return result;
@@ -62,7 +62,7 @@ namespace Core.Business.SEG
             using (var transaction = new TransactionScope())
             {
                 var usuario = dataSections["UpdUsuario"] as User;
-                var usuarioById = _usuarioService.GetUserById(usuario.Id) ;
+                var usuarioById = _userService.GetUserById(usuario.Id) ;
                 if (!usuarioById.Success)
                 {
                     result.Message = usuarioById.Message;
@@ -71,7 +71,7 @@ namespace Core.Business.SEG
                 var usuarioDb = usuarioById.Data as UserIdentity;
 
                 usuario.Password = usuarioDb.Password;
-                var updUsuario = _usuarioService.UpdUser(usuario);
+                var updUsuario = _userService.UpdUser(usuario);
 
                 if (!updUsuario.Success)
                 {
@@ -106,7 +106,7 @@ namespace Core.Business.SEG
                 {
                     if (permiso.Active == 1)
                     {
-                        var insUsuarioPermiso = _permisoService.InsUserPermission(new UserPermision(usuario.Id, permiso.Id));
+                        var insUsuarioPermiso = _permissionService.InsUserPermission(new UserPermision(usuario.Id, permiso.Id));
                         if (!insUsuarioPermiso.Success)
                         {
                             result.Message = insUsuarioPermiso.Message;
@@ -115,7 +115,7 @@ namespace Core.Business.SEG
                     }
                     else
                     {
-                        var delUsuarioPermiso = _permisoService.DelUserPermission(new UserPermision(usuario.Id, permiso.Id));
+                        var delUsuarioPermiso = _permissionService.DelUserPermission(new UserPermision(usuario.Id, permiso.Id));
                         if (!delUsuarioPermiso.Success)
                         {
                             return delUsuarioPermiso;
@@ -147,7 +147,7 @@ namespace Core.Business.SEG
 
 
                 usuario.Password = generarHashRandomPassword.Data["Hash"];
-                var insUsuario = _usuarioService.InsUser(usuario);
+                var insUsuario = _userService.InsUser(usuario);
 
                 if (!insUsuario.Success)
                 {
@@ -182,7 +182,7 @@ namespace Core.Business.SEG
                 {
                     if (permiso.Active == 1)
                     {
-                        var insUsuarioPermiso = _permisoService.InsUserPermission(new UserPermision(usuario.Id, permiso.Id));
+                        var insUsuarioPermiso = _permissionService.InsUserPermission(new UserPermision(usuario.Id, permiso.Id));
                         if (!insUsuarioPermiso.Success)
                         {
                             result.Message = insUsuarioPermiso.Message;
@@ -191,7 +191,7 @@ namespace Core.Business.SEG
                     }
                     else
                     {
-                        var delUsuarioPermiso = _permisoService.DelUserPermission(new UserPermision(usuario.Id, permiso.Id));
+                        var delUsuarioPermiso = _permissionService.DelUserPermission(new UserPermision(usuario.Id, permiso.Id));
                         if (!delUsuarioPermiso.Success)
                         {
                             return delUsuarioPermiso;
@@ -207,18 +207,18 @@ namespace Core.Business.SEG
            
         }
 
-        public Result<string> ResetPassword(User usuario)
+        public Result<string> ResetPassword(User user)
         {
             var result = new Result<string>();
 
-            var generarHashRandomPassword = GenerarHashRandomPassword(usuario.Username);
+            var generarHashRandomPassword = GenerarHashRandomPassword(user.Username);
             if(!generarHashRandomPassword.Success)
             {
                 result.Message = generarHashRandomPassword.Message;
                 return result;
             }
 
-            var usuarioById = _usuarioService.GetUserById(usuario.Id);
+            var usuarioById = _userService.GetUserById(user.Id);
             if (!usuarioById.Success)
             {
                 result.Message = usuarioById.Message;
@@ -235,7 +235,7 @@ namespace Core.Business.SEG
             var usuarioUpd = mapper.Map<UserIdentity, User>(usuarioIdentity); 
             
             usuarioUpd.Password = generarHashRandomPassword.Data["Hash"];
-            var updUsuario = _usuarioService.UpdUser(usuarioUpd);
+            var updUsuario = _userService.UpdUser(usuarioUpd);
             if (!updUsuario.Success)
             {
                 result.Message = updUsuario.Message;
@@ -257,11 +257,11 @@ namespace Core.Business.SEG
             return result;
         }
 
-        public Result ValidatePassword(User usuario, string password)
+        public Result ValidatePassword(User user, string password)
         {
             var result = new Result();
             PasswordHasher<string> pw = new PasswordHasher<string>();
-            var resultVerify = pw.VerifyHashedPassword(usuario.Username, usuario.Password, password);
+            var resultVerify = pw.VerifyHashedPassword(user.Username, user.Password, password);
             if (resultVerify == PasswordVerificationResult.Failed)
             {
                 result.Message = "Verifique sus credenciales de acceso previamente";
@@ -330,10 +330,10 @@ namespace Core.Business.SEG
             return new string(chars.ToArray());
         }
 
-        public Result ValidateUserCreate(User usuario)
+        public Result ValidateUserCreate(User user)
         {
             var result =new  Result();
-            var usuarioByPersonaId = _usuarioService.UserByPersonId(usuario.PersonId);
+            var usuarioByPersonaId = _userService.UserByPersonId(user.PersonId);
 
             if(usuarioByPersonaId.Success)
             {
@@ -342,7 +342,7 @@ namespace Core.Business.SEG
                 return result;
             }
 
-            var getUsuarioByUserName = _usuarioService.GetUserByUserName(usuario.Username);
+            var getUsuarioByUserName = _userService.GetUserByUserName(user.Username);
 
             if (getUsuarioByUserName.Success)
             {
@@ -355,10 +355,10 @@ namespace Core.Business.SEG
             return result;
         }
 
-        public Result ValidateUserUpdate(User usuario)
+        public Result ValidateUserUpdate(User user)
         {
             var result = new Result();
-            var usuarioByUserIdPersonaId = _usuarioService.UserByUserIdPersonId(usuario.Id, usuario.PersonId);
+            var usuarioByUserIdPersonaId = _userService.UserByUserIdPersonId(user.Id, user.PersonId);
 
             if (usuarioByUserIdPersonaId.Success)
             {
@@ -367,7 +367,7 @@ namespace Core.Business.SEG
                 return result;
             }
 
-            var getUsuarioByUserIdUserName = _usuarioService.GetUserByUserIdUserName(usuario.Id, usuario.Username);
+            var getUsuarioByUserIdUserName = _userService.GetUserByUserIdUserName(user.Id, user.Username);
 
             if (getUsuarioByUserIdUserName.Success)
             {

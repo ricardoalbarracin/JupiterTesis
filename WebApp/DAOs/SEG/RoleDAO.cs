@@ -35,7 +35,7 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<List<Role>> GetListUserRoles(long usuarioId)
+        public Result<List<Role>> GetListUserRoles(long userId)
         {
             var result = new Result<List<Role>>();
             try
@@ -47,7 +47,7 @@ namespace DAOs.SEG
                                 INNER JOIN seg.user_Role ur ON(r.id = ur.role_id)
                                     INNER JOIN seg.user u ON(ur.user_id = u.id)
                             WHERE u.id = @Id";
-                    var roles = connection.Query<Role>(sql, new { Id = usuarioId }).ToList();
+                    var roles = connection.Query<Role>(sql, new { Id = userId }).ToList();
                     result.Data = roles;
                     result.Success = true;
                 }

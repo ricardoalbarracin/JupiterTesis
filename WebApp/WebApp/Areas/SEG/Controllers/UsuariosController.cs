@@ -17,9 +17,9 @@ namespace WebApp.Areas.SEG.Controllers
     public class UsuariosController : Controller
     {
         IUserDAOService _usuarioService;
-        IsecurityService _seguridadService;
+        ISecurityService _seguridadService;
 
-        public UsuariosController(IUserDAOService usuarioService,IsecurityService seguridadService)
+        public UsuariosController(IUserDAOService usuarioService,ISecurityService seguridadService)
         {
             _usuarioService = usuarioService;
             _seguridadService = seguridadService;

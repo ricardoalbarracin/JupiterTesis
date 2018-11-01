@@ -11,11 +11,11 @@ using System.Collections.Generic;
 
 namespace DAOs.SEG
 {
-    public class UsuarioDao : BaseDAO, IUserDAOService
+    public class UserDao : BaseDAO, IUserDAOService
     {
         IRoleDAOService _roleService;
         IPermissionDAOService _permisoService;
-        public UsuarioDao(IDapperAdapter dapper,IRoleDAOService roleService, IPermissionDAOService permisoService):base(dapper)
+        public UserDao(IDapperAdapter dapper,IRoleDAOService roleService, IPermissionDAOService permisoService):base(dapper)
         {
             _roleService = roleService;
             _permisoService = permisoService;
@@ -28,18 +28,18 @@ namespace DAOs.SEG
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    result.Data = connection.Query<UserIdentity>(@"SELECT u.Id,
-                                   p.Documento,
-                                   p.PrimerNombre,
-                                   p.SegundoNombre,
-                                   p.FechaNacimiento,
-                                   p.PrimerApellido,
-                                   p.SegundoApellido,
-                                   u.Username,
-                                   u.Password
-                            FROM ADMIN.Personas p
+                    result.Data = connection.Query<UserIdentity>(@"SELECT u.id,
+                                   p.document,
+                                   p.firts_name,
+                                   p.second_name,
+                                   p.birth_date,
+                                   p.surname,
+                                   p.second_surname,
+                                   u.username,
+                                   u.password
+                            FROM admin.Person p
 
-                                INNER JOIN SEG.Usuarios u ON(p.Id = u.PersonaId) ").AsList();
+                                INNER JOIN seg.user u ON(p.id = u.person_id) ").AsList();
                     result.Success = true;
                 }
             }
@@ -71,7 +71,7 @@ namespace DAOs.SEG
                                    u.username, 
                                    u.password
                             FROM admin.person p 
-	                            INNER JOIN seg.user u ON (p.Id = u.person_id)  
+	                            INNER JOIN seg.user u ON (p.id = u.person_id)  
                             WHERE u.id = @Id";
                     var usuario = connection.QueryFirst<UserIdentity>(sql, new { Id = id });
 
@@ -177,14 +177,14 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result<bool> UpdUser(User usuario)
+        public Result<bool> UpdUser(User user)
         {
             var result = new Result<bool>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    result.Data= connection.Update(usuario);
+                    result.Data= connection.Update(user);
                     result.Success = true;
                 }
             }
@@ -196,15 +196,15 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result<User> InsUser(User usuario)
+        public Result<User> InsUser(User user)
         {
             var result = new Result<User>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    usuario.Id= (int)connection.Insert(usuario);
-                    result.Data = usuario;
+                    user.Id= (int)connection.Insert(user);
+                    result.Data = user;
                     result.Success = true;
                 }
             }
@@ -215,21 +215,21 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<User> UserByPersonId(long personaId)
+        public Result<User> UserByPersonId(long personId)
         {
             var result = new Result<User>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    var sql = @"SELECT [Id]
-                                  ,[Username]
-                                  ,[Password]
-                                  ,[PersonaId]
-                                  ,[Activo]
-                              FROM [SEG].[Usuarios] u
-                            WHERE u.PersonaId = @PersonaId;";
-                    result.Data = connection.QueryFirst<User>(sql, new { PersonaId = personaId });
+                    var sql = @"SELECT id
+                                  ,username
+                                  ,password
+                                  ,person_id
+                                  ,Active
+                              FROM seg.user u
+                            WHERE u.person_Id = @PersonaId;";
+                    result.Data = connection.QueryFirst<User>(sql, new { PersonId = personId });
                 }
             }
             catch (Exception ex)
@@ -249,13 +249,13 @@ namespace DAOs.SEG
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    var sql = @"SELECT [Id]
-                                  ,[Username]
-                                  ,[Password]
-                                  ,[PersonaId]
-                                  ,[Activo]
-                              FROM [SEG].[Usuarios] u
-                            WHERE u.PersonaId = @PersonaId and Id <> @UserId;";
+                    var sql = @"SELECT Id
+                                  ,username
+                                  ,password
+                                  ,person_id
+                                  ,active
+                              FROM seg.User u
+                            WHERE u.person_id = @PersonaId and id <> @UserId;";
                     result.Data = connection.QueryFirst<User>(sql, new { PersonaId = personaId, UserId = userId });
                 }
             }
@@ -276,13 +276,13 @@ namespace DAOs.SEG
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    var sql = @"SELECT [Id]
-                                  ,[Username]
-                                  ,[Password]
-                                  ,[PersonaId]
-                                  ,[Activo]
-                              FROM [SEG].[Usuarios] u
-                            WHERE u.Username = @Username and Id <> @UserId;";
+                    var sql = @"SELECT Id
+                                  ,username
+                                  ,password
+                                  ,person_id
+                                  ,active
+                              FROM seg.user u
+                            WHERE u.username = @Username and Id <> @UserId;";
                     result.Data = connection.QueryFirst<User>(sql, new { Username = userName, UserId= userId });
                 }
             }

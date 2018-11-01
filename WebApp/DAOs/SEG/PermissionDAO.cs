@@ -12,9 +12,9 @@ using System.Text;
 
 namespace DAOs.SEG
 {
-    public class PermisoDAO : BaseDAO, IPermissionDAOService
+    public class PermissionDAO : BaseDAO, IPermissionDAOService
     {
-        public PermisoDAO(IDapperAdapter dapper) : base(dapper)
+        public PermissionDAO(IDapperAdapter dapper) : base(dapper)
         {
         }
         public Result<IEnumerable<Permission>> GetListPermissions()
@@ -35,7 +35,7 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<List<Permission>> GetListUserAssignedPermissions(long usuarioId)
+        public Result<List<Permission>> GetListUserAssignedPermissions(long userId)
         {
             var result = new Result<List<Permission>>();
             try
@@ -47,7 +47,7 @@ namespace DAOs.SEG
                                 INNER JOIN seg.user_permission up ON(p.id = up.Permission_id)
                                     INNER JOIN seg.user u ON(up.user_id = u.id)
                             WHERE u.id = @Id;";
-                    var permisos = connection.Query<Permission>(sql, new { Id = usuarioId }).ToList();
+                    var permisos = connection.Query<Permission>(sql, new { Id = userId }).ToList();
                     result.Data = permisos;
                     result.Success = true;
                 }
@@ -59,7 +59,7 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<List<Permission>> GetListUserPermissions(long usuarioId)
+        public Result<List<Permission>> GetListUserPermissions(long userId)
         {
             var result = new Result<List<Permission>>();
             try
@@ -79,7 +79,7 @@ namespace DAOs.SEG
                                 INNER JOIN seg.user_permission up ON(p.id = up.Permission_id)
                                     INNER JOIN seg.user u ON(up.user_id = u.id)
                             WHERE u.id = @Id;";
-                    var permisos = connection.Query<Permission>(sql, new { Id = usuarioId }).ToList();
+                    var permisos = connection.Query<Permission>(sql, new { Id = userId }).ToList();
                     result.Data = permisos;
                     result.Success = true;
                 }
@@ -92,15 +92,15 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result<UserPermision> InsUserPermission(UserPermision permiso)
+        public Result<UserPermision> InsUserPermission(UserPermision permission)
         {
             var result = new Result<UserPermision>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    permiso.Id= connection.Insert(permiso);
-                    result.Data = permiso;
+                    permission.Id= connection.Insert(permission);
+                    result.Data = permission;
                     result.Success = true;
                 }
             }
@@ -111,14 +111,14 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result DelUserPermission(UserPermision permiso)
+        public Result DelUserPermission(UserPermision permission)
         {
             var result = new Result();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Execute("delete from seg.user_permission where Permission_id = @PermisoId and user_id = @UsuarioId", permiso);
+                    connection.Execute("delete from seg.user_permission where Permission_id = @PermisoId and user_id = @UsuarioId", permission);
                     result.Success = true;
                 }
             }

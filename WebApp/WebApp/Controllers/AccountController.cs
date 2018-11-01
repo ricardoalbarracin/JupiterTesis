@@ -20,9 +20,9 @@ namespace WebApp.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        IsecurityService _seguridadService;
+        ISecurityService _seguridadService;
         IHostingEnvironment _environment;
-        public AccountController(IsecurityService seguridadService, IHostingEnvironment environment)
+        public AccountController(ISecurityService seguridadService, IHostingEnvironment environment)
         {
             _seguridadService = seguridadService;
             _environment = environment;

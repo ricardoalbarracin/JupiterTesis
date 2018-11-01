@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Models.PARAM
 {
-    [Table("ADMIN.Personas")]
+    [Table("admin.person")]
     public class Person
     {
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
