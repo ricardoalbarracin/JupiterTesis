@@ -72,10 +72,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Areas\PARAM\Views\Personas\Index.cshtml">
+    <Content Update="Areas\PARAM\Views\Person\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\PARAM\Views\Personas\InsPersona.cshtml">
+    <Content Update="Areas\PARAM\Views\Person\InsPerson.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\PARAM\Views\_ViewImports.cshtml">
@@ -93,13 +93,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Areas\PARAM\Scripts\Personas\InsPersona.js">
+    <None Update="Areas\PARAM\Scripts\Person\InsPerson.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Areas\PARAM\Scripts\Personas\UpdPersona.js">
+    <None Update="Areas\PARAM\Scripts\Person\UpdPerson.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Areas\PARAM\Scripts\Personas\Index.js">
+    <None Update="Areas\PARAM\Scripts\Person\Index.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Areas\SEG\Scripts\Usuarios\CrearUsuario.js">
