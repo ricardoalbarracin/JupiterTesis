@@ -62,53 +62,16 @@
   <ItemGroup>
     <Folder Include="Areas\PARAM\Data\" />
     <Folder Include="Areas\PARAM\Models\" />
+    <Folder Include="Areas\TRANS\Controllers\" />
     <Folder Include="Areas\TRANS\Data\" />
     <Folder Include="Areas\TRANS\Models\" />
     <Folder Include="Areas\SEG\Data\" />
     <Folder Include="Areas\SEG\Models\" />
+    <Folder Include="Areas\TRANS\Scripts\" />
     <Folder Include="Resources\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Areas\TRANS\Views\Proyectos\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\TRANS\Views\Proyectos\InsProyecto.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\TRANS\Views\Proyectos\UpdProyecto.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\PARAM\Views\Dependencias\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\PARAM\Views\Dependencias\DetalleDependencia.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\PARAM\Views\Dependencias\UpdDependencia.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\PARAM\Views\Dependencias\InsDependencia.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\PARAM\Views\Rubros\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\PARAM\Views\Rubros\InsRubro.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\PARAM\Views\Rubros\UpdRubro.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\PARAM\Views\Cargos\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\PARAM\Views\Cargos\InsCargo.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\PARAM\Views\Cargos\UpdCargo.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Areas\PARAM\Views\Personas\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -130,42 +93,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Areas\TRANS\Scripts\Proyectos\Index.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\TRANS\Scripts\Proyectos\InsProyecto.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\TRANS\Scripts\Proyectos\UpdProyecto.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\PARAM\Scripts\Dependencias\Index.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\PARAM\Scripts\Dependencias\UpdDependencia.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\PARAM\Scripts\Dependencias\InsDependencia.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\PARAM\Scripts\Rubros\Index.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\PARAM\Scripts\Rubros\InsRubro.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\PARAM\Scripts\Rubros\UpdRubro.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\PARAM\Scripts\Cargos\Index.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\PARAM\Scripts\Cargos\InsCargo.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\PARAM\Scripts\Cargos\UpdCargo.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Areas\PARAM\Scripts\Personas\InsPersona.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -206,18 +133,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Areas\SEG\Scripts\Usuarios\UpdUsuario.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\TRANS\Scripts\Proyectos\ActualizarUsuario.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\TRANS\Scripts\Proyectos\UpdPermisosUsuario.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\TRANS\Scripts\Proyectos\AgregarUsuarioPermiso.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\TRANS\Scripts\Proyectos\Index %28copia%29.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

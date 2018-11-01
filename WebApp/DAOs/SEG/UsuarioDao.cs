@@ -117,9 +117,9 @@ namespace DAOs.SEG
                     var sql = @"SELECT [Id]
                                   ,[Username]
                                   ,[Password]
-                                  ,[PersonaId]
-                                  ,[Activo]
-                              FROM [SEG].[Usuarios] u
+                                  ,[PersonId]
+                                  ,[Active]
+                              FROM [seg].[User] u
                             WHERE u.Username = @Username;";
                     result.Data = connection.QueryFirst<Usuario>(sql, new { Username = userName });
                 }

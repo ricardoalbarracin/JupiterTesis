@@ -9,6 +9,7 @@ using Dapper;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Core.Services.Utils;
+using Npgsql;
 
 namespace DAOs
 {
@@ -26,7 +27,7 @@ namespace DAOs
 
         public IDbConnection Open()
         {
-            return new SqlConnection(_connectionString);
+            return new NpgsqlConnection(_connectionString);
         }
         
     }
