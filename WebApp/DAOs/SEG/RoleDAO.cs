@@ -35,18 +35,18 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<List<Role>> GetListRolesUsuario(long usuarioId)
+        public Result<List<Role>> GetListUserRoles(long usuarioId)
         {
             var result = new Result<List<Role>>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    var sql = @"SELECT r.Id, r.Sigla, r.Nombre, r.Descripcion
-                            FROM SEG.Roles r
-                                INNER JOIN SEG.UsuariosRoles ur ON(r.Id = ur.RoleId)
-                                    INNER JOIN SEG.Usuarios u ON(ur.UsuarioId = u.Id)
-                            WHERE u.Id = @Id";
+                    var sql = @"SELECT r.id, r.code, r.description, r.full_description
+                            FROM seg.role r
+                                INNER JOIN seg.user_Role ur ON(r.id = ur.role_id)
+                                    INNER JOIN seg.user u ON(ur.user_id = u.id)
+                            WHERE u.id = @Id";
                     var roles = connection.Query<Role>(sql, new { Id = usuarioId }).ToList();
                     result.Data = roles;
                     result.Success = true;
@@ -59,9 +59,9 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<UsuarioRole> InsUsuarioRole(UsuarioRole role)
+        public Result<UserRole> InsUserRole(UserRole role)
         {
-            var result = new Result<UsuarioRole>();
+            var result = new Result<UserRole>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -77,14 +77,14 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result DelUsuarioRole(UsuarioRole role)
+        public Result DelUserRole(UserRole role)
         {
             var result = new Result();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Execute("delete from SEG.UsuariosRoles where RoleId = @RoleId and UsuarioId = @UsuarioId", role);
+                    connection.Execute("delete from seg.User_Role where role_id = @RoleId and user_id = @UsuarioId", role);
                 }
                 result.Success = true;
             }

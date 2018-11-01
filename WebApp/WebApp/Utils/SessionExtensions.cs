@@ -21,10 +21,10 @@ namespace WebApp.Utils
             return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
 
-        public static UsuarioIdentity GetUser(this ISession session)
+        public static UserIdentity GetUser(this ISession session)
         {
             var value = session.GetString("Usuario");
-            return value == null? null : JsonConvert.DeserializeObject<UsuarioIdentity>(value);
+            return value == null? null : JsonConvert.DeserializeObject<UserIdentity>(value);
         }
 
     }

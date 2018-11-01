@@ -26,11 +26,11 @@ namespace WebApp.Fliters
 		public override void OnActionExecuting(ActionExecutingContext context)
 		{
             var usuario = context.HttpContext.Session.GetUser();
-            if (usuario?.Permisos?.Count == null)
+            if (usuario?.Permissions?.Count == null)
             {
                 context.HttpContext.Response.Redirect("/Account/Login", false);
             }
-            if(usuario != null && !usuario.Permisos.Where(p=> p.Sigla == _permissionsString).Select(p => p.Sigla).Any())
+            if(usuario != null && !usuario.Permissions.Where(p=> p.Code == _permissionsString).Select(p => p.Code).Any())
             {
                 context.Result = new UnauthorizedResult();
             }

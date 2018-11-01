@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Core.Models.SEG
 {
-    [Table("SEG.Usuarios")]
-    public class UsuarioEdit
+    [Table("seg.user")]
+    public class UserEdit
     {
-        public Usuario Usuario { get; set; }
-        public List<Permiso> Permisos { get; set; }
+        public User User { get; set; }
+        public List<Permission> Permissions { get; set; }
         public List<Role> Roles { get; set; }
     }
 }

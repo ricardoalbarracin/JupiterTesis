@@ -6,21 +6,21 @@ using System.Text;
 
 namespace Core.Models.SEG
 {
-    [Table("SEG.Roles")]
+    [Table("seg.role")]
     public class Role
     {
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
         public long Id { get; set; }
 
         [MaxLength(100, ErrorMessage = "El campo Sigla no puede tener mas de 100 caracteres.")]
-        public string Sigla { get; set; }
+        public string Code { get; set; }
 
-        public string Descripcion { get; set; }
+        public string FullDescription { get; set; }
 
         [Required(ErrorMessage = "El campo Nombre es obligatorio.")]
-        public string Nombre { get; set; }
+        public string Description { get; set; }
 
-        public int? Activo { get; set; }
+        public int? Active { get; set; }
 
     }
 

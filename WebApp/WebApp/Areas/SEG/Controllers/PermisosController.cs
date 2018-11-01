@@ -13,9 +13,9 @@ namespace WebApp.Areas.SEG.Controllers
     [Area("SEG")]
     public class PermisosController : Controller
     {
-        IPermisoDAOService _permisoService;
+        IPermissionDAOService _permisoService;
 
-        public PermisosController (IUsuarioDAOService usuarioService, IPermisoDAOService permisoService )
+        public PermisosController (IUserDAOService usuarioService, IPermissionDAOService permisoService )
         {
             _permisoService = permisoService;
            
@@ -28,14 +28,14 @@ namespace WebApp.Areas.SEG.Controllers
 
         public ActionResult GetListPermisos([DataSourceRequest] DataSourceRequest request)
         {
-            var listPermisos = _permisoService.GetListPermisos();
+            var listPermisos = _permisoService.GetListPermissions();
 
             if (!listPermisos.Success)
             {
                 ModelState.AddModelError("Error", listPermisos.Message);
                 return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
             }
-            var usuarios = listPermisos.Data as List<Permiso>;
+            var usuarios = listPermisos.Data as List<Permission>;
             return Json(usuarios.ToDataSourceResult(request));
         }
     }

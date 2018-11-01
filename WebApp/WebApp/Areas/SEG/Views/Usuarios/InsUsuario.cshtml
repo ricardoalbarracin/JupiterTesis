@@ -1,4 +1,4 @@
-﻿@model Usuario
+﻿@model User
 @{
 	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
@@ -12,23 +12,23 @@
 			<form>
 				<div class="form-group row">
 					<div class="col-sm-6">
-						@Html.LabelFor(m => m.PersonaId)
-						@(Html.Kendo().DropDownListFor(m => m.PersonaId)
-											  .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
-											  .DataTextField("Documento")
-											  .DataValueField("Id")
-											  .OptionLabel("Seleccione...")
-											  .Filter("contains")
-											  .DataSource(source =>
-											  {
-												  source.Ajax().Read(read =>
-												  {
-													  read.Action("GetListPersonas", "Personas", new { Area = "PARAM" });
-												  }).Events(e => e.Error("Site.handleError"));
+						@Html.LabelFor(m => m.PersonId)
+						@(Html.Kendo().DropDownListFor(m => m.PersonId)
+                                              .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
+                                              .DataTextField("Documento")
+                                              .DataValueField("Id")
+                                              .OptionLabel("Seleccione...")
+                                              .Filter("contains")
+                                              .DataSource(source =>
+                                              {
+                                                  source.Ajax().Read(read =>
+                                                  {
+                                                      read.Action("GetListPersonas", "Personas", new { Area = "PARAM" });
+                                                  }).Events(e => e.Error("Site.handleError"));
 
-											  })
+                                              })
 						)
-						@Html.ValidationMessageFor(m => m.PersonaId)
+						@Html.ValidationMessageFor(m => m.PersonId)
 					</div>
 
 					<div class="col-sm-6">
@@ -41,19 +41,19 @@
 
 				<div class="form-group row">
 					<div class="col-sm-6">
-						@Html.LabelFor(m => m.Activo)
-						@(Html.Kendo().DropDownListFor(m => m.Activo)
-											.DataTextField("Text")
-											.DataValueField("Value")
-											.HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
-											.DataSource(source =>
-											{
-												source.Read(read =>
-												{
-													read.Action("GetListEstados", "Usuarios");
-												});
-											}))
-						@Html.ValidationMessageFor(m => m.Activo)
+						@Html.LabelFor(m => m.Active)
+						@(Html.Kendo().DropDownListFor(m => m.Active)
+                                            .DataTextField("Text")
+                                            .DataValueField("Value")
+                                            .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
+                                            .DataSource(source =>
+                                            {
+                                                source.Read(read =>
+                                                {
+                                                    read.Action("GetListEstados", "Usuarios");
+                                                });
+                                            }))
+						@Html.ValidationMessageFor(m => m.Active)
 					</div>
 				</div>
 			</form>

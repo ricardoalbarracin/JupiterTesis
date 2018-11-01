@@ -16,10 +16,10 @@ namespace WebApp.Areas.SEG.Controllers
     [Area("SEG")]
     public class UsuariosController : Controller
     {
-        IUsuarioDAOService _usuarioService;
-        ISeguridadService _seguridadService;
+        IUserDAOService _usuarioService;
+        IsecurityService _seguridadService;
 
-        public UsuariosController(IUsuarioDAOService usuarioService,ISeguridadService seguridadService)
+        public UsuariosController(IUserDAOService usuarioService,IsecurityService seguridadService)
         {
             _usuarioService = usuarioService;
             _seguridadService = seguridadService;
@@ -30,20 +30,20 @@ namespace WebApp.Areas.SEG.Controllers
         }
         public ActionResult GetListUsuarios([DataSourceRequest] DataSourceRequest request)
         {
-            var getListUsuarios = _usuarioService.GetListUsuarios();
+            var getListUsuarios = _usuarioService.GetListUser();
 
             if (!getListUsuarios.Success)
             {
                 ModelState.AddModelError("Error", getListUsuarios.Message);
                 return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
             }
-            var usuarios = getListUsuarios.Data as List<UsuarioIdentity>;
+            var usuarios = getListUsuarios.Data as List<UserIdentity>;
             return Json(usuarios.ToDataSourceResult(request));
         }
 
         public IActionResult ActualizarUsuario(int id)
         {
-            var result = _usuarioService.GetUsuarioEditById(id);
+            var result = _usuarioService.GetUserEditById(id);
             ViewBag.Container =ControllerContext.RouteData.Values["action"].ToString();
             return PartialView(result.Data);
         }
@@ -54,9 +54,9 @@ namespace WebApp.Areas.SEG.Controllers
             return PartialView();
         }
 
-        public JsonResult ValidarActualizarUsuario(Usuario usuario)
+        public JsonResult ValidarActualizarUsuario(User usuario)
         {
-            var result = _seguridadService.ValidarActualizarUsuario(usuario);
+            var result = _seguridadService.ValidateUserUpdate(usuario);
             return new JsonResult(result);
         }
 
@@ -65,7 +65,7 @@ namespace WebApp.Areas.SEG.Controllers
         public JsonResult Finish(DataSections dataSections)
         {
             var secctions = this.ConvertSectionsToModels(dataSections.Sections);
-            var result = _seguridadService.UpdUsuarioRolesPermisos(secctions);
+            var result = _seguridadService.UpdUserRolesPermissions(secctions);
             return new JsonResult(result);
         }
         
@@ -96,7 +96,7 @@ namespace WebApp.Areas.SEG.Controllers
         }
 
         [HttpPost]
-        public JsonResult ResetPassword(Usuario usuario)
+        public JsonResult ResetPassword(User usuario)
         {
             var result = new Result<string>();
             if (!ModelState.IsValid)
@@ -108,9 +108,9 @@ namespace WebApp.Areas.SEG.Controllers
             return Json(result);
         }
 
-        public JsonResult ValidarCrearUsuario(Usuario usuario)
+        public JsonResult ValidarCrearUsuario(User usuario)
         {
-            var result = _seguridadService.ValidarCrearUsuario(usuario);
+            var result = _seguridadService.ValidateUserCreate(usuario);
             return new JsonResult(result);
         }
 
@@ -118,7 +118,7 @@ namespace WebApp.Areas.SEG.Controllers
         public JsonResult FinishCrearUsuario(DataSections dataSections)
         {
             var secctions = this.ConvertSectionsToModels(dataSections.Sections);
-            var result = _seguridadService.InsUsuarioRolesPermisos(secctions);
+            var result = _seguridadService.InsUserRolesPermissions(secctions);
             return new JsonResult(result);
         }
 

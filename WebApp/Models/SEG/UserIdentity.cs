@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 
 namespace Core.Models.SEG
 {
-    public class UsuarioIdentity
+    public class UserIdentity
     {
         public long Id { get; set; }
 
@@ -27,23 +27,23 @@ namespace Core.Models.SEG
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
         
-        public bool Activo { get; set; }
+        public bool Active { get; set; }
 
-        public long? PersonaId { get; set; }
+        public long? PersonId { get; set; }
 
-        public string Documento { get; set; }
+        public string Document { get; set; }
         
-        public string PrimerNombre { get; set; }
+        public string FirtsName { get; set; }
         
-        public string SegundoNombre { get; set; }
+        public string SecondName { get; set; }
         
-        public string PrimerApellido { get; set; }
+        public string Surname { get; set; }
 
-        public string SegundoApellido { get; set; }
+        public string SecondSurname { get; set; }
         
-        public DateTime? FechaNacimiento { get; set; }
+        public DateTime? BirthDate { get; set; }
         
-        public IList<Permiso> Permisos { get; set; }
+        public IList<Permission> Permissions { get; set; }
         
         public IList<Role> Roles { get; set; }
 

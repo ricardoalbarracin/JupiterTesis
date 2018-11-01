@@ -20,9 +20,9 @@ namespace WebApp.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        ISeguridadService _seguridadService;
+        IsecurityService _seguridadService;
         IHostingEnvironment _environment;
-        public AccountController(ISeguridadService seguridadService, IHostingEnvironment environment)
+        public AccountController(IsecurityService seguridadService, IHostingEnvironment environment)
         {
             _seguridadService = seguridadService;
             _environment = environment;
@@ -41,9 +41,9 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Login(Usuario usuario)
+        public async Task<JsonResult> Login(User usuario)
         {
-            var result = new Result<UsuarioIdentity>();
+            var result = new Result<UserIdentity>();
             if (!ModelState.IsValid)
             {
                 result.Message = "Modelo invalido";
@@ -52,10 +52,10 @@ namespace WebApp.Controllers
             result = _seguridadService.Login(usuario);
             if (!result.Success)
                 return Json(result);
-            var usuarioDB = result.Data as UsuarioIdentity;
+            var usuarioDB = result.Data as UserIdentity;
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, $"{usuarioDB.PrimerNombre} {usuarioDB.SegundoNombre} {usuarioDB.PrimerApellido} {usuarioDB.SegundoApellido}")
+                new Claim(ClaimTypes.Name, $"{usuarioDB.FirtsName} {usuarioDB.SecondName} {usuarioDB.Surname} {usuarioDB.SecondSurname}")
                 //new Claim(ClaimTypes.Name, $"Ricardo")
             };
 
@@ -64,7 +64,7 @@ namespace WebApp.Controllers
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
             await HttpContext.SignInAsync(principal);
             HttpContext.Session.SetObject("Usuario", usuarioDB);
-            ////var a = HttpContext.Session.GetUser();
+            var a = HttpContext.Session.GetUser();
             result.Success = true;
             return Json(result);
         }

@@ -13,10 +13,10 @@ namespace WebApp.Areas.SEG.Controllers
     [Area("SEG")]
     public class RolesController : Controller
     {
-        IUsuarioDAOService _usuarioService;
+        IUserDAOService _usuarioService;
         IRoleDAOService _roleService;
-        IPermisoDAOService _permisoService;
-        public RolesController(IUsuarioDAOService usuarioService, IRoleDAOService roleService, IPermisoDAOService permisoService)
+        IPermissionDAOService _permisoService;
+        public RolesController(IUserDAOService usuarioService, IRoleDAOService roleService, IPermissionDAOService permisoService)
         {
             _usuarioService = usuarioService;
             _roleService = roleService;

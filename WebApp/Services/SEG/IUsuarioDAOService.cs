@@ -6,25 +6,25 @@ using System.Text;
 
 namespace Core.Services.SEG
 {
-    public interface IUsuarioDAOService
+    public interface IUserDAOService
     {
-        Result<List<UsuarioIdentity>> GetListUsuarios();
+        Result<List<UserIdentity>> GetListUser();
 
-        Result<UsuarioIdentity> GetUsuarioById(long id);
+        Result<UserIdentity> GetUserById(long id);
 
-        Result<Usuario> GetUsuarioByUserName(string userName);
+        Result<User> GetUserByUserName(string userName);
 
-        Result<UsuarioEdit> GetUsuarioEditById(long id);
+        Result<UserEdit> GetUserEditById(long id);
 
-        Result<bool> UpdUsuario(Usuario usuario);
+        Result<bool> UpdUser(User usuar);
 
-        Result<Usuario> InsUsuario(Usuario usuario);
+        Result<User> InsUser(User usuar);
 
-        Result<Usuario> UsuarioByPersonaId(long personaId);
+        Result<User> UserByPersonId(long personId);
 
-        Result<Usuario> UsuarioByUserIdPersonaId(long userId, long personaId);
+        Result<User> UserByUserIdPersonId(long userId, long personId);
 
-        Result<Usuario> GetUsuarioByUserIdUserName(long userId, string userName);
+        Result<User> GetUserByUserIdUserName(long userId, string userName);
         
 
     }

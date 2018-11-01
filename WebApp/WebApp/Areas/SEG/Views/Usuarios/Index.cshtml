@@ -27,15 +27,15 @@
 
             </div>
             <div class="card-body">
-                @(Html.Kendo().Grid<UsuarioIdentity>()
+                @(Html.Kendo().Grid<UserIdentity>()
                                                     .Name("grid")
                                                     .Columns(columns =>
                                                     {
                                                         columns.Bound(p => p.Id).Hidden();
                                                         columns.Bound(p => p.Username).Title("Usuario").Width(130);
-                                                        columns.Bound(p => p.Documento).Title("Documento").Width(130);
-                                                        columns.Bound(p => p.PrimerNombre).Title("Primer nombre").Width(130);
-                                                        columns.Bound(p => p.PrimerApellido).Title("Primer apellido").Width(130);
+                                                        columns.Bound(p => p.Document).Title("Documento").Width(130);
+                                                        columns.Bound(p => p.FirtsName).Title("Primer nombre").Width(130);
+                                                        columns.Bound(p => p.Surname).Title("Primer apellido").Width(130);
                                                         columns.Bound(c => c.Id).ClientTemplate("#=Index.actionTemplate(data)#").Title("Acciones").Filterable(false).Width(130);
                                                     })
                                                     .Pageable()

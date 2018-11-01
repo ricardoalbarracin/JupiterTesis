@@ -6,8 +6,8 @@ using System.Text;
 
 namespace Core.Models.SEG
 {
-    [Table("SEG.Usuarios")]
-    public class Usuario
+    [Table("seg.user")]
+    public class User
     {
         
         public long Id { get; set; }
@@ -21,9 +21,9 @@ namespace Core.Models.SEG
         public string Password { get; set; }
 
         [Required(ErrorMessage = "El campo persona es obligatorio.")]
-        public long PersonaId { get; set; }
+        public long PersonId { get; set; }
 
-        public bool? Activo { get; set; }
+        public bool? Active { get; set; }
 
     }
 }

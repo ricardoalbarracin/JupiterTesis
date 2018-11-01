@@ -32,14 +32,14 @@
 				Listado de permisos del sistema.
 			</div>
 			<div class="card-block">
-				@(Html.Kendo().Grid<Permiso>()
+				@(Html.Kendo().Grid<Permission>()
 										.Name("gridPermisosSistema")
 										.Columns(columns =>
 										{
 											columns.Bound(p => p.Id).Hidden();
-											columns.Bound(p => p.Nombre);
-											columns.Bound(p => p.Sigla);
-											columns.Bound(p => p.Descripcion);
+											columns.Bound(p => p.Description);
+											columns.Bound(p => p.Code);
+											columns.Bound(p => p.FullDescription);
 											columns.Bound(c => c.Id).ClientTemplate("#=AgregarUsuarioPermiso.actionTemplate(data)#").Title("Acciones").Width(230).Filterable(false);
 										})
 										.Pageable()

@@ -11,24 +11,24 @@ using System.Collections.Generic;
 
 namespace DAOs.SEG
 {
-    public class UsuarioDao : BaseDAO, IUsuarioDAOService
+    public class UsuarioDao : BaseDAO, IUserDAOService
     {
         IRoleDAOService _roleService;
-        IPermisoDAOService _permisoService;
-        public UsuarioDao(IDapperAdapter dapper,IRoleDAOService roleService, IPermisoDAOService permisoService):base(dapper)
+        IPermissionDAOService _permisoService;
+        public UsuarioDao(IDapperAdapter dapper,IRoleDAOService roleService, IPermissionDAOService permisoService):base(dapper)
         {
             _roleService = roleService;
             _permisoService = permisoService;
         }
 
-        public Result<List<UsuarioIdentity>> GetListUsuarios()
+        public Result<List<UserIdentity>> GetListUser()
         {
-            var result = new Result<List<UsuarioIdentity>> ();
+            var result = new Result<List<UserIdentity>> ();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    result.Data = connection.Query<UsuarioIdentity>(@"SELECT u.Id,
+                    result.Data = connection.Query<UserIdentity>(@"SELECT u.Id,
                                    p.Documento,
                                    p.PrimerNombre,
                                    p.SegundoNombre,
@@ -52,40 +52,40 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result<UsuarioIdentity> GetUsuarioById(long id)
+        public Result<UserIdentity> GetUserById(long id)
         {
-            var result = new Result<UsuarioIdentity>();
+            var result = new Result<UserIdentity>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
                     // Obtiene informacion basica del usuario
-                     var sql = @"SELECT u.Id,
-                                   p.Id as PersonaId,
-                                   p.PrimerNombre, 
-                                   p.SegundoNombre, 
-                                   p.FechaNacimiento, 
-                                   p.PrimerApellido, 
-                                   p.SegundoApellido,
-                                   p.Correo,
-                                   u.Username, 
-                                   u.Password
-                            FROM ADMIN.Personas p 
-	                            INNER JOIN SEG.Usuarios u ON (p.Id = u.PersonaId)  
-                            WHERE u.Id = @Id";
-                    var usuario = connection.QueryFirst<UsuarioIdentity>(sql, new { Id = id });
+                     var sql = @"SELECT u.id,
+                                   p.id as Person_Id,
+                                   p.firts_Name, 
+                                   p.second_name, 
+                                   p.birth_date, 
+                                   p.surname, 
+                                   p.second_Surname,
+                                   p.email,
+                                   u.username, 
+                                   u.password
+                            FROM admin.person p 
+	                            INNER JOIN seg.user u ON (p.Id = u.person_id)  
+                            WHERE u.id = @Id";
+                    var usuario = connection.QueryFirst<UserIdentity>(sql, new { Id = id });
 
                     // Obtiene lista de permisos asociados al usuario
-                    var listPermisosUsuario = _permisoService.GetListPermisosUsuario(id);
+                    var listPermisosUsuario = _permisoService.GetListUserPermissions(id);
                     if (!listPermisosUsuario.Success)
                     {
                         result.Message = listPermisosUsuario.Message;
                         return result;
                     }
-                    usuario.Permisos = listPermisosUsuario.Data;
+                    usuario.Permissions = listPermisosUsuario.Data;
 
                     // Obtiene lista de roles asociados al usuario
-                    var listRolesUsuario = _roleService.GetListRolesUsuario(id);
+                    var listRolesUsuario = _roleService.GetListUserRoles(id);
                     if (!listRolesUsuario.Success)
                     {
                         result.Message = listRolesUsuario.Message;
@@ -107,21 +107,21 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result<Usuario> GetUsuarioByUserName(string userName)
+        public Result<User> GetUserByUserName(string userName)
         {
-            var result = new Result<Usuario>();
+            var result = new Result<User>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    var sql = @"SELECT [Id]
-                                  ,[Username]
-                                  ,[Password]
-                                  ,[PersonId]
-                                  ,[Active]
-                              FROM [seg].[User] u
+                    var sql = @"SELECT id
+                                  ,username
+                                  ,password
+                                  ,person_id
+                                  ,active
+                              FROM seg.User u
                             WHERE u.Username = @Username;";
-                    result.Data = connection.QueryFirst<Usuario>(sql, new { Username = userName });
+                    result.Data = connection.QueryFirst<User>(sql, new { Username = userName });
                 }
             }
             catch (Exception ex)
@@ -134,28 +134,28 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result<UsuarioEdit> GetUsuarioEditById(long id)
+        public Result<UserEdit> GetUserEditById(long id)
         {
-            var result = new Result<UsuarioEdit>();
+            var result = new Result<UserEdit>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
                     // Obtiene informacion basica del usuario
-                    var usuarioEdit = new UsuarioEdit();
-                    usuarioEdit.Usuario = connection.Get<Usuario>(id );
+                    var usuarioEdit = new UserEdit();
+                    usuarioEdit.User = connection.Get<User>(id );
 
                     // Obtiene lista de permisos asociados al usuario
-                    var listPermisosUsuario = _permisoService.GetListPermisosAsignadosUsuario(id);
+                    var listPermisosUsuario = _permisoService.GetListUserAssignedPermissions(id);
                     if (!listPermisosUsuario.Success)
                     {
                         result.Message = listPermisosUsuario.Message;
                         return result;
                     }
-                    usuarioEdit.Permisos = listPermisosUsuario.Data;
+                    usuarioEdit.Permissions = listPermisosUsuario.Data;
 
                     // Obtiene lista de roles asociados al usuario
-                    var listRolesUsuario = _roleService.GetListRolesUsuario(id);
+                    var listRolesUsuario = _roleService.GetListUserRoles(id);
                     if (!listRolesUsuario.Success)
                     {
                         result.Message = listRolesUsuario.Message;
@@ -177,7 +177,7 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result<bool> UpdUsuario(Usuario usuario)
+        public Result<bool> UpdUser(User usuario)
         {
             var result = new Result<bool>();
             try
@@ -196,9 +196,9 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result<Usuario> InsUsuario(Usuario usuario)
+        public Result<User> InsUser(User usuario)
         {
-            var result = new Result<Usuario>();
+            var result = new Result<User>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -215,9 +215,9 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<Usuario> UsuarioByPersonaId(long personaId)
+        public Result<User> UserByPersonId(long personaId)
         {
-            var result = new Result<Usuario>();
+            var result = new Result<User>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -229,7 +229,7 @@ namespace DAOs.SEG
                                   ,[Activo]
                               FROM [SEG].[Usuarios] u
                             WHERE u.PersonaId = @PersonaId;";
-                    result.Data = connection.QueryFirst<Usuario>(sql, new { PersonaId = personaId });
+                    result.Data = connection.QueryFirst<User>(sql, new { PersonaId = personaId });
                 }
             }
             catch (Exception ex)
@@ -242,9 +242,9 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result<Usuario> UsuarioByUserIdPersonaId(long userId, long personaId)
+        public Result<User> UserByUserIdPersonId(long userId, long personaId)
         {
-            var result = new Result<Usuario>();
+            var result = new Result<User>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -256,7 +256,7 @@ namespace DAOs.SEG
                                   ,[Activo]
                               FROM [SEG].[Usuarios] u
                             WHERE u.PersonaId = @PersonaId and Id <> @UserId;";
-                    result.Data = connection.QueryFirst<Usuario>(sql, new { PersonaId = personaId, UserId = userId });
+                    result.Data = connection.QueryFirst<User>(sql, new { PersonaId = personaId, UserId = userId });
                 }
             }
             catch (Exception ex)
@@ -269,9 +269,9 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result<Usuario> GetUsuarioByUserIdUserName(long userId, string userName)
+        public Result<User> GetUserByUserIdUserName(long userId, string userName)
         {
-            var result = new Result<Usuario>();
+            var result = new Result<User>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -283,7 +283,7 @@ namespace DAOs.SEG
                                   ,[Activo]
                               FROM [SEG].[Usuarios] u
                             WHERE u.Username = @Username and Id <> @UserId;";
-                    result.Data = connection.QueryFirst<Usuario>(sql, new { Username = userName, UserId= userId });
+                    result.Data = connection.QueryFirst<User>(sql, new { Username = userName, UserId= userId });
                 }
             }
             catch (Exception ex)

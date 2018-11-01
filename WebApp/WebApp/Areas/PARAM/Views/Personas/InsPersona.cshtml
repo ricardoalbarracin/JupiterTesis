@@ -1,4 +1,4 @@
-﻿@model Persona
+﻿@model Person
 @{
     var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
@@ -16,9 +16,9 @@
             <div class="card-body">
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        @Html.LabelFor(m => m.PrimerNombre)
-                        @Html.TextBoxFor(m => m.PrimerNombre, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.PrimerNombre)
+                        @Html.LabelFor(m => m.FirtsName)
+                        @Html.TextBoxFor(m => m.FirtsName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.FirtsName)
                     </div>
                 </div>
             </div>

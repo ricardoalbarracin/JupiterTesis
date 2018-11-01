@@ -10,19 +10,19 @@ using System.Linq;
 
 namespace DAOs.PARAM
 {
-    public class PersonaDAO : BaseDAO, IPersonaDAOService
+    public class PersonaDAO : BaseDAO, IPersonDAOService
     {
         public PersonaDAO(IDapperAdapter dapper) : base(dapper)
         {
         }
-        public Result<List<Persona>> GetListPersonas()
+        public Result<List<Person>> GetListPersons()
         {
-            var result = new Result<List<Persona>>();
+            var result = new Result<List<Person>>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    result.Data = connection.GetAll<Persona>().ToList();
+                    result.Data = connection.GetAll<Person>().ToList();
 
                     result.Success = true;
                 }
@@ -35,14 +35,14 @@ namespace DAOs.PARAM
             return result;
         }
 
-        public Result<Persona> GetPersonaById(long id)
+        public Result<Person> GetPersonById(long id)
         {
-            var result = new Result<Persona>();
+            var result = new Result<Person>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    result.Data = connection.Get<Persona>(id);
+                    result.Data = connection.Get<Person>(id);
                     result.Success = true;
                 }
             }
@@ -54,7 +54,7 @@ namespace DAOs.PARAM
             return result;
         }
 
-        public Result UpdPersona(Persona persona)
+        public Result UpdPerson(Person persona)
         {
             var result = new Result();
             try
@@ -74,9 +74,9 @@ namespace DAOs.PARAM
             return result;
         }
 
-        public Result<Persona> InsPersona(Persona persona)
+        public Result<Person> InsPerson(Person persona)
         {
-            var result = new Result<Persona>();
+            var result = new Result<Person>();
             try
             {
                 using (var connection = _dapperAdapter.Open())

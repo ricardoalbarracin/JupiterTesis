@@ -12,19 +12,19 @@ using System.Text;
 
 namespace DAOs.SEG
 {
-    public class PermisoDAO : BaseDAO, IPermisoDAOService
+    public class PermisoDAO : BaseDAO, IPermissionDAOService
     {
         public PermisoDAO(IDapperAdapter dapper) : base(dapper)
         {
         }
-        public Result<IEnumerable<Permiso>> GetListPermisos()
+        public Result<IEnumerable<Permission>> GetListPermissions()
         {
-            var result = new Result<IEnumerable<Permiso>>();
+            var result = new Result<IEnumerable<Permission>>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    result.Data = connection.GetAll<Permiso>();
+                    result.Data = connection.GetAll<Permission>();
                     result.Success = true;
                 }
             }
@@ -35,19 +35,19 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<List<Permiso>> GetListPermisosAsignadosUsuario(long usuarioId)
+        public Result<List<Permission>> GetListUserAssignedPermissions(long usuarioId)
         {
-            var result = new Result<List<Permiso>>();
+            var result = new Result<List<Permission>>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    var sql = @"SELECT  p.Id, p.Sigla, p.Descripcion, p.Nombre
-                            FROM SEG.Permisos p
-                                INNER JOIN SEG.UsuariosPermisos up ON(p.Id = up.PermisoId)
-                                    INNER JOIN SEG.Usuarios u ON(up.UsuarioId = u.Id)
-                            WHERE u.Id = @Id;";
-                    var permisos = connection.Query<Permiso>(sql, new { Id = usuarioId }).ToList();
+                    var sql = @"SELECT  p.id, p.code, p.full_description, p.description
+                            FROM seg.permission p
+                                INNER JOIN seg.user_permission up ON(p.id = up.Permission_id)
+                                    INNER JOIN seg.user u ON(up.user_id = u.id)
+                            WHERE u.id = @Id;";
+                    var permisos = connection.Query<Permission>(sql, new { Id = usuarioId }).ToList();
                     result.Data = permisos;
                     result.Success = true;
                 }
@@ -59,27 +59,27 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result<List<Permiso>> GetListPermisosUsuario(long usuarioId)
+        public Result<List<Permission>> GetListUserPermissions(long usuarioId)
         {
-            var result = new Result<List<Permiso>>();
+            var result = new Result<List<Permission>>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    var sql = @"SELECT p.Id, p.Sigla, p.Descripcion, p.Nombre
-                            FROM SEG.Permisos p
-                                INNER JOIN SEG.RolesPermisos rp ON(p.Id = rp.PermisoId)
-                                    INNER JOIN SEG.Roles r ON(rp.RoleId = r.Id)
-                                        INNER JOIN SEG.UsuariosRoles ur ON(r.Id = ur.RoleId)
-                                            INNER JOIN SEG.Usuarios u ON(ur.UsuarioId = u.Id)
-                            WHERE u.Id = @Id
+                    var sql = @"SELECT p.id, p.code, p.full_description, p.description
+                            FROM seg.permission p
+                                INNER JOIN seg.role_Permission rp ON(p.id = rp.permission_id)
+                                    INNER JOIN seg.role r ON(rp.role_id = r.id)
+                                        INNER JOIN seg.user_role ur ON(r.id = ur.role_id)
+                                            INNER JOIN seg.user u ON(ur.user_id = u.id)
+                            WHERE u.id = @Id
                             union
-                            SELECT  p.Id, p.Sigla, p.Descripcion, p.Nombre
-                            FROM SEG.Permisos p
-                                INNER JOIN SEG.UsuariosPermisos up ON(p.Id = up.PermisoId)
-                                    INNER JOIN SEG.Usuarios u ON(up.UsuarioId = u.Id)
-                            WHERE u.Id = @Id;";
-                    var permisos = connection.Query<Permiso>(sql, new { Id = usuarioId }).ToList();
+                            SELECT  p.id, p.code, p.full_description, p.description
+                            FROM seg.permission p
+                                INNER JOIN seg.user_permission up ON(p.id = up.Permission_id)
+                                    INNER JOIN seg.user u ON(up.user_id = u.id)
+                            WHERE u.id = @Id;";
+                    var permisos = connection.Query<Permission>(sql, new { Id = usuarioId }).ToList();
                     result.Data = permisos;
                     result.Success = true;
                 }
@@ -92,9 +92,9 @@ namespace DAOs.SEG
             return result;
         }
 
-        public Result<UsuarioPermiso> InsUsuarioPermiso(UsuarioPermiso permiso)
+        public Result<UserPermision> InsUserPermission(UserPermision permiso)
         {
-            var result = new Result<UsuarioPermiso>();
+            var result = new Result<UserPermision>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
@@ -111,14 +111,14 @@ namespace DAOs.SEG
             }
             return result;
         }
-        public Result DelUsuarioPermiso(UsuarioPermiso permiso)
+        public Result DelUserPermission(UserPermision permiso)
         {
             var result = new Result();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Execute("delete from SEG.UsuariosPermisos where PermisoId = @PermisoId and UsuarioId = @UsuarioId", permiso);
+                    connection.Execute("delete from seg.user_permission where Permission_id = @PermisoId and user_id = @UsuarioId", permiso);
                     result.Success = true;
                 }
             }

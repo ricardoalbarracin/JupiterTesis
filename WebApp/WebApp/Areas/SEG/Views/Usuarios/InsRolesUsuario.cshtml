@@ -22,10 +22,10 @@
                         .Columns(columns =>
                         {
                             columns.Bound(p => p.Id).Hidden();
-                            columns.Bound(p => p.Nombre).Title("Nombre").Width(130);
-                            columns.Bound(p => p.Sigla).Title("Sigla").Width(130);
-                            columns.Bound(p => p.Descripcion).Width(130);
-                            columns.Bound(p => p.Nombre).ClientTemplate(
+                            columns.Bound(p => p.Description).Title("Nombre").Width(130);
+                            columns.Bound(p => p.Code).Title("Sigla").Width(130);
+                            columns.Bound(p => p.Description).Width(130);
+                            columns.Bound(p => p.Description).ClientTemplate(
                                     "<div class='text-center'>" +
                                     "<button class='btn btn-danger' onclick='UpdRolesUsuario.eliminarRole(event,#=data.Id#)'>Eliminar</button>" +
                                     "</div>"

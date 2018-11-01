@@ -1,4 +1,4 @@
-﻿@model UsuarioEdit
+﻿@model UserEdit
 @{
 	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
@@ -28,13 +28,13 @@
 					</ul>
 					<div id="TabUsuarioEdit" class="tab-content ">
 						<div class="tab-pane fade " id="step1">
-							@Html.PartialAsync("UpdUsuario", Model.Usuario).Result
+							@Html.PartialAsync("UpdUsuario", Model.User).Result
 						</div>
 						<div class="tab-pane fade" id="step2">
 							@Html.PartialAsync("UpdRolesUsuario", new Roles(Model.Roles)).Result
 						</div>
 						<div class="tab-pane fade" id="step3">
-							@Html.PartialAsync("UpdPermisosUsuario", new Permisos(Model.Permisos)).Result
+							@Html.PartialAsync("UpdPermisosUsuario", new Permissions(Model.Permissions)).Result
 						</div>
 					</div>
 				</div>

@@ -1,4 +1,4 @@
-﻿@model Permisos
+﻿@model Permissions
 @{
 	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
@@ -15,16 +15,16 @@
 			<div class="card-body">
 				<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
 				<div class="text-center">
-					@(Html.Kendo().Grid(Model.ListPermisos)
+					@(Html.Kendo().Grid(Model.ListPermissions)
 						.Name("GridPermisos")
 						.Columns(columns =>
 						{
 							columns.Bound(p => p.Id).Hidden();
-							columns.Bound(p => p.Nombre).Title("Nombre").Width(130);
-							columns.Bound(p => p.Sigla).Title("Sigla").Width(130);
-							columns.Bound(p => p.Descripcion).Width(130);
-							columns.Bound(p => p.Activo).Width(130);
-							columns.Bound(p => p.Nombre).ClientTemplate(
+							columns.Bound(p => p.Description).Title("Nombre").Width(130);
+							columns.Bound(p => p.Code).Title("Sigla").Width(130);
+							columns.Bound(p => p.FullDescription).Width(130);
+							columns.Bound(p => p.Active).Width(130);
+							columns.Bound(p => p.Description).ClientTemplate(
 								"<div class='text-center'>" +
 								"<button class='btn btn-danger' onclick='UpdPermisosUsuario.eliminarPermiso(event,#=data.Id#)'>Eliminar</button>" +
 								"</div>"

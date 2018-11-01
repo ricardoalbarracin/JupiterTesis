@@ -9,9 +9,13 @@ namespace Core.Services.SEG
     public interface IRoleDAOService
     {
         Result<List<Role>> GetListRoles();
-        Result<List<Role>> GetListRolesUsuario(long usuarioId);
-        Result<UsuarioRole> InsUsuarioRole(UsuarioRole role);
-        Result DelUsuarioRole(UsuarioRole role);
+       
+        Result<List<Role>> GetListUserRoles(long userId);
+        
+        Result<UserRole> InsUserRole(UserRole role);
+        
+        Result DelUserRole(UserRole role);
+       
         Result<Role> InsRole(Role role);
 
     }

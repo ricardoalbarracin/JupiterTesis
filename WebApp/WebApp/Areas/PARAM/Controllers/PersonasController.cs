@@ -17,8 +17,8 @@ namespace WebApp.Areas.PARAM.Controllers
     [Area("PARAM")]
     public class PersonasController : Controller
     {
-        IPersonaDAOService _personaService;
-        public PersonasController(IPersonaDAOService personaService)
+        IPersonDAOService _personaService;
+        public PersonasController(IPersonDAOService personaService)
         {
             _personaService = personaService;
         }
@@ -28,47 +28,47 @@ namespace WebApp.Areas.PARAM.Controllers
         }
         public ActionResult GetListPersonas([DataSourceRequest] DataSourceRequest request)
         {
-            var getListPersonas = _personaService.GetListPersonas();
+            var getListPersonas = _personaService.GetListPersons();
 
             if (!getListPersonas.Success)
             {
                 ModelState.AddModelError("Error", getListPersonas.Message);
                 return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
             }
-            var personas = getListPersonas.Data as List<Persona>;
+            var personas = getListPersonas.Data as List<Person>;
             return Json(personas.ToDataSourceResult(request));
         }
 
         [HttpGet]
         public ActionResult UpdPersona(int id)
         {
-            var getPersonaById = _personaService.GetPersonaById(id);
+            var getPersonaById = _personaService.GetPersonById(id);
 
             if (!getPersonaById.Success)
             {
                 ModelState.AddModelError("Error", getPersonaById.Message);
-                return View(new Persona());
+                return View(new Person());
             }
             return PartialView(getPersonaById.Data);
         }
 
         [HttpPost]
-        public ActionResult UpdPersona(Persona persona)
+        public ActionResult UpdPersona(Person persona)
         {
-            var updPersona = _personaService.UpdPersona(persona);
+            var updPersona = _personaService.UpdPerson(persona);
             return new JsonResult(updPersona);
         }
 
         [HttpGet]
         public ActionResult InsPersona()
         {
-            return PartialView(new Persona());
+            return PartialView(new Person());
         }
 
         [HttpPost]
-        public ActionResult InsPersona(Persona persona)
+        public ActionResult InsPersona(Person persona)
         {
-            var insPersona = _personaService.InsPersona(persona);
+            var insPersona = _personaService.InsPerson(persona);
             return new JsonResult(insPersona);
         }
 

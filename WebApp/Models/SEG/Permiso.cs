@@ -6,36 +6,36 @@ using System.Text;
 
 namespace Core.Models.SEG
 {
-    [Table("SEG.Permisos")]
-    public class Permiso
+    [Table("seg.permission")]
+    public class Permission
     {
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
         public long Id { get; set; }
 
         [Required(ErrorMessage = "El campo Sigla es obligatorio.")]
         [MaxLength(100, ErrorMessage = "El campo Sigla no puede tener mas de 100 caracteres.")]
-        public string Sigla { get; set; }
+        public string Code { get; set; }
 
-        public string Descripcion { get; set; }
+        public string FullDescription { get; set; }
 
         [Required(ErrorMessage = "El campo Nombre es obligatorio.")]
-        public string Nombre { get; set; }
+        public string Description { get; set; }
 
-        public int? Activo { get; set; }
+        public int? Active { get; set; }
 
     }
 
-    public class Permisos
+    public class Permissions
     {
-        public Permisos()
+        public Permissions()
         {
-            ListPermisos = new List<Permiso>();
+            ListPermissions = new List<Permission>();
         }
-        public Permisos(List<Permiso> permisos)
+        public Permissions(List<Permission> permissions)
         {
-            ListPermisos = permisos;
+            ListPermissions = permissions;
         }
 
-        public List<Permiso> ListPermisos { get; set; }
+        public List<Permission> ListPermissions { get; set; }
     }
 }

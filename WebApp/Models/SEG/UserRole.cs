@@ -6,17 +6,19 @@ using System.Text;
 
 namespace Core.Models.SEG
 {
-    [Table("SEG.UsuariosPermisos")]
-    public class UsuarioPermiso
+    [Table("seg.user_role")]
+    public class UserRole
     {
-        public UsuarioPermiso(long usuarioId, long permisoId)
+        public UserRole(long? userId, long roleId)
         {
-            UsuarioId = usuarioId;
-            PermisoId = permisoId;
+            UserId = userId;
+            RoleId = roleId;
         }
+
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
         public long Id { get; set; }
-        public long? UsuarioId { get; set; }
-        public long? PermisoId { get; set; }
+        public long? UserId { get; set; }
+        public long? RoleId { get; set; }
+    
     }
 }

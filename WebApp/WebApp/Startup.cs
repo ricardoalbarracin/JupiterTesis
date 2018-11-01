@@ -40,10 +40,11 @@ namespace WebApp
             // Add application services.
             services.AddKendo();
             services.AddSession();
-            services.AddDistributedRedisCache(o =>
-            {
-                o.Configuration = Configuration.GetConnectionString("Redis");
-            });
+            services.AddMemoryCache();
+            //services.AddDistributedRedisCache(o =>
+            //{
+            //    o.Configuration = Configuration.GetConnectionString("Redis");
+            //});
             services.AddCors();
 
             services.AddSingleton<IStringLocalizerFactory, DbStringLocalizerFactory>();
