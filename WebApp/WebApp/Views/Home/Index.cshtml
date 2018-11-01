@@ -4,6 +4,8 @@
     ViewBag.IconTittle = "fa fa-user";
 
 }
+@inject LocService SharedLocalizer
+
 <script src="/js/telerikReportViewer.kendo-12.0.18.416.min.js"></script>
 <script src="/js/telerikReportViewer-12.0.18.416.min.js"></script>
 
@@ -29,7 +31,7 @@
         </div>
     </script>
 
-
+    <button type="submit" class="btn btn-outline-secondary">@SharedLocalizer.GetLocalizedHtmlString("passwordRequired")</button>
     <div class="container-fluid">
 
 

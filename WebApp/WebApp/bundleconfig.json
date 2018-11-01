@@ -131,8 +131,8 @@
       "wwwroot/kendo/js/jszip.min.js",
       "wwwroot/kendo/js/kendo.all.min.js",
       "wwwroot/kendo/js/kendo.aspnetmvc.min.js",
-      "wwwroot/kendo/js/cultures/kendo.culture.es-CO.min.js",
-      "wwwroot/kendo/js/messages/kendo.messages.es-CO.min.js"
+      "wwwroot/kendo/js/cultures/kendo.culture.en-US.min.js",
+      "wwwroot/kendo/js/messages/kendo.messages.en-US.min.js"
     ],
     // Optionally specify minification options
     "minify": {

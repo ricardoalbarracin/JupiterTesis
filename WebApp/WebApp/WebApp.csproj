@@ -46,6 +46,10 @@
     <None Include="wwwroot\EmailTemplates\resetPassword.html" />
     <None Include="wwwroot\js\wizard.js" />
     <None Include="wwwroot\scss\bootstrap.scss" />
+    <None Include="Resources\SharedResource.de-CH.resx" />
+    <None Include="Resources\SharedResource.en-US.resx" />
+    <None Include="Resources\SharedResource.fr-CH.resx" />
+    <None Include="Resources\SharedResource.it-CH.resx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +66,7 @@
     <Folder Include="Areas\TRANS\Models\" />
     <Folder Include="Areas\SEG\Data\" />
     <Folder Include="Areas\SEG\Models\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -217,4 +222,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Remove="Resources\SharedResource.de-CH.resx" />
+    <EmbeddedResource Remove="Resources\SharedResource.en-US.resx" />
+    <EmbeddedResource Remove="Resources\SharedResource.fr-CH.resx" />
+    <EmbeddedResource Remove="Resources\SharedResource.it-CH.resx" />
+  </ItemGroup>
 </Project>

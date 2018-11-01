@@ -1,4 +1,7 @@
-﻿using Core.Models.Utils;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Reflection;
+using Core.Models.Utils;
 using Core.Services.Utils;
 using DAOs;
 using DAOs.Utils;
@@ -7,10 +10,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using WebApp.Fliters;
+using WebApp.Resources;
 
 namespace WebApp
 {
@@ -32,10 +39,16 @@ namespace WebApp
 
             // Add application services.
             services.AddKendo();
-            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession();
-
+            services.AddDistributedRedisCache(o =>
+            {
+                o.Configuration = Configuration.GetConnectionString("Redis");
+            });
             services.AddCors();
+
+            services.AddSingleton<IStringLocalizerFactory, DbStringLocalizerFactory>();
+            services.AddScoped<LocService>();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             services.AddMvc(options =>
             {
@@ -43,9 +56,37 @@ namespace WebApp
                 options.Filters.Add(new AuthorizeFilter(policy));
                 options.Filters.Add(new LoginActionFilter());
             })
-            .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
-   
-            
+            .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver())
+                    .AddViewLocalization()
+                .AddDataAnnotationsLocalization(options =>
+                {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                    {
+                        var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
+                        return factory.Create("SharedResource", assemblyName.Name);
+                    };
+                });
+
+            services.Configure<RequestLocalizationOptions>(
+                options =>
+                {
+                    var supportedCultures = new List<CultureInfo>
+                        {
+                            new CultureInfo("en-US"),
+                            new CultureInfo("de-CH"),
+                            new CultureInfo("fr-CH"),
+                            new CultureInfo("it-CH")
+                        };
+
+                    options.DefaultRequestCulture = new RequestCulture(culture: "de-CH", uiCulture: "de-CH");
+                    options.SupportedCultures = supportedCultures;
+                    options.SupportedUICultures = supportedCultures;
+
+                    options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
+                });
+
+
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
@@ -64,12 +105,13 @@ namespace WebApp
             services.AddScoped<IDapperAdapter, DapperAdapter>();
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-           
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -80,6 +122,9 @@ namespace WebApp
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
+
 
             app.UseStaticFiles();
 
@@ -99,7 +144,7 @@ namespace WebApp
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
+            #region statics
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
@@ -115,7 +160,7 @@ namespace WebApp
             });
             app.UseStaticFiles(new StaticFileOptions
             {
-                 FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
+                FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
                 System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Areas/TRANS/Scripts")),
                 RequestPath = "/Areas/TRANS/Scripts"
             });
@@ -125,6 +170,7 @@ namespace WebApp
                 System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Areas/PARAM/Scripts")),
                 RequestPath = "/Areas/PARAM/Scripts"
             });
+            #endregion
 
         }
     }
