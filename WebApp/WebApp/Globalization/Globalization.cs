@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.Extensions.Localization;
 
-namespace WebApp.Resources
+namespace WebApp.Globalization
 {
     public class DbStringLocalizerFactory : IStringLocalizerFactory
     {
@@ -66,11 +66,6 @@ namespace WebApp.Resources
             return new DbStringLocalizer(culture);
         }
         public IEnumerable<LocalizedString> GetAllStrings(bool includeAncestorCultures)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<LocalizedString> IStringLocalizer.GetAllStrings(bool includeParentCultures)
         {
             throw new NotImplementedException();
         }
