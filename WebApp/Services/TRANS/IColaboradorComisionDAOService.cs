@@ -6,8 +6,8 @@ using Core.Models.Utils;
 
 namespace Core.Services.TRANS
 {
-    interface IColaboradorComisionDAOService
+    public interface IColaboradorComisionDAOService
     {
-       
+        Result<List<Proyecto>> GetListComisiones();
     }
 }
