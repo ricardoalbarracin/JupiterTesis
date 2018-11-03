@@ -15,6 +15,6 @@ namespace Core.Services.PARAM
 
         Result UpdPersona(Persona persona);
 
-        Result<Persona> InsPersona(Persona persona);
+        Result<Persona> InsPersona(Persona persona);        
     }
 }

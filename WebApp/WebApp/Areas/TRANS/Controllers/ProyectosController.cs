@@ -87,7 +87,10 @@ namespace WebApp.Areas.PARAM.Controllers
         [HttpGet]
         public ActionResult RubrosProyecto(int id)
         {
-            return PartialView(id);
+            Proyecto proyecto = new Proyecto();
+            var getProyecto = _ProyectoService.GetValoresProyectos(id);
+            proyecto = getProyecto.Data;
+            return PartialView(proyecto);
         }
 
         public ActionResult GetListRubrosProyecto([DataSourceRequest] DataSourceRequest request,int id)
@@ -107,7 +110,7 @@ namespace WebApp.Areas.PARAM.Controllers
         [HttpGet]
         public ActionResult UpdRubroProyecto(int id)
         {
-            var getRubroProyecto = _ProyectoService.GetRubroProyecto(id);
+            var getRubroProyecto = _ProyectoService.GetRubroProyecto(id);         
             if (!getRubroProyecto.Success)
             {
                 ModelState.AddModelError("Error", getRubroProyecto.Message);
@@ -119,8 +122,7 @@ namespace WebApp.Areas.PARAM.Controllers
         [HttpPost]
         public ActionResult UpdRubroProyecto(ProyectoRubro rubroProyecto)
         {
-            rubroProyecto.FechaModificacion = DateTime.Now;
-            rubroProyecto.FechaCreacion = DateTime.Now;
+            rubroProyecto.FechaModificacion = DateTime.Now;            
             var updProyecto = _ProyectoService.UpdRubroProyecto(rubroProyecto);
             return new JsonResult(updProyecto);
         }

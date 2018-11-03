@@ -14,7 +14,7 @@
             this.handleTemplates();
 		},
         handleTemplates: function () {
-            this.actionTemplate = kendo.template($('#RubrosProyecto #actionTemplateRubros').html());
+            this.actionTemplate = kendo.template($('#RubrosProyecto #actionTemplate').html());
         },
     };
 }();

@@ -146,16 +146,39 @@ namespace DAOs.PARAM
             return result;
         }
 
-        public Result UpdRubroProyecto(ProyectoRubro proyectoRubro)
+        public Result<ProyectoRubro> UpdRubroProyecto(ProyectoRubro proyectoRubro)
         {
-            var result = new Result();
+            var result = new Result<ProyectoRubro>();
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Update(proyectoRubro);
-                    result.Message = "Rubro actualizado correctamente.";
-                    result.Success = true;
+                    proyectoRubro.Saldo = proyectoRubro.Valor;
+                    //Consulta info saldo del proyecto - valor rubros
+                    var sql = @"SELECT sum(pr.Valor) AS valor, p.PresupuestoAsignado as Saldo
+                             FROM CORE.proyectos  p
+                            INNER JOIN CORE.ProyectosRubros pr ON p.Id= pr.ProyectoId
+                            INNER JOIN CORE.Rubros r ON r.Id = pr.RubroId
+                            WHERE 
+                            p.Id=@id
+                            GROUP BY p.PresupuestoAsignado;";
+                    var resultSaldo = connection.QueryFirst(sql, new { id = proyectoRubro.ProyectoId });
+                    float saldoPresupuestoProyecto = (float)resultSaldo.Saldo - (float)resultSaldo.valor;
+                    if (saldoPresupuestoProyecto - proyectoRubro.Valor > 0)
+                    {
+                        proyectoRubro.FechaModificacion = DateTime.Now;
+                        proyectoRubro.FechaCreacion = DateTime.Now;
+                        proyectoRubro.Saldo = proyectoRubro.Valor;
+                        connection.Update(proyectoRubro);
+                        result.Data = proyectoRubro;                        
+                        result.Message = "Rubro actualizado correctamente.";
+                        result.Success = true;
+                    }
+                    else
+                    {
+                        result.Message = "El presupuesto del proyecto ha sido alcanzado.";
+                        result.Success = false;
+                    }                    
                 }
             }
             catch (Exception ex)
@@ -168,15 +191,40 @@ namespace DAOs.PARAM
 
         public Result<ProyectoRubro> InsRubroProyecto(ProyectoRubro proyectoRubro)
         {
-            var result = new Result<ProyectoRubro>();
+            var result = new Result<ProyectoRubro>();            
             try
-            {
+            {  
                 using (var connection = _dapperAdapter.Open())
                 {
-                    proyectoRubro.Id = connection.Insert(proyectoRubro);
-                    result.Data = proyectoRubro;
-                    result.Message = "Rubro creado correctamente.";
-                    result.Success = true;
+                    proyectoRubro.Saldo = proyectoRubro.Valor;
+
+                    //Consulta info saldo del proyecto - valor rubros
+                    var sql = @"SELECT PresupuestoAsignado FROM CORE.Proyectos 
+                              WHERE Id=@id";
+                    var valorProyecto = connection.QueryFirst(sql, new { id = proyectoRubro.ProyectoId });
+                    sql = @"SELECT sum(pr.Valor) AS valor
+                             FROM CORE.proyectos  p
+                            INNER JOIN CORE.ProyectosRubros pr ON p.Id= pr.ProyectoId
+                            INNER JOIN CORE.Rubros r ON r.Id = pr.RubroId
+                            WHERE 
+                            p.Id=@id
+                            GROUP BY p.PresupuestoAsignado;";
+                     var valorTotalRubros = connection.QueryFirstOrDefault(sql, new { id = proyectoRubro.ProyectoId });
+                     float saldoPresupuestoProyecto = (float)valorTotalRubros.Saldo - (float)valorProyecto.PresupuestoAsignado;
+                    
+                    
+                    if (saldoPresupuestoProyecto - proyectoRubro.Valor > 0)
+                    {
+                        proyectoRubro.Id = connection.Insert(proyectoRubro);
+                        result.Data = proyectoRubro;
+                        result.Message = "Rubro creado correctamente.";
+                        result.Success = true;
+                    }
+                    else
+                    {
+                        result.Message = "El presupuesto del proyecto ha sido alcanzado.";
+                        result.Success = false;
+                    }
                 }
             }
             catch (Exception ex)
@@ -184,6 +232,45 @@ namespace DAOs.PARAM
                 result.Message = "Error creando rubro.";
                 result.Exception = ex;
             }
+            return result;
+        }
+
+        public Result<Proyecto> GetValoresProyectos(long id)
+        {
+            var result = new Result<Proyecto>();
+            var proyecto = new Proyecto();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    var sql = @"SELECT PresupuestoAsignado FROM CORE.Proyectos 
+                              WHERE Id=@id";
+                    var valorProyecto = connection.QueryFirst(sql, new { id = id });
+                    sql = @"SELECT sum(pr.Valor) AS valor
+                             FROM CORE.proyectos  p
+                            INNER JOIN CORE.ProyectosRubros pr ON p.Id= pr.ProyectoId
+                            INNER JOIN CORE.Rubros r ON r.Id = pr.RubroId
+                            WHERE 
+                            p.Id=@id
+                            GROUP BY p.PresupuestoAsignado;";
+                    var valorTotalRubros = connection.QueryFirstOrDefault(sql, new { id=id});
+                   
+                    if (valorTotalRubros != null)
+                    {
+                        proyecto.PresupuestosinAsignar = (float)valorTotalRubros.Saldo - (float)valorProyecto.PresupuestoAsignado;
+                    }
+                    else
+                        proyecto.PresupuestosinAsignar = (float)valorProyecto.PresupuestoAsignado;
+                    proyecto.PresupuestoAsignado = (float)valorProyecto.PresupuestoAsignado;
+                    result.Data = proyecto;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando información del proyecto.";
+                result.Exception = ex;
+            }
+            
             return result;
         }
     }

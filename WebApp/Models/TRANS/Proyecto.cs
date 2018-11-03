@@ -13,28 +13,31 @@ namespace Core.Models.TRANS
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
         public long Id { get; set; }
 
-        [Required(ErrorMessage = "El campo Codigo es obligatorio.")]
-        [MaxLength(10, ErrorMessage = "El campo Codigo no puede tener mas de 10 caracteres.")]
+        [Required(ErrorMessage = "El campo Código es obligatorio.")]
+        [MaxLength(10, ErrorMessage = "El campo Código no puede tener mas de 10 caracteres.")]
         public string Codigo { get; set; }
 
-        [Required(ErrorMessage = "El campo Descripcion es obligatorio.")]
+        [Required(ErrorMessage = "El campo Descripción es obligatorio.")]
         public string Descripcion { get; set; }
 
-        [Required(ErrorMessage = "El campo DependenciaId es obligatorio.")]
+        [Required(ErrorMessage = "El campo Dependencia es obligatorio.")]
         [DisplayName("Dependencia")]
         public int DependenciaId { get; set; }
 
-        [Required(ErrorMessage = "El campo presupueto asignado es obligatorio.")]
-        [DisplayName("Presupuesto asignado")]
-        public decimal PresupuestoAsignado { get; set; }
+        [Required(ErrorMessage = "El campo presupuesto asignado es obligatorio.")]
+        [DisplayName("Presupuesto")]
+        public float PresupuestoAsignado { get; set; }
 
-        [DisplayName("Fecha de creacion")]
+        [DisplayName("Fecha de creación")]
         public DateTime? FechaCreacion { get; set; }
 
         public int UsuarioCreacion { get; set; }
 
         [DisplayName("Lider de proyecto")]
         public int? ColaboradorLiderId { get; set; }
+
+        [DisplayName("Presupuesto sin asignar ")]
+        public float PresupuestosinAsignar { get; set; }
 
     }
 }

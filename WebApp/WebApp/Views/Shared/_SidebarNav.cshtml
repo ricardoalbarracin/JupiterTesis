@@ -17,12 +17,22 @@
             </li>
             <li>
                 <a href="#" aria-expanded="true">
-                    <span class="sidebar-nav-item-icon fa fa-wrench"></span>
+                    <span class="sidebar-nav-item-icon 	fa fa-calendar-check-o"></span>
                     <span class="sidebar-nav-item">Proyectos</span>
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level">
-                    @Html.MenuItem(" Proyectos", "Index", "Proyectos", "fa fa-user", new { Area = "TRANS" })
+                    @Html.MenuItem(" Proyectos", "Index", "Proyectos", "fa fa-calendar-check-o", new { Area = "TRANS" })
+                </ul>
+            </li>
+            <li>
+                <a href="#" aria-expanded="true">
+                    <span class="sidebar-nav-item-icon 	fa fa-calendar-check-o"></span>
+                    <span class="sidebar-nav-item">Gastos de viaje</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    @Html.MenuItem(" Solicitud comisión", "SolicitudComision", "SolicitudComision", "fa fa-automobile", new { Area = "TRANS" })
                 </ul>
             </li>
 

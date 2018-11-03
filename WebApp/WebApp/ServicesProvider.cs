@@ -28,6 +28,8 @@ namespace WebApp
             services.AddScoped<IDependenciaDAOService, DependenciaDAO>();
             services.AddScoped<IProyectoDAOService, ProyectoDAO>();
             services.AddScoped<IProyectoServiceBusiness, ProyectosServiceBusiness>();
+            services.AddScoped<ITiposDocumentoDAOService, TiposDocumentoDAO>();
+            services.AddScoped<ISexoDAOService, SexosDAO>();
 
         }
     }

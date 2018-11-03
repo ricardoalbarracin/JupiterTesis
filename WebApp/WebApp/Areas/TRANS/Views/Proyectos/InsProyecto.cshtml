@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.PresupuestoAsignado)
-                        @(Html.Kendo().NumericTextBoxFor<decimal>(m => m.PresupuestoAsignado)
+                        @(Html.Kendo().NumericTextBoxFor<float>(m => m.PresupuestoAsignado)
                                     .Format("c")
                                     .Min(0)
                                     .HtmlAttributes(new { style = "width: 100%" })
@@ -79,6 +79,8 @@
                                 }).Events(e => e.Error("Site.handleError"));
 
                             })
+                            .Template("<span class=\"k-state-default\">#: data.PrimerNombre # #:data.PrimerApellido# - #: data.Documento #</span>")
+                            .ValueTemplate("<span class=\"selected-value\">#: data.PrimerNombre # #:data.PrimerApellido# - #: data.Documento #</span>")
                         )
                         @Html.ValidationMessageFor(m => m.ColaboradorLiderId)
                     </div>

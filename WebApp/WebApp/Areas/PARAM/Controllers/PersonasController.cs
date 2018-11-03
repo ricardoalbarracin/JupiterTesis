@@ -18,9 +18,14 @@ namespace WebApp.Areas.PARAM.Controllers
     public class PersonasController : Controller
     {
         IPersonaDAOService _personaService;
-        public PersonasController(IPersonaDAOService personaService)
+        ITiposDocumentoDAOService _tiposDocumentoService;
+        ISexoDAOService _sexo;
+
+        public PersonasController(IPersonaDAOService personaService, ITiposDocumentoDAOService tiposDocumentoService, ISexoDAOService sexoDAO)
         {
             _personaService = personaService;
+            _tiposDocumentoService = tiposDocumentoService;
+            _sexo = sexoDAO;
         }
         public ActionResult Index()
         {
@@ -55,6 +60,7 @@ namespace WebApp.Areas.PARAM.Controllers
         [HttpPost]
         public ActionResult UpdPersona(Persona persona)
         {
+            persona.FechaNacimiento = DateTime.Now;
             var updPersona = _personaService.UpdPersona(persona);
             return new JsonResult(updPersona);
         }
@@ -68,10 +74,37 @@ namespace WebApp.Areas.PARAM.Controllers
         [HttpPost]
         public ActionResult InsPersona(Persona persona)
         {
+            persona.FechaNacimiento = DateTime.Now;           
             var insPersona = _personaService.InsPersona(persona);
             return new JsonResult(insPersona);
         }
 
+        public ActionResult GetListTipoDocumento([DataSourceRequest] DataSourceRequest request)
+        {
+            var getListTipoDocumento = _tiposDocumentoService.GetListTiposDocumento();
+
+            if (!getListTipoDocumento.Success)
+            {
+                ModelState.AddModelError("Error", getListTipoDocumento.Message);
+                return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
+            }
+            var tipoDocumentos = getListTipoDocumento.Data;
+            return Json(tipoDocumentos.ToDataSourceResult(request));
+        }
+
+        public ActionResult GetListSexo([DataSourceRequest] DataSourceRequest request)
+        {
+           
+            var getListSexo = _sexo.GetListSexos();
+
+            if (!getListSexo.Success)
+            {
+                ModelState.AddModelError("Error", getListSexo.Message);
+                return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
+            }
+            var Sexos = getListSexo.Data as List<Sexos>;
+            return Json(Sexos.ToDataSourceResult(request));
+        }
 
 
     }

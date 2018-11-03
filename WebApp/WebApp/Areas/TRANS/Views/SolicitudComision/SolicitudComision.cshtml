@@ -1,0 +1,71 @@
+﻿@model ComisionColaborador
+@{
+    var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+}
+<div id=@viewName>
+    <script src="Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+    <div class="card">
+        
+        <div class="modal-header">
+            <h4 class="modal-title">Nueva solicitud</h4>
+
+        </div>
+        <script id="actionTemplate" type="text/x-kendo-template">
+            <div class='text-center'>
+                <a class='btn btn-primary' data-modal2="modal-xl" href='@Url.Action("UpdRubroProyecto", "Proyectos", new { area = "TRANS" })/#=data.Id#'>Editar</a>
+            </div>
+        </script>|
+        <div class="card-body">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="h5 m-0">
+                        Listado de Proyectos <label class="float-right mt-0 mb-0">
+                            @Html.ActionLink("Registrar", "InsProyecto", "Proyectos", new { area = "TRANS" }, new { @data_modal = "modal-xl", @class = "btn btn-primary float-right" })
+                        </label>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    @(Html.Kendo().Grid<ComisionColaborador>()
+                          .Name("gridComisiones")
+                          .Columns(columns =>
+                          {
+                            columns.Bound(p => p.Id).Hidden();
+                            columns.Bound(p => p.FechaSolicitud).Title("Fecha solicitud").Width(130); ;
+                            columns.Bound(p => p.PersonaId).Title("Solicitante").Width(130);
+                            columns.Bound(p => p.ColaboradorId).Title("Colaborador").Width(130);
+                            columns.Bound(p => p.Estado).Title("Valor").Width(130);
+
+                            })
+                            .Pageable()
+                            .Sortable()
+                            .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+                            .Scrollable()
+                            .Events(events => events.DataBound("Site.handleModal"))
+                            .HtmlAttributes(new { style = "height:550px;" })
+                            .DataSource(dataSource => dataSource
+                                .Ajax()
+                                .Read(read => read.Action("GetListComisiones", "SolicitudComision"))
+                                .Events(e => e.Error("Site.handleError"))
+                            )
+                    )
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer display: flex; -ms-flex-pack: end; justify-content: flex-end;">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+    </div>
+
+        </div>
+
+
+        <script>
+	$(function () {
+            @(viewName).init();
+        });
+        </script>
+
+
+

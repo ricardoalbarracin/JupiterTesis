@@ -48,6 +48,11 @@ namespace Core.Business.TRANS
             result.Data = new ProyectoEdit { Proyecto = getProyectoById.Data, Rubros = getListRubrosByProyectoId.Data };
             return result;
         }
-    
+
+        public Result<ProyectoRubro> InsProyectoRubro(ProyectoRubro proyectoRubro)
+        {
+            var result = new Result<ProyectoRubro>();
+            throw new NotImplementedException();
+        }
     }
 }

@@ -14,12 +14,120 @@
                 </button>
             </div>
             <div class="card-body">
-                @Html.HiddenFor(m => m.Id)
                 <div class="form-group row">
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.PrimerNombre)
                         @Html.TextBoxFor(m => m.PrimerNombre, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.PrimerNombre)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.SegundoNombre)
+                        @Html.TextBoxFor(m => m.SegundoNombre, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.PrimerApellido)
+                        @Html.TextBoxFor(m => m.PrimerApellido, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.PrimerApellido)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.SegundoApellido)
+                        @Html.TextBoxFor(m => m.SegundoApellido, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.TipoDocumentoId)
+                        @(Html.Kendo().DropDownListFor(m => m.TipoDocumentoId)
+                               .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                               .DataTextField("Nombre")
+                               .DataValueField("Id")
+                               .OptionLabel("Seleccione...")
+                               .Filter("contains")
+                               .Enable(true)
+                               .DataSource(source =>
+                               {
+                                   source.Ajax().Read(read =>
+                                           {
+                                    read.Action("GetListTipoDocumento", "Personas", new { Area = "PARAM" });
+                                }).Events(e => e.Error("Site.handleError"));
+                               })
+                        )
+                        @Html.ValidationMessageFor(m => m.TipoDocumentoId)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.Documento)
+                        @Html.TextBoxFor(m => m.Documento, new { @class = "form-control" , @readonly = "readonly" })
+                        @Html.ValidationMessageFor(m => m.Documento)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.Correo)
+                        @Html.TextBoxFor(m => m.Correo, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Correo)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.SexoId)
+                        @(Html.Kendo().DropDownListFor(m => m.SexoId)
+                                        .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
+                                        .DataTextField("Nombre")
+                                        .DataValueField("Id")
+                                        .OptionLabel("Seleccione...")
+                                        .Filter("contains")
+                                        .DataSource(source =>
+                                        {
+                                            source.Ajax().Read(read =>
+                                            {
+                                                read.Action("GetListSexo", "Personas", new { Area = "PARAM" });
+                                            }).Events(e => e.Error("Site.handleError"));
+                                        })
+                        )
+                        @Html.ValidationMessageFor(m => m.SexoId)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.CargoId)
+                        @(Html.Kendo().DropDownListFor(m => m.CargoId)
+                                        .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
+                                        .DataTextField("Descripcion")
+                                        .DataValueField("Id")
+                                        .OptionLabel("Seleccione...")
+                                        .Filter("contains")
+                                        .DataSource(source =>
+                                        {
+                                            source.Ajax().Read(read =>
+                                            {
+                                                read.Action("GetListCargos", "Cargos", new { Area = "PARAM" });
+                                            }).Events(e => e.Error("Site.handleError"));
+                                        })
+                        )
+                        @Html.ValidationMessageFor(m => m.CargoId)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.DependenciaId)
+                        @(Html.Kendo().DropDownListFor(m => m.DependenciaId)
+                                       .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
+                                       .DataTextField("Descripcion")
+                                       .DataValueField("Id")
+                                       .OptionLabel("Seleccione...")
+                                       .Filter("contains")
+                                       .DataSource(source =>
+                                       {
+                                           source.Ajax().Read(read =>
+                                                   {
+                                                       read.Action("GetListDependencias", "Dependencias", new { Area = "PARAM" });
+                                                   }).Events(e => e.Error("Site.handleError"));
+                                       })
+                        )
+                        @Html.ValidationMessageFor(m => m.DependenciaId)
                     </div>
                 </div>
             </div>
