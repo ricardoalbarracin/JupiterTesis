@@ -9,7 +9,7 @@ namespace Core.Models.SEG
     [Table("seg.user")]
     public class User
     {
-        
+        [Column("id")]
         public long Id { get; set; }
 
         [Required(ErrorMessage = "El campo usuario es obligatorio.")]

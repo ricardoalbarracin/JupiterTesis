@@ -16,7 +16,7 @@
 						@Html.LabelFor(m => m.PersonId)
 						@(Html.Kendo().DropDownListFor(m => m.PersonId)
 							  .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
-							  .DataTextField("Documento")
+							  .DataTextField("Document")
 							  .DataValueField("Id")
 							  .OptionLabel("Seleccione...")
 							  .Filter("contains")
@@ -25,7 +25,7 @@
 
 								  source.Ajax().Read(read =>
 								  {
-									  read.Action("GetListPersonas", "Personas", new { Area = "PARAM" });
+									  read.Action("GetListPersons", "Person", new { Area = "PARAM" });
 								  }).Events(e => e.Error("Site.handleError"));
 
 							  })
