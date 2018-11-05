@@ -13,8 +13,4 @@
     <ProjectReference Include="..\Models\Core.Models.csproj" />
     <ProjectReference Include="..\Services\Core.Services.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="TRANS\" />
-  </ItemGroup>
 </Project>

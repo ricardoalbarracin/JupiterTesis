@@ -11,7 +11,7 @@ namespace Core.Models.PARAM
         public long Id { get; set; }
 
         [Required(ErrorMessage = "El campo TipoDocumentoId es obligatorio.")]
-        public int DocumentType { get; set; }
+        public int DocumentTypeId { get; set; }
 
         [Required(ErrorMessage = "El campo Documento es obligatorio.")]
         [MaxLength(50, ErrorMessage = "El campo Documento no puede tener mas de 50 caracteres.")]

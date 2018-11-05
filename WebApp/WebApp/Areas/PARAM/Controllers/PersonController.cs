@@ -18,9 +18,14 @@ namespace WebApp.Areas.PARAM.Controllers
     public class PersonController : Controller
     {
         IPersonDAOService _personService;
-        public PersonController(IPersonDAOService personService)
+        IDocumentTypeDAOService _documentTypeService;
+        IGenderDAOService _genderService;
+
+        public PersonController(IPersonDAOService personaService, IDocumentTypeDAOService documentTypeService, IGenderDAOService genderService)
         {
-            _personService = personService;
+            _personService = personaService;
+            _documentTypeService = documentTypeService;
+            _genderService = genderService;
         }
         public ActionResult Index()
         {
@@ -37,6 +42,33 @@ namespace WebApp.Areas.PARAM.Controllers
             }
             var persons = getListPersons.Data as List<Person>;
             return Json(persons.ToDataSourceResult(request));
+        }
+
+        public ActionResult GetListDocumentTypes([DataSourceRequest] DataSourceRequest request)
+        {
+            var getListTipoDocumento = _documentTypeService.GetListDocumentTypes();
+
+            if (!getListTipoDocumento.Success)
+            {
+                ModelState.AddModelError("Error", getListTipoDocumento.Message);
+                return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
+            }
+            var tipoDocumentos = getListTipoDocumento.Data;
+            return Json(tipoDocumentos.ToDataSourceResult(request));
+        }
+
+        public ActionResult GetListGenders([DataSourceRequest] DataSourceRequest request)
+        {
+
+            var getListSexo = _genderService.GetListGenders();
+
+            if (!getListSexo.Success)
+            {
+                ModelState.AddModelError("Error", getListSexo.Message);
+                return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
+            }
+            var Sexos = getListSexo.Data as List<Gender>;
+            return Json(Sexos.ToDataSourceResult(request));
         }
 
         [HttpGet]

@@ -21,12 +21,13 @@ namespace DAOs
         public DapperAdapter(IConfiguration configuration) 
         {
             _configuration = configuration as IConfigurationRoot;
-            DefaultTypeMap.MatchNamesWithUnderscores = true;
+            
             _connectionString = _configuration.GetConnectionString("DbDefaultConnection");
         }
 
         public IDbConnection Open()
         {
+            DefaultTypeMap.MatchNamesWithUnderscores = true;
             return new NpgsqlConnection(_connectionString);
         }
         

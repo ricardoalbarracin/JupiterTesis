@@ -21,7 +21,7 @@ namespace WebApp
             services.AddScoped<IRoleDAOService, RoleDAO>();
             services.AddScoped<IPermissionDAOService, PermissionDAO>();
             services.AddScoped<IPersonDAOService, PersonDAO>();
-
+            services.AddScoped<IDocumentTypeDAOService, DocumentTypeDAO>();            services.AddScoped<IGenderDAOService, GendersDAO>();
 
         }
     }
