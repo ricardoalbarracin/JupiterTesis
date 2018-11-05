@@ -184,7 +184,9 @@ namespace DAOs.SEG
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    result.Data= connection.Update(user);
+                    user.Id = connection.Execute(@"UPDATE  seg.user
+                                                            SET username = @Username, password = @Password, person_id = @PersonId, active = @Active WHERE id = @Id;", 
+                                                 user);
                     result.Success = true;
                 }
             }
@@ -203,7 +205,12 @@ namespace DAOs.SEG
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    user.Id= (int)connection.Insert(user);
+                    user.Id = connection.QuerySingle<int>(@"INSERT INTO seg.user
+                                                            (username, password, person_id, active)
+                                                           VALUES ( @Username, @Password, @PersonId, @Active)
+                    returning id;", user);
+
+
                     result.Data = user;
                     result.Success = true;
                 }

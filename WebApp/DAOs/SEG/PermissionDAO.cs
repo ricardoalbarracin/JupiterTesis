@@ -99,7 +99,9 @@ namespace DAOs.SEG
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    permission.Id= connection.Insert(permission);
+                    permission.Id = connection.QuerySingle<int>(@"INSERT INTO seg.user_permission
+                                                            (user_id, permission_id) VALUES (  @UserId, @PermissionId)  
+                                                           returning id;", permission);
                     result.Data = permission;
                     result.Success = true;
                 }
@@ -118,7 +120,7 @@ namespace DAOs.SEG
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Execute("delete from seg.user_permission where Permission_id = @PermisoId and user_id = @UsuarioId", permission);
+                    connection.Execute("delete from seg.user_permission where Permission_id = @PermissionId and user_id = @UserId", permission);
                     result.Success = true;
                 }
             }

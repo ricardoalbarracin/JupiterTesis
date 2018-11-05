@@ -57,19 +57,20 @@
 			Utils.toast("success", "Se ha agregado el permiso correctamente.");
 		},
 
-		agregarOperacion: function (id, activo) {
-			var oldActivo = 1;
+        agregarOperacion: function (id, activo) {
+            debugger
+			var oldActive = 1;
 			if (activo)
-				oldActivo = 0;
+				oldActive = 0;
 			var operaciones = $("#UpdPermisosUsuario #GridPermisos").data("operaciones");
 			var operacion = operaciones.find(function (element) {
-				return element.Id == id && element.Activo == oldActivo;
+				return element.Id == id && element.Active == oldActive;
 			});
 
 			if (!operacion) {
 				operaciones.push({
 					Id: id,
-					Activo: activo
+					Active: activo
 				});
 			}
 			else {
@@ -84,7 +85,7 @@
 			var _this = this;
 			this.form.submit(function (e) {
 				_this.dataForm = $(this).serializeObject();
-				_this.dataForm["ListPermisos"] = $("#UpdPermisosUsuario #GridPermisos").data("operaciones");
+				_this.dataForm["ListPermissions"] = $("#UpdPermisosUsuario #GridPermisos").data("operaciones");
 				e.preventDefault();
 			});
 		},

@@ -3,6 +3,7 @@ using Core.Models.Utils;
 using Core.Services.PARAM;
 using Core.Services.Utils;
 using DAOs.Utils;
+using Dapper;
 using Dapper.Contrib.Extensions;
 using System;
 using System.Collections.Generic;
@@ -61,7 +62,22 @@ namespace DAOs.PARAM
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    connection.Update(person);
+                    connection.Execute(@"UPDATE admin.person 
+                                        SET document_type_id = @DocumentTypeId,
+                                        document = @Document,
+                                        expedition_date = @ExpeditionDate,
+                                        firts_name = @FirtsName,
+                                        second_name = @SecondName,
+                                        surname = @Surname,
+                                        second_surname = @SecondSurname,
+                                        birth_date = @BirthDate,
+                                        gender_id = @GenderId,
+                                        place_birth_id = @PlaceBirthId,
+                                        place_residence_id = @PlaceResidenceId,
+                                        phone = @Phone,
+                                        mobile = @Mobile,
+                                        email = @Email,
+                                        address = @Address WHERE id = @Id;", person);
                     result.Message = "Persona actualizada correctamente.";
                     result.Success = true;
                 }
@@ -81,7 +97,44 @@ namespace DAOs.PARAM
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    person.Id = connection.Insert(person);
+                    person.Id = connection.QuerySingle<int>(@"INSERT INTO admin.person 
+                                                            (
+                                                                        document_type_id,
+                                                                        document,
+                                                                        expedition_date,
+                                                                        firts_name,
+                                                                        second_name,
+                                                                        surname,
+                                                                        second_surname,
+                                                                        birth_date,
+                                                                        gender_id,
+                                                                        place_birth_id,
+                                                                        place_residence_id,
+                                                                        phone,
+                                                                        mobile,
+                                                                        email,
+                                                                        address
+                                                            )
+                                                            VALUES
+                                                            ( 
+                                                                        @DocumentTypeId,
+                                                                        @Document,
+                                                                        @ExpeditionDate,
+                                                                        @FirtsName,
+                                                                        @SecondName,
+                                                                        @Surname,
+                                                                        @SecondSurname,
+                                                                        @BirthDate,
+                                                                        @GenderId,
+                                                                        @PlaceBirthId,
+                                                                        @PlaceResidenceId,
+                                                                        @Phone,
+                                                                        @Mobile,
+                                                                        @Email,
+                                                                        @Address
+                                                            )
+                                                            returning id;", person);
+                     
                     result.Message = "Persona creada correctamente.";
                     result.Success = true;
                 }

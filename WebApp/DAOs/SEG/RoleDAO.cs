@@ -66,7 +66,10 @@ namespace DAOs.SEG
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    role.Id = connection.Insert(role);
+                    role.Id = connection.QuerySingle<int>(@"INSERT INTO seg.user_role
+                                                            (user_id, role_id) VALUES (  @UserId, @RoleId)  
+                                                           returning id;", role);
+
                     result.Success = true;
                 }
             }
@@ -103,7 +106,9 @@ namespace DAOs.SEG
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    role.Id= connection.Insert(role);
+                    role.Id = connection.QuerySingle<int>(@"INSERT INTO seg.role
+                                                            ( code, full_description, description) VALUES ( @Code, @FullDescription, @Description )    
+                                                           returning id;", role);
                     result.Data = role;
                 }
             }

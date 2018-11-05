@@ -34,7 +34,7 @@
 			InsPermisosUsuario.agregarOperacion(id, 0);
 		},
 		agregarPermiso: function (e) {
-			
+			debugger
 			e.preventDefault();
 			var grid = $("#gridPermisosSistema").data("kendoGrid");
 
@@ -56,19 +56,20 @@
 			Utils.toast("success", "Se ha agregado el permiso correctamente.");
 		},
 
-		agregarOperacion: function (id, activo) {
-			var oldActivo = 1;
+        agregarOperacion: function (id, activo) {
+            debugger
+			var oldActive = 1;
 			if (activo)
-				oldActivo = 0;
+				oldActive = 0;
 			var operaciones = $("#InsPermisosUsuario #GridPermisos").data("operaciones");
 			var operacion = operaciones.find(function (element) {
-				return element.Id == id && element.Activo == oldActivo;
+				return element.Id == id && element.Active == oldActive;
 			});
 
 			if (!operacion) {
 				operaciones.push({
 					Id: id,
-					Activo: activo
+					Active: activo
 				});
 			}
 			else {

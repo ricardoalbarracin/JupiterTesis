@@ -57,18 +57,18 @@
 		},
 
 		agregarOperacion: function (id, activo) {
-			var oldActivo = 1;
+			var oldActive = 1;
 			if (activo)
-				oldActivo = 0;
+				oldActive = 0;
 			var operaciones = $("#InsRolesUsuario #GridRoles").data("operaciones");
 			var operacion = operaciones.find(function (element) {
-				return element.Id == id && element.Activo == oldActivo;
+				return element.Id == id && element.Active == oldActive;
 			});
 
 			if (!operacion) {
 				operaciones.push({
 					Id: id,
-					Activo: activo
+					Active: activo
 				});
 			}
 			else {

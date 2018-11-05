@@ -4,7 +4,7 @@
 }
 
 <section id=@viewName>
-    <form asp-controller="Personas" asp-action="InsPersona" data-ajax="true" data-ajax-method="POST" data-ajax-success="@(viewName).onSuccess">
+    <form asp-controller="Person" asp-action="InsPerson" data-ajax="true" data-ajax-method="POST" data-ajax-success="@(viewName).onSuccess">
         @Html.HiddenFor(m => m.Id)
         <div class="card">
             <div class="modal-header">
@@ -44,7 +44,7 @@
                         @Html.LabelFor(m => m.DocumentTypeId)
                         @(Html.Kendo().DropDownListFor(m => m.DocumentTypeId)
                        .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
-                       .DataTextField("Nombre")
+                       .DataTextField("Description")
                        .DataValueField("Id")
                        .OptionLabel("Seleccione...")
                        .Filter("contains")
@@ -52,7 +52,7 @@
                        {
                         source.Ajax().Read(read =>
                         {
-                         read.Action("GetListTipoDocumento", "Personas", new { Area = "PARAM" });
+                         read.Action("GetListDocumentTypes", "Person", new { Area = "PARAM" });
                         }).Events(e => e.Error("Site.handleError"));
                         })
                         )
@@ -74,18 +74,18 @@
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.GenderId)
                         @(Html.Kendo().DropDownListFor(m => m.GenderId)
-                                .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
-                                .DataTextField("Nombre")
-                                .DataValueField("Id")
-                                .OptionLabel("Seleccione...")
-                                .Filter("contains")
-                                .DataSource(source =>
-                                {
-                                    source.Ajax().Read(read =>
-                                    {
-                                        read.Action("GetListSexo", "Personas", new { Area = "PARAM" });
-                                    }).Events(e => e.Error("Site.handleError"));
-                                })
+                    .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
+                    .DataTextField("Description")
+                    .DataValueField("Id")
+                    .OptionLabel("Seleccione...")
+                    .Filter("contains")
+                    .DataSource(source =>
+                    {
+                        source.Ajax().Read(read =>
+                        {
+                            read.Action("GetListGenders", "Person", new { Area = "PARAM" });
+                        }).Events(e => e.Error("Site.handleError"));
+                    })
                         )
                         @Html.ValidationMessageFor(m => m.GenderId)
                     </div>
