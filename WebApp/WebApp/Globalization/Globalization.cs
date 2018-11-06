@@ -38,7 +38,7 @@ namespace WebApp.Globalization
 
     public class DbStringLocalizer : IStringLocalizer
     {
-        private string _cultureName;
+        private LocalizationCulture _culture;
         ILocalizationRecordDAOService _localizationRecordDAOService;
         IDistributedCache _distributedCache;
 
@@ -46,33 +46,25 @@ namespace WebApp.Globalization
         {
             get
             {
-                var key = "CacheLocalizationRecords";
-                var cacheLocalizationRecords = _distributedCache.GetString(key);
-                if (cacheLocalizationRecords == null)
-                {
-                    var data = _localizationRecordDAOService.GetListLocalizationRecords().Data;
-                    _distributedCache.SetString(key, JsonConvert.SerializeObject(data));
-                    return data;
-                }
-                else
-                {
-
-                    return JsonConvert.DeserializeObject<List<LocalizationRecord>>(cacheLocalizationRecords);
-                }
-
+                return _localizationRecordDAOService.GetListLocalizationRecords().Data;
             }
         }
 
-        public DbStringLocalizer(ILocalizationRecordDAOService localizationRecordDAOService, IDistributedCache distributedCache) : this( CultureInfo.CurrentUICulture) 
+        public DbStringLocalizer(ILocalizationRecordDAOService localizationRecordDAOService, IDistributedCache distributedCache) : this( CultureInfo.CurrentUICulture, localizationRecordDAOService) 
         {
-            _localizationRecordDAOService = localizationRecordDAOService;
             _distributedCache = distributedCache;
         }
 
-        public DbStringLocalizer(  CultureInfo cultureInfo)
+        public DbStringLocalizer(  CultureInfo cultureInfo, ILocalizationRecordDAOService localizationRecordDAOService)
         {
-           
-            _cultureName = cultureInfo.Name;
+            _localizationRecordDAOService = localizationRecordDAOService;
+            var cultures = _localizationRecordDAOService.GetListLocalizationCultures().Data;
+            _culture = cultures.Where(m => m.Code == cultureInfo.Name).First();
+        }
+
+        public DbStringLocalizer(CultureInfo cultureInfo)
+        {
+            _culture = _localizationRecordDAOService.GetListLocalizationCultures().Data.Where(m => m.Code == cultureInfo.Name).First();
         }
 
         public LocalizedString this[string name]
@@ -96,7 +88,8 @@ namespace WebApp.Globalization
 
         private string GetString(string name)
         {
-            var data = _LocalizationRecords.FirstOrDefault(m => m.Code == name);
+            
+            var data = _LocalizationRecords.FirstOrDefault(m => m.Code == name && m.LocalizationClutureId == _culture.Id);
             if (data == null )
                 return name;
             else

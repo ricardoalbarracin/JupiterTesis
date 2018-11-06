@@ -5,6 +5,7 @@ using Core.Services.Utils;
 using DAOs.Utils;
 using Dapper;
 using Dapper.Contrib.Extensions;
+using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +14,17 @@ namespace DAOs.PARAM
 {
     public class LocalizationRecordDAO : BaseDAO, ILocalizationRecordDAOService
     {
-        public LocalizationRecordDAO(IDapperAdapter dapper) : base(dapper)
+        public LocalizationRecordDAO(IDapperAdapter dapper, IDistributedCache distributedCache) : base(dapper, distributedCache)
         {
         }
-        public Result<List<LocalizationRecord>> GetListLocalizationRecords()
+        public Result<List<LocalizationRecord>> GetListLocalizationRecords(bool refresh = false)
         {
             var result = new Result<List<LocalizationRecord>>();
             try
             {
                 using (var connection = _dapperAdapter.Get())
                 {
-                    result.Data = connection.GetAll<LocalizationRecord>().ToList();
-
+                    result.Data = connection.GetAll<LocalizationRecord>(_distributedCache, refresh).ToList();
                     result.Success = true;
                 }
             }
@@ -35,6 +35,8 @@ namespace DAOs.PARAM
             }
             return result;
         }
+
+
 
         public Result<LocalizationRecord> GetLocalizationRecordById(long id)
         {
@@ -111,7 +113,7 @@ namespace DAOs.PARAM
             {
                 using (var connection = _dapperAdapter.Get())
                 {
-                    result.Data = connection.GetAll<LocalizationRecordType>().ToList();
+                    result.Data = connection.GetAll<LocalizationRecordType>(_distributedCache).ToList();
 
                     result.Success = true;
                 }
@@ -131,7 +133,7 @@ namespace DAOs.PARAM
             {
                 using (var connection = _dapperAdapter.Get())
                 {
-                    result.Data = connection.GetAll<LocalizationCulture>().ToList();
+                    result.Data = connection.GetAll<LocalizationCulture>(_distributedCache).ToList();
 
                     result.Success = true;
                 }

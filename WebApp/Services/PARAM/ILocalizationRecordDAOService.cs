@@ -9,7 +9,7 @@ namespace Core.Services.PARAM
 {
     public interface ILocalizationRecordDAOService
     {
-        Result<List<LocalizationRecord>> GetListLocalizationRecords();
+        Result<List<LocalizationRecord>> GetListLocalizationRecords(bool refresh = false);
 
         Result<List<LocalizationRecordType>> GetListLocalizationRecordTypes();
 

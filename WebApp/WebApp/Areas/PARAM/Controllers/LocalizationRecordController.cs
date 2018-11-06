@@ -35,7 +35,7 @@ namespace WebApp.Areas.PARAM.Controllers
 
         public ActionResult GetListLocalizationRecords([DataSourceRequest] DataSourceRequest request)
         {
-            var getListLocalizationRecords = _localizationRecordService.GetListLocalizationRecords();
+            var getListLocalizationRecords = _localizationRecordService.GetListLocalizationRecords(true);
 
             if (!getListLocalizationRecords.Success)
             {
@@ -43,8 +43,7 @@ namespace WebApp.Areas.PARAM.Controllers
                 return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
             }
             var localizationRecords = getListLocalizationRecords.Data as List<LocalizationRecord>;
-            var key = "CacheLocalizationRecords";
-            _distributedCache.SetString(key, JsonConvert.SerializeObject(localizationRecords));
+            
 
             return Json(localizationRecords.ToDataSourceResult(request));
         }

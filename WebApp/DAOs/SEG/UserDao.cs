@@ -38,7 +38,6 @@ namespace DAOs.SEG
                                    u.username,
                                    u.password
                             FROM param.Person p
-
                                 INNER JOIN seg.user u ON(p.id = u.person_id) ").AsList();
                     result.Success = true;
                 }
