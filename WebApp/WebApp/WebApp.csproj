@@ -93,6 +93,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Areas\PARAM\Scripts\LocalizationRecord\Index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\LocalizationRecord\InsLocalizationRecord.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\LocalizationRecord\UpdlocalizationRecord.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Areas\PARAM\Scripts\Person\InsPerson.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

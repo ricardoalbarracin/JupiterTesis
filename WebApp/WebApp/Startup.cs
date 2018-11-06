@@ -40,13 +40,13 @@ namespace WebApp
             // Add application services.
             services.AddKendo();
 
-            //services.AddMemoryCache();
-            services.AddDistributedRedisCache(o =>
-            {
-                o.Configuration = Configuration.GetConnectionString("Redis");
+            services.AddDistributedMemoryCache();
+            //services.AddDistributedRedisCache(o =>
+            //{
+            //    o.Configuration = Configuration.GetConnectionString("Redis");
                 
 
-            });
+            //});
             services.AddSession(options =>
             {
 
@@ -56,8 +56,8 @@ namespace WebApp
             services.AddCors();
 
             services.AddSingleton<IStringLocalizerFactory, DbStringLocalizerFactory>();
-            services.AddScoped<LocService>();
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddTransient<LocService>();
+            services.AddLocalization();
 
             services.AddMvc(options =>
             {
@@ -74,6 +74,7 @@ namespace WebApp
                     var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
                     return factory.Create("SharedResource", assemblyName.Name);
                 };
+                
             });
 
             services.Configure<RequestLocalizationOptions>(
@@ -120,16 +121,19 @@ namespace WebApp
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
 
-            if (env.IsDevelopment())
-            {
-                app.UseBrowserLink();
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseBrowserLink();
+            //    app.UseDeveloperExceptionPage();
+            //    app.UseDatabaseErrorPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //}
+            app.UseBrowserLink();
+            app.UseDeveloperExceptionPage();
+            app.UseDatabaseErrorPage();
             var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
 

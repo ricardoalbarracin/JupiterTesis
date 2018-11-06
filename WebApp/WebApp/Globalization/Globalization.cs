@@ -58,8 +58,8 @@ namespace WebApp.Globalization
         public DbStringLocalizer(  CultureInfo cultureInfo, ILocalizationRecordDAOService localizationRecordDAOService)
         {
             _localizationRecordDAOService = localizationRecordDAOService;
-            var cultures = _localizationRecordDAOService.GetListLocalizationCultures().Data;
-            _culture = cultures.Where(m => m.Code == cultureInfo.Name).First();
+            var culture = _localizationRecordDAOService.GetListLocalizationCultures().Data.Where(m => m.Code.CompareTo(cultureInfo.Name)==0);
+            _culture = culture?.Count() > 0 ?  culture.First() : _localizationRecordDAOService.GetListLocalizationCultures().Data[0];
         }
 
         public DbStringLocalizer(CultureInfo cultureInfo)
@@ -88,10 +88,14 @@ namespace WebApp.Globalization
 
         private string GetString(string name)
         {
-            
+            if(CultureInfo.CurrentCulture.Name != _culture.Code)
+            {
+                var culture = _localizationRecordDAOService.GetListLocalizationCultures().Data.Where(m => m.Code.CompareTo(CultureInfo.CurrentCulture.Name) == 0);
+                _culture = culture?.Count() > 0 ? culture.First() : _localizationRecordDAOService.GetListLocalizationCultures().Data[0];
+            }
             var data = _LocalizationRecords.FirstOrDefault(m => m.Code == name && m.LocalizationClutureId == _culture.Id);
             if (data == null )
-                return name;
+                return $"{name}({_culture.Code})" ;
             else
                 return data.Description;
 
