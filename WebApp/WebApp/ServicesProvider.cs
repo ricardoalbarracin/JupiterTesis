@@ -1,8 +1,10 @@
 ﻿using Core.Business.SEG;
 using Core.Services.PARAM;
 using Core.Services.SEG;
+using Core.Services.Utils;
 using DAOs.PARAM;
 using DAOs.SEG;
+using DAOs.Utils;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace WebApp
@@ -22,7 +24,8 @@ namespace WebApp
             services.AddScoped<IPermissionDAOService, PermissionDAO>();
             services.AddScoped<IPersonDAOService, PersonDAO>();
             services.AddScoped<IDocumentTypeDAOService, DocumentTypeDAO>();            services.AddScoped<IGenderDAOService, GendersDAO>();
-
+            services.AddScoped<IEntitiesService, EntitiesDAO>();
+            services.AddScoped<ILocalizationRecordDAOService, LocalizationRecordDAO>();
         }
     }
 }

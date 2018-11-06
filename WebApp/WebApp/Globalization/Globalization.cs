@@ -1,34 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using Core.Models.PARAM;
+using Core.Services.PARAM;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using Newtonsoft.Json;
 
 namespace WebApp.Globalization
 {
     public class DbStringLocalizerFactory : IStringLocalizerFactory
     {
-       
+        ILocalizationRecordDAOService _localizationRecordDAOService;
+        IDistributedCache _distributedCache;
 
-        public DbStringLocalizerFactory()
+        public DbStringLocalizerFactory(IServiceScopeFactory scopeFactory, IDistributedCache distributedCache)
         {
-
+            using (var scope = scopeFactory.CreateScope())
+            {
+                _localizationRecordDAOService = scope.ServiceProvider.GetRequiredService<ILocalizationRecordDAOService>();
+            }
+            _distributedCache = distributedCache;
         }
+
         public IStringLocalizer Create(Type resourceSource)
         {
-            return new DbStringLocalizer();
+            return new DbStringLocalizer(_localizationRecordDAOService, _distributedCache);
         }
 
         public IStringLocalizer Create(string baseName, string location)
         {
-            return new DbStringLocalizer();
+            return new DbStringLocalizer(_localizationRecordDAOService, _distributedCache);
         }
     }
 
     public class DbStringLocalizer : IStringLocalizer
     {
         private string _cultureName;
+        ILocalizationRecordDAOService _localizationRecordDAOService;
+        IDistributedCache _distributedCache;
 
-        public DbStringLocalizer( ) : this( CultureInfo.CurrentUICulture) { }
+        private List<LocalizationRecord> _LocalizationRecords
+        {
+            get
+            {
+                var key = "CacheLocalizationRecords";
+                var cacheLocalizationRecords = _distributedCache.GetString(key);
+                if (cacheLocalizationRecords == null)
+                {
+                    var data = _localizationRecordDAOService.GetListLocalizationRecords().Data;
+                    _distributedCache.SetString(key, JsonConvert.SerializeObject(data));
+                    return data;
+                }
+                else
+                {
+
+                    return JsonConvert.DeserializeObject<List<LocalizationRecord>>(cacheLocalizationRecords);
+                }
+
+            }
+        }
+
+        public DbStringLocalizer(ILocalizationRecordDAOService localizationRecordDAOService, IDistributedCache distributedCache) : this( CultureInfo.CurrentUICulture) 
+        {
+            _localizationRecordDAOService = localizationRecordDAOService;
+            _distributedCache = distributedCache;
+        }
 
         public DbStringLocalizer(  CultureInfo cultureInfo)
         {
@@ -57,8 +96,12 @@ namespace WebApp.Globalization
 
         private string GetString(string name)
         {
+            var data = _LocalizationRecords.FirstOrDefault(m => m.Code == name);
+            if (data == null )
+                return name;
+            else
+                return data.Description;
 
-            return _cultureName;
         }
 
         public IStringLocalizer WithCulture(CultureInfo culture)

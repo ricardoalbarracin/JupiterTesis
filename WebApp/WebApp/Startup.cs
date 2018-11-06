@@ -39,12 +39,20 @@ namespace WebApp
 
             // Add application services.
             services.AddKendo();
-            services.AddSession();
-            services.AddMemoryCache();
-            //services.AddDistributedRedisCache(o =>
-            //{
-            //    o.Configuration = Configuration.GetConnectionString("Redis");
-            //});
+
+            //services.AddMemoryCache();
+            services.AddDistributedRedisCache(o =>
+            {
+                o.Configuration = Configuration.GetConnectionString("Redis");
+                
+
+            });
+            services.AddSession(options =>
+            {
+
+                options.Cookie.HttpOnly = true;
+            });
+
             services.AddCors();
 
             services.AddSingleton<IStringLocalizerFactory, DbStringLocalizerFactory>();
@@ -58,15 +66,15 @@ namespace WebApp
                 options.Filters.Add(new LoginActionFilter());
             })
             .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver())
-                    .AddViewLocalization()
-                .AddDataAnnotationsLocalization(options =>
+            .AddViewLocalization()
+            .AddDataAnnotationsLocalization(options =>
+            {
+                options.DataAnnotationLocalizerProvider = (type, factory) =>
                 {
-                    options.DataAnnotationLocalizerProvider = (type, factory) =>
-                    {
-                        var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
-                        return factory.Create("SharedResource", assemblyName.Name);
-                    };
-                });
+                    var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
+                    return factory.Create("SharedResource", assemblyName.Name);
+                };
+            });
 
             services.Configure<RequestLocalizationOptions>(
                 options =>
@@ -106,7 +114,6 @@ namespace WebApp
             services.AddScoped<IDapperAdapter, DapperAdapter>();
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -131,11 +138,11 @@ namespace WebApp
 
             app.UseAuthentication();
 
-            app.UseSession();
+
             app.UseCors(
                 options => options.WithOrigins("https://localhost:44330").AllowAnyMethod()
             );
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

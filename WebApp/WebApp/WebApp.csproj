@@ -7,6 +7,9 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\js\app\App.min.js" />
+    <Content Remove="Areas\PARAM\Views\Person\Person\InsPerson.cshtml" />
+    <Content Remove="Areas\PARAM\Views\Person\Person\UpdPerson.cshtml" />
+    <Content Remove="Areas\PARAM\Views\Person\Person\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,6 +67,8 @@
     <Folder Include="Areas\SEG\Data\" />
     <Folder Include="Areas\SEG\Models\" />
     <Folder Include="Areas\TRANS\Scripts\" />
+    <Folder Include="Areas\PARAM\Scripts\LocalizationRecord\" />
+    <Folder Include="Areas\PARAM\Views\LocalizationRecord\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -128,6 +133,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Areas\SEG\Scripts\Usuarios\UpdUsuario.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Person %28copia%29\Index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Person %28copia%29\InsPerson.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Person %28copia%29\UpdPerson.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

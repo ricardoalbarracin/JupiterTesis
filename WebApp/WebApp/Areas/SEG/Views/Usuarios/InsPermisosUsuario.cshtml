@@ -22,8 +22,8 @@
                         .Columns(columns =>
                         {
                             columns.Bound(p => p.Id).Hidden();
-                            columns.Bound(p => p.Description).Title("Nombre").Width(130);
-                            columns.Bound(p => p.Code).Title("Sigla").Width(130);
+                            columns.Bound(p => p.Description).Width(130);
+                            columns.Bound(p => p.Code).Width(130);
                             columns.Bound(p => p.FullDescription).Width(130);
                             columns.Bound(p => p.Active).Width(130);
                             columns.Bound(p => p.Description).ClientTemplate(

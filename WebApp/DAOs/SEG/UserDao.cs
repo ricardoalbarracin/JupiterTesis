@@ -26,7 +26,7 @@ namespace DAOs.SEG
             var result = new Result<List<UserIdentity>> ();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     result.Data = connection.Query<UserIdentity>(@"SELECT u.id,
                                    p.document,
@@ -37,7 +37,7 @@ namespace DAOs.SEG
                                    p.second_surname,
                                    u.username,
                                    u.password
-                            FROM admin.Person p
+                            FROM param.Person p
 
                                 INNER JOIN seg.user u ON(p.id = u.person_id) ").AsList();
                     result.Success = true;
@@ -57,7 +57,7 @@ namespace DAOs.SEG
             var result = new Result<UserIdentity>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     // Obtiene informacion basica del usuario
                      var sql = @"SELECT u.id,
@@ -70,7 +70,7 @@ namespace DAOs.SEG
                                    p.email,
                                    u.username, 
                                    u.password
-                            FROM admin.person p 
+                            FROM param.person p 
 	                            INNER JOIN seg.user u ON (p.id = u.person_id)  
                             WHERE u.id = @Id";
                     var usuario = connection.QueryFirst<UserIdentity>(sql, new { Id = id });
@@ -112,7 +112,7 @@ namespace DAOs.SEG
             var result = new Result<User>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     var sql = @"SELECT id
                                   ,username
@@ -139,7 +139,7 @@ namespace DAOs.SEG
             var result = new Result<UserEdit>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     // Obtiene informacion basica del usuario
                     var usuarioEdit = new UserEdit();
@@ -182,9 +182,9 @@ namespace DAOs.SEG
             var result = new Result<bool>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
-                    user.Id = connection.Execute(@"UPDATE  seg.user
+                    connection.Execute(@"UPDATE  seg.user
                                                             SET username = @Username, password = @Password, person_id = @PersonId, active = @Active WHERE id = @Id;", 
                                                  user);
                     result.Success = true;
@@ -203,7 +203,7 @@ namespace DAOs.SEG
             var result = new Result<User>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     user.Id = connection.QuerySingle<int>(@"INSERT INTO seg.user
                                                             (username, password, person_id, active)
@@ -227,7 +227,7 @@ namespace DAOs.SEG
             var result = new Result<User>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     var sql = @"SELECT id
                                   ,username
@@ -254,7 +254,7 @@ namespace DAOs.SEG
             var result = new Result<User>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     var sql = @"SELECT Id
                                   ,username
@@ -281,7 +281,7 @@ namespace DAOs.SEG
             var result = new Result<User>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     var sql = @"SELECT Id
                                   ,username

@@ -7,6 +7,6 @@ namespace Core.Services.Utils
 {
     public interface IDapperAdapter
     {
-        IDbConnection Open();
+        IDbConnection Get();
     }
 }

@@ -22,7 +22,7 @@ namespace DAOs.SEG
             var result = new Result<IEnumerable<Permission>>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     result.Data = connection.GetAll<Permission>();
                     result.Success = true;
@@ -40,7 +40,7 @@ namespace DAOs.SEG
             var result = new Result<List<Permission>>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     var sql = @"SELECT  p.id, p.code, p.full_description, p.description
                             FROM seg.permission p
@@ -64,7 +64,7 @@ namespace DAOs.SEG
             var result = new Result<List<Permission>>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     var sql = @"SELECT p.id, p.code, p.full_description, p.description
                             FROM seg.permission p
@@ -97,7 +97,7 @@ namespace DAOs.SEG
             var result = new Result<UserPermision>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     permission.Id = connection.QuerySingle<int>(@"INSERT INTO seg.user_permission
                                                             (user_id, permission_id) VALUES (  @UserId, @PermissionId)  
@@ -118,7 +118,7 @@ namespace DAOs.SEG
             var result = new Result();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     connection.Execute("delete from seg.user_permission where Permission_id = @PermissionId and user_id = @UserId", permission);
                     result.Success = true;

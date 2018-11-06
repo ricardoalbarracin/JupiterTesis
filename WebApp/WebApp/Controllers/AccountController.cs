@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Claims;
@@ -43,6 +45,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public async Task<JsonResult> Login(User usuario)
         {
+            await HttpContext.Session.LoadAsync();
             var result = new Result<UserIdentity>();
             if (!ModelState.IsValid)
             {
@@ -64,6 +67,7 @@ namespace WebApp.Controllers
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
             await HttpContext.SignInAsync(principal);
             HttpContext.Session.SetObject("Usuario", usuarioDB);
+
             var a = HttpContext.Session.GetUser();
             result.Success = true;
             return Json(result);

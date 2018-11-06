@@ -22,7 +22,7 @@ namespace DAOs.SEG
             var result = new Result<List<Role>>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     result.Data = connection.GetAll<Role>().ToList();
                     result.Success = true;
@@ -40,7 +40,7 @@ namespace DAOs.SEG
             var result = new Result<List<Role>>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     var sql = @"SELECT r.id, r.code, r.description, r.full_description
                             FROM seg.role r
@@ -64,7 +64,7 @@ namespace DAOs.SEG
             var result = new Result<UserRole>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     role.Id = connection.QuerySingle<int>(@"INSERT INTO seg.user_role
                                                             (user_id, role_id) VALUES (  @UserId, @RoleId)  
@@ -85,7 +85,7 @@ namespace DAOs.SEG
             var result = new Result();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     connection.Execute("delete from seg.User_Role where role_id = @RoleId and user_id = @UsuarioId", role);
                 }
@@ -104,7 +104,7 @@ namespace DAOs.SEG
             var result = new Result<Role>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     role.Id = connection.QuerySingle<int>(@"INSERT INTO seg.role
                                                             ( code, full_description, description) VALUES ( @Code, @FullDescription, @Description )    

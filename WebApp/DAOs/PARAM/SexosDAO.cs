@@ -21,7 +21,7 @@ namespace DAOs.PARAM
             var result = new Result<List<Gender>>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     result.Data = connection.GetAll<Gender>().ToList();
 

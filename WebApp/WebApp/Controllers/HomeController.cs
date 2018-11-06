@@ -15,14 +15,20 @@ using WebApp.Fliters;
 using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
+using WebApp.Utils;
 
 namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-
+        IEntitiesService _entitiesService;
+        public HomeController(IEntitiesService entitiesService)
+        {
+            _entitiesService = entitiesService;
+        }
         public IActionResult Index()
         {
+            var a = HttpContext.Session.GetUser();
             return View();
         }
 
@@ -61,5 +67,28 @@ namespace WebApp.Controllers
 
             return LocalRedirect("~/Home");
         }
+
+
+        public string GetEntity(string schema, string table)
+        {
+            var colums = _entitiesService.GetListColumnsTable(schema, table);
+            var properties = $@"using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Core.Models.{colums.Data[0].GetStringSchemaName().ToUpper()}
+{{
+        [Table(""{colums.Data[0].TableSchema}.{colums.Data[0].TableName}"")]
+        public class {colums.Data[0].GetStringTableName()}
+        {{" + Environment.NewLine;
+            foreach (var item in colums.Data)
+            {
+                properties +=  item.PropertyWhitAnnotations + Environment.NewLine;
+            }
+
+            return  properties+ "}}";
+        }
+
     }
 }

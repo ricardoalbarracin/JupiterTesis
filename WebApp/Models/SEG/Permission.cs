@@ -9,22 +9,32 @@ namespace Core.Models.SEG
     [Table("seg.permission")]
     public class Permission
     {
-        [Required(ErrorMessage = "El campo Id es obligatorio.")]
-        public long Id { get; set; }
+        [Required(ErrorMessage = "REQUIRED_ERROR_ID")]
+        [Display(Name = "PROPERTY_NAME_ID")]
+        public int Id { get; set; }
 
-        [Required(ErrorMessage = "El campo Sigla es obligatorio.")]
-        [MaxLength(100, ErrorMessage = "El campo Sigla no puede tener mas de 100 caracteres.")]
+
+        [MaxLength(100, ErrorMessage = "LENGTH_ERROR_CODE")]
+        [Required(ErrorMessage = "REQUIRED_ERROR_CODE")]
+        [Display(Name = "PROPERTY_NAME_CODE")]
         public string Code { get; set; }
 
+
+        [MaxLength(1000, ErrorMessage = "LENGTH_ERROR_FULLDESCRIPTION")]
+        [Display(Name = "PROPERTY_NAME_FULLDESCRIPTION")]
         public string FullDescription { get; set; }
 
-        [Required(ErrorMessage = "El campo Nombre es obligatorio.")]
+
+        [MaxLength(1000, ErrorMessage = "LENGTH_ERROR_DESCRIPTION")]
+        [Required(ErrorMessage = "REQUIRED_ERROR_DESCRIPTION")]
+        [Display(Name = "PROPERTY_NAME_DESCRIPTION")]
         public string Description { get; set; }
 
+        [Display(Name = "PROPERTY_NAME_ACTIVE")]
         public int? Active { get; set; }
 
-    }
 
+    }
     public class Permissions
     {
         public Permissions()

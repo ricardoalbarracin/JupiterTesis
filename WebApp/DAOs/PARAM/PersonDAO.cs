@@ -21,7 +21,7 @@ namespace DAOs.PARAM
             var result = new Result<List<Person>>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     result.Data = connection.GetAll<Person>().ToList();
 
@@ -41,7 +41,7 @@ namespace DAOs.PARAM
             var result = new Result<Person>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
                     result.Data = connection.Get<Person>(id);
                     result.Success = true;
@@ -60,9 +60,9 @@ namespace DAOs.PARAM
             var result = new Result();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
-                    connection.Execute(@"UPDATE admin.person 
+                    connection.Execute(@"UPDATE param.person 
                                         SET document_type_id = @DocumentTypeId,
                                         document = @Document,
                                         expedition_date = @ExpeditionDate,
@@ -95,9 +95,9 @@ namespace DAOs.PARAM
             var result = new Result<Person>();
             try
             {
-                using (var connection = _dapperAdapter.Open())
+                using (var connection = _dapperAdapter.Get())
                 {
-                    person.Id = connection.QuerySingle<int>(@"INSERT INTO admin.person 
+                    person.Id = connection.QuerySingle<int>(@"INSERT INTO param.person 
                                                             (
                                                                         document_type_id,
                                                                         document,

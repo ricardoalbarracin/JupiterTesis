@@ -14,7 +14,6 @@ namespace Core.Models.SEG
             UserId = userId;
             PermissionId = permissionId;
         }
-        [Required(ErrorMessage = "El campo Id es obligatorio.")]
         public long Id { get; set; }
         public long? UserId { get; set; }
         public long? PermissionId { get; set; }

@@ -2,26 +2,26 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
-namespace Core.Models.SEG
+namespace Core.Models.PARAM
 {
-    [Table("seg.role")]
-    public class Role
+    [Table("param.localization_record")]
+    public class LocalizationRecord
     {
         [Required(ErrorMessage = "REQUIRED_ERROR_ID")]
         [Display(Name = "PROPERTY_NAME_ID")]
         public int Id { get; set; }
 
 
+        [Required(ErrorMessage = "REQUIRED_ERROR_LOCALIZATIONCLUTUREID")]
+        [Display(Name = "PROPERTY_NAME_LOCALIZATIONCLUTUREID")]
+        public int LocalizationClutureId { get; set; }
+
+
         [MaxLength(100, ErrorMessage = "LENGTH_ERROR_CODE")]
+        [Required(ErrorMessage = "REQUIRED_ERROR_CODE")]
         [Display(Name = "PROPERTY_NAME_CODE")]
         public string Code { get; set; }
-
-
-        [MaxLength(1000, ErrorMessage = "LENGTH_ERROR_FULLDESCRIPTION")]
-        [Display(Name = "PROPERTY_NAME_FULLDESCRIPTION")]
-        public string FullDescription { get; set; }
 
 
         [MaxLength(1000, ErrorMessage = "LENGTH_ERROR_DESCRIPTION")]
@@ -29,22 +29,11 @@ namespace Core.Models.SEG
         [Display(Name = "PROPERTY_NAME_DESCRIPTION")]
         public string Description { get; set; }
 
-        [Display(Name = "PROPERTY_NAME_ACTIVE")]
-        public int? Active { get; set; }
 
-    }
+        [Required(ErrorMessage = "REQUIRED_ERROR_TYPEID")]
+        [Display(Name = "PROPERTY_NAME_TYPEID")]
+        public int TypeId { get; set; }
 
-    public class Roles
-    {
-        public Roles()
-        {
-            ListRoles = new List<Role>();
-        }
 
-        public Roles(List<Role> roles)
-        {
-            ListRoles = roles;
-        }
-        public List<Role> ListRoles { get; set; }
     }
 }

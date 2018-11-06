@@ -2,21 +2,28 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Core.Models.PARAM
 {
-    [Table("admin.document_type")]
+    [Table("param.document_type")]
     public class DocumentType
     {
-        [Required(ErrorMessage = "El campo Id es obligatorio.")]
+        [Required(ErrorMessage = "REQUIRED_ERROR_ID")]
+        [Display(Name = "PROPERTY_NAME_ID")]
         public int Id { get; set; }
 
-        [MaxLength(200, ErrorMessage = "El campo Nombre no puede tener mas de 200 caracteres.")]
+
+        [MaxLength(50, ErrorMessage = "LENGTH_ERROR_DESCRIPTION")]
+        [Required(ErrorMessage = "REQUIRED_ERROR_DESCRIPTION")]
+        [Display(Name = "PROPERTY_NAME_DESCRIPTION")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "El campo Sigla es obligatorio.")]
+
+        [MaxLength(10, ErrorMessage = "LENGTH_ERROR_CODE")]
+        [Required(ErrorMessage = "REQUIRED_ERROR_CODE")]
+        [Display(Name = "PROPERTY_NAME_CODE")]
         public string Code { get; set; }
+
 
     }
 }
