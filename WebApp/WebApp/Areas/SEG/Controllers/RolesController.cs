@@ -7,10 +7,12 @@ using Core.Services.SEG;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Fliters;
 
 namespace WebApp.Areas.SEG.Controllers
 {
     [Area("SEG")]
+    [HasPermission("ADMIN")]
     public class RolesController : Controller
     {
         IUserDAOService _usuarioService;

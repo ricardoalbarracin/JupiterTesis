@@ -2,13 +2,13 @@
 @{
 	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
-
+@inject LocService SharedLocalizer
 <section id=@viewName>
 	<form>
 		@Html.HiddenFor(m => m.Id)
 		<div class="card">
 			<div class="card-header">
-				<strong>Datos de usuario</strong>
+				<strong>@SharedLocalizer.GetLocalizedHtmlString("SUB_TITTLE_USER_DATA")</strong>
 			</div>
 			<div class="card-body">
 				<div class="form-group row">
@@ -65,7 +65,7 @@
 			</div>
 
 			<div class="card-footer" style="display: flex; justify-content: flex-end;">
-				<button class="btn btn-primary next-btn" type="button">Siguiente</button>
+				<button class="btn btn-primary next-btn" type="button">@SharedLocalizer.GetLocalizedHtmlString("BUTON_NEXT")</button>
 			</div>
 		</div>
 

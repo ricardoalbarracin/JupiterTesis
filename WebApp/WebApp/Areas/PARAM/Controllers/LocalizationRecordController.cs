@@ -12,11 +12,13 @@ using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
+using WebApp.Fliters;
 using WebApp.Helpers;
 
 namespace WebApp.Areas.PARAM.Controllers
 {
     [Area("PARAM")]
+    [HasPermission("ADMIN")]
     public class LocalizationRecordController : Controller
     {
         ILocalizationRecordDAOService _localizationRecordService;

@@ -58,7 +58,7 @@ namespace WebApp.Globalization
         public DbStringLocalizer(  CultureInfo cultureInfo, ILocalizationRecordDAOService localizationRecordDAOService)
         {
             _localizationRecordDAOService = localizationRecordDAOService;
-            var culture = _localizationRecordDAOService.GetListLocalizationCultures().Data.Where(m => m.Code.CompareTo(cultureInfo.Name)==0);
+            var culture = _localizationRecordDAOService.GetListLocalizationCultures().Data.Where(m => string.Compare(m.Code, cultureInfo.Name, StringComparison.Ordinal) == 0);
             _culture = culture?.Count() > 0 ?  culture.First() : _localizationRecordDAOService.GetListLocalizationCultures().Data[0];
         }
 

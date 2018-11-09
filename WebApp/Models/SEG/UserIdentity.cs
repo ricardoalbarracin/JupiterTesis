@@ -57,5 +57,10 @@ namespace Core.Models.SEG
         public IList<Role> Roles { get; set; }
 
         public string Correo { get; set; }
+
+        public bool HasPermissions(string permissions)
+        {
+            return Permissions?.Count != null && Permissions.Where(p => p.Code == permissions).Select(p => p.Code).Any();
+        }
     }
 }

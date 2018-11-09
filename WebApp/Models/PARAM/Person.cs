@@ -61,11 +61,11 @@ namespace Core.Models.PARAM
 
 
         [Display(Name = "PROPERTY_NAME_PLACEBIRTHID")]
-        public int PlaceBirthId { get; set; }
+        public int? PlaceBirthId { get; set; }
 
 
         [Display(Name = "PROPERTY_NAME_PLACERESIDENCEID")]
-        public int PlaceResidenceId { get; set; }
+        public int? PlaceResidenceId { get; set; }
 
 
         [MaxLength(50, ErrorMessage = "LENGTH_ERROR_PHONE")]

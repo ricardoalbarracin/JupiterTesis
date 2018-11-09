@@ -2,13 +2,13 @@
 @{
     var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
-
+@inject LocService SharedLocalizer
 <section id=@viewName>
     <form asp-controller="Person" asp-action="InsPerson" data-ajax="true" data-ajax-method="POST" data-ajax-success="@(viewName).onSuccess">
         @Html.HiddenFor(m => m.Id)
         <div class="card">
             <div class="modal-header">
-                <h4 class="modal-title">Crear persona</h4>
+                <h4 class="modal-title">@SharedLocalizer.GetLocalizedHtmlString("MODAL_TITTLE_INS_PERSON")</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -43,18 +43,18 @@
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.DocumentTypeId)
                         @(Html.Kendo().DropDownListFor(m => m.DocumentTypeId)
-                       .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
-                       .DataTextField("Description")
-                       .DataValueField("Id")
-                       .OptionLabel("Seleccione...")
-                       .Filter("contains")
-                       .DataSource(source =>
-                       {
-                        source.Ajax().Read(read =>
-                        {
-                         read.Action("GetListDocumentTypes", "Person", new { Area = "PARAM" });
-                        }).Events(e => e.Error("Site.handleError"));
-                        })
+                               .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
+                               .DataTextField("Description")
+                               .DataValueField("Id")
+                               .OptionLabel("Seleccione...")
+                               .Filter("contains")
+                               .DataSource(source =>
+                               {
+                                   source.Ajax().Read(read =>
+                                           {
+                                    read.Action("GetListDocumentTypes", "Person", new { Area = "PARAM" });
+                                }).Events(e => e.Error("Site.handleError"));
+                               })
                         )
                         @Html.ValidationMessageFor(m => m.DocumentTypeId)
                     </div>
@@ -74,27 +74,27 @@
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.GenderId)
                         @(Html.Kendo().DropDownListFor(m => m.GenderId)
-                    .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
-                    .DataTextField("Description")
-                    .DataValueField("Id")
-                    .OptionLabel("Seleccione...")
-                    .Filter("contains")
-                    .DataSource(source =>
-                    {
-                        source.Ajax().Read(read =>
-                        {
-                            read.Action("GetListGenders", "Person", new { Area = "PARAM" });
-                        }).Events(e => e.Error("Site.handleError"));
-                    })
+                            .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
+                            .DataTextField("Description")
+                            .DataValueField("Id")
+                            .OptionLabel("Seleccione...")
+                            .Filter("contains")
+                            .DataSource(source =>
+                            {
+                                source.Ajax().Read(read =>
+                                {
+                                    read.Action("GetListGenders", "Person", new { Area = "PARAM" });
+                                }).Events(e => e.Error("Site.handleError"));
+                            })
                         )
                         @Html.ValidationMessageFor(m => m.GenderId)
                     </div>
                 </div>
-               
+
             </div>
             <div class="modal-footer display: flex; -ms-flex-pack: end; justify-content: flex-end;">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@SharedLocalizer.GetLocalizedHtmlString("BUTON_CLOSE")</button>
+                <button type="submit" class="btn btn-primary">@SharedLocalizer.GetLocalizedHtmlString("BUTON_SAVE")</button>
             </div>
         </div>
     </form>

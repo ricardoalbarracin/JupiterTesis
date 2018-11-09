@@ -1,28 +1,28 @@
 ﻿
 @{
-	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
-	
+    var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+
 }
 
-
+@inject LocService SharedLocalizer
 <div id="@viewName">
-	<!-- Script de la vista modal -->
-	<div class="modal-header">
-		<h4 class="modal-title">Actualizar persona</h4>
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">×</span>
-		</button>
-	</div>
+    <!-- Script de la vista modal -->
+    <div class="modal-header">
+        <h4 class="modal-title">@SharedLocalizer.GetLocalizedHtmlString("MODAL_TITTLE_UPD_PERSON")</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
 
-	<div class="modal-body">
-		<div class="alert alert-info">
-			<strong><i class="fa fa-info-circle" aria-hidden="true"></i></strong>
-			Ingrese los datos de la persona que desea actalizar su información.
-		</div>
-	</div>
+    <div class="modal-body">
+        <div class="alert alert-info">
+            <strong><i class="fa fa-info-circle" aria-hidden="true"></i></strong>
+            Ingrese los datos de la persona que desea actalizar su información.
+        </div>
+    </div>
 
-	<div class="modal-footer display: flex; -ms-flex-pack: end; justify-content: flex-end;">
-		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-		<button type="submit" class="btn btn-primary">Guardar</button>
-	</div>
+    <div class="modal-footer display: flex; -ms-flex-pack: end; justify-content: flex-end;">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">@SharedLocalizer.GetLocalizedHtmlString("BUTON_CLOSE")</button>
+        <button type="submit" class="btn btn-primary">@SharedLocalizer.GetLocalizedHtmlString("BUTON_SAVE")</button>
+    </div>
 </div>

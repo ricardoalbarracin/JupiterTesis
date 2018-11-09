@@ -10,11 +10,13 @@ using Core.Services.SEG;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Fliters;
 using WebApp.Helpers;
 
 namespace WebApp.Areas.PARAM.Controllers
 {
     [Area("PARAM")]
+    [HasPermission("ADMIN")]
     public class PersonController : Controller
     {
         IPersonDAOService _personService;

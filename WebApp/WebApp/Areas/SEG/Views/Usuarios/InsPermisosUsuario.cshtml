@@ -3,14 +3,14 @@
 	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
 
-
+@inject LocService SharedLocalizer
 
 <section id=@viewName>
 	<div class="card">
 		<div class="card-header">
-			<strong>Permisos de usuario</strong>
+			<strong>@SharedLocalizer.GetLocalizedHtmlString("SUB_TITTLE_USER_PERMISSIONS")</strong>
 			<label class="float-right mt-2 mb-0">
-				@Html.ActionLink("Nuevo", "AgregarUsuarioPermiso", "Usuarios", new { operacion = "Ins" }, new { @class = "btn btn-primary float-right", @data_modal2 = "modal-lg" })
+				@Html.ActionLink($"{@SharedLocalizer.GetLocalizedHtmlString("BUTON_REGISTER")}", "AgregarUsuarioPermiso", "Usuarios", new { operacion = "Ins" }, new { @class = "btn btn-primary float-right", @data_modal2 = "modal-lg" })
 			</label>
 		</div>
 		<div class="card-body">
@@ -28,9 +28,9 @@
                             columns.Bound(p => p.Active).Width(130);
                             columns.Bound(p => p.Description).ClientTemplate(
                                 "<div class='text-center'>" +
-                                "<button class='btn btn-danger' onclick='InsPermisosUsuario.eliminarPermiso(event,#=data.Id#)'>Eliminar</button>" +
+                                $"<button class='btn btn-danger' onclick='InsPermisosUsuario.eliminarPermiso(event,#=data.Id#)'>{@SharedLocalizer.GetLocalizedHtmlString("BUTON_DELETE")}</button>" +
                                 "</div>"
-                                ).Title("Acción").Width(170).Filterable(false);
+                                ).Title($"{@SharedLocalizer.GetLocalizedHtmlString("LABEL_ACTIONS")}").Width(170).Filterable(false);
                         })
                         .Pageable()
                         .Sortable()
@@ -54,13 +54,13 @@
 		</div>
 
 		<div class="card-footer" style="display: flex; justify-content: flex-end;">
-			<button class="btn btn-secondary prev-btn" type="button">Atras</button>
+			<button class="btn btn-secondary prev-btn" type="button">@SharedLocalizer.GetLocalizedHtmlString("BUTON_BACK")</button>
 			<a asp-action="FinishCrearUsuario" asp-controller="Usuarios"
 			   data-ajax="true"
 			   data-ajax-begin="CrearUsuario.onFinish_Begin"
 			   data-ajax-success="CrearUsuario.onFinish_Success"
 			   data-ajax-method="POST"
-			   class="btn btn-success">Crear</a>
+			   class="btn btn-success">@SharedLocalizer.GetLocalizedHtmlString("BUTON_CREATE")</a>
 		</div>
 	</div>
 	

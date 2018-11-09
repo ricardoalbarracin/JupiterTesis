@@ -1,72 +1,74 @@
 ﻿@{
-	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+    var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+
 
 }
+@inject LocService SharedLocalizer
 <div id="@viewName">
 
-	<!-- Script de la vista modal -->
-	<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
-	<script id="actionTemplate" type="text/x-kendo-template">
-		<div class='text-center'>
-			<button type="button" onclick=@string.Format("{0}RolesUsuario.agregarRole(event)", @ViewBag.Operacion) class="btn btn-primary">Agregar</button>
-		</div>
-	</script>
+    <!-- Script de la vista modal -->
+    <script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+    <script id="actionTemplate" type="text/x-kendo-template">
+        <div class='text-center'>
+            <button type="button" onclick=@string.Format("{0}RolesUsuario.agregarRole(event)", @ViewBag.Operacion) class="btn btn-primary">Agregar</button>
+        </div>
+    </script>
 
-	<div class="modal-header">
-		<h4 class="modal-title">Agregar rol a usuario</h4>
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">×</span>
-		</button>
-	</div>
+    <div class="modal-header">
+        <h4 class="modal-title">@SharedLocalizer.GetLocalizedHtmlString("MODAL_TITTLE_INS_ROL_USER")</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
 
-	<div class="modal-body">
-		<div class="alert alert-info">
-			<strong><i class="fa fa-info-circle" aria-hidden="true"></i></strong>
-			seleccione los roles que se van a agregar al usuario.
-		</div>
-
-
-		<div class="card">
-
-			<div class="card-header">
-				Listado de roles del sistema.
-			</div>
-			<div class="card-block">
-				@(Html.Kendo().Grid<Role>()
-										.Name("gridRolesSistema")
-										.Columns(columns =>
-										{
-											columns.Bound(p => p.Id).Hidden();
-											columns.Bound(p => p.Description);
-											columns.Bound(p => p.Code);
-											columns.Bound(p => p.FullDescription);
-											columns.Bound(c => c.Id).ClientTemplate("#=AgregarUsuarioRole.actionTemplate(data)#").Title("Acciones").Width(230).Filterable(false);
-										})
-										.Pageable()
-										.Sortable()
-										.Filterable(ftb => ftb.Mode(GridFilterMode.Row))
-										.Scrollable()
-										.DataSource(dataSource => dataSource
-											.Ajax()
-											.Read(read => read.Action("GetListRoles", "Roles"))
-										)
-				)
-			</div>
-		</div>
-
-	</div>
-
-	<div class="modal-footer display: flex; -ms-flex-pack: end; justify-content: flex-end;">
-		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-
-	</div>
+    <div class="modal-body">
+        <div class="alert alert-info">
+            <strong><i class="fa fa-info-circle" aria-hidden="true"></i></strong>
+            seleccione los roles que se van a agregar al usuario.
+        </div>
 
 
+        <div class="card">
 
-	<!-- Inicialización script de vista -->
-	<script>
+            <div class="card-header">
+                Listado de roles del sistema.
+            </div>
+            <div class="card-block">
+                @(Html.Kendo().Grid<Role>()
+                                                .Name("gridRolesSistema")
+                                                .Columns(columns =>
+                                                {
+                                                    columns.Bound(p => p.Id).Hidden();
+                                                    columns.Bound(p => p.Description);
+                                                    columns.Bound(p => p.Code);
+                                                    columns.Bound(p => p.FullDescription);
+                                                    columns.Bound(c => c.Id).ClientTemplate("#=AgregarUsuarioRole.actionTemplate(data)#").Title("Acciones").Width(230).Filterable(false);
+                                                })
+                                                .Pageable()
+                                                .Sortable()
+                                                .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+                                                .Scrollable()
+                                                .DataSource(dataSource => dataSource
+                                                    .Ajax()
+                                                    .Read(read => read.Action("GetListRoles", "Roles"))
+                                                )
+                )
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer display: flex; -ms-flex-pack: end; justify-content: flex-end;">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">@SharedLocalizer.GetLocalizedHtmlString("BUTON_CLOSE")</button>
+
+    </div>
+
+
+
+    <!-- Inicialización script de vista -->
+    <script>
 		$(function () {
             @(viewName).init();
         });
-	</script>
+    </script>
 </div>

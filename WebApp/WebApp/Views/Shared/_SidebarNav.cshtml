@@ -1,30 +1,38 @@
-﻿<aside class="sidebar">
+﻿@{
+    var user = Context.Session.GetUser();
+}
+@inject LocService SharedLocalizer
+<aside class="sidebar">
     <nav class="sidebar-nav">
         <ul class="nav metismenu" id="menu">
-            <li>
-                <a href="#" aria-expanded="true">
-                    <span class="sidebar-nav-item-icon fa fa-wrench"></span>
-                    <span class="sidebar-nav-item">Parametrización</span>
-                    <span class="fa arrow"></span>
-                </a>
-                <ul class="nav nav-second-level">
-                    @Html.MenuItem(" Usuarios", "Index", "Usuarios", "fa fa-user", new { Area = "SEG" })
-                    @Html.MenuItem(" Personas", "Index", "Person", "fa fa-user", new { Area = "PARAM" })
-                    @Html.MenuItem(" Globalizacion", "Index", "LocalizationRecord", "fa fa-user", new { Area = "PARAM" })
+            @if (user?.HasPermissions("ADMIN") == true)
+            {
+                <li>
+                    <a href="#" aria-expanded="true">
+                        <span class="sidebar-nav-item-icon fa fa-wrench"></span>
+                        <span class="sidebar-nav-item">@SharedLocalizer.GetLocalizedHtmlString("TITLE_PARAMETRIZATION")</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        @Html.MenuItem($" {SharedLocalizer.GetLocalizedHtmlString("TITLE_USER")}", "Index", "Usuarios", "fa fa-user", new { Area = "SEG" })
+                        @Html.MenuItem($" {SharedLocalizer.GetLocalizedHtmlString("TITLE_PERSON")}", "Index", "Person", "fa fa-user", new { Area = "PARAM" })
+                        @Html.MenuItem($" {SharedLocalizer.GetLocalizedHtmlString("TITLE_GLOBALIZATION")}", "Index", "LocalizationRecord", "fa fa-user", new { Area = "PARAM" })
 
+                    </ul>
+                </li>
+            }
 
-                </ul>
-            </li>
             <li>
                 <a href="#" aria-expanded="true">
                     <span class="sidebar-nav-item-icon fa fa-wrench"></span>
                     <span class="sidebar-nav-item">Proyectos</span>
                     <span class="fa arrow"></span>
                 </a>
-               
+
             </li>
 
+
         </ul>
-        
+
     </nav>
 </aside>

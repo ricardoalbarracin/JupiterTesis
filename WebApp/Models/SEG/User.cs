@@ -21,7 +21,7 @@ namespace Core.Models.SEG
 
 
         [MaxLength(500, ErrorMessage = "LENGTH_ERROR_PASSWORD")]
-        [Required(ErrorMessage = "REQUIRED_ERROR_PASSWORD")]
+
         [Display(Name = "PROPERTY_NAME_PASSWORD")]
         public string Password { get; set; }
 

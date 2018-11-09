@@ -1,6 +1,6 @@
 ﻿@{
     var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
-    ViewBag.Tittle = "Reporte";
+    ViewBag.Tittle = @SharedLocalizer.GetLocalizedHtmlString("TITLE_REPORT");
     ViewBag.IconTittle = "fa fa-user";
 
 }
@@ -27,11 +27,10 @@
     <script id="actionactionTemplateTemplate" type="text/x-kendo-template">
         <div class='text-center'>
             <a class='btn btn-primary' data-modal="modal-lg" href='@Url.Action("ActualizarProducto", "Productos", new { area = "ADMIN" })/#=data.Id#'>Editar</a>
-            <a class='btn btn-danger' onclick="Index.eliminarProducto(event)">Eliminar</a>
+            <a class='btn btn-danger' onclick="Index.eliminarProducto(event)">@SharedLocalizer.GetLocalizedHtmlString("BUTON_DELETE")</a>
         </div>
     </script>
 
-    <button type="submit" class="btn btn-outline-secondary">@SharedLocalizer.GetLocalizedHtmlString("passwordRequired")</button>
     <div class="container-fluid">
 
 

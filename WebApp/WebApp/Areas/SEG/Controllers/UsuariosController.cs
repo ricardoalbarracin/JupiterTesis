@@ -9,11 +9,13 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WebApp.Fliters;
 using WebApp.Helpers;
 
 namespace WebApp.Areas.SEG.Controllers
 {
     [Area("SEG")]
+    [HasPermission("ADMIN")]
     public class UsuariosController : Controller
     {
         IUserDAOService _usuarioService;
