@@ -72,10 +72,31 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\PARAM\Views\Student\CreateStudent.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\PARAM\Views\Student\UpdateStudent.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\PARAM\Views\Student\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\PARAM\Views\Person\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\PARAM\Views\Person\InsPerson.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\PARAM\Views\Student\InsPerson.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\PARAM\Views\Student\InsStudent.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\PARAM\Views\Student\UpdStudent.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\PARAM\Views\Student\UpdPerson.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\PARAM\Views\_ViewImports.cshtml">
@@ -93,6 +114,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Areas\PARAM\Scripts\Student\Index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Areas\PARAM\Scripts\LocalizationRecord\Index.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -111,37 +135,25 @@
     <None Update="Areas\PARAM\Scripts\Person\Index.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Areas\SEG\Scripts\Usuarios\CrearUsuario.js">
+    <None Update="Areas\PARAM\Scripts\Student\CreateStudent.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Areas\SEG\Scripts\Usuarios\ActualizarUsuario.js">
+    <None Update="Areas\PARAM\Scripts\Student\UpdateStudent.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Areas\SEG\Scripts\Usuarios\AgregarUsuarioPermiso.js">
+    <None Update="Areas\PARAM\Scripts\Student\InsPerson.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Areas\SEG\Scripts\Usuarios\AgregarUsuarioRole.js">
+    <None Update="Areas\PARAM\Scripts\Student\UpdPerson.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Student\InsStudent.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Student\UpdStudent.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Areas\SEG\Scripts\Usuarios\Index.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\SEG\Scripts\Usuarios\InsPermisosUsuario.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\SEG\Scripts\Usuarios\UpdPermisosUsuario.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\SEG\Scripts\Usuarios\InsRolesUsuario.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\SEG\Scripts\Usuarios\UpdRolesUsuario.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\SEG\Scripts\Usuarios\InsUsuario.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Areas\SEG\Scripts\Usuarios\UpdUsuario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Areas\PARAM\Scripts\Person %28copia%29\Index.js">

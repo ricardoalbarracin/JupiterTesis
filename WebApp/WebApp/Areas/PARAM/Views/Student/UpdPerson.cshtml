@@ -1,0 +1,106 @@
+﻿@model Person
+@{
+	var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+}
+@inject LocService SharedLocalizer
+<section id=@viewName>
+	<form>
+		@Html.HiddenFor(m => m.Id)
+		<div class="card">
+			<div class="card-header">
+				<strong>@SharedLocalizer.GetLocalizedHtmlString("SUB_TITTLE_PERSON_DATA")</strong>
+			</div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.FirtsName)
+                        @Html.TextBoxFor(m => m.FirtsName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.FirtsName)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.SecondName)
+                        @Html.TextBoxFor(m => m.SecondName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.SecondName)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.Surname)
+                        @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Surname)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.SecondSurname)
+                        @Html.TextBoxFor(m => m.SecondSurname, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.SecondSurname)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.DocumentTypeId)
+                        @(Html.Kendo().DropDownListFor(m => m.DocumentTypeId)
+                                               .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                               .DataTextField("Description")
+                                               .DataValueField("Id")
+                                               .OptionLabel("Seleccione...")
+                                               .Filter("contains")
+                                               .Enable(true)
+                                               .DataSource(source =>
+                                               {
+                                                   source.Ajax().Read(read =>
+                                                           {
+                                                               read.Action("GetListDocumentTypes", "Person", new { Area = "PARAM" });
+                                                           }).Events(e => e.Error("Site.handleError"));
+                                               })
+                        )
+                        @Html.ValidationMessageFor(m => m.DocumentTypeId)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.Document)
+                        @Html.TextBoxFor(m => m.Document, new { @class = "form-control", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(m => m.Document)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.GenderId)
+                        @(Html.Kendo().DropDownListFor(m => m.GenderId)
+                                                        .HtmlAttributes(new { style = "width: 100%;", required = "required", @class = "form-control" })
+                                                        .DataTextField("Description")
+                                                        .DataValueField("Id")
+                                                        .OptionLabel("Seleccione...")
+                                                        .Filter("contains")
+                                                        .DataSource(source =>
+                                                        {
+                                                            source.Ajax().Read(read =>
+                                                            {
+                                                                read.Action("GetListGenders", "Person", new { Area = "PARAM" });
+                                                            }).Events(e => e.Error("Site.handleError"));
+                                                        })
+                        )
+                        @Html.ValidationMessageFor(m => m.GenderId)
+                    </div>
+                </div>
+            </div>
+			<div class="card-footer" style="display: flex; justify-content: flex-end;">
+				<button class="btn btn-primary next-btn" type="button">@SharedLocalizer.GetLocalizedHtmlString("BUTON_NEXT")</button>
+			</div>
+		</div>
+
+	</form>
+</section>
+
+<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+<script>
+	$(function () {
+            @(viewName).init(eval("@ViewBag.Container"),"@Model.GetType().ToString()","@viewName" );
+        });
+</script>
+

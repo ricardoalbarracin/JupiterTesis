@@ -13,6 +13,8 @@ namespace Core.Services.PARAM
 
         Result<Person> GetPersonById(long id);
 
+        Result<Person> GetPersonByDocument(Person person);
+
         Result UpdPerson(Person person);
 
         Result<Person> InsPerson(Person person);

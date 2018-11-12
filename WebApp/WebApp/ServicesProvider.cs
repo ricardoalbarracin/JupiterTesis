@@ -1,4 +1,5 @@
-﻿using Core.Business.SEG;
+﻿using Core.Business.PARAM;
+using Core.Business.SEG;
 using Core.Services.PARAM;
 using Core.Services.SEG;
 using Core.Services.Utils;
@@ -23,9 +24,16 @@ namespace WebApp
             services.AddScoped<IRoleDAOService, RoleDAO>();
             services.AddScoped<IPermissionDAOService, PermissionDAO>();
             services.AddScoped<IPersonDAOService, PersonDAO>();
-            services.AddScoped<IDocumentTypeDAOService, DocumentTypeDAO>();            services.AddScoped<IGenderDAOService, GendersDAO>();
+            services.AddScoped<IDocumentTypeDAOService, DocumentTypeDAO>();
+            services.AddScoped<IGenderDAOService, GendersDAO>();
             services.AddScoped<IEntitiesService, EntitiesDAO>();
             services.AddScoped<ILocalizationRecordDAOService, LocalizationRecordDAO>();
+            services.AddScoped<IStudentDAOService, StudentDAO>();
+            services.AddScoped<IStudentService, StudentServiceBusiness>();
+            
+
+
         }
+
     }
 }

@@ -71,6 +71,7 @@ namespace DAOs.PARAM
                                             type_id = @TypeId
                                          WHERE id = @Id;", localizationRecord);
                     result.Message = "LocalizationRecord actualizada correctamente.";
+                    connection.GetAll<LocalizationRecord>(_distributedCache, true).ToList();
                     result.Success = true;
                 }
             }
@@ -95,6 +96,7 @@ namespace DAOs.PARAM
                                                             returning id;", localizationRecord);
                      
                     result.Message = "LocalizationRecord creada correctamente.";
+                    connection.GetAll<LocalizationRecord>(_distributedCache, true).ToList();
                     result.Success = true;
                 }
             }
@@ -133,7 +135,7 @@ namespace DAOs.PARAM
             {
                 using (var connection = _dapperAdapter.Get())
                 {
-                    result.Data = connection.GetAll<LocalizationCulture>(_distributedCache).ToList();
+                    result.Data = connection.GetAll<LocalizationCulture>(_distributedCache)?.ToList();
 
                     result.Success = true;
                 }

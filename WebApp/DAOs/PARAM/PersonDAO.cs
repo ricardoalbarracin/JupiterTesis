@@ -147,6 +147,41 @@ namespace DAOs.PARAM
             return result;
         }
 
-       
+        public Result<Person> GetPersonByDocument( Person person)
+        {
+            var result = new Result<Person>();
+            try
+            {
+                using (var connection = _dapperAdapter.Get())
+                {
+                    result.Data = connection.Query<Person>(@"SELECT P.id,
+                                   p.document,
+                                   p.document_type_id,
+                                   p.firts_name,
+                                   p.second_name,
+                                   p.birth_date,
+                                   p.surname,
+                                   p.second_surname,
+                                   p.expedition_date,
+                                   p.gender_id,
+                                   p.place_birth_id,
+                                   p.place_residence_id,
+                                   p.phone,
+                                   p.mobile,
+                                   p.email,
+                                   p.address
+
+                            FROM param.Person p
+                                where  document = @Document and document_type_id = @DocumentTypeId", person).First();
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando persona.";
+                result.Exception = ex;
+            }
+            return result;
+        }
     }
 }

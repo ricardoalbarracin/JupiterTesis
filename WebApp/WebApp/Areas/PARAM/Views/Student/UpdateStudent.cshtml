@@ -1,0 +1,63 @@
+﻿@model StudentEdit
+@{
+    var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+}
+<!-- Scripts -->
+<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+<script src="~/js/wizard.js"></script>
+
+@inject LocService SharedLocalizer
+
+<div id="@viewName">
+    <div class="modal-header">
+        <h4 class="modal-title">@SharedLocalizer.GetLocalizedHtmlString("MODAL_TITTLE_UPD_STUDENT")</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="container-fluid">
+            <div class='row'>
+                <div id="wizard" class="col-12">
+                    <ul class='nav nav-wizard'>
+                        <li class="active"><a href='#step1' data-toggle="tab"><b><i class="fa fa-user page-header-icon"></i> @SharedLocalizer.GetLocalizedHtmlString("STEP_PERSON")</b><br /></a></li>
+                        <li><a href='#step2' data-toggle="tab"><b><i class="fa fa-key page-header-icon"></i> @SharedLocalizer.GetLocalizedHtmlString("STEP_STUDENT")</b><br /></a></li>
+                    </ul>
+                    <div id="TabUsuarioEdit" class="tab-content ">
+                        <div class="tab-pane fade " id="step1">
+                            @Html.PartialAsync("UpdPerson", Model.Person).Result
+                        </div>
+                        <div class="tab-pane fade" id="step2">
+                            @Html.PartialAsync("UpdStudent", Model.Student).Result
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer display: flex; -ms-flex-pack: end; justify-content: flex-end;">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">@SharedLocalizer.GetLocalizedHtmlString("BUTON_CLOSE")</button>
+    </div>
+
+
+    <!-- Inicializadores -->
+    <script>
+		$(".next-btn").on("click", function () {
+			if(InsPerson.Validate())
+                $('#wizard').wizard("next");
+			return true;
+		});
+		$(".prev-btn").on("click", function () {
+			$('#wizard').wizard("prev");
+			return true;
+		});
+
+		$(function () {
+            @(viewName).init();
+        });
+
+    </script>
+</div>

@@ -51,12 +51,12 @@
 
 			<div class="card-footer" style="display: flex; justify-content: flex-end;">
 				<button class="btn btn-secondary prev-btn" type="button">@SharedLocalizer.GetLocalizedHtmlString("BUTON_BACK")</button>
-				<a asp-action="Finish" asp-controller="Usuarios"
-				   data-ajax="true"
-				   data-ajax-begin="ActualizarUsuario.onFinish_Begin"
-				   data-ajax-success="ActualizarUsuario.onFinish_Success"
-				   data-ajax-method="POST"
-				   class="btn btn-success">Actualizar</a>
+                <a asp-action="Finish" asp-controller="Usuarios"
+                   data-ajax="true"
+                   data-ajax-begin="ActualizarUsuario.onFinish_Begin"
+                   data-ajax-success="ActualizarUsuario.onFinish_Success"
+                   data-ajax-method="POST"
+                   class="btn btn-success">@SharedLocalizer.GetLocalizedHtmlString("BUTON_UPDATE")</a>
 			</div>
 		</div>
 	</form>

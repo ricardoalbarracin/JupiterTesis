@@ -58,7 +58,7 @@ namespace WebApp.Globalization
         public DbStringLocalizer(  CultureInfo cultureInfo, ILocalizationRecordDAOService localizationRecordDAOService)
         {
             _localizationRecordDAOService = localizationRecordDAOService;
-            var culture = _localizationRecordDAOService.GetListLocalizationCultures().Data.Where(m => string.Compare(m.Code, cultureInfo.Name, StringComparison.Ordinal) == 0);
+            var culture = _localizationRecordDAOService.GetListLocalizationCultures().Data?.Where(m => string.Compare(m.Code, cultureInfo.Name, StringComparison.Ordinal) == 0);
             _culture = culture?.Count() > 0 ?  culture.First() : _localizationRecordDAOService.GetListLocalizationCultures().Data[0];
         }
 
@@ -94,8 +94,18 @@ namespace WebApp.Globalization
                 _culture = culture?.Count() > 0 ? culture.First() : _localizationRecordDAOService.GetListLocalizationCultures().Data[0];
             }
             var data = _LocalizationRecords.FirstOrDefault(m => m.Code == name && m.LocalizationClutureId == _culture.Id);
-            if (data == null )
-                return $"{name}({_culture.Code})" ;
+            if (data == null)
+            {
+                if(name.Contains("PROPERTY_NAME_"))
+                {
+                    var nameProperty = name.Replace("PROPERTY_NAME_", "");
+                    _localizationRecordDAOService.InsLocalizationRecord(new LocalizationRecord { Code = "LENGTH_ERROR_" + nameProperty, Description = "LENGTH_ERROR_" + nameProperty, LocalizationClutureId = _culture.Id, TypeId = 1 });
+                    _localizationRecordDAOService.InsLocalizationRecord(new LocalizationRecord { Code = "REQUIRED_ERROR_" + nameProperty, Description = "LENGTH_ERROR_" + nameProperty, LocalizationClutureId = _culture.Id, TypeId =1 });
+
+                }
+                _localizationRecordDAOService.InsLocalizationRecord(new LocalizationRecord { Code = name,  Description = name, LocalizationClutureId = _culture.Id, TypeId = 2 });
+                return $"{name}({_culture.Code})";
+            }
             else
                 return data.Description;
 
