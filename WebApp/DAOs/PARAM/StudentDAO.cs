@@ -78,7 +78,7 @@ namespace DAOs.PARAM
                     result.Data = connection.Query<Student>(@"SELECT s.id,
                                                             s.person_id,
                                                             s.institution_id
-                                                            FROM core.studetnt s
+                                                            FROM core.student s
                                                                 where  person_id = @PersonId", new { PersonId }).First();
                     result.Success = true;
                 }
@@ -100,7 +100,7 @@ namespace DAOs.PARAM
                 {
                     student.Id = connection.QuerySingle<int>(@"INSERT INTO core.student
 	                                                            (  person_id, institution_id, academic_grade_id) 
-                                                            VALUES ( '@PersonId', '@InstitutionId', '@AcademicGradeId' )
+                                                            VALUES ( @PersonId, @InstitutionId, @AcademicGradeId )
                                                             returning id;", student);
 
                     result.Message = "estudiante creado correctamente.";

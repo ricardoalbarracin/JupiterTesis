@@ -136,6 +136,7 @@ namespace DAOs.PARAM
                                                             returning id;", person);
                      
                     result.Message = "Persona creada correctamente.";
+                    result.Data = person;
                     result.Success = true;
                 }
             }
@@ -173,6 +174,7 @@ namespace DAOs.PARAM
 
                             FROM param.Person p
                                 where  document = @Document and document_type_id = @DocumentTypeId", person).First();
+
                     result.Success = true;
                 }
             }

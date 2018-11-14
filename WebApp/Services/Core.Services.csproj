@@ -16,4 +16,7 @@
     <Folder Include="TRANS\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="PARAM\IProgramDAOService %28copia%29.cs" />
+  </ItemGroup>
 </Project>

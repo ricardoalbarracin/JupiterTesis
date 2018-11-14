@@ -1,0 +1,60 @@
+﻿@{
+    var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+    ViewBag.Tittle = @SharedLocalizer.GetLocalizedHtmlString("TITLE_SUBJECT");
+    ViewBag.IconTittle = "fa fa-user";
+}
+@inject LocService SharedLocalizer
+<div id="@viewName">
+    <!-- Scripts -->
+    <script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+    <!-- Plantilla que se utilizará en la columna de acciones de la grilla -->
+    <script id="actionTemplate" type="text/x-kendo-template">
+        <div class='text-center'>
+            <a class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("UpdSubject", "Subject", new { area = "PARAM" })/#=data.Id#'>@SharedLocalizer.GetLocalizedHtmlString("BUTON_EDIT")</a>
+        </div>
+    </script>
+
+
+    <div class="container-fluid ">
+
+        <div class="card">
+            <div class="card-header">
+                <div class="h5 m-0">@SharedLocalizer.GetLocalizedHtmlString("LIST_SUBJECT")<label class="float-right mt-0 mb-0">
+                                    @Html.ActionLink($"{@SharedLocalizer.GetLocalizedHtmlString("BUTON_REGISTER")}", "InsSubject", "Subject", new { area = "PARAM" }, new { @data_modal = "modal-xl", @class = "btn btn-primary float-right" })
+                                </label>
+                            </div>
+
+            </div>
+            <div class="card-body">
+                @(Html.Kendo().Grid<Core.Models.PARAM.Subject>()
+                            .Name("grid")
+                            .Columns(columns =>
+                            {
+                                columns.Bound(p => p.Id).Hidden();
+                                columns.Bound(p => p.Code).Width(130);
+                                columns.Bound(p => p.Description).Width(130);
+                                columns.Bound(c => c.Id).ClientTemplate("#=Index.actionTemplate(data)#").Title($"{@SharedLocalizer.GetLocalizedHtmlString("LABEL_ACTIONS")}").Filterable(false).Width(130);
+                            })
+                            .Pageable()
+                            .Sortable()
+                            .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+                            .Scrollable()
+                            .Events(events => events.DataBound("Site.handleModal"))
+                            .HtmlAttributes(new { style = "height:550px;" })
+                            .DataSource(dataSource => dataSource
+                                .Ajax()
+                                .Read(read => read.Action("GetListSubjects", "Subject"))
+                                .Events(e => e.Error("Site.handleError"))
+                            )
+                )
+            </div>
+        </div>
+    </div>
+    <!-- Inicializadores -->
+    <script>
+        $(function () {
+            @(viewName).init();
+        });
+
+    </script>
+</div>

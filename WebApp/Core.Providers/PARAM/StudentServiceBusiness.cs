@@ -98,6 +98,7 @@ namespace Core.Business.PARAM
                 }
                 else
                 {
+                    person.Id = getPersonByDocument.Data.Id;
                     var getStudentByPersonId = _studentDAOService.GetStudentByPersonId(person.Id);
                     if (getStudentByPersonId.Success)
                     {

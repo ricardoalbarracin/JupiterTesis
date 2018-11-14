@@ -10,6 +10,10 @@
     <Content Remove="Areas\PARAM\Views\Person\Person\InsPerson.cshtml" />
     <Content Remove="Areas\PARAM\Views\Person\Person\UpdPerson.cshtml" />
     <Content Remove="Areas\PARAM\Views\Person\Person\Index.cshtml" />
+    <Content Remove="Areas\PARAM\Views\Person %28copia%29\InsPerson.cshtml" />
+    <Content Remove="Areas\PARAM\Views\Person %28copia%29\UpdPerson.cshtml" />
+    <Content Remove="Areas\PARAM\Views\Program %28copia%29\InsProgram.cshtml" />
+    <Content Remove="Areas\PARAM\Views\Program %28copia%29\UpdProgram.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,6 +73,10 @@
     <Folder Include="Areas\TRANS\Scripts\" />
     <Folder Include="Areas\PARAM\Scripts\LocalizationRecord\" />
     <Folder Include="Areas\PARAM\Views\LocalizationRecord\" />
+    <Folder Include="Areas\PARAM\Scripts\Program\" />
+    <Folder Include="Areas\PARAM\Views\Program\" />
+    <Folder Include="Areas\PARAM\Scripts\Subject\" />
+    <Folder Include="Areas\PARAM\Views\Subject\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -163,6 +171,24 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Areas\PARAM\Scripts\Person %28copia%29\UpdPerson.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Person %28copia%29\Index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Person %28copia%29\InsPerson.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Person %28copia%29\UpdPerson.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Program %28copia%29\Index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Program %28copia%29\InsProgram.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\PARAM\Scripts\Program %28copia%29\UpdProgram.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

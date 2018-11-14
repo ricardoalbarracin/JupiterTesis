@@ -30,8 +30,8 @@ namespace WebApp
             services.AddScoped<ILocalizationRecordDAOService, LocalizationRecordDAO>();
             services.AddScoped<IStudentDAOService, StudentDAO>();
             services.AddScoped<IStudentService, StudentServiceBusiness>();
-            
-
+            services.AddScoped<IProgramDAOService, ProgramDAO>();
+            services.AddScoped<ISubjectDAOService, SubjectDAO>();
 
         }
 
