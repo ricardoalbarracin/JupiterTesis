@@ -273,5 +273,29 @@ namespace DAOs.PARAM
             
             return result;
         }
+
+        public Result<List<Proyecto>> GetListProyectoByPersonId(long personId)
+        {
+            var result = new Result<List<Proyecto>>();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                   result.Data = connection.Query<Proyecto>(@"SELECT id, Descripcion 
+                                                               FROM core.Proyectos
+                                                                WHERE ColaboradorLiderId = @personaId",
+                                                          new { personaId = personId }).ToList();
+
+
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando proyectos.";
+                result.Exception = ex;
+            }
+            return result;
+        }
     }
 }

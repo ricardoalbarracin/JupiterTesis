@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Dapper.Contrib.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Core.Models.TRANS
@@ -36,7 +36,9 @@ namespace Core.Models.TRANS
         [DisplayName("Lider de proyecto")]
         public int? ColaboradorLiderId { get; set; }
 
+        
         [DisplayName("Presupuesto sin asignar ")]
+        [Write(false)]
         public float PresupuestosinAsignar { get; set; }
 
     }

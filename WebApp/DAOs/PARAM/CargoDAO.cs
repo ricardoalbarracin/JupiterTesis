@@ -62,7 +62,7 @@ namespace DAOs.PARAM
                 using (var connection = _dapperAdapter.Open())
                 {
                     connection.Update(Cargo);
-                    result.Message = "Cargo actualizada correctamente.";
+                    result.Message = "Cargo actualizado correctamente.";
                     result.Success = true;
                 }
             }

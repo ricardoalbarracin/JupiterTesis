@@ -25,5 +25,6 @@ namespace Core.Services.TRANS
 
         Result<Proyecto> GetValoresProyectos(long id);
 
+        Result<List<Proyecto>> GetListProyectoByPersonId(long personId);
     }
 }

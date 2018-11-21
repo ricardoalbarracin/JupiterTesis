@@ -34,6 +34,7 @@
                         columns.Bound(p => p.Id).Hidden();
                         columns.Bound(p => p.Codigo).Title("Codigo").Width(130);
                         columns.Bound(p => p.Descripcion).Title("Descripcion").Width(130);
+                        columns.Bound(p => p.ValorComision).Title("Valor comisión").Width(130);
                         columns.Bound(c => c.Id).ClientTemplate("#=Index.actionTemplate(data)#").Title("Acciones").Filterable(false).Width(130);
                     })
                     .Pageable()

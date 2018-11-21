@@ -36,6 +36,18 @@ namespace WebApp.Areas.PARAM.Controllers
             return Json(Proyectos.ToDataSourceResult(request));
         }
 
+        public ActionResult GetListProyectosByPersonaId([DataSourceRequest] DataSourceRequest request, long personaId)
+        {
+            var getListProyectos = _ProyectoService.GetListProyectoByPersonId(personaId);
+
+            if (!getListProyectos.Success)
+            {
+                ModelState.AddModelError("Error", getListProyectos.Message);
+                return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
+            }
+            var Proyectos = getListProyectos.Data;
+            return Json(Proyectos.ToDataSourceResult(request));
+        }
         [HttpGet]
         public ActionResult ActualizarProyecto(int id)
         {
@@ -80,6 +92,7 @@ namespace WebApp.Areas.PARAM.Controllers
         public ActionResult InsProyecto(Proyecto proyecto)
         {
             proyecto.FechaCreacion = DateTime.Now;
+            proyecto.PresupuestosinAsignar = proyecto.PresupuestoAsignado;
             var insProyecto = _ProyectoService.InsProyecto(proyecto);
             return new JsonResult(insProyecto);
         }

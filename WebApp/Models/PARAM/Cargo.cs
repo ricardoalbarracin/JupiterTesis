@@ -16,5 +16,7 @@ namespace Core.Models.PARAM
         [Required(ErrorMessage = "El campo Descripcion es obligatorio.")]
         public string Descripcion { get; set; }
 
+        [Required(ErrorMessage = "El campo valor comisión es obligatorio.")]
+        public float ValorComision { get; set; }
     }
 }

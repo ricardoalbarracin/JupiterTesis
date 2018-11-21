@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Core.Models.PARAM;
 using Core.Models.TRANS;
 using Core.Models.Utils;
 
@@ -8,6 +9,10 @@ namespace Core.Services.TRANS
 {
     public interface IColaboradorComisionDAOService
     {
-        Result<List<Proyecto>> GetListComisiones();
+        Result<List<ComisionColaborador>> GetListComisiones(long? personaId);
+        Result<List<ListGeneral>> GetlistColaboradoresByProyectId(long Id);
+        Result<ComisionColaborador> InsComisionColaborador(ComisionColaborador comisionColaborador);
+        int GetConsecutivo(int tipo);
+        int UpdConsecutivo(int tipo, int valor);
     }
 }

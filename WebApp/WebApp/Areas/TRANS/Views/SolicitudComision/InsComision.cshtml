@@ -1,0 +1,223 @@
+﻿@model ComisionColaborador
+@{
+    var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+}
+
+<section id=@viewName>
+    <form asp-controller="SolicitudComision" asp-action="InsComision" data-ajax="true" data-ajax-method="POST" data-ajax-success="@(viewName).onSuccess">
+  
+        <div class="card">
+            <div class="modal-header">
+                <h4 class="modal-title">Crear comisión</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="card-body">
+                @Html.HiddenFor(m => m.PersonaId)
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        @Html.ValidationMessage("Error")
+                    </div>
+                }
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.NombreSolicitante)
+                        @Html.TextBoxFor(m => m.NombreSolicitante, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.ProyectoId)
+                        @(Html.Kendo().DropDownListFor(m => m.ProyectoId)
+                                      .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                      .DataTextField("Descripcion")
+                                      .OptionLabel("Seleccione...")
+                                      .DataValueField("Id")
+                                      .Filter("contains")
+                                      .DataSource(source =>
+                                      {
+                                        source.Ajax().Read(read =>
+                                        {
+                                          read.Action("GetListProyectosByPersonaId", "Proyectos", new { Area = "TRANS", personaId = Model.PersonaId });
+                                        }).Events(e=>e.Change("InsComision.closeDate"));
+                                      })
+                        )
+                        @Html.ValidationMessageFor(m => m.ProyectoId)
+                    </div>
+                </div>
+                <div class=" form-group row">
+                    <div class="col-sm-12">
+                        @Html.LabelFor(m => m.ColaboradorId)
+                        @(Html.Kendo().DropDownListFor(model => model.ColaboradorId)
+                        .DataTextField("Nombre")
+                        .DataValueField("Id")
+                        .HtmlAttributes(new { Style = "width:100%" })
+                        .OptionLabel("Seleccione...")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("getListColaboradoresByProyectoId", "SolicitudComision").Data("InsComision.filterProyecto");
+                            })                           
+                            .ServerFiltering(true);
+                        }).Events(e => e.Select("InsComision.ChangeColaborador"))
+                        .Enable(false)
+                        .AutoBind(false)
+                        .CascadeFrom("ProyectoId")
+                        )
+                    </div>                    
+                </div>
+                <div class=" form-group row">
+                    <div class="col-sm-6">                        
+                        @Html.LabelFor(m => m.FechaInicio)
+                        @(Html.Kendo().DatePickerFor(m => m.FechaInicio)
+                                            .Min(DateTime.Now)
+                                            .Value(DateTime.Now)
+                                            .Format("dd/MM/yyyy")
+                                            .HtmlAttributes(new { style = "width: 100%" })
+                                            .Events(e => e.Close("InsComision.closeDate"))
+                        )
+                        @Html.ValidationMessageFor(m => m.FechaInicio)
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.LabelFor(m => m.FechaFinalizacion)
+                        @(Html.Kendo().DatePickerFor(m => m.FechaFinalizacion)
+                                    .Min(DateTime.Now)
+                                    .Value(DateTime.Now)
+                                    .Format("dd/MM/yyyy")
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                                    .Events(e=>e.Close("InsComision.closeDateFin"))
+                        )
+                        @Html.ValidationMessageFor(m => m.FechaFinalizacion)
+
+                    </div>
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(m => m.CantidadDias)
+                        @Html.TextBoxFor(m => m.CantidadDias, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <h5>
+                    Origen
+                </h5>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.DepartamentoOrigen)
+                        @(Html.Kendo().DropDownListFor(m => m.DepartamentoOrigen)
+                                     .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                     .DataTextField("Nombre")
+                                     .OptionLabel("Seleccione...")
+                                     .DataValueField("Id")
+                                     .Filter("contains")
+                                     .DataSource(source =>
+                                     {
+                                         source.Ajax().Read(read =>
+                                         {
+                                             read.Action("GetListDepartamentos", "SolicitudComision", new { Area = "TRANS"});
+                                         }).Events(e => e.Error("Site.handleError"));
+                                     })
+                        )
+                        @Html.ValidationMessageFor(m => m.DepartamentoOrigen)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.Origen)
+                        @(Html.Kendo().DropDownListFor(m => m.Origen)
+                                                              .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                                              .DataTextField("Nombre")
+                                                              .OptionLabel("Seleccione...")
+                                                              .DataValueField("Id")
+                                                              .Filter("contains")
+                                                              .DataSource(source =>
+                                                              {
+                                                                  source.Read(read =>
+                                                                          {
+                                                                        read.Action("GetListMunicipios", "SolicitudComision").Data("InsComision.filterDeptoOrigen");
+                                                                    })
+                                                                          .ServerFiltering(true);
+                                                              })
+                                                              .Enable(false)
+                                                              .AutoBind(false)
+                                                              .CascadeFrom("DepartamentoOrigen")
+                        )
+                        @Html.ValidationMessageFor(m => m.Origen)
+                    </div>
+
+                </div>
+                <h5>
+                    Destino
+                </h5>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.DepartamentoDestino)
+                        @(Html.Kendo().DropDownListFor(m => m.DepartamentoDestino)
+                                                               .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                                               .DataTextField("Nombre")
+                                                               .OptionLabel("Seleccione...")
+                                                               .DataValueField("Id")
+                                                               .Filter("contains")
+                                                               .DataSource(source =>
+                                                               {
+                                                                   source.Ajax().Read(read =>
+                                                                           {
+                                                                      read.Action("GetListDepartamentos", "SolicitudComision", new { Area = "TRANS" });
+                                                                  }).Events(e => e.Error("Site.handleError"));
+                                                               })
+                        )
+                        @Html.ValidationMessageFor(m => m.DepartamentoDestino)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.Destino)
+                        @(Html.Kendo().DropDownListFor(m => m.Destino)
+                                                      .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                                      .DataTextField("Nombre")
+                                                      .OptionLabel("Seleccione...")
+                                                      .DataValueField("Id")
+                                                      .Filter("contains")
+                                                      .DataSource(source =>
+                                                              {
+                                                                  source.Read(read =>
+                                                                          {
+                                                                        read.Action("GetListMunicipios", "SolicitudComision").Data("InsComision.filterDeptoDestino");
+                                                                    })
+                                                                          .ServerFiltering(true);
+                                                              })
+                                                              .Enable(false)
+                                                              .AutoBind(false)
+                                                              .CascadeFrom("DepartamentoDestino")
+                        )
+                        @Html.ValidationMessageFor(m => m.Destino)
+                    </div>
+
+                </div>
+
+                <div class=" form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.ValorComision)
+                        @Html.TextBoxFor(m => m.ValorComision, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class=" form-group row">
+                    <div class="col-sm-12">
+                        @Html.LabelFor(m => m.Justificacion)
+                        @Html.TextAreaFor(model => model.Justificacion, new { @class = "form-control", @rows = 5, style = "resize:none" })
+                    </div>
+                </div>
+                <div class="modal-footer display: flex; -ms-flex-pack: end; justify-content: flex-end;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+<script>
+	$(function () {
+            @(viewName).init();
+        });
+</script>
+
+
+

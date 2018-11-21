@@ -1,10 +1,12 @@
 ﻿using Core.Business.SEG;
 using Core.Business.TRANS;
+using Core.Models.TRANS;
 using Core.Services.PARAM;
 using Core.Services.SEG;
 using Core.Services.TRANS;
 using DAOs.PARAM;
 using DAOs.SEG;
+using DAOs.TRANS;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace WebApp
@@ -30,7 +32,8 @@ namespace WebApp
             services.AddScoped<IProyectoServiceBusiness, ProyectosServiceBusiness>();
             services.AddScoped<ITiposDocumentoDAOService, TiposDocumentoDAO>();
             services.AddScoped<ISexoDAOService, SexosDAO>();
-
+            services.AddScoped<IColaboradorComisionDAOService, ComisionColaboradorDAO>();
+            services.AddScoped<IDivipolaDAOService, DivipolaDAO>();
         }
     }
 }
