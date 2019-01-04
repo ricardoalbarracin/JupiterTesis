@@ -18,19 +18,34 @@ namespace WebApp.Areas.TRANS.Controllers
     {
         IColaboradorComisionDAOService _ComisionColaborador;
         IDivipolaDAOService _Divipola;
-
         public SolicitudComisionController(IColaboradorComisionDAOService ComisionColaboradorService, IDivipolaDAOService DivipolaService)
         {
             _ComisionColaborador = ComisionColaboradorService;
             _Divipola = DivipolaService;
-
-
         }
+        
+        #region vistas
+
         public ActionResult SolicitudComision()
         {
             return View();
         }
 
+        public ActionResult UpdSolicitudComision(int id)
+        {
+            var getComisionById = _ComisionColaborador.UpdSolicitudComision(id);
+            ViewBag.Container = ControllerContext.RouteData.Values["action"].ToString();
+            if (!getComisionById.Success)
+            {
+                ModelState.AddModelError("Error", getComisionById.Message);
+                return View(new ComisionColaborador());
+            }
+            return PartialView(getComisionById.Data);           
+        }
+
+        #endregion
+
+        #region Cargainfo
         public ActionResult GetListComisiones([DataSourceRequest] DataSourceRequest request)
         {
             var usuario = HttpContext.Session.GetUser();
@@ -39,25 +54,16 @@ namespace WebApp.Areas.TRANS.Controllers
             if (!getListComisiones.Success)
             {
                 ModelState.AddModelError("Error", getListComisiones.Message);
+
+
                 return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
             }
             var Proyectos = getListComisiones.Data;
             return Json(Proyectos.ToDataSourceResult(request));
         }
 
-        [HttpGet]
-        public ActionResult InsComision()
-        {
-            var usuario = HttpContext.Session.GetUser();
-            ComisionColaborador comisionColaborador = new ComisionColaborador();
-            comisionColaborador.PersonaId = usuario.PersonaId;
-            comisionColaborador.NombreSolicitante = usuario.PrimerNombre + " " + usuario.PrimerApellido;
-            
-            return PartialView(comisionColaborador);
-        }
-
         public ActionResult getListColaboradoresByProyectoId([DataSourceRequest] DataSourceRequest request, long ProyectoId)
-        {           
+        {
             var getListColaboradores = _ComisionColaborador.GetlistColaboradoresByProyectId(ProyectoId);
 
             if (!getListColaboradores.Success)
@@ -81,7 +87,7 @@ namespace WebApp.Areas.TRANS.Controllers
             var Deptos = getListDepartamentos.Data;
             return Json(Deptos.ToDataSourceResult(request));
         }
-        public ActionResult GetListMunicipios([DataSourceRequest] DataSourceRequest request,long padreId)
+        public ActionResult GetListMunicipios([DataSourceRequest] DataSourceRequest request, long padreId)
         {
             var getListMunicipios = _Divipola.GetListMunicipios(padreId);
 
@@ -94,6 +100,22 @@ namespace WebApp.Areas.TRANS.Controllers
             mcpio = getListMunicipios.Data;
             return Json(mcpio);
         }
+
+
+        #endregion
+
+        #region crud
+        [HttpGet]
+        public ActionResult InsComision()
+        {
+            var usuario = HttpContext.Session.GetUser();
+            ComisionColaborador comisionColaborador = new ComisionColaborador();
+            comisionColaborador.PersonaId = usuario.PersonaId;
+            comisionColaborador.NombreSolicitante = usuario.PrimerNombre + " " + usuario.PrimerApellido;
+
+            return PartialView(comisionColaborador);
+        }
+
 
         /// <summary>
         /// Inserta registro de nueva solicitud de comision
@@ -111,9 +133,19 @@ namespace WebApp.Areas.TRANS.Controllers
             comisionColaborador.FechaSolicitud = DateTime.Now;
             var solComision = _ComisionColaborador.InsComisionColaborador(comisionColaborador);
             if (solComision.Data.Id > 0)
-                _ComisionColaborador.UpdConsecutivo(1,comisionColaborador.Consecutivo);
+                _ComisionColaborador.UpdConsecutivo(1, comisionColaborador.Consecutivo);
             return Json(solComision);
         }
+
+        [HttpPost]
+        public ActionResult UpdSolicitudComision(ComisionColaborador comisionColaborador)
+        {
+            comisionColaborador.FechaSolicitud = DateTime.Now;
+            var updComision = _ComisionColaborador.UpdSolicitudComision(comisionColaborador);
+            return new JsonResult(updComision);
+
+        }
+        #endregion
 
     }
 }

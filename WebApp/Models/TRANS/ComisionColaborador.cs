@@ -68,6 +68,10 @@ namespace Core.Models.TRANS
         [DisplayName("Proyecto")]
         public long ProyectoId { get; set; }
 
+        [DisplayName("Proyecto")]
+        [Write(false)]
+        public string ProyectoDescripcion { get; set; }
+
         [Required(ErrorMessage = "El campo consecutivo es obligatorio")]        
         public int Consecutivo { get; set; }
 

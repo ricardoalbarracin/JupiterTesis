@@ -14,5 +14,7 @@ namespace Core.Services.TRANS
         Result<ComisionColaborador> InsComisionColaborador(ComisionColaborador comisionColaborador);
         int GetConsecutivo(int tipo);
         int UpdConsecutivo(int tipo, int valor);
+        Result<ComisionColaborador> UpdSolicitudComision(long id);
+        Result UpdSolicitudComision (ComisionColaborador comisionColaborador);
     }
 }

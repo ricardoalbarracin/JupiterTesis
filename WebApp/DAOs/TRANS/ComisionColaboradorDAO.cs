@@ -145,6 +145,69 @@ namespace DAOs.TRANS
         }
 
         #endregion
+
+        #region updateComision
+        public Result<ComisionColaborador> UpdSolicitudComision(long idComision)
+        {
+            var result = new Result<ComisionColaborador>();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    result.Data = connection.QueryFirst<ComisionColaborador>(@" SELECT cc.Id AS Id, p.Id AS PersonaId, 
+                                           concat(p.PrimerNombre, ' ', p.PrimerApellido) AS NombreSolicitante, 
+                                           cc.FechaInicio, 
+                                           cc.CantidadDias, 
+                                           cc.FechaFinalizacion, 
+                                           cc.FechaSolicitud, cc.ValorComision AS ValorComision,
+                                           concat(p1.PrimerNombre, ' ', p1.PrimerApellido) AS NombreColaborador,
+                                           cc.Estado, cc.EstadoLegalizacion, 
+                                           d.Id AS Destino, 
+                                           d.PadreId AS DepartamentoDestino,
+                                           o.Id AS Origen,  
+                                           o.PadreId AS DepartamentoOrigen  ,  
+                                           pr.Descripcion, pr.Id AS ProyectoId, 
+                                           cc.ValorComision,
+                                           cc.Justificacion, cc.Estado
+                                             FROM CORE.ColaboradorComision cc 
+                                             INNER JOIN ADMIN.Personas p ON p.Id = cc.PersonaId
+                                             INNER JOIN ADMIN.personas p1 ON p1.Id = cc.ColaboradorId
+                                             INNER JOIN core.Proyectos pr ON pr.Id = cc.ProyectoId
+                                             INNER JOIN ADMIN.Divipola d ON d.Id = cc.Destino
+                                             INNER JOIN ADMIN.Divipola o ON o.Id = cc.Origen
+                                             WHERE cc.Id  = @id",
+                                              new { id = idComision });
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando información de comisión.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+
+        public Result UpdSolicitudComision(ComisionColaborador comisionColaborador)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    connection.Update(comisionColaborador);
+                    result.Message = "Comisiòn actualizada correctamente.";
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error actualizando comisiòn.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+        #endregion
     }
 }
 

@@ -75,8 +75,7 @@ namespace WebApp.Areas.PARAM.Controllers
 
         [HttpPost]
         public ActionResult UpdProyecto(Proyecto proyecto)
-        {
-            
+        {            
             var updProyecto = _ProyectoService.UpdProyecto(proyecto);
             return new JsonResult(updProyecto);
         }

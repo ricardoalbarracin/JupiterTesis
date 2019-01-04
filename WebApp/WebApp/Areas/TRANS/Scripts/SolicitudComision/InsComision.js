@@ -10,7 +10,7 @@
             $.validator.unobtrusive.parse($("#InsComision form"));
         },
         onSuccess: function (result) {
-            debugger
+            
             if (result.Success) {
                 swal({
                     title: "Correcto",
