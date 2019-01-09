@@ -82,6 +82,10 @@ namespace Core.Models.TRANS
         [DisplayName("Departamento")]
         [Write(false)]
         public int DepartamentoDestino { get; set; }
+
+        [DisplayName("Desembolso")]
+        public int Desembolso { get; set; }
+
     }
 
     public class ListGeneral

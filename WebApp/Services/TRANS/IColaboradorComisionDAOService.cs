@@ -16,5 +16,7 @@ namespace Core.Services.TRANS
         int UpdConsecutivo(int tipo, int valor);
         Result<ComisionColaborador> UpdSolicitudComision(long id);
         Result UpdSolicitudComision (ComisionColaborador comisionColaborador);
+        Result<List<ComisionColaborador>> GetListComisionesSinDesembolso();
+        
     }
 }

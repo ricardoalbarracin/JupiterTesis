@@ -43,6 +43,11 @@ namespace WebApp.Areas.TRANS.Controllers
             return PartialView(getComisionById.Data);           
         }
 
+        public ActionResult DesembolsoValor()
+        {
+            return View();
+        }
+
         #endregion
 
         #region Cargainfo
@@ -101,6 +106,22 @@ namespace WebApp.Areas.TRANS.Controllers
             return Json(mcpio);
         }
 
+        public ActionResult GetListComisionesDesembolso([DataSourceRequest] DataSourceRequest request)
+        {
+            var usuario = HttpContext.Session.GetUser();
+            var getListComisiones = _ComisionColaborador.GetListComisionesSinDesembolso();
+
+            if (!getListComisiones.Success)
+            {
+                ModelState.AddModelError("Error", getListComisiones.Message);
+
+
+                return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
+            }
+            var Proyectos = getListComisiones.Data;
+            return Json(Proyectos.ToDataSourceResult(request));
+        }
+
 
         #endregion
 
@@ -145,6 +166,25 @@ namespace WebApp.Areas.TRANS.Controllers
             return new JsonResult(updComision);
 
         }
+
+        public ActionResult UpdDesembolsoComision(int id)
+        {
+            var getComisionById = _ComisionColaborador.UpdSolicitudComision(id);
+            ViewBag.Container = ControllerContext.RouteData.Values["action"].ToString();
+            if (!getComisionById.Success)
+            {
+                ModelState.AddModelError("Error", getComisionById.Message);
+                return View(new ComisionColaborador());
+            }
+
+            ComisionColaborador comision = new ComisionColaborador();
+            comision = getComisionById.Data;
+            comision.Desembolso = 1;
+            var updComision = _ComisionColaborador.UpdSolicitudComision(comision);
+            return new JsonResult(updComision);
+
+        }
+
         #endregion
 
     }

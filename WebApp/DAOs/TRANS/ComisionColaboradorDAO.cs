@@ -159,6 +159,7 @@ namespace DAOs.TRANS
                                            cc.FechaInicio, 
                                            cc.CantidadDias, 
                                            cc.FechaFinalizacion, 
+                                           cc.ColaboradorId ,cc.Consecutivo,
                                            cc.FechaSolicitud, cc.ValorComision AS ValorComision,
                                            concat(p1.PrimerNombre, ' ', p1.PrimerApellido) AS NombreColaborador,
                                            cc.Estado, cc.EstadoLegalizacion, 
@@ -207,6 +208,41 @@ namespace DAOs.TRANS
             }
             return result;
         }
+
+        
+        #endregion
+
+        #region desembolso
+        public Result<List<ComisionColaborador>> GetListComisionesSinDesembolso()
+        {
+            var result = new Result<List<ComisionColaborador>>();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    result.Data = connection.Query<ComisionColaborador>(@" 
+                                             SELECT cc.Id AS Id, p.Id AS PersonaId, 
+                                             concat(p.PrimerNombre, ' ', p.PrimerApellido) AS NombreSolicitante, 
+                                             cc.FechaInicio, cc.CantidadDias, cc.FechaFinalizacion, cc.FechaSolicitud, cc.ValorComision AS ValorComision,
+                                             concat(p1.PrimerNombre, ' ', p1.PrimerApellido) AS NombreColaborador,
+                                             cc.Estado, proy.Descripcion AS ProyectoDescripcion
+                                             FROM CORE.ColaboradorComision cc 
+                                             INNER JOIN ADMIN.Personas p ON p.Id = cc.PersonaId
+                                             INNER JOIN ADMIN.personas p1 ON p1.Id = cc.ColaboradorId
+                                             INNER JOIN core.Proyectos proy ON proy.Id = cc.ProyectoId
+                                             WHERE cc.Desembolso=0 
+                                                AND cc.Estado='Autorizado'").ToList();
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando comisiones.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+
         #endregion
     }
 }
