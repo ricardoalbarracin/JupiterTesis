@@ -22,6 +22,7 @@
                 }
                 @Html.HiddenFor(m => m.Id)
                 @Html.HiddenFor(m => m.PersonaId)
+                @Html.HiddenFor(m => m.ColaboradorId)
                 <div class="form-group row">
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.NombreSolicitante)
@@ -30,18 +31,18 @@
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.ProyectoId)
                         @(Html.Kendo().DropDownListFor(m => m.ProyectoId)
-                                                                                      .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
-                                                                                      .DataTextField("Descripcion")
-                                                                                      .OptionLabel("Seleccione...")
-                                                                                      .DataValueField("Id")
-                                                                                      .Filter("contains")
-                                                                                      .DataSource(source =>
-                                                                                      {
-                                                                                          source.Ajax().Read(read =>
-                                                                                                  {
-                                                                                                      read.Action("GetListProyectosByPersonaId", "Proyectos", new { Area = "TRANS", personaId = Model.PersonaId });
-                                                                                                  });
-                                                                                      })
+                                       .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                       .DataTextField("Descripcion")
+                                       .OptionLabel("Seleccione...")
+                                       .DataValueField("Id")
+                                       .Filter("contains")
+                                       .DataSource(source =>
+                                       {
+                                           source.Ajax().Read(read =>
+                                                   {
+                                           read.Action("GetListProyectosByPersonaId", "Proyectos", new { Area = "TRANS", personaId = Model.PersonaId });
+                                       });
+                                       })
                         )
                         @Html.ValidationMessageFor(m => m.ProyectoId)
                     </div>
@@ -56,20 +57,20 @@
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.FechaInicio)
                         @(Html.Kendo().DatePickerFor(m => m.FechaInicio)
-                                                                                    .Min(DateTime.Now)
-                                                                                    .Format("dd/MM/yyyy")
-                                                                                    .HtmlAttributes(new { style = "width: 100%" })
-                                                                                    .Events(e => e.Close("UpdSolicitudComision.closeDate"))
+                                                                                            .Min(DateTime.Now)
+                                                                                            .Format("dd/MM/yyyy")
+                                                                                            .HtmlAttributes(new { style = "width: 100%" })
+                                                                                            .Events(e => e.Close("UpdSolicitudComision.closeDate"))
                         )
                         @Html.ValidationMessageFor(m => m.FechaInicio)
                     </div>
                     <div class="col-sm-4">
                         @Html.LabelFor(m => m.FechaFinalizacion)
                         @(Html.Kendo().DatePickerFor(m => m.FechaFinalizacion)
-                                                                            .Min(DateTime.Now)
-                                                                            .Format("dd/MM/yyyy")
-                                                                            .HtmlAttributes(new { style = "width: 100%" })
-                                                                            .Events(e => e.Close("UpdSolicitudComision.closeDateFin"))
+                                                                                    .Min(DateTime.Now)
+                                                                                    .Format("dd/MM/yyyy")
+                                                                                    .HtmlAttributes(new { style = "width: 100%" })
+                                                                                    .Events(e => e.Close("UpdSolicitudComision.closeDateFin"))
                         )
                         @Html.ValidationMessageFor(m => m.FechaFinalizacion)
 
@@ -88,40 +89,40 @@
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.DepartamentoOrigen)
                         @(Html.Kendo().DropDownListFor(m => m.DepartamentoOrigen)
-                                                                     .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
-                                                                     .DataTextField("Nombre")
-                                                                     .OptionLabel("Seleccione...")
-                                                                     .DataValueField("Id")
-                                                                     .Filter("contains")
-                                                                     .DataSource(source =>
-                                                                     {
-                                                                         source.Ajax().Read(read =>
-                                                                         {
-                                                                             read.Action("GetListDepartamentos", "SolicitudComision", new { Area = "TRANS" });
-                                                                         }).Events(e => e.Error("Site.handleError"));
-                                                                     })
+                                                                             .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                                                             .DataTextField("Nombre")
+                                                                             .OptionLabel("Seleccione...")
+                                                                             .DataValueField("Id")
+                                                                             .Filter("contains")
+                                                                             .DataSource(source =>
+                                                                             {
+                                                                                 source.Ajax().Read(read =>
+                                                                                 {
+                                                                                     read.Action("GetListDepartamentos", "SolicitudComision", new { Area = "TRANS" });
+                                                                                 }).Events(e => e.Error("Site.handleError"));
+                                                                             })
                         )
                         @Html.ValidationMessageFor(m => m.DepartamentoOrigen)
                     </div>
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.Origen)
                         @(Html.Kendo().DropDownListFor(m => m.Origen)
-                                                      .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
-                                                      .DataTextField("Nombre")
-                                                      .OptionLabel("Seleccione...")
-                                                      .DataValueField("Id")
-                                                      .Filter("contains")
-                                                      .DataSource(source =>
-                                                      {
-                                                          source.Read(read =>
-                                                                  {
-                                                                      read.Action("GetListMunicipios", "SolicitudComision").Data("UpdSolicitudComision.filterDeptoOrigen");
-                                                                  })
-                                                                  .ServerFiltering(true);
-                                                      })
-                                                      .Enable(false)
-                                                      .AutoBind(true)
-                                                      .CascadeFrom("DepartamentoOrigen")
+                                                              .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                                              .DataTextField("Nombre")
+                                                              .OptionLabel("Seleccione...")
+                                                              .DataValueField("Id")
+                                                              .Filter("contains")
+                                                              .DataSource(source =>
+                                                              {
+                                                                  source.Read(read =>
+                                                                          {
+                                                                              read.Action("GetListMunicipios", "SolicitudComision").Data("UpdSolicitudComision.filterDeptoOrigen");
+                                                                          })
+                                                                          .ServerFiltering(true);
+                                                              })
+                                                              .Enable(false)
+                                                              .AutoBind(true)
+                                                              .CascadeFrom("DepartamentoOrigen")
                         )
                         @Html.ValidationMessageFor(m => m.Origen)
                     </div>
@@ -134,40 +135,40 @@
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.DepartamentoDestino)
                         @(Html.Kendo().DropDownListFor(m => m.DepartamentoDestino)
-                                              .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
-                                              .DataTextField("Nombre")
-                                              .OptionLabel("Seleccione...")
-                                              .DataValueField("Id")
-                                              .Filter("contains")
-                                              .DataSource(source =>
-                                                {
-                                                    source.Ajax().Read(read =>
-                                                            {
-                                                      read.Action("GetListDepartamentos", "SolicitudComision", new { Area = "TRANS" });
-                                                  }).Events(e => e.Error("Site.handleError"));
-                                                })
+                                                      .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                                      .DataTextField("Nombre")
+                                                      .OptionLabel("Seleccione...")
+                                                      .DataValueField("Id")
+                                                      .Filter("contains")
+                                                      .DataSource(source =>
+                                                        {
+                                                            source.Ajax().Read(read =>
+                                                                    {
+                                                                        read.Action("GetListDepartamentos", "SolicitudComision", new { Area = "TRANS" });
+                                                                    }).Events(e => e.Error("Site.handleError"));
+                                                        })
                         )
                         @Html.ValidationMessageFor(m => m.DepartamentoDestino)
                     </div>
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.Destino)
                         @(Html.Kendo().DropDownListFor(m => m.Destino)
-                                                                      .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
-                                                                      .DataTextField("Nombre")
-                                                                      .OptionLabel("Seleccione...")
-                                                                      .DataValueField("Id")
-                                                                      .Filter("contains")
-                                                                      .DataSource(source =>
-                                                                              {
-                                                                                  source.Read(read =>
-                                                                                          {
-                                                                                              read.Action("GetListMunicipios", "SolicitudComision").Data("UpdSolicitudComision.filterDeptoDestino");
-                                                                                          })
-                                                                                          .ServerFiltering(true);
-                                                                              })
-                                                                              .Enable(false)
-                                                                              .AutoBind(true)
-                                                                              .CascadeFrom("DepartamentoDestino")
+                                                                              .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                                                              .DataTextField("Nombre")
+                                                                              .OptionLabel("Seleccione...")
+                                                                              .DataValueField("Id")
+                                                                              .Filter("contains")
+                                                                              .DataSource(source =>
+                                                                                      {
+                                                                                          source.Read(read =>
+                                                                                                  {
+                                                                                                      read.Action("GetListMunicipios", "SolicitudComision").Data("UpdSolicitudComision.filterDeptoDestino");
+                                                                                                  })
+                                                                                                  .ServerFiltering(true);
+                                                                                      })
+                                                                                      .Enable(false)
+                                                                                      .AutoBind(true)
+                                                                                      .CascadeFrom("DepartamentoDestino")
                         )
                         @Html.ValidationMessageFor(m => m.Destino)
                     </div>
@@ -181,7 +182,28 @@
                     </div>
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.Estado)
-                        @Html.TextBoxFor(m => m.Estado, new { @class = "form-control", @readonly = "readonly" })
+                        @(Html.Kendo().DropDownListFor(m => m.Estado)
+                                               .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                               .DataTextField("Text")
+                                               .OptionLabel("Seleccione...")
+                                               .DataValueField("Value")
+                                               .Filter("contains")
+                                               .BindTo(new List<SelectListItem>() {
+                                                          new SelectListItem() {
+                                                              Text = "Pendiente",
+                                                              Value = "Pendiente"
+                                                          },
+                                                          new SelectListItem() {
+                                                              Text = "Autorizado",
+                                                              Value = "Autorizado"
+                                                          },
+                                                          new SelectListItem() {
+                                                              Text = "Rechazado",
+                                                              Value = "Rechazado"
+                                                          }
+                                               })
+                        )
+                        @Html.ValidationMessageFor(m => m.Estado)
                     </div>
                 </div>
                 <div class=" form-group row">

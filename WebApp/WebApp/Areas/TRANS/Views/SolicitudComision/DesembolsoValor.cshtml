@@ -10,7 +10,7 @@
     <!-- Plantilla que se utilizará en la columna de acciones de la grilla -->
     <script id="actionTemplate" type="text/x-kendo-template">
         <div class='text-center'>
-            <a class='btn btn-primary' href='@Url.Action("UpdDesembolsoComision", "SolicitudComision", new { area = "TRANS" })/#=data.Id#'>Pagado</a>
+            <a class='btn btn-primary' href='@Url.Action("UpdDesembolsoComision", "SolicitudComision", new { area = "TRANS" })/#=data.Id#'>Editar</a>
         </div>
     </script>
     <div class="container-fluid ">
@@ -21,14 +21,15 @@
                                     .Columns(columns =>
                                     {
                                         columns.Bound(p => p.Id).Hidden();
-                                        columns.Bound(p => p.ProyectoDescripcion).Title("Proyecto").Width(100); 
-                                        columns.Bound(p => p.FechaInicio).Format("{0:dd/MM/yyyy}").Title("Fecha inicio").Width(100); 
-                                        columns.Bound(p => p.FechaFinalizacion).Format("{0:dd/MM/yyyy}").Title("Fecha final").Width(100); 
+                                        columns.Bound(p => p.ProyectoDescripcion).Title("Proyecto").Width(100);
+                                        columns.Bound(p => p.FechaInicio).Format("{0:dd/MM/yyyy}").Title("Fecha inicio").Width(100);
+                                        columns.Bound(p => p.FechaFinalizacion).Format("{0:dd/MM/yyyy}").Title("Fecha final").Width(100);
                                         columns.Bound(p => p.NombreSolicitante).Title("Solicitante").Width(100);
                                         columns.Bound(p => p.NombreColaborador).Title("Colaborador").Width(100);
                                         columns.Bound(p => p.ValorComision).Format("{0:c0}").Title("Valor").Width(100);
                                         columns.Bound(p => p.Estado).Title("Estado").Width(100);
-                                        columns.Bound(p => p.Id).ClientTemplate("#=DesembolsoValor.actionTemplate(data)#").Title("Acciones").Filterable(false).Width(100);
+                                        columns.Bound(p => p.Id).ClientTemplate("<a class='btn btn-primary' onclick=DesembolsoValor.updateDesembolso('#=data.Id#')>Pagar</a>");
+                                        //columns.Bound(p => p.Id).ClientTemplate("#=DesembolsoValor.actionTemplate(data)#").Title("Acciones").Filterable(false).Width(100);
                                     })
                                     .Pageable()
                                     .Sortable()

@@ -21,5 +21,26 @@
                 padreId: parseFloat(depto)
             };
         },
+
+        onSuccess: function (result) {
+            if (result.Success) {
+                swal({
+                    title: "Correcto",
+                    text: result.Message,
+                    type: "success"
+                }, function () {
+                    $('#modal').modal('hide');
+                    $("#grid").data("kendoGrid").dataSource.read();
+                });
+
+            } else {
+                swal({
+                    title: "Error",
+                    text: result.Message,
+                    type: "error"
+                });
+            }
+
+        }
     };
 }();
