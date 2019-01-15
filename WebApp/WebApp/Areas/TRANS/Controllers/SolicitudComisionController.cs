@@ -48,6 +48,12 @@ namespace WebApp.Areas.TRANS.Controllers
             return View();
         }
 
+        public ActionResult LegalizacionComision()
+        {
+            return View();
+        }
+
+
         #endregion
 
         #region Cargainfo
@@ -110,6 +116,22 @@ namespace WebApp.Areas.TRANS.Controllers
         {
             var usuario = HttpContext.Session.GetUser();
             var getListComisiones = _ComisionColaborador.GetListComisionesSinDesembolso();
+
+            if (!getListComisiones.Success)
+            {
+                ModelState.AddModelError("Error", getListComisiones.Message);
+
+
+                return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
+            }
+            var Proyectos = getListComisiones.Data;
+            return Json(Proyectos.ToDataSourceResult(request));
+        }
+
+        public ActionResult GetListComisionesColaborador([DataSourceRequest] DataSourceRequest request)
+        {
+            var usuario = HttpContext.Session.GetUser();
+            var getListComisiones = _ComisionColaborador.GetListComisionesColaborador(usuario.PersonaId);
 
             if (!getListComisiones.Success)
             {

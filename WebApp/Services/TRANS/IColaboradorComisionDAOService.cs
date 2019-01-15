@@ -17,6 +17,6 @@ namespace Core.Services.TRANS
         Result<ComisionColaborador> UpdSolicitudComision(long id);
         Result UpdSolicitudComision (ComisionColaborador comisionColaborador);
         Result<List<ComisionColaborador>> GetListComisionesSinDesembolso();
-        
+        Result<List<ComisionColaborador>> GetListComisionesColaborador(long? personaId);
     }
 }

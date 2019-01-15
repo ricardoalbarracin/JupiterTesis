@@ -1,7 +1,7 @@
 ﻿@{
     var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
-    ViewBag.Tittle = "Listado de comisiones pendientes";
-    ViewBag.IconTittle = "fa fa-money";
+    ViewBag.Tittle = "Legalización";
+    ViewBag.IconTittle = "fa fa-automobile";
 }
 
 <div id="@viewName">
@@ -10,26 +10,37 @@
     <!-- Plantilla que se utilizará en la columna de acciones de la grilla -->
     <script id="actionTemplate" type="text/x-kendo-template">
         <div class='text-center'>
-            <a class='btn btn-primary' href='@Url.Action("UpdDesembolsoComision", "SolicitudComision", new { area = "TRANS" })/#=data.Id#'>Editar</a>
+            <a class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("InsLegalizacion", "SolicitudComision", new { area = "TRANS" })/#=data.Id#'>Ingresar</a>
+            <a class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("UpdLegalizacion", "SolicitudComision", new { area = "TRANS" })/#=data.Id#'>Editar</a>
         </div>
     </script>
+
+
     <div class="container-fluid ">
-        <div class="card">            
+
+        <div class="card">
+            <div class="card-header">
+                <div class="h5 m-0">
+                    Listado de comisiones por legalizar<label class="float-right mt-0 mb-0">                    
+                    </label>
+                </div>
+
+            </div>
             <div class="card-body">
                 @(Html.Kendo().Grid<ComisionColaborador>()
                                     .Name("grid")
                                     .Columns(columns =>
                                     {
                                         columns.Bound(p => p.Id).Hidden();
-                                        columns.Bound(p => p.ProyectoDescripcion).Title("Proyecto").Width(100);
-                                        columns.Bound(p => p.FechaInicio).Format("{0:dd/MM/yyyy}").Title("Fecha inicio").Width(100);
-                                        columns.Bound(p => p.FechaFinalizacion).Format("{0:dd/MM/yyyy}").Title("Fecha final").Width(100);
+                                        columns.Bound(p => p.FechaInicio).Format("{0:dd/MM/yyyy}").Title("Fecha inicio").Width(100); ;
+                                        columns.Bound(p => p.FechaFinalizacion).Format("{0:dd/MM/yyyy}").Title("Fecha final").Width(100); ;
                                         columns.Bound(p => p.NombreSolicitante).Title("Solicitante").Width(100);
                                         columns.Bound(p => p.NombreColaborador).Title("Colaborador").Width(100);
                                         columns.Bound(p => p.ValorComision).Format("{0:c0}").Title("Valor").Width(100);
                                         columns.Bound(p => p.Estado).Title("Estado").Width(100);
-                                        columns.Bound(p => p.Id).ClientTemplate("<a class='btn btn-primary' " +
-                                            "onclick=DesembolsoValor.updateDesembolso('#=data.Id#')>Pagar</a>").Title("Acción").Filterable(false).Width(100);
+                                        columns.Bound(p => p.EstadoLegalizacion).Title("Legalización").Width(100);
+                                        columns.Bound(c => c.Id).ClientTemplate("#=LegalizacionComision.actionTemplate(data)#").Title("Acciones").Filterable(false).Width(100);
+
                                     })
                                     .Pageable()
                                     .Sortable()
@@ -39,7 +50,7 @@
                                     .HtmlAttributes(new { style = "height:550px;" })
                                     .DataSource(dataSource => dataSource
                                         .Ajax()
-                                        .Read(read => read.Action("GetListComisionesDesembolso", "SolicitudComision"))
+                                        .Read(read => read.Action("GetListComisionesColaborador", "SolicitudComision"))
                                         .Events(e => e.Error("Site.handleError"))
                                     )
                 )
@@ -51,5 +62,6 @@
         $(function () {
             @(viewName).init();
         });
+
     </script>
 </div>

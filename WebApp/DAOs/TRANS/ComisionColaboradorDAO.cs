@@ -244,7 +244,47 @@ namespace DAOs.TRANS
         }
 
         #endregion
-    }
+
+        #region legalizacion
+        /// <summary>
+        /// Listado de comisiones pendientes por legalizar por colaborador
+        /// </summary>
+        /// <param name="personaId"></param>
+        /// <returns></returns>
+        public Result<List<ComisionColaborador>> GetListComisionesColaborador(long? personaId)
+        {
+            var result = new Result<List<ComisionColaborador>>();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    result.Data = connection.Query<ComisionColaborador>(@" 
+                                               SELECT cc.Id AS Id, p.Id AS PersonaId, 
+                                             concat(p.PrimerNombre, ' ', p.PrimerApellido) AS NombreSolicitante, 
+                                             cc.FechaInicio, cc.CantidadDias, cc.FechaFinalizacion, cc.FechaSolicitud, cc.ValorComision AS ValorComision,                                           
+                                             cc.Estado, cc.EstadoLegalizacion,
+                                             proy.Descripcion AS ProyectoDescripcion
+                                             FROM CORE.ColaboradorComision cc 
+                                             INNER JOIN ADMIN.Personas p ON p.Id = cc.PersonaId
+                                             INNER JOIN ADMIN.personas p1 ON p1.Id = cc.ColaboradorId
+                                             INNER JOIN core.Proyectos proy ON proy.Id = cc.ProyectoId
+                                             WHERE cc.PersonaId = @id  
+                                             AND cc.estado='Autorizado '                                              
+                                             AND cc.Desembolso=1",
+
+                                              new { id = personaId }).ToList();
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando comisiones.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+        #endregion
+    } 
 }
 
 
