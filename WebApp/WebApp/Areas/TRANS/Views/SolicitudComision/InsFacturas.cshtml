@@ -1,0 +1,127 @@
+﻿@model FacturasViewModel
+@{
+    var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
+}
+
+<section id=@viewName>
+    @*<form asp-controller="SolicitudComision" asp-action="InsComision" data-ajax="true" data-ajax-method="POST" data-ajax-success="@(viewName).onSuccess">*@
+
+        <div class="card">
+            <div class="modal-header">
+                <h4 class="modal-title">Crear comisión</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="card-body">
+                @Html.HiddenFor(m => m.ComisionId)
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        @Html.ValidationMessage("Error")
+                    </div>
+                }
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.FechaFactura)
+                        @(Html.Kendo().DatePickerFor(m => m.FechaFactura)
+                                                                                            .Min(DateTime.Now)
+                                                                                            .Value(DateTime.Now)
+                                                                                            .Format("dd/MM/yyyy")
+                                                                                            .HtmlAttributes(new { style = "width: 100%" })
+
+                        )
+                        @Html.ValidationMessageFor(m => m.FechaFactura)
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.Nit)
+                        @Html.TextBoxFor(m => m.Nit, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        @Html.LabelFor(m => m.RazonSocial)
+                        @Html.TextBoxFor(m => m.RazonSocial, new { @class = "form-control" })
+                    </div>
+
+                </div>
+                <div class=" form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.ConceptoId)
+                        @(Html.Kendo().DropDownListFor(m => m.ConceptoId)
+                                                               .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                                               .DataTextField("Nombre")
+                                                               .OptionLabel("Seleccione...")
+                                                               .DataValueField("Id")
+                                                               .Filter("contains")
+                                                               .DataSource(source =>
+                                                               {
+                                                                   source.Ajax().Read(read =>
+                                                                           {
+                                                                               read.Action("getListConcept", "SolicitudComision", new { Area = "TRANS" });
+                                                                           }).Events(e => e.Error("Site.handleError"));
+                                                               })
+                        )
+                        @Html.ValidationMessageFor(m => m.ConceptoId)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.ValorComision)
+                        @Html.TextBoxFor(m => m.ValorComision, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.SubTotal)
+                        @Html.TextBoxFor(m => m.SubTotal, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                    <div class="col-sm-2">                       
+                         <a class="btn btn-primary " style="margin-top:26px; " onclick="Agregar(event)">Agregar</a>
+                    </div>
+                </div>
+                <br />
+               
+                <div class="card-header">
+                    Listado de comisiones
+                </div>
+                <div class="form-group row">
+                    @(Html.Kendo().Grid<FacturaIndividualViewModel>()
+                                                                  .Name("grid")
+                                                                  .Columns(columns =>
+                                                                  {
+                                                                      columns.Bound(p => p.Id).Hidden();
+                                                                      columns.Bound(p => p.FechaFactura).Format("{0:dd/MM/yyyy}").Title("Fecha").Width(100);
+                                                                  })
+                                                                  .Pageable()
+
+                                                                  .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+                                                                  .Scrollable()
+                                                                  .Events(events => events.DataBound("Site.handleModal"))
+                                                                  .HtmlAttributes(new { style = "height:550px;" })
+                                                                  .BindTo(Model.ListFacturas)
+
+                    )
+                </div>
+
+
+
+                <div class="modal-footer display: flex; -ms-flex-pack: end; justify-content: flex-end;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    @*</form>*@
+</section>
+
+<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+<script>
+	$(function () {
+            @(viewName).init();
+        });
+</script>
+
+
+

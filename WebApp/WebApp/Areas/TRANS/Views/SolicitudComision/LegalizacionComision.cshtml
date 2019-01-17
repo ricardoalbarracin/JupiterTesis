@@ -1,7 +1,7 @@
 ﻿@{
     var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
     ViewBag.Tittle = "Legalización";
-    ViewBag.IconTittle = "fa fa-automobile";
+    ViewBag.IconTittle = "fa fa-money";
 }
 
 <div id="@viewName">
@@ -10,8 +10,7 @@
     <!-- Plantilla que se utilizará en la columna de acciones de la grilla -->
     <script id="actionTemplate" type="text/x-kendo-template">
         <div class='text-center'>
-            <a class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("InsLegalizacion", "SolicitudComision", new { area = "TRANS" })/#=data.Id#'>Ingresar</a>
-            <a class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("UpdLegalizacion", "SolicitudComision", new { area = "TRANS" })/#=data.Id#'>Editar</a>
+            <a class='btn btn-primary' data-modal="modal-xl" href='@Url.Action("InsFacturas", "SolicitudComision", new { area = "TRANS" })/#=data.Id#'>Facturar</a>            
         </div>
     </script>
 

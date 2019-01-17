@@ -53,7 +53,18 @@ namespace WebApp.Areas.TRANS.Controllers
             return View();
         }
 
-
+        public ActionResult InsFacturas(int id)
+        {
+            var getComisionById = _ComisionColaborador.GetInfoComision(id);
+            ViewBag.Container = ControllerContext.RouteData.Values["action"].ToString();
+            if (!getComisionById.Success)
+            {
+                ModelState.AddModelError("Error", getComisionById.Message);
+                return PartialView(new FacturasViewModel());
+            }
+            getComisionById.Data.SubTotal = getComisionById.Data.ValorComision;
+            return PartialView(getComisionById.Data);
+        }
         #endregion
 
         #region Cargainfo
@@ -142,6 +153,22 @@ namespace WebApp.Areas.TRANS.Controllers
             }
             var Proyectos = getListComisiones.Data;
             return Json(Proyectos.ToDataSourceResult(request));
+        }
+
+        public ActionResult getListConcept([DataSourceRequest] DataSourceRequest request)
+        {
+            var usuario = HttpContext.Session.GetUser();
+            var getListConcept = _ComisionColaborador.getListConcept();
+
+            if (!getListConcept.Success)
+            {
+                ModelState.AddModelError("Error", getListConcept.Message);
+
+
+                return Json(Enumerable.Empty<object>().ToDataSourceResult(request, ModelState));
+            }
+            var Conceptos = getListConcept.Data;
+            return Json(Conceptos.ToDataSourceResult(request));
         }
 
 

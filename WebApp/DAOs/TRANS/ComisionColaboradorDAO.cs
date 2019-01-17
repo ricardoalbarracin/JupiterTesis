@@ -268,8 +268,8 @@ namespace DAOs.TRANS
                                              INNER JOIN ADMIN.Personas p ON p.Id = cc.PersonaId
                                              INNER JOIN ADMIN.personas p1 ON p1.Id = cc.ColaboradorId
                                              INNER JOIN core.Proyectos proy ON proy.Id = cc.ProyectoId
-                                             WHERE cc.PersonaId = @id  
-                                             AND cc.estado='Autorizado '                                              
+                                             WHERE cc.ColaboradorId = 363  
+                                             AND cc.estado='Autorizado'                                              
                                              AND cc.Desembolso=1",
 
                                               new { id = personaId }).ToList();
@@ -283,6 +283,57 @@ namespace DAOs.TRANS
             }
             return result;
         }
+
+        public Result<List<ListGeneral>> getListConcept()
+        {
+            var result = new Result<List<ListGeneral>>();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    result.Data = connection.Query<ListGeneral>(@" 
+                                             SELECT tc.Id, tc.Descripcion as Nombre
+                                              FROM CORE.TiposConcepto tc"
+                                              ).ToList();
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando conceptos.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+        #endregion
+        #region Legalizacion
+        public Result<FacturasViewModel> GetInfoComision(long ComisionId)
+        {
+            var result = new Result<FacturasViewModel>();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    result.Data = connection.QueryFirst<FacturasViewModel>(@" 
+                                             SELECT cc.Id AS Id, 
+                                             cc.FechaInicio, 
+                                             cc.ValorComision
+                                             FROM CORE.ColaboradorComision cc  
+                                             WHERE cc.Id= @ComisionId
+                                             AND cc.estado='Autorizado'                                              
+                                             AND cc.Desembolso=1",
+                                              new { ComisionId = ComisionId });
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error consultando informaciòn.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+
         #endregion
     } 
 }
