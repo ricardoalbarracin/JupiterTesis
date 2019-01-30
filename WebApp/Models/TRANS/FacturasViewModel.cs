@@ -1,22 +1,29 @@
-﻿using System;
+﻿using Core.Models.TRANS;
+using Core.Models.Utils;
+using Dapper.Contrib.Extensions;
+using Dapper;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
+using Core.Models.PARAM;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace Core.Models.TRANS
-{
+{    
     public class FacturasViewModel
     {
+        public long Id { get; set; }
         public long ComisionId { get; set; }
 
         [DisplayName("Valor comisiòn")]
-        public long ValorComision { get; set; }
+        public float ValorComision { get; set; }
 
         public List<FacturaIndividualViewModel> ListFacturas { get; set; }
 
         [DisplayName("Saldo pendiente")]
-        public long SubTotal { get; set; }
+        public float SubTotal { get; set; }
 
         [Required(ErrorMessage = "El campo establecimiento es obligatorio")]
         [DisplayName("Establecimiento")]
@@ -35,10 +42,11 @@ namespace Core.Models.TRANS
         public long ConceptoId { get; set; }
 
         [Required(ErrorMessage = "El campo valor es obligatorio")]
-        [DisplayName("Valor")]
-        public DateTime ValorFactura { get; set; }
+        [DisplayName("Valor factura")]
+        public float ValorFactura { get; set; }
     }
 
+    [Table("CORE.FacturasLegalizacion")]
     public class FacturaIndividualViewModel
     {
         public long Id { get; set; }       
@@ -57,10 +65,29 @@ namespace Core.Models.TRANS
 
         [Required(ErrorMessage = "El campo concepto es obligatorio")]
         [DisplayName("Concepto")]
+        [Write(false)]
+        public string ConceptoDescripcion { get; set; }
         public long ConceptoId { get; set; }
 
         [Required(ErrorMessage = "El campo valor es obligatorio")]
         [DisplayName("Valor")]
-        public DateTime ValorFactura { get; set; }
+        public float ValorFactura { get; set; }
+
+        public float LegalizacionId { get; set; }
+    }
+
+    [Table("CORE.Legalizaciones")]
+    public class Legalizaciones
+    {
+        public long Id { get; set; }
+        public long ComisionId { get; set; }
+        public DateTime FechaLegalizacion { get; set; }        
+        public int CantidadFacturas { get; set; }        
+        public string Estado { get; set; }
+        public float ValorFacturas { get; set; }
+        public long ColaboradorVerificador { get; set; }
+        [Write(false)]
+        public List<FacturaIndividualViewModel> ListFacturas { get; set; }
+
     }
 }

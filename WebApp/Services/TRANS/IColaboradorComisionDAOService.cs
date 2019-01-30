@@ -20,5 +20,7 @@ namespace Core.Services.TRANS
         Result<List<ComisionColaborador>> GetListComisionesColaborador(long? personaId);
         Result<FacturasViewModel> GetInfoComision(long ComisionId);
         Result<List<ListGeneral>> getListConcept();
+        Result<Legalizaciones> InsLegalizacion(Legalizaciones legalizaciones);
+        Result<FacturaIndividualViewModel> InsFacturas(FacturaIndividualViewModel facturasViewModel);
     }
 }

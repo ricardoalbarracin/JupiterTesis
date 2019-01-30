@@ -315,7 +315,7 @@ namespace DAOs.TRANS
                 using (var connection = _dapperAdapter.Open())
                 {
                     result.Data = connection.QueryFirst<FacturasViewModel>(@" 
-                                             SELECT cc.Id AS Id, 
+                                             SELECT cc.Id AS ComisionId, 
                                              cc.FechaInicio, 
                                              cc.ValorComision
                                              FROM CORE.ColaboradorComision cc  
@@ -329,6 +329,47 @@ namespace DAOs.TRANS
             catch (Exception ex)
             {
                 result.Message = "Error consultando informaciòn.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+
+        public Result<Legalizaciones> InsLegalizacion(Legalizaciones legalizaciones)
+        {
+            var result = new Result<Legalizaciones>();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    legalizaciones.Id = connection.Insert(legalizaciones);
+                    result.Data = legalizaciones;
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error registrando legalización.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+
+
+        public Result<FacturaIndividualViewModel> InsFacturas(FacturaIndividualViewModel facturaIndividualViewModel)
+        {
+            var result = new Result<FacturaIndividualViewModel>();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    facturaIndividualViewModel.Id = connection.Insert(facturaIndividualViewModel);
+                    result.Data = facturaIndividualViewModel;
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error registrando factura.";
                 result.Exception = ex;
             }
             return result;

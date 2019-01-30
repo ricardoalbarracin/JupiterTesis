@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApp.Utils;
 
 namespace WebApp.Areas.TRANS.Controllers
-{    
+{
     [Area("TRANS")]
     public class SolicitudComisionController : Controller
     {
@@ -23,7 +23,7 @@ namespace WebApp.Areas.TRANS.Controllers
             _ComisionColaborador = ComisionColaboradorService;
             _Divipola = DivipolaService;
         }
-        
+
         #region vistas
 
         public ActionResult SolicitudComision()
@@ -40,7 +40,7 @@ namespace WebApp.Areas.TRANS.Controllers
                 ModelState.AddModelError("Error", getComisionById.Message);
                 return View(new ComisionColaborador());
             }
-            return PartialView(getComisionById.Data);           
+            return PartialView(getComisionById.Data);
         }
 
         public ActionResult DesembolsoValor()
@@ -234,7 +234,30 @@ namespace WebApp.Areas.TRANS.Controllers
 
         }
 
-        #endregion
+        public ActionResult InsLegalizacion(int comisionId, Legalizaciones legalizaciones)
+        {            
+            legalizaciones.CantidadFacturas = legalizaciones.ListFacturas.Count();
+            legalizaciones.ComisionId = comisionId;
+            legalizaciones.Estado = "Pendiente";
+            legalizaciones.FechaLegalizacion = DateTime.Now;
+            legalizaciones.ValorFacturas = legalizaciones.ListFacturas.Select(x => x.ValorFactura).Sum();
+            var result = _ComisionColaborador.InsLegalizacion(legalizaciones);
+            if (result.Data.Id > 0)
+            {
+                foreach (FacturaIndividualViewModel facturas in legalizaciones.ListFacturas)
+                {
+                    facturas.LegalizacionId = 1;//result.Data.Id;
+                    var resultFac = _ComisionColaborador.InsFacturas(facturas);
+                    if (resultFac.Data.Id < 0)
+                    {
+                        return Json(resultFac);
+                    }
+                }
+            }
+            return Json(result);
+        }
 
+        #endregion
     }
+
 }

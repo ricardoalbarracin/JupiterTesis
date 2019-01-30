@@ -4,8 +4,8 @@
 }
 
 <section id=@viewName>
-    @*<form asp-controller="SolicitudComision" asp-action="InsComision" data-ajax="true" data-ajax-method="POST" data-ajax-success="@(viewName).onSuccess">*@
-
+    @*<form asp-controller="SolicitudComision" asp-action="InsLegalizacion" data-ajax="true" data-ajax-method="POST" data-ajax-success="@(viewName).onSuccess">*@
+    
         <div class="card">
             <div class="modal-header">
                 <h4 class="modal-title">Crear comisión</h4>
@@ -26,11 +26,10 @@
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.FechaFactura)
                         @(Html.Kendo().DatePickerFor(m => m.FechaFactura)
-                                                                                            .Min(DateTime.Now)
-                                                                                            .Value(DateTime.Now)
-                                                                                            .Format("dd/MM/yyyy")
-                                                                                            .HtmlAttributes(new { style = "width: 100%" })
-
+                     .Min(DateTime.Now)
+                     .Value(DateTime.Now)
+                     .Format("dd/MM/yyyy")
+                     .HtmlAttributes(new { style = "width: 100%" })
                         )
                         @Html.ValidationMessageFor(m => m.FechaFactura)
                     </div>
@@ -40,35 +39,39 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         @Html.LabelFor(m => m.RazonSocial)
                         @Html.TextBoxFor(m => m.RazonSocial, new { @class = "form-control" })
                     </div>
-
-                </div>
-                <div class=" form-group row">
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.ConceptoId)
                         @(Html.Kendo().DropDownListFor(m => m.ConceptoId)
-                                                               .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
-                                                               .DataTextField("Nombre")
-                                                               .OptionLabel("Seleccione...")
-                                                               .DataValueField("Id")
-                                                               .Filter("contains")
-                                                               .DataSource(source =>
-                                                               {
-                                                                   source.Ajax().Read(read =>
-                                                                           {
-                                                                               read.Action("getListConcept", "SolicitudComision", new { Area = "TRANS" });
-                                                                           }).Events(e => e.Error("Site.handleError"));
-                                                               })
+                                      .HtmlAttributes(new { style = "width: 100%;", @class = "form-control" })
+                                      .DataTextField("Nombre")
+                                      .OptionLabel("Seleccione...")
+                                      .DataValueField("Id")
+                                      .Filter("contains")
+                                      .DataSource(source =>
+                                      {
+                                          source.Ajax().Read(read =>
+                                          {
+                                              read.Action("getListConcept", "SolicitudComision", new { Area = "TRANS" });
+                                          }).Events(e => e.Error("Site.handleError"));
+                                      })
                         )
                         @Html.ValidationMessageFor(m => m.ConceptoId)
+                    </div>
+                </div>
+                <div class=" form-group row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.ValorFactura)
+                        @Html.TextBoxFor(m => m.ValorFactura, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ValorFactura)
                     </div>
 
                     <div class="col-sm-6">
                         @Html.LabelFor(m => m.ValorComision)
-                        @Html.TextBoxFor(m => m.ValorComision, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.ValorComision, new { @class = "form-control", @readonly = "readonly" })
                     </div>
                 </div>
 
@@ -77,51 +80,57 @@
                         @Html.LabelFor(m => m.SubTotal)
                         @Html.TextBoxFor(m => m.SubTotal, new { @class = "form-control", @readonly = "readonly" })
                     </div>
-                    <div class="col-sm-2">                       
-                         <a class="btn btn-primary " style="margin-top:26px; " onclick="Agregar(event)">Agregar</a>
+                    <div class="col-sm-2">
+                        <a style="margin-top:26px; " onclick="InsFacturas.Agregar(event)" class='btn btn-primary'>Agregar</a>                        
                     </div>
                 </div>
-                <br />
-               
-                <div class="card-header">
-                    Listado de comisiones
-                </div>
+
                 <div class="form-group row">
-                    @(Html.Kendo().Grid<FacturaIndividualViewModel>()
-                                                                  .Name("grid")
-                                                                  .Columns(columns =>
-                                                                  {
-                                                                      columns.Bound(p => p.Id).Hidden();
-                                                                      columns.Bound(p => p.FechaFactura).Format("{0:dd/MM/yyyy}").Title("Fecha").Width(100);
-                                                                  })
-                                                                  .Pageable()
+                    <div class="col-sm-12">
+                        @(Html.Kendo().Grid<FacturaIndividualViewModel>()
+                       .Name("gridFacturas")
+                       .Columns(columns =>
+                       {
+                           columns.Bound(p => p.FechaFactura).Format("{0:dd/MM/yyyy}").Title("Fecha final").Width(100); ;
+                           columns.Bound(p => p.RazonSocial).Title("Establecimiento").Width(100);
+                           columns.Bound(p => p.ConceptoDescripcion).Title("Concepto").Width(100);
+                           columns.Bound(p => p.ValorFactura).Title("Valor").Width(100);
+                           columns.Bound(p => p.ConceptoId).Hidden();
+                           columns.Bound(p => p.Nit).ClientTemplate("#=InsFacturas.actionTemplateEliminar(data)#")
+                             .Title("Acción")
+                             .Width(10)
+                             .Filterable(false);
 
-                                                                  .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
-                                                                  .Scrollable()
-                                                                  .Events(events => events.DataBound("Site.handleModal"))
-                                                                  .HtmlAttributes(new { style = "height:550px;" })
-                                                                  .BindTo(Model.ListFacturas)
-
-                    )
+                       })
+                         .Pageable(x => x.Refresh(true))
+                        .BindTo(Model.ListFacturas)
+                        .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+                        .HtmlAttributes(new { style = "overflow-x:scroll;" })
+                        )
+                    </div>
                 </div>
-
 
 
                 <div class="modal-footer display: flex; -ms-flex-pack: end; justify-content: flex-end;">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>                   
+                    <a onclick="InsFacturas.Guardar(event)" class='btn btn-primary'>Guardar</a>
                 </div>
             </div>
         </div>
     @*</form>*@
-</section>
-
+    
+ </section>
+        
 <script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
 <script>
 	$(function () {
             @(viewName).init();
         });
 </script>
-
+<script id="actionTemplateEliminar" type="text/x-kendo-template">
+    <div class='text-center'>
+        <a class='btn btn-danger' onclick='InsFacturas.removeRow(event)'>Eliminar</a>
+    </div>
+</script>
 
 

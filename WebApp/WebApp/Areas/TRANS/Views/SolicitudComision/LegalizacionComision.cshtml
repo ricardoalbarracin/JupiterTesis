@@ -33,11 +33,9 @@
                                         columns.Bound(p => p.Id).Hidden();
                                         columns.Bound(p => p.FechaInicio).Format("{0:dd/MM/yyyy}").Title("Fecha inicio").Width(100); ;
                                         columns.Bound(p => p.FechaFinalizacion).Format("{0:dd/MM/yyyy}").Title("Fecha final").Width(100); ;
-                                        columns.Bound(p => p.NombreSolicitante).Title("Solicitante").Width(100);
-                                        columns.Bound(p => p.NombreColaborador).Title("Colaborador").Width(100);
+                                        columns.Bound(p => p.NombreSolicitante).Title("Solicitante").Width(100);                                     
                                         columns.Bound(p => p.ValorComision).Format("{0:c0}").Title("Valor").Width(100);
-                                        columns.Bound(p => p.Estado).Title("Estado").Width(100);
-                                        columns.Bound(p => p.EstadoLegalizacion).Title("Legalización").Width(100);
+                                        columns.Bound(p => p.Estado).Title("Estado").Width(100);                                        
                                         columns.Bound(c => c.Id).ClientTemplate("#=LegalizacionComision.actionTemplate(data)#").Title("Acciones").Filterable(false).Width(100);
 
                                     })
