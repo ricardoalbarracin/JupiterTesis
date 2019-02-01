@@ -22,5 +22,7 @@ namespace Core.Services.TRANS
         Result<List<ListGeneral>> getListConcept();
         Result<Legalizaciones> InsLegalizacion(Legalizaciones legalizaciones);
         Result<FacturaIndividualViewModel> InsFacturas(FacturaIndividualViewModel facturasViewModel);
+        Result UpdLegalizacion(Legalizaciones legalizaciones);
+        Result UpdFactura(FacturaIndividualViewModel facturas);
     }
 }

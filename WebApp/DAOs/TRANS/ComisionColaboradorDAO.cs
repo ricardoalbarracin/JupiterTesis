@@ -310,20 +310,39 @@ namespace DAOs.TRANS
         public Result<FacturasViewModel> GetInfoComision(long ComisionId)
         {
             var result = new Result<FacturasViewModel>();
+            
             try
             {
                 using (var connection = _dapperAdapter.Open())
                 {
-                    result.Data = connection.QueryFirst<FacturasViewModel>(@" 
+                    result.Data = connection?.QueryFirstOrDefault<FacturasViewModel>(@" 
                                              SELECT cc.Id AS ComisionId, 
                                              cc.FechaInicio, 
-                                             cc.ValorComision
-                                             FROM CORE.ColaboradorComision cc  
+                                             cc.ValorComision, l.Id AS LegalzacionId                                             
+                                             FROM CORE.ColaboradorComision cc 
+                                             left JOIN CORE.Legalizaciones l ON l.ComisionId = cc.Id
                                              WHERE cc.Id= @ComisionId
                                              AND cc.estado='Autorizado'                                              
-                                             AND cc.Desembolso=1",
+                                             AND cc.Desembolso=1
+                                             AND cc.EstadoLegalizacion IS NULL",
                                               new { ComisionId = ComisionId });
+                    if (result.Data != null)
+                    {
+                        result.Data.ListFacturas = connection.Query<FacturaIndividualViewModel>(@" 
+                                            SELECT f.LegalizacionId, f.Id, f.FechaFactura, 
+                                            f.RazonSocial,f.Nit, f.ConceptoId, f.ValorFactura, 
+                                            t.Descripcion  AS ConceptoDescripcion
+                                            FROM CORE.Legalizaciones l 
+                                            INNER JOIN CORE.FacturasLegalizacion f ON f.LegalizacionId = l.Id
+                                            INNER JOIN CORE.TiposConcepto t ON t.Id = f.ConceptoId
+                                            WHERE l.ComisionId=
+                                            @ComisionId",
+                                              new { ComisionId = ComisionId })?.ToList();
+                    }
+                    
+                    
                     result.Success = true;
+
                 }
             }
             catch (Exception ex)
@@ -375,6 +394,45 @@ namespace DAOs.TRANS
             return result;
         }
 
+        public Result UpdLegalizacion(Legalizaciones legalizaciones)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    connection.Update(legalizaciones);
+                    result.Message = "Legalizaciòn actualizada correctamente.";
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error actualizando legalizaciòn.";
+                result.Exception = ex;
+            }
+            return result;
+        }
+
+        public Result UpdFactura(FacturaIndividualViewModel facturas)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    connection.Update(facturas);
+                    result.Message = "Factura actualizada correctamente.";
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error actualizando factura.";
+                result.Exception = ex;
+            }
+            return result;
+        }
         #endregion
     } 
 }

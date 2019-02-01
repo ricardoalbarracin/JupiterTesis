@@ -56,7 +56,7 @@
                         ConceptoId: $("#ConceptoId").data("kendoDropDownList").value(),
                         ConceptoDescripcion: $("#ConceptoId").data("kendoDropDownList").text(),
                         ValorFactura: $("#ValorFactura").val(),
-                        Nit: $("#Nit").val()
+                        Nit: $("#Nit").val()                        
                     });
                 $('#gridFacturas').data('kendoGrid').refresh();
                 this.CleanForm();
@@ -78,7 +78,8 @@
             var dataF =
             {
                 comisionId: $('#ComisionId').val(),
-                listFacturas: Utils.getGridDataSource("#gridFacturas")
+                listFacturas: Utils.getGridDataSource("#gridFacturas"),
+                legalizacionId: $('#Id').val(),
             };
                 $.ajax({
                     type: "POST",

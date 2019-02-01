@@ -63,6 +63,11 @@ namespace WebApp.Areas.TRANS.Controllers
                 return PartialView(new FacturasViewModel());
             }
             getComisionById.Data.SubTotal = getComisionById.Data.ValorComision;
+            if (getComisionById.Data.ListFacturas?.Count > 0)
+            {
+                
+                getComisionById.Data.SubTotal= getComisionById.Data.ValorComision - (float)getComisionById.Data.ListFacturas.Sum(x => x.ValorFactura) ;
+            }
             return PartialView(getComisionById.Data);
         }
         #endregion
@@ -234,27 +239,42 @@ namespace WebApp.Areas.TRANS.Controllers
 
         }
 
-        public ActionResult InsLegalizacion(int comisionId, Legalizaciones legalizaciones)
-        {            
+        public ActionResult InsLegalizacion(int comisionId, Legalizaciones legalizaciones, int legalizacionId)
+        {
             legalizaciones.CantidadFacturas = legalizaciones.ListFacturas.Count();
             legalizaciones.ComisionId = comisionId;
             legalizaciones.Estado = "Pendiente";
             legalizaciones.FechaLegalizacion = DateTime.Now;
             legalizaciones.ValorFacturas = legalizaciones.ListFacturas.Select(x => x.ValorFactura).Sum();
-            var result = _ComisionColaborador.InsLegalizacion(legalizaciones);
-            if (result.Data.Id > 0)
-            {
-                foreach (FacturaIndividualViewModel facturas in legalizaciones.ListFacturas)
+            if (legalizacionId == 0)
+            {               
+                var result = _ComisionColaborador.InsLegalizacion(legalizaciones);
+                if (result.Data.Id > 0)
                 {
-                    facturas.LegalizacionId = 1;//result.Data.Id;
-                    var resultFac = _ComisionColaborador.InsFacturas(facturas);
-                    if (resultFac.Data.Id < 0)
+                    foreach (FacturaIndividualViewModel facturas in legalizaciones.ListFacturas)
                     {
-                        return Json(resultFac);
+                        facturas.LegalizacionId = result.Data.Id;
+                        var resultFac = _ComisionColaborador.InsFacturas(facturas);
+                        if (resultFac.Data.Id < 0)
+                        {
+                            return Json(resultFac);
+                        }
+                    }
+                }
+                return Json(result);
+            }
+            else//update de legalizacion y facturas
+            {
+                var updLegalizacion = _ComisionColaborador.UpdLegalizacion(legalizaciones);
+                if (updLegalizacion.Success)
+                {
+                    foreach (FacturaIndividualViewModel facturas in legalizaciones.ListFacturas)
+                    {
+                        var updFactura = _ComisionColaborador.UpdFactura(facturas);
                     }
                 }
             }
-            return Json(result);
+            return null;
         }
 
         #endregion
