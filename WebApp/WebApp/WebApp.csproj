@@ -131,6 +131,12 @@
     <None Update="Areas\TRANS\Scripts\Proyectos\InsProyecto.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Areas\TRANS\Scripts\Proyectos\InsRubroProyecto.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\TRANS\Scripts\Proyectos\RubrosProyecto.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Areas\TRANS\Scripts\Proyectos\UpdProyecto.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -215,11 +221,32 @@
     <None Update="Areas\TRANS\Scripts\Proyectos\Index %28copia%29.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Areas\TRANS\Scripts\Proyectos\UpdRubroProyecto.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\TRANS\Scripts\Proyectos\UpdRubrosProyecto.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\TRANS\Scripts\SolicitudComision\DesembolsoValor.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\TRANS\Scripts\SolicitudComision\InsFacturas.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\TRANS\Scripts\SolicitudComision\LegalizacionComision.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Areas\TRANS\Scripts\SolicitudComision\SolicitudComision.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Areas\TRANS\Scripts\SolicitudComision\InsComision.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Areas\TRANS\Scripts\SolicitudComision\UpdSolicitudComision.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="key-38d61eb0-992b-4c73-8142-07e7fc7b618f.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

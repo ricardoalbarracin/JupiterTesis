@@ -5,11 +5,15 @@ using DAOs.Utils;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.IO;
 using WebApp.Fliters;
 
 namespace WebApp
@@ -33,6 +37,14 @@ namespace WebApp
             // Add application services.
             services.AddKendo();
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+
+            //services.AddDistributedRedisCache(o =>
+            //{
+            //    o.Configuration = Configuration.GetConnectionString("Redis");
+
+            //    o.InstanceName = "JupiterInstance";
+            //});
+
             services.AddSession();
 
             services.AddCors();
@@ -44,8 +56,13 @@ namespace WebApp
                 options.Filters.Add(new LoginActionFilter());
             })
             .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
-   
-            
+
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
@@ -64,12 +81,16 @@ namespace WebApp
             services.AddScoped<IDapperAdapter, DapperAdapter>();
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddDataProtection()
+    .SetApplicationName("my-app")
+    .PersistKeysToFileSystem(new DirectoryInfo(Environment.CurrentDirectory))
+    .DisableAutomaticKeyGeneration();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-           
+            app.UseForwardedHeaders();
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();

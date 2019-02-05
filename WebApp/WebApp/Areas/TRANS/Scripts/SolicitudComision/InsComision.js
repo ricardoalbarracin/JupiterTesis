@@ -46,13 +46,16 @@
         },
 
         filterDeptoOrigen: function () {
+            debugger;
             var depto = $("#DepartamentoOrigen").val();
+            
             return {
                 padreId: parseFloat(depto)
             };
         },
 
         filterDeptoDestino: function () {
+            debugger;
             var depto = $("#DepartamentoDestino").val();
             return {
                 padreId: parseFloat(depto)
