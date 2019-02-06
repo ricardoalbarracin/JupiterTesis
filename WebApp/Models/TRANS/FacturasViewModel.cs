@@ -74,6 +74,7 @@ namespace Core.Models.TRANS
         public float ValorFactura { get; set; }
 
         public float LegalizacionId { get; set; }
+        public bool DeleteBand { get; set; }
     }
 
     [Table("CORE.Legalizaciones")]

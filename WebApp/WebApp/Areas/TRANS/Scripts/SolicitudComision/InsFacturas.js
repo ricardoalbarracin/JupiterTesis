@@ -29,13 +29,18 @@
         },
 
         removeRow: function (e) {
-            
+            debugger
             var grid = $("#gridFacturas").data("kendoGrid");
             var dataItem = grid.dataItem($(e.currentTarget).closest("tr"));
-            valorComision = parseFloat(valorComision) + parseFloat(dataItem.ValorFactura);
-            $("#SubTotal").val("");
-            $("#SubTotal").val(valorComision);
-            Utils.removeGridDataItem(e, "#gridFacturas");
+            if (dataItem.Id != null || dataItem.Id != "undefined") {
+                dataItem.DeleteBand = true
+            }
+            else {
+                valorComision = parseFloat(valorComision) + parseFloat(dataItem.ValorFactura);
+                $("#SubTotal").val("");
+                $("#SubTotal").val(valorComision);
+                Utils.removeGridDataItem(e, "#gridFacturas");
+            }
         },
 
         Agregar: function () {
