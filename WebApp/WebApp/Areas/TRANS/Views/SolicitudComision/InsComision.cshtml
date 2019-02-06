@@ -2,7 +2,7 @@
 @{
     var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
 }
-
+<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
 <section id=@viewName>
     <form asp-controller="SolicitudComision" asp-action="InsComision" data-ajax="true" data-ajax-method="POST" data-ajax-success="@(viewName).onSuccess">
   
@@ -212,7 +212,7 @@
     </form>
 </section>
 
-<script src="@Url.Content(App.Utils.Utils.GetJsFilePath(Path))"></script>
+
 <script>
 	$(function () {
             @(viewName).init();
