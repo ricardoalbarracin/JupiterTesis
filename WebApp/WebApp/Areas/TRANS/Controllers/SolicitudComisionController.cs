@@ -270,11 +270,36 @@ namespace WebApp.Areas.TRANS.Controllers
                 {
                     foreach (FacturaIndividualViewModel facturas in legalizaciones.ListFacturas)
                     {
-                        var updFactura = _ComisionColaborador.UpdFactura(facturas);
+                        if (facturas.Id == 0)
+                        {
+                            facturas.LegalizacionId = legalizacionId;
+                            var insFactura= _ComisionColaborador.InsFacturas(facturas);
+                        }
+                        else
+                        {
+                            var updFactura = _ComisionColaborador.UpdFactura(facturas);
+                        }
                     }
                 }
+                return Json(updLegalizacion);
             }
-            return null;
+           
+        }
+
+        public ActionResult DeleteFacturas(FacturaIndividualViewModel facturaDelete)
+        {
+            var deleteFacturas = _ComisionColaborador.DeleteFactura(facturaDelete);
+            ViewBag.Container = ControllerContext.RouteData.Values["action"].ToString();
+            if (!deleteFacturas.Success)
+            {
+                ModelState.AddModelError("Error", deleteFacturas.Message);
+                return View(new ComisionColaborador());
+            }
+
+            ComisionColaborador comision = new ComisionColaborador();
+         
+            return new JsonResult(deleteFacturas);
+
         }
 
         #endregion

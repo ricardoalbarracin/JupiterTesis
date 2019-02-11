@@ -1,7 +1,7 @@
 ﻿@{
     var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
     ViewBag.Tittle = "Rubros";
-    ViewBag.IconTittle = "fa fa-user";
+    ViewBag.IconTittle = "fa fa-money";
 }
 
 <div id="@viewName">
@@ -20,7 +20,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="h5 m-0">
-                    Listado de Rubros <label class="float-right mt-0 mb-0">
+                    Listado de rubros <label class="float-right mt-0 mb-0">
                         @Html.ActionLink("Registrar", "InsRubro", "Rubros", new { area = "PARAM" }, new { @data_modal = "modal-lg", @class = "btn btn-primary float-right" })
                     </label>
                 </div>
@@ -32,8 +32,8 @@
                     .Columns(columns =>
                     {
                         columns.Bound(p => p.Id).Hidden();
-                        columns.Bound(p => p.Codigo).Title("Codigo").Width(130);
-                        columns.Bound(p => p.Descripcion).Title("Descripcion").Width(130);
+                        columns.Bound(p => p.Codigo).Title("Código").Width(130);
+                        columns.Bound(p => p.Descripcion).Title("Descripción").Width(130);
                         columns.Bound(c => c.Id).ClientTemplate("#=Index.actionTemplate(data)#").Title("Acciones").Filterable(false).Width(130);
                     })
                     .Pageable()

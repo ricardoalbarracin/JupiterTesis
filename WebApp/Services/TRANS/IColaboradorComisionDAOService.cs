@@ -24,5 +24,6 @@ namespace Core.Services.TRANS
         Result<FacturaIndividualViewModel> InsFacturas(FacturaIndividualViewModel facturasViewModel);
         Result UpdLegalizacion(Legalizaciones legalizaciones);
         Result UpdFactura(FacturaIndividualViewModel facturas);
+        Result DeleteFactura(FacturaIndividualViewModel facturaDelete);
     }
 }

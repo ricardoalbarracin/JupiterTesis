@@ -34,8 +34,7 @@
                             title: "Correcto",
                             text: result.Message,
                             type: "success"
-                        }, function () {
-                           
+                        }, function () {                           
                             $("#grid").data("kendoGrid").dataSource.read();
                         });
 

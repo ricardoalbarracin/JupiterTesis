@@ -6,6 +6,7 @@
         actionTemplateEliminar: null,
 
         init: function () {
+            
             this.handleValidator();
             valorComision = $("#ValorComision").val();
             this.handleTemplates();
@@ -16,6 +17,7 @@
             $.validator.unobtrusive.parse($("#InsFacturas form"));
         },
         handleTemplates: function () {
+            
             this.actionTemplateEliminar = kendo.template($('#actionTemplateEliminar').html());
         },
 
@@ -27,13 +29,38 @@
             $("#ValorFactura").val("");
             $("#ConceptoId").data("kendoDropDownList").select(-1);
         },
-
-        removeRow: function (e) {
-            debugger
+        
+        removeRow: function (e) {            
             var grid = $("#gridFacturas").data("kendoGrid");
             var dataItem = grid.dataItem($(e.currentTarget).closest("tr"));
+            Utils.removeGridDataItem(e, "#gridFacturas");
             if (dataItem.Id != null || dataItem.Id != "undefined") {
-                dataItem.DeleteBand = true
+                var facturaDelete =
+                {
+                    Id: dataItem.Id
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/TRANS/SolicitudComision/DeleteFacturas",
+                    data: facturaDelete,
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.Success) {
+                            swal({
+                                title: "Correcto",
+                                text: result.Message,
+                                type: "success"
+                            }, function () {     });
+
+                        } else {
+                            swal({
+                                title: "Error",
+                                text: result.Message,
+                                type: "error"
+                            });
+                        }
+                    }
+                });
             }
             else {
                 valorComision = parseFloat(valorComision) + parseFloat(dataItem.ValorFactura);
@@ -46,34 +73,35 @@
         Agregar: function () {
             
             var validator = $("#InsFacturas").kendoValidator().data("kendoValidator").validate();
-            var valorFacturaIndividual = $("#ValorFactura").val();
-            
-            var conceptolista = $("#ConceptoId").data("kendoDropDownList");
-            if (valorFacturaIndividual <= valorComision)
-            {
-                valorComision = valorComision - valorFacturaIndividual;
-                $("#SubTotal").val(valorComision);
-                Utils.setGridDataSource("#gridFacturas", Utils.getGridDataSource("#gridFacturas"));
-                Utils.addGridDataItem("#gridFacturas",
-                    {
-                        FechaFactura: $("#FechaFactura").data("kendoDatePicker").value(),
-                        RazonSocial: $("#RazonSocial").val(),
-                        ConceptoId: $("#ConceptoId").data("kendoDropDownList").value(),
-                        ConceptoDescripcion: $("#ConceptoId").data("kendoDropDownList").text(),
-                        ValorFactura: $("#ValorFactura").val(),
-                        Nit: $("#Nit").val()                        
+            if (validator) {
+
+                var valorFacturaIndividual = $("#ValorFactura").val();
+
+                var conceptolista = $("#ConceptoId").data("kendoDropDownList");
+                if (valorFacturaIndividual <= valorComision) {
+                    valorComision = valorComision - valorFacturaIndividual;
+                    $("#SubTotal").val(valorComision);
+                    Utils.setGridDataSource("#gridFacturas", Utils.getGridDataSource("#gridFacturas"));
+                    Utils.addGridDataItem("#gridFacturas",
+                        {
+                            FechaFactura: $("#FechaFactura").data("kendoDatePicker").value(),
+                            RazonSocial: $("#RazonSocial").val(),
+                            ConceptoId: $("#ConceptoId").data("kendoDropDownList").value(),
+                            ConceptoDescripcion: $("#ConceptoId").data("kendoDropDownList").text(),
+                            ValorFactura: $("#ValorFactura").val(),
+                            Nit: $("#Nit").val()
+                        });
+                    $('#gridFacturas').data('kendoGrid').refresh();
+                    this.CleanForm();
+
+                }
+                else {
+                    swal({
+                        title: "Error",
+                        text: "El valor de la comision ha sido superado",
+                        type: "error"
                     });
-                $('#gridFacturas').data('kendoGrid').refresh();
-                this.CleanForm();
-              
-            }
-            else
-            {
-                swal({
-                    title: "Error",
-                    text: "El valor de la comision ha sido superado",
-                    type: "error"
-                });
+                }
             }
         },
         
@@ -98,8 +126,8 @@
                                 text: result.Message,
                                 type: "success"
                             }, function () {
-
-                                $("#grid").data("kendoGrid").dataSource.read();
+                                $('#modal').modal('hide');
+                                $("#gridLegalizacion").data("kendoGrid").dataSource.read();
                             });
 
                         } else {

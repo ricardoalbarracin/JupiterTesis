@@ -1,7 +1,7 @@
 ﻿@{
     var viewName = System.IO.Path.GetFileNameWithoutExtension(Path);
     ViewBag.Tittle = "Dependencias";
-    ViewBag.IconTittle = "fa fa-user";
+    ViewBag.IconTittle = "fa fa-home";
 }
 <style>
     .megamenu {
@@ -55,8 +55,8 @@
                                 .Columns(columns =>
                                 {
                                     columns.Add().Field(e => e.Id).Hidden();
-                                    columns.Add().Field(e => e.Codigo).Width(280);
-                                    columns.Add().Field(e => e.Descripcion).Width(160);
+                                    columns.Add().Field(e => e.Codigo).Title("Código").Width(280);
+                                    columns.Add().Field(e => e.Descripcion).Title("Descripción").Width(160);
                                     columns.Add().Field(e => e.Colaborador).Width(200);
                                     columns.Add().Field(e => e.Id).TemplateId("command-template").Title("Acciones").Filterable(false).Width(200);
                                 })

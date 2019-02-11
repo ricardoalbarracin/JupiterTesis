@@ -9,14 +9,17 @@ namespace Core.Models.PARAM
         [Required(ErrorMessage = "El campo Id es obligatorio.")]
         public long Id { get; set; }
 
-        [Required(ErrorMessage = "El campo Codigo es obligatorio.")]
-        [MaxLength(10, ErrorMessage = "El campo Codigo no puede tener mas de 10 caracteres.")]
+        [Required(ErrorMessage = "El campo código es obligatorio.")]
+        [MaxLength(10, ErrorMessage = "El campo código no puede tener más de 10 caracteres.")]
+        [Display(Name = "Código")]
         public string Codigo { get; set; }
 
-        [Required(ErrorMessage = "El campo Descripcion es obligatorio.")]
+        [Required(ErrorMessage = "El campo descripción es obligatorio.")]
+        [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
-        [Required(ErrorMessage = "El campo ColaboradorLiderId es obligatorio.")]
+        [Required(ErrorMessage = "El campo Colaborador líder es obligatorio.")]
+        [Display(Name = "Colaborador líder")]
         public int ColaboradorLiderId { get; set; }
 
         public int? PadreId { get; set; }

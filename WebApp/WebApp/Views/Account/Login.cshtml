@@ -13,10 +13,9 @@
 			<div class="card-group  fadeIn animated">
 				<div class="card p-4">
 					<div class="card-body">
-						<h1>Iniciar sesión</h1>
-						<p class="text-muted">
-							Iniciar sesión en su cuenta
-						</p>
+						<h3>
+							Inicio de sesión
+						</h3>
 						<form asp-controller="Account" asp-action="Login" data-ajax="true" data-ajax-begin="Login.onBegin" data-ajax-success="Login.onSuccess" data-ajax-method="POST">
 							@Html.AntiForgeryToken()
 							<div class="input-group mb-3">
@@ -33,26 +32,24 @@
 								@Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contraseña" })
 								@Html.ValidationMessageFor(m => m.Password)
 							</div>
-							<div class="row">
+							<div class="row" >
 								<div class="form-group">
-									<div class="col-md-offset-1 col-md-8">
-										<button type="submit" class="btn btn-primary">Ingresar</button>
+									<div class=" col-md-12 margin-right:0">
+										<button type="submit" class="btn btn-primary" >Ingresar</button>
 									</div>
 								</div>
-								<div class="col-6 text-right">
-									<button type="button" class="btn btn-link px-0">¿Olvidó la contraseña?</button>
-								</div>
+							
 							</div>
 						</form>
 					</div>
 				</div>
 				<div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
 					<div class="card-body text-center">
-						<div>
-							<h2>Documentación</h2>
-							<p>Para ver la documentacion de la arquitectura de la solición debe dar clik <a style="color: red" href="http://tesisjupiter.site.education/">AQUI</a>.</p>
-							<button type="button" class="btn btn-primary active mt-3">Register Now!</button>
-						</div>
+                        <div>
+                            <h5>Para conocer más sobre Jupiter, consulte</h5>
+                            <p>Documentacion de la arquitectura click <a style="color: red" href="http://tesisjupiter.site.education/">AQUI</a>.</p>
+                            <p>Manual de usuario click <a style="color: red" href="http://tesisjupiter.site.education/">AQUI</a>.</p>
+                        </div>
 					</div>
 				</div>
 			</div>

@@ -433,6 +433,26 @@ namespace DAOs.TRANS
             }
             return result;
         }
+
+        public Result DeleteFactura(FacturaIndividualViewModel facturaDelete)
+        {
+            var result = new Result();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    connection.Delete(facturaDelete);
+                    result.Message = "Factura eliminada correctamente.";
+                    result.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error actualizando factura.";
+                result.Exception = ex;
+            }
+            return result;
+        }
         #endregion
     } 
 }

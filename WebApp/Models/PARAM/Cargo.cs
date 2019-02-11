@@ -10,13 +10,16 @@ namespace Core.Models.PARAM
         public long Id { get; set; }
 
         [Required(ErrorMessage = "El campo Codigo es obligatorio.")]
+        [Display(Name = "Código")]
         [MaxLength(40, ErrorMessage = "El campo Codigo no puede tener mas de 40 caracteres.")]
         public string Codigo { get; set; }
 
         [Required(ErrorMessage = "El campo Descripcion es obligatorio.")]
+        [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
         [Required(ErrorMessage = "El campo valor comisión es obligatorio.")]
+        [Display(Name = "Valor comisión")]
         public float ValorComision { get; set; }
     }
 }

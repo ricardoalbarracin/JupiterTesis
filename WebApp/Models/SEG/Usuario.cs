@@ -21,6 +21,7 @@ namespace Core.Models.SEG
         public string Password { get; set; }
 
         [Required(ErrorMessage = "El campo persona es obligatorio.")]
+        [Display(Name = "Documento colaborador")]
         public long PersonaId { get; set; }
 
         public bool? Activo { get; set; }
