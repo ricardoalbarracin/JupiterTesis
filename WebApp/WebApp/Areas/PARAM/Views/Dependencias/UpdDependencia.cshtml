@@ -51,6 +51,8 @@
                                                                                   }).Events(e => e.Error("Site.handleError"));
 
                                                                               })
+                                                                              .Template("<span class=\"k-state-default\">#: data.PrimerNombre # #:data.PrimerApellido# - #: data.Documento #</span>")
+                            .ValueTemplate("<span class=\"selected-value\">#: data.PrimerNombre # #:data.PrimerApellido# - #: data.Documento #</span>")
                         )
                         @Html.ValidationMessageFor(m => m.ColaboradorLiderId)
                     </div>
