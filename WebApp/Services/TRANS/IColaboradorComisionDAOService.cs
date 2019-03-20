@@ -25,5 +25,6 @@ namespace Core.Services.TRANS
         Result UpdLegalizacion(Legalizaciones legalizaciones);
         Result UpdFactura(FacturaIndividualViewModel facturas);
         Result DeleteFactura(FacturaIndividualViewModel facturaDelete);
+        Result<Legalizaciones> GetLegalizacionbyComisionId(int idComision);
     }
 }

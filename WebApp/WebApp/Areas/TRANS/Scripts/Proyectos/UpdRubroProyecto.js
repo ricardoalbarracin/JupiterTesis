@@ -19,6 +19,7 @@
         },
 
         onSuccess: function (result) {
+            $("#PresupuestosinAsignar").data("kendoNumericTextBox").value(result.Data)
             if (result.Success) {
                 swal({
                     title: "Correcto",

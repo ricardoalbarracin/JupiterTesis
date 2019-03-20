@@ -18,9 +18,11 @@ namespace WebApp.Areas.TRANS.Controllers
     {
         IColaboradorComisionDAOService _ComisionColaborador;
         IDivipolaDAOService _Divipola;
-        public SolicitudComisionController(IColaboradorComisionDAOService ComisionColaboradorService, IDivipolaDAOService DivipolaService)
+        IProyectoDAOService _ProyectoService;
+        public SolicitudComisionController(IColaboradorComisionDAOService ComisionColaboradorService, IDivipolaDAOService DivipolaService, IProyectoDAOService ProyectoService)
         {
             _ComisionColaborador = ComisionColaboradorService;
+            _ProyectoService = ProyectoService;
             _Divipola = DivipolaService;
         }
 
@@ -217,6 +219,13 @@ namespace WebApp.Areas.TRANS.Controllers
         {
             comisionColaborador.FechaSolicitud = DateTime.Now;
             var updComision = _ComisionColaborador.UpdSolicitudComision(comisionColaborador);
+            if(updComision.Success)
+            {
+                if(comisionColaborador.Estado == "Autorizado")
+                {
+                    _ProyectoService.UpdProyectoViatico(comisionColaborador.ProyectoId, comisionColaborador.ValorComision);
+                }
+            }
             return new JsonResult(updComision);
 
         }
@@ -239,13 +248,15 @@ namespace WebApp.Areas.TRANS.Controllers
 
         }
 
-        public ActionResult InsLegalizacion(int comisionId, Legalizaciones legalizaciones, int legalizacionId)
+        public ActionResult InsLegalizacion(int comisionId, Legalizaciones legalizaciones, long legalizacionId)
         {
             legalizaciones.CantidadFacturas = legalizaciones.ListFacturas.Count();
             legalizaciones.ComisionId = comisionId;
             legalizaciones.Estado = "Pendiente";
             legalizaciones.FechaLegalizacion = DateTime.Now;
             legalizaciones.ValorFacturas = legalizaciones.ListFacturas.Select(x => x.ValorFactura).Sum();
+            var  legalizacion = _ComisionColaborador.GetLegalizacionbyComisionId(comisionId);
+            legalizacionId = legalizacion.Data== null? 0: legalizacion.Data.Id;
             if (legalizacionId == 0)
             {               
                 var result = _ComisionColaborador.InsLegalizacion(legalizaciones);
@@ -270,7 +281,7 @@ namespace WebApp.Areas.TRANS.Controllers
                 {
                     foreach (FacturaIndividualViewModel facturas in legalizaciones.ListFacturas)
                     {
-                        if (facturas.Id == 0)
+                        if (facturas.Id == null || facturas.Id ==0)
                         {
                             facturas.LegalizacionId = legalizacionId;
                             var insFactura= _ComisionColaborador.InsFacturas(facturas);

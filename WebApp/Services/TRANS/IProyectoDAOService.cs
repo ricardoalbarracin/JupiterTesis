@@ -19,12 +19,14 @@ namespace Core.Services.TRANS
 
         Result<ProyectoRubro> GetRubroProyecto(long id);
 
-        Result<ProyectoRubro> UpdRubroProyecto(ProyectoRubro proyectoRubro);
+        Result<float> UpdRubroProyecto(ProyectoRubro proyectoRubro);
 
-        Result<ProyectoRubro> InsRubroProyecto(ProyectoRubro proyectoRubro);
+        Result<float> InsRubroProyecto(ProyectoRubro proyectoRubro);
 
         Result<Proyecto> GetValoresProyectos(long id);
 
         Result<List<Proyecto>> GetListProyectoByPersonId(long personId);
+
+        Result UpdProyectoViatico(long proyectoId, float Valor);
     }
 }

@@ -35,7 +35,7 @@ namespace DAOs.TRANS
                                              FROM CORE.ColaboradorComision cc 
                                              INNER JOIN ADMIN.Personas p ON p.Id = cc.PersonaId
                                              INNER JOIN ADMIN.personas p1 ON p1.Id = cc.ColaboradorId
-                                             WHERE cc.PersonaId = @id",
+                                             WHERE cc.PersonaId = @id AND cc.Estado <> 'Autorizado'",
                                               new { id = personaId }).ToList();
                     result.Success = true;
                 }
@@ -60,11 +60,19 @@ namespace DAOs.TRANS
                                                      c.ValorComision as Valor
                                               FROM ADMIN.Personas per
                                               INNER JOIN CORE.Cargos c ON C.Id = per.cargoID 
-                                               WHERE DependenciaId IN(            
-                                                 SELECT id FROM CORE.Dependencias WHERE PadreId IN 
-                                                    (SELECT d.Id FROM core.Proyectos p
-                                                     INNER JOIN CORE.Dependencias d ON p.DependenciaId = d.Id
-                                                     WHERE p.Id = @id))",
+                                               WHERE DependenciaId IN
+                                               (            
+                                                    SELECT id FROM CORE.Dependencias WHERE PadreId IN 
+                                                    (
+                                                      SELECT p.DependenciaId FROM core.Proyectos p
+                                                      WHERE p.Id = @id
+                                                    ) OR Id IN 
+                                                    (
+                                                      SELECT p.DependenciaId FROM core.Proyectos p
+                                                      WHERE p.Id = @id
+                                                    )
+                                                    
+                                               )",
                                               new { id = ProyectoId }).ToList();
                     result.Success = true;
                 }
@@ -268,7 +276,7 @@ namespace DAOs.TRANS
                                              INNER JOIN ADMIN.Personas p ON p.Id = cc.PersonaId
                                              INNER JOIN ADMIN.personas p1 ON p1.Id = cc.ColaboradorId
                                              INNER JOIN core.Proyectos proy ON proy.Id = cc.ProyectoId
-                                             WHERE cc.ColaboradorId = 363  
+                                             WHERE cc.ColaboradorId = @id  
                                              AND cc.estado='Autorizado'                                              
                                              AND cc.Desembolso=1",
 
@@ -347,7 +355,7 @@ namespace DAOs.TRANS
             }
             catch (Exception ex)
             {
-                result.Message = "Error consultando informaciòn.";
+                result.Message = "Error consultando información.";
                 result.Exception = ex;
             }
             return result;
@@ -402,13 +410,13 @@ namespace DAOs.TRANS
                 using (var connection = _dapperAdapter.Open())
                 {
                     connection.Update(legalizaciones);
-                    result.Message = "Legalizaciòn actualizada correctamente.";
+                    result.Message = "Legalización actualizada correctamente.";
                     result.Success = true;
                 }
             }
             catch (Exception ex)
             {
-                result.Message = "Error actualizando legalizaciòn.";
+                result.Message = "Error actualizando legalización.";
                 result.Exception = ex;
             }
             return result;
@@ -452,6 +460,29 @@ namespace DAOs.TRANS
                 result.Exception = ex;
             }
             return result;
+        }
+
+        public Result<Legalizaciones> GetLegalizacionbyComisionId(int idComision)
+        {
+            Result<Legalizaciones> result = new Result<Legalizaciones>();
+            try
+            {
+                using (var connection = _dapperAdapter.Open())
+                {
+                    
+                    //Consulta info saldo del proyecto - valor rubros
+                    var sql = @"SELECT Id FROM CORE.Legalizaciones WHERE ComisionId = @IdComision";
+                    result.Data = connection.QueryFirstOrDefault<Legalizaciones>(sql, new { IdComision = idComision });
+
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = "Error obteniendo legalizacion.";
+                result.Exception = ex;
+            }
+            return result;
+            
         }
         #endregion
     } 
